@@ -802,6 +802,162 @@ def calculate_z_factor(
     raise ArithmeticError(f"DAK solver failed to establish residual convergence in {max_iter} iterations.")
 
 
+# Named states are compatibility conveniences, not the contractual-state model.
+# Groningen is calorific-equivalent and deliberately excluded from P/T/Z-only mapping.
+_GAS_REFERENCE_PRESETS = {
+    "ferc": ("scf_60F_14_73psia", "foot**3", _T_60F_K, _P_14_73_KPA),
+    "tx": ("scf_60F_14_65psia", "foot**3", _T_60F_K, _P_14_65_KPA),
+    "iso15": ("Sm3_15C_101325kPa_dry", "meter**3", _T_15C_K, _P_1ATM_KPA),
+    "din0": ("Nm3_0C_101325kPa_dry", "meter**3", _T_0C_K, _P_1ATM_KPA),
+    "gost20": ("m3_20C_101325kPa_dry", "meter**3", _T_20C_K, _P_1ATM_KPA),
+    "atm60f": ("scf_60F_14696psi_dry", "foot**3", _T_60F_K, _P_1ATM_KPA),
+}
+
+
+def _absolute_reference_temperature(value: pint.Quantity, label: str) -> pint.Quantity:
+    if not isinstance(value, pint.Quantity):
+        raise TypeError(f"{label} must be a temperature quantity.")
+    if any(str(name).startswith("delta_") for name in value.units._units):
+        raise ValueError(f"{label} must be an absolute temperature, not an interval.")
+    converted = ureg.Quantity(_as_decimal(value.magnitude), ureg.Unit(value.units._units)).to("kelvin")
+    if not converted.magnitude.is_finite() or converted.magnitude <= 0:
+        raise ValueError(f"{label} must be finite and greater than zero kelvin.")
+    return converted
+
+
+@dataclass(frozen=True, slots=True)
+class GasReferenceConditions:
+    """Metering state and independent combustion metadata for a gas quantity.
+
+    Neutral pressure units explicitly mean absolute here; gauge labels are
+    rejected, never silently shifted. None means unknown, not ideal/dry.
+    Z must describe the actual gas mixture at this state's temperature,
+    pressure and water content. No equation of state is guessed.
+    """
+    temperature: Quantity
+    absolute_pressure: Quantity
+    compressibility_factor: Decimal | None = None
+    water_mole_fraction: Decimal | None = None
+    combustion_reference_temperature: Quantity | None = None
+    standard_id: str | None = None
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "temperature", _absolute_reference_temperature(self.temperature, "Metering temperature"))
+        pressure = self.absolute_pressure
+        if not isinstance(pressure, pint.Quantity):
+            raise TypeError("absolute_pressure must be a pressure quantity.")
+        if _classify_pressure_datum(pressure.units) == "gauge":
+            raise ValueError("Gas reference pressure must be absolute, not gauge.")
+        absolute = ureg.Quantity(_as_decimal(pressure.magnitude), ureg.Unit(pressure.units._units)).to("pascal")
+        if not absolute.magnitude.is_finite() or absolute.magnitude <= 0:
+            raise ValueError("Gas reference pressure must be finite and strictly positive.")
+        object.__setattr__(self, "absolute_pressure", absolute)
+        for name in ("compressibility_factor", "water_mole_fraction"):
+            value = getattr(self, name)
+            if value is None:
+                continue
+            if isinstance(value, bool):
+                raise ValueError(f"{name} must be a measured number, not boolean.")
+            number = _as_decimal(value)
+            valid = number.is_finite() and (number > 0 if name == "compressibility_factor" else 0 <= number < 1)
+            if not valid:
+                raise ValueError(f"Invalid {name}: {value!r}")
+            object.__setattr__(self, name, number)
+        if self.combustion_reference_temperature is not None:
+            object.__setattr__(self, "combustion_reference_temperature", _absolute_reference_temperature(self.combustion_reference_temperature, "Combustion temperature"))
+        if self.standard_id is not None:
+            if not isinstance(self.standard_id, str) or not self.standard_id.strip():
+                raise ValueError("standard_id must be a non-empty string or None.")
+            object.__setattr__(self, "standard_id", self.standard_id.strip())
+
+    @classmethod
+    def from_standard(cls, standard_id: str, *, compressibility_factor: Decimal | None = None,
+                      water_mole_fraction: Decimal | None = Decimal(0),
+                      combustion_reference_temperature: Quantity | None = None) -> GasReferenceConditions:
+        """Construct a named dry reference; caller still supplies Z explicitly."""
+        key = standard_id.strip().lower()
+        if key not in _GAS_REFERENCE_PRESETS:
+            raise ValueError("Unknown P/T reference; Groningen requires a calorific model, not just gas-law scaling.")
+        _, _, temperature, pressure = _GAS_REFERENCE_PRESETS[key]
+        return cls(ureg.Quantity(Decimal(str(temperature)), "K"),
+                   ureg.Quantity(Decimal(str(pressure)) * 1000, "Pa"),
+                   compressibility_factor, water_mole_fraction,
+                   combustion_reference_temperature, key)
+
+
+def _reference_geometric_unit(unit: pint.Unit, state: GasReferenceConditions) -> tuple[pint.Unit, pint.Unit]:
+    if unit.dimensionality == (ureg.meter**3).dimensionality:
+        return unit, unit
+    for key, (tagged, geometric, temperature, pressure) in _GAS_REFERENCE_PRESETS.items():
+        tag = ureg.Unit(tagged)
+        if unit.dimensionality != tag.dimensionality:
+            continue
+        if (abs(state.temperature.magnitude - Decimal(str(temperature))) > Decimal("1e-8")
+                or abs(state.absolute_pressure.magnitude - Decimal(str(pressure)) * 1000) > Decimal("1e-6")
+                or state.water_mole_fraction != 0):
+            raise ValueError("Tagged dry gas-volume unit contradicts the supplied reference conditions.")
+        return tag, ureg.Unit(geometric)
+    raise ValueError("Expected geometric gas volume or a matching named reference volume; calorific-equivalent volumes need an energy model.")
+
+
+def convert_gas_reference_volume(
+    quantity: pint.Quantity,
+    target_unit: str | pint.Unit,
+    *,
+    source: GasReferenceConditions,
+    target: GasReferenceConditions,
+    conserve: str = "dry_gas",
+) -> pint.Quantity:
+    """Convert single-phase gas volumes between arbitrary contractual states.
+
+    dry_gas conserves non-water moles and multiplies P1/P2*T2/T1*Z2/Z1 by
+    (1-y1)/(1-y2). It requires both water fractions (zero explicitly means dry).
+    total_gas uses the fixed-total-mole equation and never performs drying;
+    conflicting known water fractions are rejected. It may use unknown fractions
+    only when the caller explicitly chooses this mode.
+
+    Combustion temperature is retained as metadata and never enters this metering
+    equation. No phase-equilibrium, condensation, composition, calorific-value or
+    EOS calculation is implied. Geometric results must travel with their state.
+    """
+    if not isinstance(quantity, pint.Quantity):
+        raise TypeError("quantity must be a Pint volume quantity.")
+    if not isinstance(source, GasReferenceConditions) or not isinstance(target, GasReferenceConditions):
+        raise TypeError("source and target must be GasReferenceConditions.")
+    # Revalidate copies: Pint Quantity members themselves are mutable, even in
+    # a frozen dataclass, and input quantities must never be modified in place.
+    from dataclasses import replace
+    source, target = replace(source), replace(target)
+    amount = _as_decimal(quantity.magnitude)
+    if not amount.is_finite() or amount < 0:
+        raise ValueError("Gas volume must be finite and non-negative.")
+    if source.compressibility_factor is None or target.compressibility_factor is None:
+        raise ValueError("Supply compressibility_factor for both states; use 1 explicitly for an ideal-gas assumption.")
+    if conserve not in {"dry_gas", "total_gas"}:
+        raise ValueError("conserve must be 'dry_gas' or 'total_gas'.")
+    source_water, target_water = source.water_mole_fraction, target.water_mole_fraction
+    water_factor = Decimal(1)
+    if conserve == "dry_gas":
+        if source_water is None or target_water is None:
+            raise ValueError("Dry-gas conservation requires water_mole_fraction for both states.")
+        water_factor = (1 - source_water) / (1 - target_water)
+    elif source_water is not None and target_water is not None and source_water != target_water:
+        raise ValueError("Fixed total moles cannot also represent a wet/dry composition change.")
+    destination = parse_unit(target_unit)
+    source_base, source_geometry = _reference_geometric_unit(quantity.units, source)
+    target_base, target_geometry = _reference_geometric_unit(destination, target)
+    geometrical = ureg.Quantity(quantity.to(source_base).magnitude, source_geometry).to(target_geometry)
+    factor = (source.absolute_pressure.magnitude / target.absolute_pressure.magnitude
+              * target.temperature.magnitude / source.temperature.magnitude
+              * target.compressibility_factor / source.compressibility_factor * water_factor)
+    result = ureg.Quantity(geometrical.magnitude * _scale_factor(geometrical.magnitude, factor), target_base).to(destination)
+    if not _as_decimal(result.magnitude).is_finite():
+        raise ValueError("Converted gas volume exceeds the numeric representation.")
+    if isinstance(quantity.magnitude, Decimal):
+        return ureg.Quantity(_as_decimal(result.magnitude), result.units)
+    return ureg.Quantity(float(result.magnitude), result.units)
+
+
 def convert_actual_to_standard_gas_volume(
     actual_volume: pint.Quantity,
     actual_pressure: pint.Quantity,
@@ -821,6 +977,9 @@ def convert_actual_to_standard_gas_volume(
     Applies the real-gas law:
         V_std = V_act * (P_act / P_std) * (T_std / T_act) * (Z_std / Z_act)
 
+    This compatibility API assumes dry gas at both endpoints. Use
+    convert_gas_reference_volume for arbitrary/wet contractual states.
+
     Supported `target_standard` baselines:
         - "ferc"   : 60°F, 14.73 psia (NYMEX / US interstate pipelines)
         - "tx"     : 60°F, 14.65 psia (Texas RRC)
@@ -830,12 +989,9 @@ def convert_actual_to_standard_gas_volume(
     """
     std_key = target_standard.strip().lower()
     gost_unit = ureg.m3_20C_101325kPa_dry
-    std_configs: dict[str, tuple[Unit, Unit, float, float]] = {
-        "ferc": (ureg.scf_60F_14_73psia, ureg.foot ** 3, _P_14_73_KPA, _T_60F_K),
-        "tx": (ureg.scf_60F_14_65psia, ureg.foot ** 3, _P_14_65_KPA, _T_60F_K),
-        "iso15": (ureg.Sm3_15C_101325kPa_dry, ureg.meter ** 3, _P_1ATM_KPA, _T_15C_K),
-        "din0": (ureg.Nm3_0C_101325kPa_dry, ureg.meter ** 3, _P_1ATM_KPA, _T_0C_K),
-        "gost20": (gost_unit, ureg.meter ** 3, _P_1ATM_KPA, _T_20C_K),
+    std_configs = {
+        key: (ureg.Unit(tagged), ureg.Unit(geometric), pressure, temperature)
+        for key, (tagged, geometric, temperature, pressure) in _GAS_REFERENCE_PRESETS.items()
     }
     if std_key not in std_configs:
         raise ValueError(f"Unknown target_standard {target_standard!r}. Choose from {tuple(std_configs)}.")
@@ -869,10 +1025,11 @@ def convert_actual_to_standard_gas_volume(
 
     if not all(math.isfinite(value) and value > 0 for value in (z_act, z_std)):
         raise ValueError("Gas compressibility factors must be finite and strictly positive.")
-    expansion_factor = (p_act_kpa / p_std_kpa) * (t_std_k / t_act_k) * (z_std / z_act)
-    v_geom = actual_volume.to(geom_unit)
-    scale = _scale_factor(v_geom.magnitude, expansion_factor)
-    return ureg.Quantity(v_geom.magnitude * scale, dst_unit)
+    return convert_gas_reference_volume(
+        actual_volume, dst_unit,
+        source=GasReferenceConditions(actual_temperature, actual_pressure, _as_decimal(z_act), Decimal(0)),
+        target=GasReferenceConditions.from_standard(std_key, compressibility_factor=_as_decimal(z_std)),
+    )
 
 
 def convert_standard_to_actual_gas_volume(
@@ -895,6 +1052,9 @@ def convert_standard_to_actual_gas_volume(
     Applies the inverse real-gas law:
         V_act = V_std * (P_std / P_act) * (T_act / T_std) * (Z_act / Z_std)
 
+    This compatibility API assumes dry gas at both endpoints. Use
+    convert_gas_reference_volume for arbitrary/wet contractual states.
+
     Supported `source_standard` baselines:
         - "ferc"   : 60°F, 14.73 psia (NYMEX / US interstate pipelines)
         - "tx"     : 60°F, 14.65 psia (Texas RRC)
@@ -904,12 +1064,9 @@ def convert_standard_to_actual_gas_volume(
     """
     std_key = source_standard.strip().lower()
     gost_unit = ureg.m3_20C_101325kPa_dry
-    std_configs: dict[str, tuple[Unit, Unit, float, float]] = {
-        "ferc": (ureg.scf_60F_14_73psia, ureg.foot ** 3, _P_14_73_KPA, _T_60F_K),
-        "tx": (ureg.scf_60F_14_65psia, ureg.foot ** 3, _P_14_65_KPA, _T_60F_K),
-        "iso15": (ureg.Sm3_15C_101325kPa_dry, ureg.meter ** 3, _P_1ATM_KPA, _T_15C_K),
-        "din0": (ureg.Nm3_0C_101325kPa_dry, ureg.meter ** 3, _P_1ATM_KPA, _T_0C_K),
-        "gost20": (gost_unit, ureg.meter ** 3, _P_1ATM_KPA, _T_20C_K),
+    std_configs = {
+        key: (ureg.Unit(tagged), ureg.Unit(geometric), pressure, temperature)
+        for key, (tagged, geometric, temperature, pressure) in _GAS_REFERENCE_PRESETS.items()
     }
     if std_key not in std_configs:
         raise ValueError(f"Unknown source_standard {source_standard!r}. Choose from {tuple(std_configs)}.")
@@ -945,13 +1102,11 @@ def convert_standard_to_actual_gas_volume(
 
     if not all(math.isfinite(value) and value > 0 for value in (z_act, z_std)):
         raise ValueError("Gas compressibility factors must be finite and strictly positive.")
-    compression_factor = (p_std_kpa / p_act_kpa) * (t_act_k / t_std_k) * (z_act / z_std)
-    v_std_base = standard_volume.to(src_std_unit)
-    scale = _scale_factor(v_std_base.magnitude, compression_factor)
-    actual_geom = ureg.Quantity(v_std_base.magnitude * scale, geom_unit)
-    if target_unit is not None:
-        return actual_geom.to(parse_unit(target_unit))
-    return actual_geom
+    return convert_gas_reference_volume(
+        standard_volume, parse_unit(target_unit) if target_unit is not None else geom_unit,
+        source=GasReferenceConditions.from_standard(std_key, compressibility_factor=_as_decimal(z_std)),
+        target=GasReferenceConditions(actual_temperature, actual_pressure, _as_decimal(z_act), Decimal(0)),
+    )
 
 #-------------------------------------------------------------------------------
 # Gas Assay
@@ -9464,6 +9619,9 @@ def convert(
     *,
     assay: Any = None,
     heat_content: HeatContentAssay | None = None,
+    source_reference: GasReferenceConditions | None = None,
+    target_reference: GasReferenceConditions | None = None,
+    gas_conservation: str = "dry_gas",
     api_gravity: float | None = None,
     specific_gravity: float | None = None,
     bbl_per_mt: float | None = None,
@@ -9490,6 +9648,10 @@ def convert(
     per base_currency. Currency-only targets preserve a quote's denominator.
     target_currency overrides the target quote's currency, not its physical leg.
     Settlement rounding happens after both FX and physical conversion.
+
+    source_reference/target_reference route geometric or matching tagged gas
+    volumes through explicit contractual states, without an inferred EOS.
+    gas_conservation selects dry-gas or fixed-total-mole accounting.
 
     basis=None uses GCV for gas, HHV for NGL and LHV for energy assays.
     heat_content selects a shared HeatContentAssay for thermal conversions,
@@ -9520,6 +9682,14 @@ def convert(
     if physical_amount and magnitude < 0:
         raise ValueError("Physical mass, volume and molar amounts must be non-negative.")
     target = parse_unit(target_unit)
+    if source_reference is not None or target_reference is not None:
+        if source_reference is None or target_reference is None:
+            raise ValueError("Both source_reference and target_reference are required.")
+        if any(value is not None for value in (assay, heat_content, api_gravity, specific_gravity, bbl_per_mt, btu_per_scf, basis, p_atm, atmospheric_pressure, rates, source_currency, target_currency, moisture_fraction, grade, observed_temp, active_only, product)) or quantize_settlement or heat_overrides:
+            raise ValueError("Gas reference-state routing cannot be combined with assay, thermal, FX, datum or processing overrides.")
+        return convert_gas_reference_volume(quantity, target, source=source_reference, target=target_reference, conserve=gas_conservation)
+    if gas_conservation != "dry_gas":
+        raise ValueError("gas_conservation requires source_reference and target_reference.")
     pressure_dim = ureg.pascal.dimensionality
     if quantity.dimensionality == pressure_dim and target.dimensionality == pressure_dim:
         return convert_pressure(quantity, target, p_atm=p_atm, atmospheric_pressure=atmospheric_pressure)
@@ -9665,6 +9835,8 @@ __all__: Final[tuple[str, ...]] = (
     "DistillationCut",
     "RefineryCrudeAssay",
     "GasAssay",
+    "GasReferenceConditions",
+    "convert_gas_reference_volume",
     "CoalAssay",
     "CleanFuelAssay",
     "BiofuelAssay",

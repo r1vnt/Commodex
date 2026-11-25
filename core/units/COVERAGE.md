@@ -14,7 +14,7 @@ unit aliases cannot implement it.
 | Precious metals | Q | Troy ounce, pennyweight, tola, region-named taels, Thai bullion baht, Korean don, carat. Tael and baht factors are not universal product specifications. |
 | Liquid volume | V | US liquid and imperial gallons, petroleum barrel, litres and prefixes, cubic metres. |
 | Dry volume | V | US dry gallon/bushel, imperial bushel, US peck, hectolitre. Crop-weight bushels are separate mass units. |
-| Gas volume | G | Existing named dry reference states and explicit Z-factor conversions work. Arbitrary destination states and humidity correction require an additional reference-state model; the current dispatcher is not a universal humid-gas converter. |
+| Gas volume | Q | GasReferenceConditions and convert_gas_reference_volume support arbitrary metering P/T/Z and explicit water fractions. Unknown Z/water is not guessed. Named dry units require matching states. Condensation, phase equilibrium and EOS estimation are separate models. |
 | Energy | V | Joule/Wh, IT/thermochemical/59-F Btu, IT/thermochemical calorie, explicit therm/dekatherm conventions. Unqualified calorie and `cal_it` are not interchangeable. |
 | Energy equivalents | Q/G | Named BOE, toe and tce conventions exist. Natural-gas energy needs measured calorific data. GGE/DGE remain specification-dependent; no universal gallon-equivalent factor was invented. |
 | Power | Q | Active, reactive and apparent labels; thermal/electrical labels. Power factor and efficiency require models, not unit scaling. |
