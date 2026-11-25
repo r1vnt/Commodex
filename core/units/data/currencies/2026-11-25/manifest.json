@@ -1,0 +1,23 @@
+{
+  "version": "2026-11-25",
+  "retrieved_on": "2026-11-25",
+  "sources": [
+    {
+      "file": "list-one.xml",
+      "url": "https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml",
+      "sha256": "33139b438657d1cee116ba737807ea71d19d6de4b90f799a09c56f0cc6a1b0ff",
+      "published": "2026-09-17"
+    },
+    {
+      "file": "list-three.xml",
+      "url": "https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-three.xml",
+      "sha256": "98fde2423cdb916dd59dcf5fe96222edad8fa198d865c1c83dbc464b9cc52387",
+      "published": "2026-01-01"
+    }
+  ],
+  "derived_sha256": {
+    "reference.json": "38399a6f726c640f514ac713230aed47ca2337e863b94fe617b05f2032f7caff",
+    "overlay.json": "9303f1fa1f23485176143bd596a0134892cc4a26eeb79c3028a71610f2c4a9cb",
+    "conventions.json": "a99444698b1b3d92b93b562eb366d66e6da725665f6a0359e4879e712b6cea4c"
+  }
+}

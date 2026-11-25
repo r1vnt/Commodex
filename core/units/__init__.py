@@ -9,6 +9,8 @@ Crude/products require explicit calorific data for heat-content conversions.
 Pressure datum shifts use convert()/convert_pressure(), not raw Pint .to().
 """
 
+from .currencies import *
+from .currencies import __all__ as _currency_exports
 from .registry import *
 from .registry import __all__ as _registry_exports
 from .conversions import *
@@ -21,5 +23,5 @@ from .config import load_desk_config
 from .config import __all__ as _config_exports
 
 __all__ = tuple(dict.fromkeys(
-    _registry_exports + _conversion_exports + _agricultural_exports + _heat_exports + _config_exports
+    _currency_exports + _registry_exports + _conversion_exports + _agricultural_exports + _heat_exports + _config_exports
 ))

@@ -11,14 +11,14 @@ import pint
 
 import core.units as units
 from core.units import agricultural_specs as agricultural
-from core.units import config, conversions, heat_content, registry
+from core.units import config, conversions, currencies, heat_content, registry
 from test_agricultural_integration import agricultural_presets
 from test_registry_compatibility import assay_presets
 
 
 class OperationalContracts(unittest.TestCase):
     def test_public_surface_is_complete_and_unique(self):
-        modules = (registry, conversions, agricultural, heat_content, config)
+        modules = (registry, conversions, agricultural, heat_content, config, currencies)
         expected = {name for module in modules for name in module.__all__}
         self.assertEqual(set(units.__all__), expected)
         self.assertEqual(len(units.__all__), len(expected))

@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-25",
+  "gge_specs": {
+    "NIST_HB44": {
+      "name": "NIST_HB44",
+      "energy_per_gallon_btu": 114118.8,
+      "basis": "LHV",
+      "fuel_type": "GGE",
+      "source": "NIST Handbook 44"
+    },
+    "DOE_AFDC": {
+      "name": "DOE_AFDC",
+      "energy_per_gallon_btu": 112194.0,
+      "basis": "LHV",
+      "fuel_type": "GGE",
+      "source": "US DOE AFDC"
+    },
+    "DOE_AFDC_CONVENTIONAL": {
+      "name": "DOE_AFDC_CONVENTIONAL",
+      "energy_per_gallon_btu": 116090.0,
+      "basis": "LHV",
+      "fuel_type": "GGE",
+      "source": "US DOE AFDC Conventional Gasoline (E0)"
+    },
+    "DOE_AFDC_HHV": {
+      "name": "DOE_AFDC_HHV",
+      "energy_per_gallon_btu": 120286.0,
+      "basis": "HHV",
+      "fuel_type": "GGE",
+      "source": "US DOE AFDC Retail Gasoline (E10, HHV)"
+    },
+    "EPA": {
+      "name": "EPA",
+      "energy_per_gallon_btu": 115000.0,
+      "basis": "LHV",
+      "fuel_type": "GGE",
+      "source": "US EPA Fuel Economy MPGe Benchmark (33.705 kWh)"
+    }
+  },
+  "dge_specs": {
+    "NIST_HB44": {
+      "name": "NIST_HB44",
+      "energy_per_gallon_btu": 128583.0,
+      "basis": "LHV",
+      "fuel_type": "DGE",
+      "source": "NIST Handbook 44 Appendix D (Diesel Gallon Equivalent)"
+    },
+    "DOE_AFDC": {
+      "name": "DOE_AFDC",
+      "energy_per_gallon_btu": 128488.0,
+      "basis": "LHV",
+      "fuel_type": "DGE",
+      "source": "US DOE AFDC Low-Sulfur No. 2 Diesel (LHV)"
+    },
+    "DOE_AFDC_HHV": {
+      "name": "DOE_AFDC_HHV",
+      "energy_per_gallon_btu": 137381.0,
+      "basis": "HHV",
+      "fuel_type": "DGE",
+      "source": "US DOE AFDC Low-Sulfur No. 2 Diesel (HHV)"
+    },
+    "EPA": {
+      "name": "EPA",
+      "energy_per_gallon_btu": 128488.0,
+      "basis": "LHV",
+      "fuel_type": "DGE",
+      "source": "US EPA / DOE Heavy-Duty ULSD Benchmark (LHV)"
+    }
+  },
+  "gas_components_iso6976_gpa2172": {
+    "metadata": {
+      "iso_6976_edition": "ISO 6976:2016 (15 degC combustion reference, ideal molar kJ/mol & summation factor sqrt_b at 15 degC, 101.325 kPa)",
+      "gpa_2172_edition": "GPA 2172-09 / API MPMS 14.5 (60 degF, 14.696 psia dry ideal Btu_IT/scf & summation factor sqrt_b at 60 degF, 14.696 psia)"
+    },
+    "components": {
+      "CH4":    {"molar_hhv_kj_mol_15c": 891.51, "molar_lhv_kj_mol_15c": 802.60, "sqrt_b_15c": 0.0445, "gpa_hhv_btu_scf_60f_1atm": 1010.0, "gpa_lhv_btu_scf_60f_1atm": 909.4,  "sqrt_b_60f": 0.0442},
+      "C2H6":   {"molar_hhv_kj_mol_15c": 1562.14, "molar_lhv_kj_mol_15c": 1428.78, "sqrt_b_15c": 0.0919, "gpa_hhv_btu_scf_60f_1atm": 1769.6, "gpa_lhv_btu_scf_60f_1atm": 1618.7, "sqrt_b_60f": 0.0912},
+      "C3H8":   {"molar_hhv_kj_mol_15c": 2221.10, "molar_lhv_kj_mol_15c": 2043.30, "sqrt_b_15c": 0.1338, "gpa_hhv_btu_scf_60f_1atm": 2516.1, "gpa_lhv_btu_scf_60f_1atm": 2314.9, "sqrt_b_60f": 0.1328},
+      "iC4H10": {"molar_hhv_kj_mol_15c": 2870.58, "molar_lhv_kj_mol_15c": 2648.32, "sqrt_b_15c": 0.1722, "gpa_hhv_btu_scf_60f_1atm": 3251.9, "gpa_lhv_btu_scf_60f_1atm": 3000.4, "sqrt_b_60f": 0.1706},
+      "nC4H10": {"molar_hhv_kj_mol_15c": 2879.76, "molar_lhv_kj_mol_15c": 2657.50, "sqrt_b_15c": 0.1840, "gpa_hhv_btu_scf_60f_1atm": 3262.3, "gpa_lhv_btu_scf_60f_1atm": 3010.8, "sqrt_b_60f": 0.1825},
+      "iC5H12": {"molar_hhv_kj_mol_15c": 3531.68, "molar_lhv_kj_mol_15c": 3264.98, "sqrt_b_15c": 0.2251, "gpa_hhv_btu_scf_60f_1atm": 4000.9, "gpa_lhv_btu_scf_60f_1atm": 3699.0, "sqrt_b_60f": 0.2231},
+      "nC5H12": {"molar_hhv_kj_mol_15c": 3538.60, "molar_lhv_kj_mol_15c": 3271.90, "sqrt_b_15c": 0.2361, "gpa_hhv_btu_scf_60f_1atm": 4008.9, "gpa_lhv_btu_scf_60f_1atm": 3706.9, "sqrt_b_60f": 0.2340},
+      "C6H14":  {"molar_hhv_kj_mol_15c": 4198.24, "molar_lhv_kj_mol_15c": 3887.10, "sqrt_b_15c": 0.2956, "gpa_hhv_btu_scf_60f_1atm": 4755.9, "gpa_lhv_btu_scf_60f_1atm": 4403.8, "sqrt_b_60f": 0.2928},
+      "H2":     {"molar_hhv_kj_mol_15c": 286.15,  "molar_lhv_kj_mol_15c": 241.70,  "sqrt_b_15c": 0.0,    "gpa_hhv_btu_scf_60f_1atm": 324.2,  "gpa_lhv_btu_scf_60f_1atm": 273.8,  "sqrt_b_60f": 0.0},
+      "CO":     {"molar_hhv_kj_mol_15c": 282.91,  "molar_lhv_kj_mol_15c": 282.91,  "sqrt_b_15c": 0.0217, "gpa_hhv_btu_scf_60f_1atm": 320.5,  "gpa_lhv_btu_scf_60f_1atm": 320.5,  "sqrt_b_60f": 0.0215},
+      "H2S":    {"molar_hhv_kj_mol_15c": 562.40,  "molar_lhv_kj_mol_15c": 517.95,  "sqrt_b_15c": 0.1015, "gpa_hhv_btu_scf_60f_1atm": 637.1,  "gpa_lhv_btu_scf_60f_1atm": 586.8,  "sqrt_b_60f": 0.1008},
+      "N2":     {"molar_hhv_kj_mol_15c": 0.0,     "molar_lhv_kj_mol_15c": 0.0,     "sqrt_b_15c": 0.0170, "gpa_hhv_btu_scf_60f_1atm": 0.0,    "gpa_lhv_btu_scf_60f_1atm": 0.0,    "sqrt_b_60f": 0.0169},
+      "CO2":    {"molar_hhv_kj_mol_15c": 0.0,     "molar_lhv_kj_mol_15c": 0.0,     "sqrt_b_15c": 0.0748, "gpa_hhv_btu_scf_60f_1atm": 0.0,    "gpa_lhv_btu_scf_60f_1atm": 0.0,    "sqrt_b_60f": 0.0743},
+      "O2":     {"molar_hhv_kj_mol_15c": 0.0,     "molar_lhv_kj_mol_15c": 0.0,     "sqrt_b_15c": 0.0276, "gpa_hhv_btu_scf_60f_1atm": 0.0,    "gpa_lhv_btu_scf_60f_1atm": 0.0,    "sqrt_b_60f": 0.0274},
+      "H2O":    {"molar_hhv_kj_mol_15c": 44.45,   "molar_lhv_kj_mol_15c": 0.0,     "sqrt_b_15c": 0.2300, "gpa_hhv_btu_scf_60f_1atm": 50.3,   "gpa_lhv_btu_scf_60f_1atm": 0.0,    "sqrt_b_60f": 0.2280},
+      "He":     {"molar_hhv_kj_mol_15c": 0.0,     "molar_lhv_kj_mol_15c": 0.0,     "sqrt_b_15c": 0.0,    "gpa_hhv_btu_scf_60f_1atm": 0.0,    "gpa_lhv_btu_scf_60f_1atm": 0.0,    "sqrt_b_60f": 0.0},
+      "Ar":     {"molar_hhv_kj_mol_15c": 0.0,     "molar_lhv_kj_mol_15c": 0.0,     "sqrt_b_15c": 0.0276, "gpa_hhv_btu_scf_60f_1atm": 0.0,    "gpa_lhv_btu_scf_60f_1atm": 0.0,    "sqrt_b_60f": 0.0274}
+    }
+  }
+}

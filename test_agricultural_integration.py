@@ -18,6 +18,7 @@ from core.units import conversions as c
 from core.units import heat_content as h
 from core.units import registry as registry
 from core.units import config as config
+from core.units import currencies
 from core.units.registry import ureg
 
 
@@ -37,7 +38,7 @@ class AgriculturalIntegrationTests(unittest.TestCase):
 
     def test_complete_public_api_and_package_reexports(self):
         self.assertEqual(len(a.__all__), len(set(a.__all__)))
-        self.assertEqual(set(package.__all__), set(a.__all__) | set(h.__all__) | set(c.__all__) | set(registry.__all__) | set(config.__all__))
+        self.assertEqual(set(package.__all__), set(a.__all__) | set(h.__all__) | set(c.__all__) | set(registry.__all__) | set(config.__all__) | set(currencies.__all__))
         classes = []
         for name, value in vars(a).items():
             if getattr(value, "__module__", None) != a.__name__:

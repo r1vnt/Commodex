@@ -1,0 +1,82 @@
+{
+  "version": "2026-11-25",
+  "validity_notes": {
+    "BGN": "Denomination introduced 1999-07-05; ISO historic effective 2026-01-01. Cash parallel circulation is not the ISO status interval.",
+    "EUR": "Introduced 1999-01-01.",
+    "unknown": "Unknown dates/minor digits are null, never fabricated from the snapshot date."
+  },
+  "sources": [
+    "https://www.bnb.bg/bnbweb/groups/public/documents/bnb_publication/p_anualreports_1999_en.pdf",
+    "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.pr260101~c830245e42.en.html",
+    "https://www.ecb.europa.eu/ecb/history-arts-culture/history/emu/html/index.en.html",
+    "https://www.hkma.gov.hk/eng/news-and-media/press-releases/2026/10/20261023-4"
+  ],
+  "aliases": [
+    {
+      "vendor": null,
+      "alias": "SDR",
+      "code": "XDR",
+      "unit": "XDR",
+      "scale": "1"
+    },
+    {
+      "vendor": "desk",
+      "alias": "RMB_ONSHORE",
+      "code": "CNY",
+      "unit": "CNY",
+      "scale": "1"
+    },
+    {
+      "vendor": "desk",
+      "alias": "RMB_OFFSHORE",
+      "code": "CNH",
+      "unit": "CNH",
+      "scale": "1"
+    }
+  ],
+  "redenominations": [
+    {
+      "id": "BGN-EUR-2026",
+      "old": "BGN",
+      "new": "EUR",
+      "effective": "2026-01-01",
+      "old_units_per_new": "1.95583",
+      "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.pr260101~c830245e42.en.html"
+    },
+    {
+      "id": "BGL-BGN-1999",
+      "old": "BGL",
+      "new": "BGN",
+      "effective": "1999-07-05",
+      "old_units_per_new": "1000",
+      "source": "https://bnbank.org/bnbweb/groups/public/documents/bnb_law/regulations_oldnotescoinsde_en.pdf"
+    }
+  ],
+  "record_overrides": {
+    "BGN": {
+      "valid_from": "1999-07-05",
+      "valid_to": "2026-01-01",
+      "minor_digits": 2
+    },
+    "EUR": {
+      "valid_from": "1999-01-01"
+    }
+  },
+  "additional_records": [
+    {
+      "code": "CNH",
+      "numeric_code": null,
+      "name": "Offshore renminbi quotation convention",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "overlay.json",
+      "kind": "quotation_convention",
+      "category": "quotation_convention",
+      "is_fund": false
+    }
+  ]
+}

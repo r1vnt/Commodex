@@ -1,0 +1,3 @@
+# Preserve pinned source bytes and checksums on all checkout platforms.
+*.xml -text
+*.json -text

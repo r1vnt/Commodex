@@ -1,0 +1,5867 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-25",
+  "observed_on": "2026-11-25",
+  "records": [
+    {
+      "code": "AFN",
+      "numeric_code": "971",
+      "name": "Afghani",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "AFGHANISTAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "EUR",
+      "numeric_code": "978",
+      "name": "Euro",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "\u00c5LAND ISLANDS",
+        "ANDORRA",
+        "AUSTRIA",
+        "BELGIUM",
+        "BULGARIA",
+        "CROATIA",
+        "CYPRUS",
+        "ESTONIA",
+        "EUROPEAN UNION",
+        "FINLAND",
+        "FRANCE",
+        "FRENCH GUIANA",
+        "FRENCH SOUTHERN TERRITORIES (THE)",
+        "GERMANY",
+        "GREECE",
+        "GUADELOUPE",
+        "HOLY SEE (THE)",
+        "IRELAND",
+        "ITALY",
+        "LATVIA",
+        "LITHUANIA",
+        "LUXEMBOURG",
+        "MALTA",
+        "MARTINIQUE",
+        "MAYOTTE",
+        "MONACO",
+        "MONTENEGRO",
+        "NETHERLANDS (THE)",
+        "PORTUGAL",
+        "R\u00c9UNION",
+        "SAINT BARTH\u00c9LEMY",
+        "SAINT MARTIN (FRENCH PART)",
+        "SAINT PIERRE AND MIQUELON",
+        "SAN MARINO",
+        "SLOVAKIA",
+        "SLOVENIA",
+        "SPAIN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": "1999-01-01",
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ALL",
+      "numeric_code": "008",
+      "name": "Lek",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ALBANIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "DZD",
+      "numeric_code": "012",
+      "name": "Algerian Dinar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ALGERIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "USD",
+      "numeric_code": "840",
+      "name": "US Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "AMERICAN SAMOA",
+        "BONAIRE, SINT EUSTATIUS AND SABA",
+        "BRITISH INDIAN OCEAN TERRITORY (THE)",
+        "ECUADOR",
+        "EL SALVADOR",
+        "GUAM",
+        "HAITI",
+        "MARSHALL ISLANDS (THE)",
+        "MICRONESIA (FEDERATED STATES OF)",
+        "NORTHERN MARIANA ISLANDS (THE)",
+        "PALAU",
+        "PANAMA",
+        "PUERTO RICO",
+        "TIMOR-LESTE",
+        "TURKS AND CAICOS ISLANDS (THE)",
+        "UNITED STATES MINOR OUTLYING ISLANDS (THE)",
+        "UNITED STATES OF AMERICA (THE)",
+        "VIRGIN ISLANDS (BRITISH)",
+        "VIRGIN ISLANDS (U.S.)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AOA",
+      "numeric_code": "973",
+      "name": "Kwanza",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ANGOLA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XCD",
+      "numeric_code": "951",
+      "name": "East Caribbean Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ANGUILLA",
+        "ANTIGUA AND BARBUDA",
+        "DOMINICA",
+        "GRENADA",
+        "MONTSERRAT",
+        "SAINT KITTS AND NEVIS",
+        "SAINT LUCIA",
+        "SAINT VINCENT AND THE GRENADINES"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XAD",
+      "numeric_code": "396",
+      "name": "Arab Accounting Dinar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ARAB MONETARY FUND"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "fund",
+      "is_fund": true
+    },
+    {
+      "code": "ARS",
+      "numeric_code": "032",
+      "name": "Argentine Peso",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ARGENTINA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AMD",
+      "numeric_code": "051",
+      "name": "Armenian Dram",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ARMENIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AWG",
+      "numeric_code": "533",
+      "name": "Aruban Florin",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ARUBA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AUD",
+      "numeric_code": "036",
+      "name": "Australian Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "AUSTRALIA",
+        "CHRISTMAS ISLAND",
+        "COCOS (KEELING) ISLANDS (THE)",
+        "HEARD ISLAND AND McDONALD ISLANDS",
+        "KIRIBATI",
+        "NAURU",
+        "NORFOLK ISLAND",
+        "TUVALU"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AZN",
+      "numeric_code": "944",
+      "name": "Azerbaijan Manat",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "AZERBAIJAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BSD",
+      "numeric_code": "044",
+      "name": "Bahamian Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BAHAMAS (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BHD",
+      "numeric_code": "048",
+      "name": "Bahraini Dinar",
+      "status": "current",
+      "minor_digits": 3,
+      "entities": [
+        "BAHRAIN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BDT",
+      "numeric_code": "050",
+      "name": "Taka",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BANGLADESH"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BBD",
+      "numeric_code": "052",
+      "name": "Barbados Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BARBADOS"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BYN",
+      "numeric_code": "933",
+      "name": "Belarusian Ruble",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BELARUS"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BZD",
+      "numeric_code": "084",
+      "name": "Belize Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BELIZE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XOF",
+      "numeric_code": "952",
+      "name": "CFA Franc BCEAO",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "BENIN",
+        "BURKINA FASO",
+        "C\u00d4TE D'IVOIRE",
+        "GUINEA-BISSAU",
+        "MALI",
+        "NIGER (THE)",
+        "SENEGAL",
+        "TOGO"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BMD",
+      "numeric_code": "060",
+      "name": "Bermudian Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BERMUDA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "INR",
+      "numeric_code": "356",
+      "name": "Indian Rupee",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BHUTAN",
+        "INDIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BTN",
+      "numeric_code": "064",
+      "name": "Ngultrum",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BHUTAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BOB",
+      "numeric_code": "068",
+      "name": "Boliviano",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BOLIVIA (PLURINATIONAL STATE OF)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BOV",
+      "numeric_code": "984",
+      "name": "Mvdol",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BOLIVIA (PLURINATIONAL STATE OF)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "fund",
+      "is_fund": true
+    },
+    {
+      "code": "BAM",
+      "numeric_code": "977",
+      "name": "Convertible Mark",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BOSNIA AND HERZEGOVINA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BWP",
+      "numeric_code": "072",
+      "name": "Pula",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BOTSWANA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "NOK",
+      "numeric_code": "578",
+      "name": "Norwegian Krone",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BOUVET ISLAND",
+        "NORWAY",
+        "SVALBARD AND JAN MAYEN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BRL",
+      "numeric_code": "986",
+      "name": "Brazilian Real",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BRAZIL"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BND",
+      "numeric_code": "096",
+      "name": "Brunei Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "BRUNEI DARUSSALAM"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BIF",
+      "numeric_code": "108",
+      "name": "Burundi Franc",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "BURUNDI"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CVE",
+      "numeric_code": "132",
+      "name": "Cabo Verde Escudo",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "CABO VERDE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "KHR",
+      "numeric_code": "116",
+      "name": "Riel",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "CAMBODIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XAF",
+      "numeric_code": "950",
+      "name": "CFA Franc BEAC",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "CAMEROON",
+        "CENTRAL AFRICAN REPUBLIC (THE)",
+        "CHAD",
+        "CONGO (THE)",
+        "EQUATORIAL GUINEA",
+        "GABON"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CAD",
+      "numeric_code": "124",
+      "name": "Canadian Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "CANADA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "KYD",
+      "numeric_code": "136",
+      "name": "Cayman Islands Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "CAYMAN ISLANDS (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CLP",
+      "numeric_code": "152",
+      "name": "Chilean Peso",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "CHILE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CLF",
+      "numeric_code": "990",
+      "name": "Unidad de Fomento",
+      "status": "current",
+      "minor_digits": 4,
+      "entities": [
+        "CHILE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "fund",
+      "is_fund": true
+    },
+    {
+      "code": "CNY",
+      "numeric_code": "156",
+      "name": "Yuan Renminbi",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "CHINA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "COP",
+      "numeric_code": "170",
+      "name": "Colombian Peso",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "COLOMBIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "COU",
+      "numeric_code": "970",
+      "name": "Unidad de Valor Real",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "COLOMBIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "fund",
+      "is_fund": true
+    },
+    {
+      "code": "KMF",
+      "numeric_code": "174",
+      "name": "Comorian Franc ",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "COMOROS (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CDF",
+      "numeric_code": "976",
+      "name": "Congolese Franc",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "CONGO (THE DEMOCRATIC REPUBLIC OF THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "NZD",
+      "numeric_code": "554",
+      "name": "New Zealand Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "COOK ISLANDS (THE)",
+        "NEW ZEALAND",
+        "NIUE",
+        "PITCAIRN",
+        "TOKELAU"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CRC",
+      "numeric_code": "188",
+      "name": "Costa Rican Colon",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "COSTA RICA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CUP",
+      "numeric_code": "192",
+      "name": "Cuban Peso",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "CUBA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XCG",
+      "numeric_code": "532",
+      "name": "Caribbean Guilder",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "CURA\u00c7AO",
+        "SINT MAARTEN (DUTCH PART)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CZK",
+      "numeric_code": "203",
+      "name": "Czech Koruna",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "CZECHIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "DKK",
+      "numeric_code": "208",
+      "name": "Danish Krone",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "DENMARK",
+        "FAROE ISLANDS (THE)",
+        "GREENLAND"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "DJF",
+      "numeric_code": "262",
+      "name": "Djibouti Franc",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "DJIBOUTI"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "DOP",
+      "numeric_code": "214",
+      "name": "Dominican Peso",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "DOMINICAN REPUBLIC (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "EGP",
+      "numeric_code": "818",
+      "name": "Egyptian Pound",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "EGYPT"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SVC",
+      "numeric_code": "222",
+      "name": "El Salvador Colon",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "EL SALVADOR"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ERN",
+      "numeric_code": "232",
+      "name": "Nakfa",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ERITREA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SZL",
+      "numeric_code": "748",
+      "name": "Lilangeni",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ESWATINI"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ETB",
+      "numeric_code": "230",
+      "name": "Ethiopian Birr",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ETHIOPIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "FKP",
+      "numeric_code": "238",
+      "name": "Falkland Islands Pound",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "FALKLAND ISLANDS (THE) [MALVINAS]"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "FJD",
+      "numeric_code": "242",
+      "name": "Fiji Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "FIJI"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XPF",
+      "numeric_code": "953",
+      "name": "CFP Franc",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "FRENCH POLYNESIA",
+        "NEW CALEDONIA",
+        "WALLIS AND FUTUNA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GMD",
+      "numeric_code": "270",
+      "name": "Dalasi",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "GAMBIA (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GEL",
+      "numeric_code": "981",
+      "name": "Lari",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "GEORGIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GHS",
+      "numeric_code": "936",
+      "name": "Ghana Cedi",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "GHANA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GIP",
+      "numeric_code": "292",
+      "name": "Gibraltar Pound",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "GIBRALTAR"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GTQ",
+      "numeric_code": "320",
+      "name": "Quetzal",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "GUATEMALA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GBP",
+      "numeric_code": "826",
+      "name": "Pound Sterling",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "GUERNSEY",
+        "ISLE OF MAN",
+        "JERSEY",
+        "UNITED KINGDOM OF GREAT BRITAIN AND NORTHERN IRELAND (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GNF",
+      "numeric_code": "324",
+      "name": "Guinean Franc",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "GUINEA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GYD",
+      "numeric_code": "328",
+      "name": "Guyana Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "GUYANA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "HTG",
+      "numeric_code": "332",
+      "name": "Gourde",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "HAITI"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "HNL",
+      "numeric_code": "340",
+      "name": "Lempira",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "HONDURAS"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "HKD",
+      "numeric_code": "344",
+      "name": "Hong Kong Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "HONG KONG"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "HUF",
+      "numeric_code": "348",
+      "name": "Forint",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "HUNGARY"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ISK",
+      "numeric_code": "352",
+      "name": "Iceland Krona",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "ICELAND"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "IDR",
+      "numeric_code": "360",
+      "name": "Rupiah",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "INDONESIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XDR",
+      "numeric_code": "960",
+      "name": "SDR (Special Drawing Right)",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "INTERNATIONAL MONETARY FUND (IMF)\u00a0"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "unit_of_account",
+      "is_fund": false
+    },
+    {
+      "code": "IRR",
+      "numeric_code": "364",
+      "name": "Iranian Rial",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "IRAN (ISLAMIC REPUBLIC OF)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "IQD",
+      "numeric_code": "368",
+      "name": "Iraqi Dinar",
+      "status": "current",
+      "minor_digits": 3,
+      "entities": [
+        "IRAQ"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ILS",
+      "numeric_code": "376",
+      "name": "New Israeli Sheqel",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ISRAEL"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "JMD",
+      "numeric_code": "388",
+      "name": "Jamaican Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "JAMAICA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "JPY",
+      "numeric_code": "392",
+      "name": "Yen",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "JAPAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "JOD",
+      "numeric_code": "400",
+      "name": "Jordanian Dinar",
+      "status": "current",
+      "minor_digits": 3,
+      "entities": [
+        "JORDAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "KZT",
+      "numeric_code": "398",
+      "name": "Tenge",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "KAZAKHSTAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "KES",
+      "numeric_code": "404",
+      "name": "Kenyan Shilling",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "KENYA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "KPW",
+      "numeric_code": "408",
+      "name": "North Korean Won",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "KOREA (THE DEMOCRATIC PEOPLE\u2019S REPUBLIC OF)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "KRW",
+      "numeric_code": "410",
+      "name": "Won",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "KOREA (THE REPUBLIC OF)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "KWD",
+      "numeric_code": "414",
+      "name": "Kuwaiti Dinar",
+      "status": "current",
+      "minor_digits": 3,
+      "entities": [
+        "KUWAIT"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "KGS",
+      "numeric_code": "417",
+      "name": "Som",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "KYRGYZSTAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LAK",
+      "numeric_code": "418",
+      "name": "Lao Kip",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "LAO PEOPLE\u2019S DEMOCRATIC REPUBLIC (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LBP",
+      "numeric_code": "422",
+      "name": "Lebanese Pound",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "LEBANON"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LSL",
+      "numeric_code": "426",
+      "name": "Loti",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "LESOTHO"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZAR",
+      "numeric_code": "710",
+      "name": "Rand",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "LESOTHO",
+        "NAMIBIA",
+        "SOUTH AFRICA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LRD",
+      "numeric_code": "430",
+      "name": "Liberian Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "LIBERIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LYD",
+      "numeric_code": "434",
+      "name": "Libyan Dinar",
+      "status": "current",
+      "minor_digits": 3,
+      "entities": [
+        "LIBYA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CHF",
+      "numeric_code": "756",
+      "name": "Swiss Franc",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "LIECHTENSTEIN",
+        "SWITZERLAND"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MOP",
+      "numeric_code": "446",
+      "name": "Pataca",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MACAO"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MKD",
+      "numeric_code": "807",
+      "name": "Denar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "NORTH MACEDONIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MGA",
+      "numeric_code": "969",
+      "name": "Malagasy Ariary",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MADAGASCAR"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MWK",
+      "numeric_code": "454",
+      "name": "Malawi Kwacha",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MALAWI"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MYR",
+      "numeric_code": "458",
+      "name": "Malaysian Ringgit",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MALAYSIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MVR",
+      "numeric_code": "462",
+      "name": "Rufiyaa",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MALDIVES"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MRU",
+      "numeric_code": "929",
+      "name": "Ouguiya",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MAURITANIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MUR",
+      "numeric_code": "480",
+      "name": "Mauritius Rupee",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MAURITIUS"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XUA",
+      "numeric_code": "965",
+      "name": "ADB Unit of Account",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "MEMBER COUNTRIES OF THE AFRICAN DEVELOPMENT BANK GROUP"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MXN",
+      "numeric_code": "484",
+      "name": "Mexican Peso",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MEXICO"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MXV",
+      "numeric_code": "979",
+      "name": "Mexican Unidad de Inversion (UDI)",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MEXICO"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "fund",
+      "is_fund": true
+    },
+    {
+      "code": "MDL",
+      "numeric_code": "498",
+      "name": "Moldovan Leu",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MOLDOVA (THE REPUBLIC OF)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MNT",
+      "numeric_code": "496",
+      "name": "Tugrik",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MONGOLIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MAD",
+      "numeric_code": "504",
+      "name": "Moroccan Dirham",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MOROCCO",
+        "WESTERN SAHARA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MZN",
+      "numeric_code": "943",
+      "name": "Mozambique Metical",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MOZAMBIQUE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MMK",
+      "numeric_code": "104",
+      "name": "Kyat",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "MYANMAR"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "NAD",
+      "numeric_code": "516",
+      "name": "Namibia Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "NAMIBIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "NPR",
+      "numeric_code": "524",
+      "name": "Nepalese Rupee",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "NEPAL"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "NIO",
+      "numeric_code": "558",
+      "name": "Cordoba Oro",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "NICARAGUA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "NGN",
+      "numeric_code": "566",
+      "name": "Naira",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "NIGERIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "OMR",
+      "numeric_code": "512",
+      "name": "Rial Omani",
+      "status": "current",
+      "minor_digits": 3,
+      "entities": [
+        "OMAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PKR",
+      "numeric_code": "586",
+      "name": "Pakistan Rupee",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "PAKISTAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PAB",
+      "numeric_code": "590",
+      "name": "Balboa",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "PANAMA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PGK",
+      "numeric_code": "598",
+      "name": "Kina",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "PAPUA NEW GUINEA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PYG",
+      "numeric_code": "600",
+      "name": "Guarani",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "PARAGUAY"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PEN",
+      "numeric_code": "604",
+      "name": "Sol",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "PERU"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PHP",
+      "numeric_code": "608",
+      "name": "Philippine Peso",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "PHILIPPINES (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PLN",
+      "numeric_code": "985",
+      "name": "Zloty",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "POLAND"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "QAR",
+      "numeric_code": "634",
+      "name": "Qatari Rial",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "QATAR"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "RON",
+      "numeric_code": "946",
+      "name": "Romanian Leu",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ROMANIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "RUB",
+      "numeric_code": "643",
+      "name": "Russian Ruble",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "RUSSIAN FEDERATION (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "RWF",
+      "numeric_code": "646",
+      "name": "Rwanda Franc",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "RWANDA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SHP",
+      "numeric_code": "654",
+      "name": "Saint Helena Pound",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "WST",
+      "numeric_code": "882",
+      "name": "Tala",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SAMOA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "STN",
+      "numeric_code": "930",
+      "name": "Dobra",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SAO TOME AND PRINCIPE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SAR",
+      "numeric_code": "682",
+      "name": "Saudi Riyal",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SAUDI ARABIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "RSD",
+      "numeric_code": "941",
+      "name": "Serbian Dinar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SERBIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SCR",
+      "numeric_code": "690",
+      "name": "Seychelles Rupee",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SEYCHELLES"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SLE",
+      "numeric_code": "925",
+      "name": "Leone",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SIERRA LEONE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SGD",
+      "numeric_code": "702",
+      "name": "Singapore Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SINGAPORE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XSU",
+      "numeric_code": "994",
+      "name": "Sucre",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "SISTEMA UNITARIO DE COMPENSACION REGIONAL DE PAGOS \"SUCRE\""
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SBD",
+      "numeric_code": "090",
+      "name": "Solomon Islands Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SOLOMON ISLANDS"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SOS",
+      "numeric_code": "706",
+      "name": "Somali Shilling",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SOMALIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SSP",
+      "numeric_code": "728",
+      "name": "South Sudanese Pound",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SOUTH SUDAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LKR",
+      "numeric_code": "144",
+      "name": "Sri Lanka Rupee",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SRI LANKA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SDG",
+      "numeric_code": "938",
+      "name": "Sudanese Pound",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SUDAN (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SRD",
+      "numeric_code": "968",
+      "name": "Surinam Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SURINAME"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SEK",
+      "numeric_code": "752",
+      "name": "Swedish Krona",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SWEDEN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CHE",
+      "numeric_code": "947",
+      "name": "WIR Euro",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SWITZERLAND"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "fund",
+      "is_fund": true
+    },
+    {
+      "code": "CHW",
+      "numeric_code": "948",
+      "name": "WIR Franc",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SWITZERLAND"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "fund",
+      "is_fund": true
+    },
+    {
+      "code": "SYP",
+      "numeric_code": "760",
+      "name": "Syrian Pound",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "SYRIAN ARAB REPUBLIC"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TWD",
+      "numeric_code": "901",
+      "name": "New Taiwan Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "TAIWAN (PROVINCE OF CHINA)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TJS",
+      "numeric_code": "972",
+      "name": "Somoni",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "TAJIKISTAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TZS",
+      "numeric_code": "834",
+      "name": "Tanzanian Shilling",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "TANZANIA, UNITED REPUBLIC OF"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "THB",
+      "numeric_code": "764",
+      "name": "Baht",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "THAILAND"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TOP",
+      "numeric_code": "776",
+      "name": "Pa\u2019anga",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "TONGA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TTD",
+      "numeric_code": "780",
+      "name": "Trinidad and Tobago Dollar",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "TRINIDAD AND TOBAGO"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TND",
+      "numeric_code": "788",
+      "name": "Tunisian Dinar",
+      "status": "current",
+      "minor_digits": 3,
+      "entities": [
+        "TUNISIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TRY",
+      "numeric_code": "949",
+      "name": "Turkish Lira",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "T\u00dcRK\u0130YE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TMT",
+      "numeric_code": "934",
+      "name": "Turkmenistan New Manat",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "TURKMENISTAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "UGX",
+      "numeric_code": "800",
+      "name": "Uganda Shilling",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "UGANDA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "UAH",
+      "numeric_code": "980",
+      "name": "Hryvnia",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "UKRAINE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AED",
+      "numeric_code": "784",
+      "name": "UAE Dirham",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "UNITED ARAB EMIRATES (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "USN",
+      "numeric_code": "997",
+      "name": "US Dollar (Next day)",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "UNITED STATES OF AMERICA (THE)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "fund",
+      "is_fund": true
+    },
+    {
+      "code": "UYU",
+      "numeric_code": "858",
+      "name": "Peso Uruguayo",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "URUGUAY"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "UYI",
+      "numeric_code": "940",
+      "name": "Uruguay Peso en Unidades Indexadas (UI)",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "URUGUAY"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "fund",
+      "is_fund": true
+    },
+    {
+      "code": "UYW",
+      "numeric_code": "927",
+      "name": "Unidad Previsional",
+      "status": "current",
+      "minor_digits": 4,
+      "entities": [
+        "URUGUAY"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "fund",
+      "is_fund": true
+    },
+    {
+      "code": "UZS",
+      "numeric_code": "860",
+      "name": "Uzbekistan Sum",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "UZBEKISTAN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "VUV",
+      "numeric_code": "548",
+      "name": "Vatu",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "VANUATU"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "VES",
+      "numeric_code": "928",
+      "name": "Bol\u00edvar Soberano",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "VENEZUELA (BOLIVARIAN REPUBLIC OF)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "VED",
+      "numeric_code": "926",
+      "name": "Bol\u00edvar Soberano",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "VENEZUELA (BOLIVARIAN REPUBLIC OF)"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "VND",
+      "numeric_code": "704",
+      "name": "Dong",
+      "status": "current",
+      "minor_digits": 0,
+      "entities": [
+        "VIET NAM"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "YER",
+      "numeric_code": "886",
+      "name": "Yemeni Rial",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "YEMEN"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZMW",
+      "numeric_code": "967",
+      "name": "Zambian Kwacha",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ZAMBIA"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZWG",
+      "numeric_code": "924",
+      "name": "Zimbabwe Gold",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [
+        "ZIMBABWE"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XBA",
+      "numeric_code": "955",
+      "name": "Bond Markets Unit European Composite Unit (EURCO)",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "ZZ01_Bond Markets Unit European_EURCO"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XBB",
+      "numeric_code": "956",
+      "name": "Bond Markets Unit European Monetary Unit (E.M.U.-6)",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "ZZ02_Bond Markets Unit European_EMU-6"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XBC",
+      "numeric_code": "957",
+      "name": "Bond Markets Unit European Unit of Account 9 (E.U.A.-9)",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "ZZ03_Bond Markets Unit European_EUA-9"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XBD",
+      "numeric_code": "958",
+      "name": "Bond Markets Unit European Unit of Account 17 (E.U.A.-17)",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "ZZ04_Bond Markets Unit European_EUA-17"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XTS",
+      "numeric_code": "963",
+      "name": "Codes specifically reserved for testing purposes",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "ZZ06_Testing_Code"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "testing",
+      "is_fund": false
+    },
+    {
+      "code": "XXX",
+      "numeric_code": "999",
+      "name": "The codes assigned for transactions where no currency is involved",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "ZZ07_No_Currency"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "no_currency",
+      "is_fund": false
+    },
+    {
+      "code": "XAU",
+      "numeric_code": "959",
+      "name": "Gold",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "ZZ08_Gold"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "precious_metal",
+      "is_fund": false
+    },
+    {
+      "code": "XPD",
+      "numeric_code": "964",
+      "name": "Palladium",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "ZZ09_Palladium"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "precious_metal",
+      "is_fund": false
+    },
+    {
+      "code": "XPT",
+      "numeric_code": "962",
+      "name": "Platinum",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "ZZ10_Platinum"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "precious_metal",
+      "is_fund": false
+    },
+    {
+      "code": "XAG",
+      "numeric_code": "961",
+      "name": "Silver",
+      "status": "current",
+      "minor_digits": null,
+      "entities": [
+        "ZZ11_Silver"
+      ],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-one.xml",
+      "kind": "iso4217",
+      "category": "precious_metal",
+      "is_fund": false
+    },
+    {
+      "code": "AFA",
+      "numeric_code": "004",
+      "name": "Afghani",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "AFGHANISTAN"
+      ],
+      "withdrawal_dates": [
+        "2003-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "FIM",
+      "numeric_code": "246",
+      "name": "Markka",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "\u00c5LAND ISLANDS",
+        "FINLAND"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ALK",
+      "numeric_code": "008",
+      "name": "Old Lek",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ALBANIA"
+      ],
+      "withdrawal_dates": [
+        "1989-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ADP",
+      "numeric_code": "020",
+      "name": "Andorran Peseta",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ANDORRA"
+      ],
+      "withdrawal_dates": [
+        "2003-07"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ESP",
+      "numeric_code": "724",
+      "name": "Spanish Peseta",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ANDORRA",
+        "SPAIN"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "FRF",
+      "numeric_code": "250",
+      "name": "French Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ANDORRA",
+        "FRANCE",
+        "FRENCH  GUIANA",
+        "FRENCH SOUTHERN TERRITORIES",
+        "GUADELOUPE",
+        "MARTINIQUE",
+        "MAYOTTE",
+        "MONACO",
+        "R\u00c9UNION",
+        "SAINT MARTIN",
+        "SAINT PIERRE AND MIQUELON",
+        "SAINT-BARTH\u00c9LEMY"
+      ],
+      "withdrawal_dates": [
+        "2002-03",
+        "1999-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AOK",
+      "numeric_code": "024",
+      "name": "Kwanza",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ANGOLA"
+      ],
+      "withdrawal_dates": [
+        "1991-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AON",
+      "numeric_code": "024",
+      "name": "New Kwanza",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ANGOLA"
+      ],
+      "withdrawal_dates": [
+        "2000-02"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AOR",
+      "numeric_code": "982",
+      "name": "Kwanza Reajustado",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ANGOLA"
+      ],
+      "withdrawal_dates": [
+        "2000-02"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ARA",
+      "numeric_code": "032",
+      "name": "Austral",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ARGENTINA"
+      ],
+      "withdrawal_dates": [
+        "1992-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ARP",
+      "numeric_code": "032",
+      "name": "Peso Argentino",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ARGENTINA"
+      ],
+      "withdrawal_dates": [
+        "1985-07"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ARY",
+      "numeric_code": "032",
+      "name": "Peso",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ARGENTINA"
+      ],
+      "withdrawal_dates": [
+        "1989 to 1990"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "RUR",
+      "numeric_code": "810",
+      "name": "Russian Ruble",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ARMENIA",
+        "AZERBAIJAN",
+        "BELARUS",
+        "GEORGIA",
+        "KAZAKHSTAN",
+        "KYRGYZSTAN",
+        "MOLDOVA, REPUBLIC OF",
+        "RUSSIAN FEDERATION",
+        "TAJIKISTAN",
+        "TURKMENISTAN",
+        "UZBEKISTAN"
+      ],
+      "withdrawal_dates": [
+        "1994-08",
+        "1994-06",
+        "1994-04",
+        "1994-05",
+        "1993-01",
+        "1993-12",
+        "2004-01",
+        "1995-05",
+        "1993-10",
+        "1994-07"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ATS",
+      "numeric_code": "040",
+      "name": "Schilling",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "AUSTRIA"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AYM",
+      "numeric_code": "945",
+      "name": "Azerbaijan Manat",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "AZERBAIJAN"
+      ],
+      "withdrawal_dates": [
+        "2005-10"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "AZM",
+      "numeric_code": "031",
+      "name": "Azerbaijanian Manat",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "AZERBAIJAN"
+      ],
+      "withdrawal_dates": [
+        "2005-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BYB",
+      "numeric_code": "112",
+      "name": "Belarusian Ruble",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BELARUS"
+      ],
+      "withdrawal_dates": [
+        "2001-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BYR",
+      "numeric_code": "974",
+      "name": "Belarusian Ruble",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BELARUS"
+      ],
+      "withdrawal_dates": [
+        "2017-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BEC",
+      "numeric_code": "993",
+      "name": "Convertible Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BELGIUM"
+      ],
+      "withdrawal_dates": [
+        "1990-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BEF",
+      "numeric_code": "056",
+      "name": "Belgian Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BELGIUM"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BEL",
+      "numeric_code": "992",
+      "name": "Financial Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BELGIUM"
+      ],
+      "withdrawal_dates": [
+        "1990-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BOP",
+      "numeric_code": "068",
+      "name": "Peso boliviano",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BOLIVIA"
+      ],
+      "withdrawal_dates": [
+        "1987-02"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BAD",
+      "numeric_code": "070",
+      "name": "Dinar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BOSNIA AND HERZEGOVINA"
+      ],
+      "withdrawal_dates": [
+        "1998-07"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BRB",
+      "numeric_code": "076",
+      "name": "Cruzeiro",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BRAZIL"
+      ],
+      "withdrawal_dates": [
+        "1986-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BRC",
+      "numeric_code": "076",
+      "name": "Cruzado",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BRAZIL"
+      ],
+      "withdrawal_dates": [
+        "1989-02"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BRE",
+      "numeric_code": "076",
+      "name": "Cruzeiro",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BRAZIL"
+      ],
+      "withdrawal_dates": [
+        "1993-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BRN",
+      "numeric_code": "076",
+      "name": "New Cruzado",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BRAZIL"
+      ],
+      "withdrawal_dates": [
+        "1990-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BRR",
+      "numeric_code": "987",
+      "name": "Cruzeiro Real",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BRAZIL"
+      ],
+      "withdrawal_dates": [
+        "1994-07"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BGJ",
+      "numeric_code": "100",
+      "name": "Lev A/52",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BULGARIA"
+      ],
+      "withdrawal_dates": [
+        "1989 to 1990"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BGK",
+      "numeric_code": "100",
+      "name": "Lev A/62",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BULGARIA"
+      ],
+      "withdrawal_dates": [
+        "1989 to 1990"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BGL",
+      "numeric_code": "100",
+      "name": "Lev",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BULGARIA"
+      ],
+      "withdrawal_dates": [
+        "2003-11"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BGN",
+      "numeric_code": "975",
+      "name": "Bulgarian Lev",
+      "status": "historical",
+      "minor_digits": 2,
+      "entities": [
+        "BULGARIA"
+      ],
+      "withdrawal_dates": [
+        "2026-01"
+      ],
+      "valid_from": "1999-07-05",
+      "valid_to": "2026-01-01",
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "BUK",
+      "numeric_code": "104",
+      "name": "Kyat",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "BURMA\u00a0"
+      ],
+      "withdrawal_dates": [
+        "1990-02"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "HRD",
+      "numeric_code": "191",
+      "name": "Croatian Dinar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "CROATIA"
+      ],
+      "withdrawal_dates": [
+        "1995-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "HRK",
+      "numeric_code": "191",
+      "name": "Croatian Kuna",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "CROATIA"
+      ],
+      "withdrawal_dates": [
+        "2015-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "HRK",
+      "numeric_code": "191",
+      "name": "Kuna",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "CROATIA"
+      ],
+      "withdrawal_dates": [
+        "2023-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CUC",
+      "numeric_code": "931",
+      "name": "Peso Convertible",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "CUBA"
+      ],
+      "withdrawal_dates": [
+        "2021-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ANG",
+      "numeric_code": "532",
+      "name": "Netherlands Antillean Guilder",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "CURA\u00c7AO",
+        "NETHERLANDS ANTILLES",
+        "SINT MAARTEN (DUTCH PART)"
+      ],
+      "withdrawal_dates": [
+        "2025-03",
+        "2010-10"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CYP",
+      "numeric_code": "196",
+      "name": "Cyprus Pound",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "CYPRUS"
+      ],
+      "withdrawal_dates": [
+        "2008-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CSJ",
+      "numeric_code": "203",
+      "name": "Krona A/53",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "CZECHOSLOVAKIA"
+      ],
+      "withdrawal_dates": [
+        "1989 to 1990"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CSK",
+      "numeric_code": "200",
+      "name": "Koruna",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "CZECHOSLOVAKIA"
+      ],
+      "withdrawal_dates": [
+        "1993-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ECS",
+      "numeric_code": "218",
+      "name": "Sucre",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ECUADOR"
+      ],
+      "withdrawal_dates": [
+        "2000-09"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ECV",
+      "numeric_code": "983",
+      "name": "Unidad de Valor Constante (UVC)",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ECUADOR"
+      ],
+      "withdrawal_dates": [
+        "2000-09"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GQE",
+      "numeric_code": "226",
+      "name": "Ekwele",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "EQUATORIAL GUINEA"
+      ],
+      "withdrawal_dates": [
+        "1986-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "EEK",
+      "numeric_code": "233",
+      "name": "Kroon",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ESTONIA"
+      ],
+      "withdrawal_dates": [
+        "2011-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XEU",
+      "numeric_code": "954",
+      "name": "European Currency Unit (E.C.U)",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "EUROPEAN MONETARY CO-OPERATION FUND (EMCF)"
+      ],
+      "withdrawal_dates": [
+        "1999-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GEK",
+      "numeric_code": "268",
+      "name": "Georgian Coupon",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "GEORGIA"
+      ],
+      "withdrawal_dates": [
+        "1995-10"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "DDM",
+      "numeric_code": "278",
+      "name": "Mark der DDR",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "GERMAN DEMOCRATIC REPUBLIC"
+      ],
+      "withdrawal_dates": [
+        "1990-07 to 1990-09"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "DEM",
+      "numeric_code": "276",
+      "name": "Deutsche Mark",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "GERMANY"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GHC",
+      "numeric_code": "288",
+      "name": "Cedi",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "GHANA"
+      ],
+      "withdrawal_dates": [
+        "2008-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GHP",
+      "numeric_code": "939",
+      "name": "Ghana Cedi",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "GHANA"
+      ],
+      "withdrawal_dates": [
+        "2007-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GRD",
+      "numeric_code": "300",
+      "name": "Drachma",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "GREECE"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GNE",
+      "numeric_code": "324",
+      "name": "Syli",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "GUINEA"
+      ],
+      "withdrawal_dates": [
+        "1989-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GNS",
+      "numeric_code": "324",
+      "name": "Syli",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "GUINEA"
+      ],
+      "withdrawal_dates": [
+        "1986-02"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GWE",
+      "numeric_code": "624",
+      "name": "Guinea Escudo",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "GUINEA-BISSAU"
+      ],
+      "withdrawal_dates": [
+        "1978 to 1981"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "GWP",
+      "numeric_code": "624",
+      "name": "Guinea-Bissau Peso",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "GUINEA-BISSAU"
+      ],
+      "withdrawal_dates": [
+        "1997-05"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ITL",
+      "numeric_code": "380",
+      "name": "Italian Lira",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "HOLY SEE (VATICAN CITY STATE)",
+        "ITALY",
+        "SAN MARINO"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ISJ",
+      "numeric_code": "352",
+      "name": "Old Krona",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ICELAND"
+      ],
+      "withdrawal_dates": [
+        "1989 to 1990"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "IEP",
+      "numeric_code": "372",
+      "name": "Irish Pound",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "IRELAND"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ILP",
+      "numeric_code": "376",
+      "name": "Pound",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ISRAEL"
+      ],
+      "withdrawal_dates": [
+        "1978 to 1981"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ILR",
+      "numeric_code": "376",
+      "name": "Old Shekel",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ISRAEL"
+      ],
+      "withdrawal_dates": [
+        "1989 to 1990"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LAJ",
+      "numeric_code": "418",
+      "name": "Pathet Lao Kip",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "LAO"
+      ],
+      "withdrawal_dates": [
+        "1979-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LVL",
+      "numeric_code": "428",
+      "name": "Latvian Lats",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "LATVIA"
+      ],
+      "withdrawal_dates": [
+        "2014-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LVR",
+      "numeric_code": "428",
+      "name": "Latvian Ruble",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "LATVIA"
+      ],
+      "withdrawal_dates": [
+        "1994-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LSM",
+      "numeric_code": "426",
+      "name": "Loti",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "LESOTHO"
+      ],
+      "withdrawal_dates": [
+        "1985-05"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZAL",
+      "numeric_code": "991",
+      "name": "Financial Rand",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "LESOTHO",
+        "SOUTH AFRICA"
+      ],
+      "withdrawal_dates": [
+        "1995-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LTL",
+      "numeric_code": "440",
+      "name": "Lithuanian Litas",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "LITHUANIA"
+      ],
+      "withdrawal_dates": [
+        "2014-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LTT",
+      "numeric_code": "440",
+      "name": "Talonas",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "LITHUANIA"
+      ],
+      "withdrawal_dates": [
+        "1993-07"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LUC",
+      "numeric_code": "989",
+      "name": "Luxembourg Convertible Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "LUXEMBOURG"
+      ],
+      "withdrawal_dates": [
+        "1990-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LUF",
+      "numeric_code": "442",
+      "name": "Luxembourg Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "LUXEMBOURG"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "LUL",
+      "numeric_code": "988",
+      "name": "Luxembourg Financial Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "LUXEMBOURG"
+      ],
+      "withdrawal_dates": [
+        "1990-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MGF",
+      "numeric_code": "450",
+      "name": "Malagasy Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "MADAGASCAR"
+      ],
+      "withdrawal_dates": [
+        "2004-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MVQ",
+      "numeric_code": "462",
+      "name": "Maldive Rupee",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "MALDIVES"
+      ],
+      "withdrawal_dates": [
+        "1989-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MLF",
+      "numeric_code": "466",
+      "name": "Mali Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "MALI"
+      ],
+      "withdrawal_dates": [
+        "1984-11"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MTL",
+      "numeric_code": "470",
+      "name": "Maltese Lira",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "MALTA"
+      ],
+      "withdrawal_dates": [
+        "2008-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MTP",
+      "numeric_code": "470",
+      "name": "Maltese Pound",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "MALTA"
+      ],
+      "withdrawal_dates": [
+        "1983-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MRO",
+      "numeric_code": "478",
+      "name": "Ouguiya",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "MAURITANIA"
+      ],
+      "withdrawal_dates": [
+        "2017-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MXP",
+      "numeric_code": "484",
+      "name": "Mexican Peso",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "MEXICO"
+      ],
+      "withdrawal_dates": [
+        "1993-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MZE",
+      "numeric_code": "508",
+      "name": "Mozambique Escudo",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "MOZAMBIQUE"
+      ],
+      "withdrawal_dates": [
+        "1978 to 1981"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "MZM",
+      "numeric_code": "508",
+      "name": "Mozambique Metical",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "MOZAMBIQUE"
+      ],
+      "withdrawal_dates": [
+        "2006-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "NLG",
+      "numeric_code": "528",
+      "name": "Netherlands Guilder",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "NETHERLANDS"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "NIC",
+      "numeric_code": "558",
+      "name": "Cordoba",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "NICARAGUA"
+      ],
+      "withdrawal_dates": [
+        "1990-10"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PEH",
+      "numeric_code": "604",
+      "name": "Sol",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "PERU"
+      ],
+      "withdrawal_dates": [
+        "1989 to 1990"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PEI",
+      "numeric_code": "604",
+      "name": "Inti",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "PERU"
+      ],
+      "withdrawal_dates": [
+        "1991-07"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PES",
+      "numeric_code": "604",
+      "name": "Sol",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "PERU"
+      ],
+      "withdrawal_dates": [
+        "1986-02"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PLZ",
+      "numeric_code": "616",
+      "name": "Zloty",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "POLAND"
+      ],
+      "withdrawal_dates": [
+        "1997-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PTE",
+      "numeric_code": "620",
+      "name": "Portuguese Escudo",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "PORTUGAL"
+      ],
+      "withdrawal_dates": [
+        "2002-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ROK",
+      "numeric_code": "642",
+      "name": "Leu A/52",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ROMANIA"
+      ],
+      "withdrawal_dates": [
+        "1989 to 1990"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ROL",
+      "numeric_code": "642",
+      "name": "Old Leu",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ROMANIA"
+      ],
+      "withdrawal_dates": [
+        "2005-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "STD",
+      "numeric_code": "678",
+      "name": "Dobra",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SAO TOME AND PRINCIPE"
+      ],
+      "withdrawal_dates": [
+        "2017-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CSD",
+      "numeric_code": "891",
+      "name": "Serbian Dinar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SERBIA AND MONTENEGRO"
+      ],
+      "withdrawal_dates": [
+        "2006-10"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SLL",
+      "numeric_code": "694",
+      "name": "Leone",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SIERRA LEONE"
+      ],
+      "withdrawal_dates": [
+        "2023-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SKK",
+      "numeric_code": "703",
+      "name": "Slovak Koruna",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SLOVAKIA"
+      ],
+      "withdrawal_dates": [
+        "2009-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SIT",
+      "numeric_code": "705",
+      "name": "Tolar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SLOVENIA"
+      ],
+      "withdrawal_dates": [
+        "2007-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "RHD",
+      "numeric_code": "716",
+      "name": "Rhodesian Dollar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SOUTHERN RHODESIA\u00a0"
+      ],
+      "withdrawal_dates": [
+        "1978 to 1981"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ESA",
+      "numeric_code": "996",
+      "name": "Spanish Peseta",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SPAIN"
+      ],
+      "withdrawal_dates": [
+        "1978 to 1981"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ESB",
+      "numeric_code": "995",
+      "name": "\"A\" Account (convertible Peseta Account)",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SPAIN"
+      ],
+      "withdrawal_dates": [
+        "1994-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SDD",
+      "numeric_code": "736",
+      "name": "Sudanese Dinar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SUDAN"
+      ],
+      "withdrawal_dates": [
+        "2007-07"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SDP",
+      "numeric_code": "736",
+      "name": "Sudanese Pound",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SUDAN"
+      ],
+      "withdrawal_dates": [
+        "1998-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SRG",
+      "numeric_code": "740",
+      "name": "Surinam Guilder",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SURINAME"
+      ],
+      "withdrawal_dates": [
+        "2003-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CHC",
+      "numeric_code": "948",
+      "name": "WIR Franc (for electronic)",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SWITZERLAND"
+      ],
+      "withdrawal_dates": [
+        "2004-11"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TJR",
+      "numeric_code": "762",
+      "name": "Tajik Ruble",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "TAJIKISTAN"
+      ],
+      "withdrawal_dates": [
+        "2001-04"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TPE",
+      "numeric_code": "626",
+      "name": "Timor Escudo",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "TIMOR-LESTE"
+      ],
+      "withdrawal_dates": [
+        "2002-11"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TRL",
+      "numeric_code": "792",
+      "name": "Old Turkish Lira",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "TURKEY"
+      ],
+      "withdrawal_dates": [
+        "2005-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TMM",
+      "numeric_code": "795",
+      "name": "Turkmenistan Manat",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "TURKMENISTAN"
+      ],
+      "withdrawal_dates": [
+        "2009-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "UGS",
+      "numeric_code": "800",
+      "name": "Uganda Shilling",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "UGANDA"
+      ],
+      "withdrawal_dates": [
+        "1987-05"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "UGW",
+      "numeric_code": "800",
+      "name": "Old Shilling",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "UGANDA"
+      ],
+      "withdrawal_dates": [
+        "1989 to 1990"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "UAK",
+      "numeric_code": "804",
+      "name": "Karbovanet",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "UKRAINE"
+      ],
+      "withdrawal_dates": [
+        "1996-09"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SUR",
+      "numeric_code": "810",
+      "name": "Rouble",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "UNION OF SOVIET SOCIALIST REPUBLICS"
+      ],
+      "withdrawal_dates": [
+        "1990-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "USS",
+      "numeric_code": "998",
+      "name": "US Dollar (Same day)",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "UNITED STATES"
+      ],
+      "withdrawal_dates": [
+        "2014-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "UYN",
+      "numeric_code": "858",
+      "name": "Old Uruguay Peso",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "URUGUAY"
+      ],
+      "withdrawal_dates": [
+        "1989-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "UYP",
+      "numeric_code": "858",
+      "name": "Uruguayan Peso",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "URUGUAY"
+      ],
+      "withdrawal_dates": [
+        "1993-03"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "VEB",
+      "numeric_code": "862",
+      "name": "Bolivar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "VENEZUELA"
+      ],
+      "withdrawal_dates": [
+        "2008-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "VEF",
+      "numeric_code": "937",
+      "name": "Bolivar Fuerte",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "VENEZUELA"
+      ],
+      "withdrawal_dates": [
+        "2011-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "VEF",
+      "numeric_code": "937",
+      "name": "Bolivar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "VENEZUELA (BOLIVARIAN REPUBLIC OF)"
+      ],
+      "withdrawal_dates": [
+        "2016-02"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "VEF",
+      "numeric_code": "937",
+      "name": "Bol\u00edvar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "VENEZUELA (BOLIVARIAN REPUBLIC OF)"
+      ],
+      "withdrawal_dates": [
+        "2018-08"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "VNC",
+      "numeric_code": "704",
+      "name": "Old Dong",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "VIETNAM"
+      ],
+      "withdrawal_dates": [
+        "1989-1990"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "YDD",
+      "numeric_code": "720",
+      "name": "Yemeni Dinar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "YEMEN, DEMOCRATIC"
+      ],
+      "withdrawal_dates": [
+        "1991-09"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "YUD",
+      "numeric_code": "890",
+      "name": "New Yugoslavian Dinar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "YUGOSLAVIA"
+      ],
+      "withdrawal_dates": [
+        "1990-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "YUM",
+      "numeric_code": "891",
+      "name": "New Dinar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "YUGOSLAVIA"
+      ],
+      "withdrawal_dates": [
+        "2003-07"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "YUN",
+      "numeric_code": "890",
+      "name": "Yugoslavian Dinar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "YUGOSLAVIA"
+      ],
+      "withdrawal_dates": [
+        "1995-11"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZRN",
+      "numeric_code": "180",
+      "name": "New Zaire",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZAIRE"
+      ],
+      "withdrawal_dates": [
+        "1999-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZRZ",
+      "numeric_code": "180",
+      "name": "Zaire",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZAIRE"
+      ],
+      "withdrawal_dates": [
+        "1994-02"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZMK",
+      "numeric_code": "894",
+      "name": "Zambian Kwacha",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZAMBIA"
+      ],
+      "withdrawal_dates": [
+        "2012-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZWC",
+      "numeric_code": "716",
+      "name": "Rhodesian Dollar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZIMBABWE"
+      ],
+      "withdrawal_dates": [
+        "1989-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZWD",
+      "numeric_code": "716",
+      "name": "Zimbabwe Dollar (old)",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZIMBABWE"
+      ],
+      "withdrawal_dates": [
+        "2006-08"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZWD",
+      "numeric_code": "716",
+      "name": "Zimbabwe Dollar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZIMBABWE"
+      ],
+      "withdrawal_dates": [
+        "2008-08"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZWN",
+      "numeric_code": "942",
+      "name": "Zimbabwe Dollar (new)",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZIMBABWE"
+      ],
+      "withdrawal_dates": [
+        "2006-09"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZWR",
+      "numeric_code": "935",
+      "name": "Zimbabwe Dollar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZIMBABWE"
+      ],
+      "withdrawal_dates": [
+        "2009-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "ZWL",
+      "numeric_code": "932",
+      "name": "Zimbabwe\u00a0Dollar",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZIMBABWE"
+      ],
+      "withdrawal_dates": [
+        "2024-09"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XFO",
+      "numeric_code": null,
+      "name": "Gold-Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZZ01_Gold-Franc"
+      ],
+      "withdrawal_dates": [
+        "2006-10"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XRE",
+      "numeric_code": null,
+      "name": "RINET Funds Code",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZZ02_RINET Funds Code"
+      ],
+      "withdrawal_dates": [
+        "1999-11"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "XFU",
+      "numeric_code": null,
+      "name": "UIC-Franc",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ZZ05_UIC-Franc"
+      ],
+      "withdrawal_dates": [
+        "2013-11"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "CNH",
+      "numeric_code": null,
+      "name": "Offshore renminbi quotation convention",
+      "status": "current",
+      "minor_digits": 2,
+      "entities": [],
+      "withdrawal_dates": [],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "overlay.json",
+      "kind": "quotation_convention",
+      "category": "quotation_convention",
+      "is_fund": false
+    }
+  ],
+  "entity_history": [
+    {
+      "code": "MWK",
+      "numeric_code": "454",
+      "name": "Kwacha",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "MALAWI"
+      ],
+      "withdrawal_dates": [
+        "2016-02"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "PEN",
+      "numeric_code": "604",
+      "name": "Nuevo Sol ",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "PERU"
+      ],
+      "withdrawal_dates": [
+        "2015-12"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "RON",
+      "numeric_code": "946",
+      "name": "New Romanian Leu ",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "ROMANIA"
+      ],
+      "withdrawal_dates": [
+        "2015-06"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "EUR",
+      "numeric_code": "978",
+      "name": "Euro",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SERBIA AND MONTENEGRO"
+      ],
+      "withdrawal_dates": [
+        "2006-10"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SDG",
+      "numeric_code": "938",
+      "name": "Sudanese Pound",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SOUTH SUDAN"
+      ],
+      "withdrawal_dates": [
+        "2012-09"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "SZL",
+      "numeric_code": "748",
+      "name": "Lilangeni",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "SWAZILAND"
+      ],
+      "withdrawal_dates": [
+        "2018-08"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "IDR",
+      "numeric_code": "360",
+      "name": "Rupiah",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "TIMOR-LESTE"
+      ],
+      "withdrawal_dates": [
+        "2002-07"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    },
+    {
+      "code": "TRY",
+      "numeric_code": "949",
+      "name": "New Turkish Lira",
+      "status": "historical",
+      "minor_digits": null,
+      "entities": [
+        "TURKEY"
+      ],
+      "withdrawal_dates": [
+        "2009-01"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "source_file": "list-three.xml",
+      "kind": "iso4217",
+      "category": "currency",
+      "is_fund": false
+    }
+  ]
+}

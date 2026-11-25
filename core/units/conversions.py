@@ -8887,7 +8887,9 @@ def _replace_numerator_currency(
 def _quantize_currency_settlement(quantity: pint.Quantity, currency_unit: pint.Unit) -> pint.Quantity:
     """Rounds a value in currency_unit to its major currency's minor quantum."""
     iso = _numerator_currency_iso(ureg.Quantity(1, currency_unit))
-    digits = CURRENCY_MINOR_DIGITS.get(iso, 2)
+    if iso not in CURRENCY_MINOR_DIGITS:
+        raise ValueError(f"Settlement precision for {iso} is unknown/undefined; supply an explicit settlement rule.")
+    digits = CURRENCY_MINOR_DIGITS[iso]
     major_quantum = Decimal("1") if digits <= 0 else Decimal("1").scaleb(-digits)
     target_scale = _as_decimal(ureg.Quantity(Decimal("1"), currency_unit).to(iso).magnitude)
     quantum = (major_quantum / target_scale).normalize()
