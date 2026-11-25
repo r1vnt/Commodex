@@ -108,7 +108,7 @@ class BulkOreConversionTests(unittest.TestCase):
                 c.BulkOreAssay(grades={"Fe": value})
         with self.assertRaises(ValueError):
             c.convert_bulk_ore(ureg.Quantity(1, "wmt"), "dmtu")
-        self.assertEqual(c.convert_bulk_ore(ureg.Quantity(1, "wmt"), "dmtu", grade=0).magnitude, 0)
+        self.assertEqual(c.convert_bulk_ore(ureg.Quantity(1, "wmt"), "dmtu", grade=0, moisture_fraction=0).magnitude, 0)
         with self.assertRaises(ValueError):
             c.convert_bulk_ore(ureg.Quantity(1, "dmtu"), "dmt", grade=0)
         with self.assertRaises(ValueError):

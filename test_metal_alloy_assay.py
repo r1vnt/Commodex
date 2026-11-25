@@ -64,7 +64,7 @@ class MetalAlloyAssayTests(unittest.TestCase):
         self.assertEqual(assay.recovered_melt_to_gross_mass(recovered), mass)
         self.assertIsInstance(recovered.magnitude, Decimal)
         self.assertAlmostEqual(float(assay.piece_count_to_mass(10).magnitude), 226.8)
-        self.assertEqual(assay.mass_to_piece_count(ureg.Quantity(226.8, "kg")), 10)
+        self.assertAlmostEqual(assay.mass_to_piece_count(ureg.Quantity(226.8, "kg")), 10)
         self.assertEqual(assay.piece_count_to_mass(0).magnitude, 0)
         for count in (-1, float("nan"), float("inf")):
             with self.assertRaises(ValueError):

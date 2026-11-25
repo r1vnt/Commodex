@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .registry import freeze_registry, register_commodity_unit, register_currency
+from .registry import freeze_registry, register_commodity_unit, register_currency, _registry_transaction
 
 
 def load_desk_config(source: str | Path | dict[str, Any], *, freeze_after_load: bool = True,) -> None:
@@ -53,24 +53,25 @@ def load_desk_config(source: str | Path | dict[str, Any], *, freeze_after_load: 
         if not isinstance(commodity, dict) or not isinstance(commodity.get("definition"), str):
             raise ValueError(f"Commodity at index {index} must be a mapping with a string 'definition'.")
 
-    for currency in currencies:
-        register_currency(
-            code=currency["code"],
-            decimals=currency.get("decimals", 2),
-            symbols=tuple(currency.get("symbols", ())),
-            aliases=tuple(currency.get("aliases", ())),
-            sub_units=currency.get("sub_units"),
-            quote_aliases=currency.get("quote_aliases"),
-        )
+    with _registry_transaction():
+        for currency in currencies:
+            register_currency(
+                code=currency["code"],
+                decimals=currency.get("decimals", 2),
+                symbols=tuple(currency.get("symbols", ())),
+                aliases=tuple(currency.get("aliases", ())),
+                sub_units=currency.get("sub_units"),
+                quote_aliases=currency.get("quote_aliases"),
+            )
 
-    for commodity in commodities:
-        register_commodity_unit(
-            definition=commodity["definition"],
-            quote_aliases=commodity.get("quote_aliases"),
-        )
+        for commodity in commodities:
+            register_commodity_unit(
+                definition=commodity["definition"],
+                quote_aliases=commodity.get("quote_aliases"),
+            )
 
-    if freeze_after_load:
-        freeze_registry()
+        if freeze_after_load:
+            freeze_registry()
 
 
 __all__ = ("load_desk_config",)

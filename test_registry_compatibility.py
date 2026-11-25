@@ -208,6 +208,11 @@ assert abs(restored.magnitude-10)<Decimal("1e-12")
             for magnitude in (1.25, Decimal("1.25")):
                 with self.subTest(unit=name, magnitude=magnitude):
                     source = r.ureg.Quantity(magnitude, unit)
+                    if r.ureg._semantic_tags(unit._units) and unit.dimensionality != r.ureg.pascal.dimensionality:
+                        with self.assertRaises(pint.DimensionalityError):
+                            c.convert(source, target)
+                        checked += 1
+                        continue
                     converted = c.convert(source, target)
                     restored = c.convert(converted, unit)
                     self.assertAlmostEqual(float(restored.magnitude), 1.25, places=7)

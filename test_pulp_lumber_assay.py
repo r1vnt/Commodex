@@ -60,7 +60,8 @@ class PulpLumberAssayTests(unittest.TestCase):
                         if isinstance(magnitude, Decimal):
                             self.assertIsInstance(changed.magnitude, Decimal)
         # Labels alone do not apply the 90% fibre adjustment.
-        self.assertEqual(ureg.Quantity(1, "ADMT").to("BDMT").magnitude, 1)
+        with self.assertRaises(pint.DimensionalityError):
+            ureg.Quantity(1, "ADMT").to("BDMT")
 
     def test_packages_and_prices(self):
         pulp = a.PulpLumberAssay.nbsk_softwood_pulp()

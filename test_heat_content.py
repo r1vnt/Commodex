@@ -126,8 +126,8 @@ class HeatContentTests(unittest.TestCase):
         self.assertQuantityClose(h.convert_heat_content(Q(1000000, "scf"), "MMBtu_it", assay=assay, basis="hhv"), Q(1000, "MMBtu_it"))
         with self.assertRaises(pint.DimensionalityError):
             h.convert_heat_content(Q(1, "scf"), "kg", assay=assay)
-        with self.assertRaises(pint.DimensionalityError):
-            h.convert_heat_content(Q(1, "scf"), "Nm3", assay=assay)
+        expected = c.convert_gas_energy(Q(1, "scf"), "Nm3", assay=original)
+        self.assertQuantityClose(h.convert_heat_content(Q(1, "scf"), "Nm3", assay=assay), expected)
         molar = h.HeatContentAssay(ncv=Q(800, "kJ/mol"))
         self.assertQuantityClose(h.convert_heat_content(Q(1, "mol"), "kJ", assay=molar), Q(800, "kJ"))
         for unit in ("scf", "scf_tx", "scf_60F_14696psi_dry", "Sm3", "Nm3", "Sm3_20C", "m3_Groningen"):
@@ -137,7 +137,7 @@ class HeatContentTests(unittest.TestCase):
         gas = c.GasAssay(gcv_btu_per_scf=1000, relative_density=.6)
         mass_heat = h.convert_heat_content(Q(1, "metric_ton"), "MMBtu_it", assay=gas, basis="hhv")
         # GasAssay stores this cargo benchmark rounded to four decimals.
-        self.assertEqual(round(float(mass_heat.magnitude), 4), gas.mmbtu_per_mt_lng)
+        self.assertAlmostEqual(float(mass_heat.magnitude), gas.mmbtu_per_mt_lng, places=8)
 
     def test_efficiency_heat_rate_and_power(self):
         rate = h.heat_rate_from_efficiency(Q(40, "percent"))

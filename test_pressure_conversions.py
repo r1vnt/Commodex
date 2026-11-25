@@ -34,7 +34,7 @@ class PressureConversionTests(unittest.TestCase):
                 pressure = ureg.Quantity(1, unit)
                 result = c.convert_pressure(pressure, "psig")
                 expected = pressure.to("Pa").magnitude - 101325
-                self.assertAlmostEqual(float(result.to("Pa").magnitude), float(expected))
+                self.assertAlmostEqual(float(c.convert_pressure(result, "Pa", p_atm=101325).magnitude) - 101325, float(expected))
                 with self.assertRaises(ValueError):
                     c.convert_pressure(pressure, "psig", neutral_is_absolute=False)
 

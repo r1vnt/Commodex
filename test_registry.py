@@ -55,9 +55,11 @@ class RegistryTests(unittest.TestCase):
 
     def test_pressure_carbon_intensity_bullion_and_grid_units(self):
         self.assertEqual(units.parse_quantity("14.73 psia").to("psi").magnitude, Decimal("14.73"))
-        self.assertEqual(units.parse_quantity("600 psig").to("psi").magnitude, 600)
+        with self.assertRaises(pint.DimensionalityError):
+            units.parse_quantity("600 psig").to("psi")
         self.assertEqual(units.parse_quantity("1 bara").to("bar").magnitude, 1)
-        self.assertEqual(units.parse_quantity("1 barg").to("bar").magnitude, 1)
+        with self.assertRaises(pint.DimensionalityError):
+            units.parse_quantity("1 barg").to("bar")
 
         carbon_intensity = units.Q_(35.5, "CI")
         self.assertEqual(carbon_intensity.dimensionality, (units.ureg.gram / units.ureg.megajoule).dimensionality)
