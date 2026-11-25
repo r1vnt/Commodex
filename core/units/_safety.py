@@ -96,17 +96,25 @@ def _checked_method(member, name):
         _finite_tree(args, name)
         _finite_tree(kwargs, name)
         quantities = [value for value in args if hasattr(value, "magnitude") and hasattr(value, "dimensionality")]
+        def is_mass(quantity):
+            return len(quantity.dimensionality) == 1 and next(iter(quantity.dimensionality.values())) == 1 and next(iter(quantity.dimensionality)) in {"[mass]", "[wet_bulk_mass]", "[dry_bulk_mass]", "[contained_metal_mass]", "[payable_metal_mass]"}
+        expected_basis = next((basis for prefix, basis in (("wmt_to_", "wet"), ("dmt_to_", "dry"), ("contained_metal_to_", "contained"), ("payable_metal_to_", "payable")) if name.startswith(prefix)), None)
         for quantity in quantities:
             _finite_tree(quantity.magnitude, name)
-            if quantity.magnitude < 0 and quantity.check("[mass]"):
+            if expected_basis is not None:
+                tags = set(quantity._REGISTRY._semantic_tags(quantity.units._units))
+                if tags and tags != {expected_basis}:
+                    raise ValueError(f"{name} requires {expected_basis}-basis input, not {tags}.")
+            if quantity.magnitude < 0 and is_mass(quantity):
                 raise ValueError(f"{name} requires non-negative physical mass.")
         with semantic_conversion():
             result = member(self, *args, **kwargs)
             if hasattr(result, "magnitude"):
                 _finite_tree(result.magnitude, name)
-                if name in yield_methods and quantities and result.check("[mass]") and quantities[0].check("[mass]"):
-                    value = result.to(quantities[0].units).magnitude
-                    source = quantities[0].magnitude
+                if name in yield_methods and quantities and is_mass(result) and is_mass(quantities[0]):
+                    registry = result._REGISTRY
+                    value = registry._convert_mass_scale(result.magnitude, result.units._units, registry.kg._units)
+                    source = registry._convert_mass_scale(quantities[0].magnitude, quantities[0].units._units, registry.kg._units)
                     if value < 0 or float(value) > float(source) + max(1e-10, abs(float(source)) * 1e-12):
                         raise ValueError(f"{name} violates feedstock mass balance.")
             else:

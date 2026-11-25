@@ -2877,27 +2877,27 @@ class OreAssay:
         """Converts Wet Metric Tonnes (WMT) to Dry Metric Tonnes (DMT)."""
         mt_q = self._validate_mass(wet_mass)
         scale = _scale_factor(mt_q.magnitude, self.dry_mass_fraction)
-        return ureg.Quantity(mt_q.magnitude * scale, ureg.metric_ton)
+        return ureg.Quantity(mt_q.magnitude * scale, ureg.dmt)
 
     def dmt_to_wmt(self, dry_mass: pint.Quantity) -> pint.Quantity:
         """Converts Dry Metric Tonnes (DMT) to Wet Metric Tonnes (WMT)."""
         mt_q = self._validate_mass(dry_mass)
         scale = _scale_factor(mt_q.magnitude, self.dry_mass_fraction)
-        return ureg.Quantity(mt_q.magnitude / scale, ureg.metric_ton)
+        return ureg.Quantity(mt_q.magnitude / scale, ureg.wmt)
 
     def dmt_to_contained_metal(self, dry_mass: pint.Quantity) -> pint.Quantity:
         """Converts Dry Metric Tonnes (DMT) of ore/concentrate to contained metal mass (metric_ton)."""
         mt_q = self._validate_mass(dry_mass)
         grade_frac = self.grade_pct / 100.0
         scale = _scale_factor(mt_q.magnitude, grade_frac)
-        return ureg.Quantity(mt_q.magnitude * scale, ureg.metric_ton)
+        return ureg.Quantity(mt_q.magnitude * scale, ureg.contained_metal_tonne)
 
     def contained_metal_to_dmt(self, metal_mass: pint.Quantity) -> pint.Quantity:
         """Converts contained metal mass (e.g. mt, lb) to required Dry Metric Tonnes (DMT)."""
         mt_q = self._validate_mass(metal_mass)
         grade_frac = self.grade_pct / 100.0
         scale = _scale_factor(mt_q.magnitude, grade_frac)
-        return ureg.Quantity(mt_q.magnitude / scale, ureg.metric_ton)
+        return ureg.Quantity(mt_q.magnitude / scale, ureg.dmt)
 
     def wmt_to_contained_metal(self, wet_mass: pint.Quantity) -> pint.Quantity:
         """Converts Wet Metric Tonnes (WMT) directly to contained metal mass (metric_ton)."""
@@ -2912,7 +2912,7 @@ class OreAssay:
         mt_q = self._validate_mass(dry_mass)
         payable_frac = self.payable_grade_pct / 100.0
         scale = _scale_factor(mt_q.magnitude, payable_frac)
-        return ureg.Quantity(mt_q.magnitude * scale, ureg.metric_ton)
+        return ureg.Quantity(mt_q.magnitude * scale, ureg.payable_metal_tonne)
 
     def payable_metal_to_dmt(self, payable_mass: pint.Quantity) -> pint.Quantity:
         """Converts target smelter payable metal mass to required Dry Metric Tonnes (DMT)."""
@@ -2921,7 +2921,7 @@ class OreAssay:
         mt_q = self._validate_mass(payable_mass)
         payable_frac = self.payable_grade_pct / 100.0
         scale = _scale_factor(mt_q.magnitude, payable_frac)
-        return ureg.Quantity(mt_q.magnitude / scale, ureg.metric_ton)
+        return ureg.Quantity(mt_q.magnitude / scale, ureg.dmt)
 
     def wmt_to_payable_metal(self, wet_mass: pint.Quantity) -> pint.Quantity:
         """Converts Wet Metric Tonnes (WMT) directly to smelter payable metal mass (metric_ton)."""
@@ -3228,27 +3228,27 @@ class BatteryMaterialAssay:
         """Converts Wet Metric Tonnes (WMT) to Dry Metric Tonnes (DMT)."""
         mt_q = self._validate_mass(wet_mass)
         scale = _scale_factor(mt_q.magnitude, self.dry_mass_fraction)
-        return ureg.Quantity(mt_q.magnitude * scale, ureg.metric_ton)
+        return ureg.Quantity(mt_q.magnitude * scale, ureg.dmt)
 
     def dmt_to_wmt(self, dry_mass: pint.Quantity) -> pint.Quantity:
         """Converts Dry Metric Tonnes (DMT) to Wet Metric Tonnes (WMT)."""
         mt_q = self._validate_mass(dry_mass)
         scale = _scale_factor(mt_q.magnitude, self.dry_mass_fraction)
-        return ureg.Quantity(mt_q.magnitude / scale, ureg.metric_ton)
+        return ureg.Quantity(mt_q.magnitude / scale, ureg.wmt)
 
     def dmt_to_contained_metal(self, dry_mass: pint.Quantity) -> pint.Quantity:
         """Converts Dry Metric Tonnes (DMT) to contained active metal mass (metric_ton)."""
         mt_q = self._validate_mass(dry_mass)
         frac = self.active_metal_pct / 100.0
         scale = _scale_factor(mt_q.magnitude, frac)
-        return ureg.Quantity(mt_q.magnitude * scale, ureg.metric_ton)
+        return ureg.Quantity(mt_q.magnitude * scale, ureg.contained_metal_tonne)
 
     def contained_metal_to_dmt(self, metal_mass: pint.Quantity) -> pint.Quantity:
         """Converts contained active metal mass to required Dry Metric Tonnes (DMT)."""
         mt_q = self._validate_mass(metal_mass)
         frac = self.active_metal_pct / 100.0
         scale = _scale_factor(mt_q.magnitude, frac)
-        return ureg.Quantity(mt_q.magnitude / scale, ureg.metric_ton)
+        return ureg.Quantity(mt_q.magnitude / scale, ureg.dmt)
 
     def wmt_to_contained_metal(self, wet_mass: pint.Quantity) -> pint.Quantity:
         """Converts Wet Metric Tonnes (WMT) directly to contained active metal mass (metric_ton)."""
@@ -8932,13 +8932,15 @@ def _ore_mass_factor(unit: pint.Unit) -> tuple[pint.Unit, int, str | None]:
     factors = []
     for name, exponent in unit._units.items():
         candidate = ureg.Unit(name)
-        if candidate.dimensionality == ureg.kilogram.dimensionality:
+        if candidate.dimensionality in (ureg.kilogram.dimensionality, ureg.wmt.dimensionality, ureg.dmt.dimensionality, ureg.contained_metal_tonne.dimensionality, ureg.payable_metal_tonne.dimensionality):
             tokens = _unit_tokens(candidate)
             if tokens & {"wmt", "wet_metric_ton", "wet_metric_tonne", "wet_tonne"}:
                 basis = "wet"
             elif tokens & {"dmt", "dry_metric_ton", "dry_metric_tonne", "dry_tonne"}:
                 basis = "dry"
-            elif tokens & {"dmtu", "dltu", "dry_metric_tonne_unit", "dry_long_ton_unit", "mtu", "stu"}:
+            elif tokens & {"payable_metal_tonne", "payable_mt"}:
+                basis = "payable"
+            elif tokens & {"contained_metal_tonne", "contained_mt", "dmtu", "dltu", "dry_metric_tonne_unit", "dry_long_ton_unit", "mtu", "stu"}:
                 basis = "contained"
             else:
                 basis = None
@@ -8989,7 +8991,7 @@ def convert_ore_moisture_price(
     _numerator_currency_iso(price_quantity)
     source_mass, exponent, source_basis = _ore_mass_factor(price_quantity.units)
     target = parse_unit(target_mass_unit)
-    if exponent != -1 or target.dimensionality != ureg.kilogram.dimensionality:
+    if exponent != -1 or target.dimensionality not in (ureg.kilogram.dimensionality, ureg.wmt.dimensionality, ureg.dmt.dimensionality):
         raise ValueError("Price must have a mass denominator and target_mass_unit must be a mass unit.")
     _, _, target_basis = _ore_mass_factor(target)
     if "contained" in (source_basis, target_basis):
@@ -9003,11 +9005,14 @@ def extract_contained_metal(
     dry_ore_mass: pint.Quantity,
     grade_pct: float | Decimal,
     *,
-    target_unit: str | pint.Unit = "mt",
+    target_unit: str | pint.Unit = "contained_metal_tonne",
 ) -> pint.Quantity:
     """Returns contained metal from dry ore; 1 DMTU represents 10 kg metal."""
     if not isinstance(dry_ore_mass, pint.Quantity):
         raise TypeError(f"Expected pint.Quantity, got {type(dry_ore_mass).__name__}")
+    _, _, output_basis = _ore_mass_factor(parse_unit(target_unit))
+    if output_basis not in (None, "contained"):
+        raise ValueError("Contained-metal extraction requires a contained-metal output unit.")
     grade = _validate_pct_in_range(grade_pct, low_inclusive=0, high_exclusive=False) / 100
     dry = dry_ore_mass.to(ureg.dmt)
     metal = ureg.Quantity(_ore_multiply(dry.magnitude, grade), ureg.metric_ton)
@@ -9027,9 +9032,15 @@ def extract_dry_mass_from_contained(
     grade = _validate_pct_in_range(grade_pct, low_inclusive=0, high_exclusive=False) / 100
     if grade == 0:
         raise ValueError("Cannot compute dry ore mass with grade_pct=0.")
+    _, _, supplied_basis = _ore_mass_factor(contained_metal.units)
+    if supplied_basis not in (None, "contained"):
+        raise ValueError("Contained-metal input is required for inverse grade extraction.")
     metal = contained_metal.to(ureg.metric_ton)
     _ore_multiply(metal.magnitude, Decimal(1))
     scale = grade if isinstance(metal.magnitude, Decimal) else float(grade)
+    _, _, output_basis = _ore_mass_factor(parse_unit(target_unit))
+    if output_basis not in (None, "dry"):
+        raise ValueError("Inverse grade extraction requires a dry-bulk output unit.")
     dry = ureg.Quantity(metal.magnitude / scale, ureg.dmt)
     return dry.to(parse_unit(target_unit))
 
@@ -9135,12 +9146,18 @@ def convert_bulk_ore(
     _, target_exp, target_basis = _ore_mass_factor(target)
     if source_exp != target_exp:
         raise ValueError("Source and target mass factors must have matching exponents.")
-    scaled = quantity.to(target)
+    scaled = ureg.Quantity(ureg._convert_mass_scale(quantity.magnitude, quantity.units._units, target._units), target)
     source_basis = source_basis or target_basis
     target_basis = target_basis or source_basis
     magnitude = scaled.magnitude
     _ore_multiply(magnitude, Decimal(1))
     if source_basis != target_basis:
+        if "payable" in (source_basis, target_basis):
+            if not isinstance(assay, OreAssay):
+                raise ValueError("Payable mass requires an OreAssay with explicit smelter terms.")
+            payable_fraction = _as_decimal(assay.payable_grade_pct) / 100
+        else:
+            payable_fraction = None
         dry_fraction = _as_decimal(resolved.dry_fraction) if "wet" in (source_basis, target_basis) else Decimal(1)
         fraction = None
         if "contained" in (source_basis, target_basis):
@@ -9159,12 +9176,12 @@ def convert_bulk_ore(
         # precision at exact Decimal price or settlement boundaries.
         if source_basis == "wet":
             magnitude = apply_factor(magnitude, dry_fraction, divide=source_exp == -1)
-        elif source_basis == "contained":
-            magnitude = apply_factor(magnitude, fraction, divide=source_exp == 1)
+        elif source_basis in {"contained", "payable"}:
+            magnitude = apply_factor(magnitude, payable_fraction if source_basis == "payable" else fraction, divide=source_exp == 1)
         if target_basis == "wet":
             magnitude = apply_factor(magnitude, dry_fraction, divide=source_exp == 1)
-        elif target_basis == "contained":
-            magnitude = apply_factor(magnitude, fraction, divide=source_exp == -1)
+        elif target_basis in {"contained", "payable"}:
+            magnitude = apply_factor(magnitude, payable_fraction if target_basis == "payable" else fraction, divide=source_exp == -1)
     return ureg.Quantity(magnitude, target)
 
 
@@ -9188,6 +9205,7 @@ def _split_ratio_units(value: pint.Quantity | pint.Unit) -> tuple[pint.Unit, pin
     raise ValueError("Quote must contain a standalone numerator currency unit.")
 
 
+@authorized_conversion
 def _convert_contextual_quantity(
     quantity: pint.Quantity,
     target: pint.Unit,
@@ -9202,6 +9220,19 @@ def _convert_contextual_quantity(
     try:
         return quantity.to(target)
     except pint.DimensionalityError as original_error:
+        semantic = {"wet", "dry", "contained", "payable"}
+        source_tags = set(ureg._semantic_tags(quantity.units._units)) & semantic
+        target_tags = set(ureg._semantic_tags(target._units)) & semantic
+        if source_tags and target_tags and source_tags != target_tags:
+            raise original_error
+        if source_tags or target_tags:
+            # Retain the explicit assay context while normalizing semantic roots
+            # for its physical/time edges. This supplies scaling, not assay factors.
+            source_factor, source_units = ureg._project_mass_units(quantity.units._units)
+            target_factor, target_units = ureg._project_mass_units(target._units)
+            physical = ureg.Quantity(quantity.magnitude * _scale_factor(quantity.magnitude, source_factor), ureg.Unit(source_units))
+            result = _convert_contextual_quantity(physical, ureg.Unit(target_units), contexts)
+            return ureg.Quantity(result.magnitude / _scale_factor(result.magnitude, target_factor), target)
         # Runtime currencies may not be present in a context's pre-registered
         # quote edges. Convert their physical denominator independently.
         if any(dim.startswith("[currency_") for dim in quantity.dimensionality):
@@ -9478,7 +9509,9 @@ def convert(
     if not magnitude.is_finite():
         raise ValueError("Conversion input must be finite.")
     physical_amount = quantity.dimensionality in (
-        ureg.kilogram.dimensionality, (ureg.meter ** 3).dimensionality, ureg.mole.dimensionality,
+        ureg.kilogram.dimensionality, ureg.wmt.dimensionality, ureg.dmt.dimensionality,
+        ureg.contained_metal_tonne.dimensionality, ureg.payable_metal_tonne.dimensionality,
+        (ureg.meter ** 3).dimensionality, ureg.mole.dimensionality,
     ) or (
         len(quantity.dimensionality) == 1
         and "gas_volume" in next(iter(quantity.dimensionality))

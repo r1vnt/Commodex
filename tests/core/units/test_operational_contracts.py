@@ -87,6 +87,8 @@ class OperationalContracts(unittest.TestCase):
                 original = units.Q_(Decimal("2.5"), "kg")
                 if cls in special_methods:
                     forward, backward = special_methods[cls]
+                    if forward == "wmt_to_dmt":
+                        original = units.Q_(Decimal("2.5"), "wmt")
                     converted = getattr(assay, forward)(original)
                     restored = getattr(assay, backward)(converted)
                 elif cls is conversions.RefineryCrudeAssay:

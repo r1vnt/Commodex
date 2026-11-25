@@ -1554,9 +1554,11 @@ COMMODITY_UNIT_DEFINITIONS: Final[tuple[str, ...]] = (
     # Governed by ISO 3082 (Iron ores - Sampling and sample preparation) and commercial smelter
     # contracts. Bulk ores trade on a dry basis (DMT = WMT * [1 - moisture fraction]), whilst contained
     # metal pricing benchmarks are normalised via dry metric tonne units (1 DMTU = 1% metal per tonne).
-    "dmt = 1e3 * kilogram = DMT = dry_metric_tonne = dry_tonne",                                       # Dry Metric Tonne (1,000 kg bone-dry ore mass excluding free moisture)
-    "wmt = 1e3 * kilogram = WMT = wet_metric_tonne = wet_tonne",                                       # Wet Metric Tonne (1,000 kg gross run-of-mine ore mass including free moisture)
-    "dmtu = 10 * kilogram = DMTU = dry_metric_tonne_unit",                                             # Dry Metric Tonne Unit (10 kg pure contained element / 1% Fe per DMT, 62% Fe CFR China benchmark)
+    "dmt = [dry_bulk_mass] = DMT = dry_metric_tonne = dry_tonne",                                       # Dry Metric Tonne (1,000 kg bone-dry ore mass excluding free moisture)
+    "wmt = [wet_bulk_mass] = WMT = wet_metric_tonne = wet_tonne",                                       # Wet Metric Tonne (1,000 kg gross run-of-mine ore mass including free moisture)
+    "contained_metal_tonne = [contained_metal_mass] = contained_mt",
+    "payable_metal_tonne = [payable_metal_mass] = payable_mt",
+    "dmtu = 0.01 * contained_metal_tonne = DMTU = dry_metric_tonne_unit",                                             # Dry Metric Tonne Unit (10 kg pure contained element / 1% Fe per DMT, 62% Fe CFR China benchmark)
     "mtu = 10 * kilogram = MTU = metric_tonne_unit",                                                   # Metric Tonne Unit (10 kg contained WO3/Li2O/Mn, minor metals & ferro-alloys benchmark)
     "stu = 20 * pound = STU = short_ton_unit",                                                         # Short Ton Unit (20 lb / 9.0718 kg pure element / 1% of a short ton, US tungsten & lithium standard)
     "dltu = 22.4 * pound = DLTU = dry_long_ton_unit",                                                 # Dry Long Ton Unit (22.4 lb pure metal / 1% of a long ton, legacy UK/Indian iron ore contracts)
@@ -1605,7 +1607,7 @@ COMMODITY_UNIT_DEFINITIONS: Final[tuple[str, ...]] = (
     "dwt = 1e3 * kilogram = DWT = deadweight_ton = deadweight_tonne",                                  # Deadweight Tonnage (1,000 kg vessel cargo, fuel, ballast & stores capacity)
     "TEU = [container_capacity] = teu = twenty_foot_equivalent_unit",                                  # Twenty-Foot Equivalent Unit (ISO 668 standard 20-foot container slot capacity)
     "FEU = 2 * TEU = feu = forty_foot_equivalent_unit",                                                # Forty-Foot Equivalent Unit (2 TEU, standard 40-foot container slot capacity)
-    "tonne_nautical_mile = tonne * nautical_mile = tonne_nm = ton_mile = ton_nm",                      # Tonne-Nautical Mile (Bulk shipping transport demand: cargo mass multiplied by sea distance)
+    "tonne_nautical_mile = tonne * nautical_mile = tonne_nm = ton_nm",                      # Tonne-Nautical Mile (Bulk shipping transport demand: cargo mass multiplied by sea distance)
 
     # --- Tanker Freight Benchmarks & Gas Carrier Capacities ---
     # Managed by the Worldscale Association (London and New York). Nominal flat rates in USD/mt
@@ -1796,8 +1798,8 @@ COMMODITY_UNIT_DEFINITIONS: Final[tuple[str, ...]] = (
     # applied explicitly by heat_content.thermal_to_output/output_to_thermal.
     "MWh_thermal = megawatt_hour = MWh_th",
     "MWh_electric = megawatt_hour = MWh_e",
-    "MW_thermal = megawatt = MW_th",
-    "MW_electric = megawatt = MW_e",
+    "MW_thermal = megawatt = MW_th = MWth",
+    "MW_electric = megawatt = MW_e = MWe",
 
     # =========================================================================
     # Hydrogen, Clean Fuel Carriers & Energy Transition
@@ -1869,6 +1871,56 @@ COMMODITY_UNIT_DEFINITIONS: Final[tuple[str, ...]] = (
     "megavolt_ampere = 1e6 * volt * ampere = MVA",
     "kilovolt_ampere_reactive = 1e3 * volt * ampere = kVAR = kVAr",
     "megavolt_ampere_reactive = 1e6 * volt * ampere = MVAR = MVAr",
+
+    # Coverage audit: reuse Pint's SI/prefixed units instead of redefining them.
+    # SP 811 B.8/B.9: thermochemical Btu is distinct from IT and 59-F Btu.
+    "btu_th = thermochemical_british_thermal_unit",
+    # Korean bullion-market convention (not an assay or purity specification).
+    "don_korea = 3.75 * gram = korean_don",
+
+    # Explicit concentration bases. Changing fraction bases needs composition.
+    "parts_per_billion = 1e-9 = ppb",
+    "parts_per_trillion = 1e-12",
+    "mass_fraction = [mass_fraction_basis]",
+    "mole_fraction = [mole_fraction_basis]",
+    "volume_fraction = [volume_fraction_basis]",
+    "mass_percent = 0.01 * mass_fraction",
+    "mole_percent = 0.01 * mole_fraction",
+    "volume_percent = 0.01 * volume_fraction",
+    "molarity = mole / liter",
+    "normality = [reaction_equivalent_concentration]",
+
+    # Conditional empirical readings: deliberately not fixed density/viscosity factors.
+    "degree_Brix = [brix_reading] = degBrix",
+    "degree_Plato = [plato_reading] = degPlato",
+    "degree_Baume_heavy = [baume_heavy_reading]",
+    "degree_Baume_light = [baume_light_reading]",
+    "saybolt_universal_second = [saybolt_universal_reading] = SUS",
+    "saybolt_furol_second = [saybolt_furol_reading] = SFS",
+
+    # Region-qualified agricultural-area conventions; bare mu is ambiguous in Pint.
+    "acre_us_survey = 43560 * survey_foot ** 2",
+    "acre_foot_us_survey = acre_us_survey * survey_foot",
+    "mu_china = hectare / 15 = chinese_mu",
+    "feddan_4200 = 4200 * meter ** 2",
+    "tonne_mile = tonne * mile",
+    "short_ton_mile = commodity_short_ton * mile",
+    "displacement_tonne = metric_ton",
+    # IMO tonnage indices require vessel geometry; neither is displacement or mass.
+    "gross_tonnage = [gross_tonnage_index]",
+    "net_tonnage = [net_tonnage_index]",
+
+    "gigawatt_day = gigawatt * day = GWd",
+    # Counts require contract/packing metadata before physical or monetary delivery.
+    "item = [item_count]",
+    "dozen = 12 * item = doz",
+    "api_gravity = [api_gravity_reading] = degree_API",
+    "contract = [contract_count]",
+    "lot = [lot_count]",
+    "delivery_unit = [delivery_count]",
+    "crate = [crate_count]",
+    "sack = [sack_count]",
+    "price_tick = [price_tick_count]",
 
     *CUSTOM_COMMODITY_UNIT_DEFINITIONS,
 
@@ -1992,7 +2044,7 @@ class _GuardedUnitRegistry(pint.UnitRegistry):
                 return
             definition = self._units[name]
             canonical = definition.name
-            basis = {"wmt": "wet", "dmt": "dry", "dmtu": "contained", "admt": "air_dry", "bdmt": "bone_dry"}.get(canonical)
+            basis = {"wmt": "wet", "dmt": "dry", "dmtu": "contained", "contained_metal_tonne": "contained", "payable_metal_tonne": "payable", "admt": "air_dry", "bdmt": "bone_dry"}.get(canonical)
             pressure = canonical.lower()
             if basis:
                 tags[basis] = tags.get(basis, 0) + exponent
@@ -2008,10 +2060,37 @@ class _GuardedUnitRegistry(pint.UnitRegistry):
         cache[container] = result
         return result
 
+    def _project_mass_units(self, container):
+        """Internal physical scaling for an already-authorized assay operation."""
+        factor, roots = self._get_root_units(container)
+        projected = dict(roots)
+        for name in ("wmt", "dmt", "contained_metal_tonne", "payable_metal_tonne"):
+            exponent = projected.pop(name, 0)
+            if exponent:
+                factor *= 1000 ** exponent
+                projected["kilogram"] = projected.get("kilogram", 0) + exponent
+        return factor, self.UnitsContainer({name: power for name, power in projected.items() if power})
+
+    def _convert_mass_scale(self, value, src, dst):
+        source_factor, source = self._project_mass_units(src)
+        target_factor, target = self._project_mass_units(dst)
+        number = Decimal(str(source_factor)) if isinstance(value, Decimal) else float(source_factor)
+        result = super()._convert(value * number, source, target)
+        divisor = Decimal(str(target_factor)) if isinstance(value, Decimal) else float(target_factor)
+        return result / divisor
+
     def _convert(self, value, src, dst, *args, **kwargs):
         with _REGISTRY_LOCK:
             if not _SEMANTIC_SCOPE.get() and self._semantic_tags(src) != self._semantic_tags(dst):
                 raise pint.DimensionalityError(src, dst, extra_msg="; pressure datum or mass-basis changes require a validated conversion/assay API")
+            if _SEMANTIC_SCOPE.get():
+                semantic = {"wet", "dry", "contained", "payable"}
+                source_tags = set(self._semantic_tags(src)) & semantic
+                target_tags = set(self._semantic_tags(dst)) & semantic
+                if source_tags and target_tags and source_tags != target_tags:
+                    raise pint.DimensionalityError(src, dst, extra_msg="; use explicit moisture/grade/payability conversion")
+                if source_tags or target_tags:
+                    return self._convert_mass_scale(value, src, dst)
             return super()._convert(value, src, dst, *args, **kwargs)
 
 
@@ -2598,6 +2677,9 @@ def register_commodity_unit(definition: str, *, quote_aliases: dict[str, str] | 
 def sanitize_unit_string(raw_unit: str, default_currency: str | None = None) -> str:
     """Normalises raw market quotations and tickers into Pint-compliant unit expressions."""
     text = re.sub(r"\s+per\s+", " / ", raw_unit.strip(), flags=re.I)
+    ambiguous = re.search(r"(?<![A-Za-z0-9_])(ppt|mu|ton_mile)(?![A-Za-z0-9_])", text)
+    if ambiguous:
+        raise ValueError(f"Ambiguous market unit {ambiguous[0]!r}; use an explicit ratio, area or freight convention.")
 
     # 1. Fast-path lookup against cached quote mappings
     if default_currency is None and text in _QUOTE_REPLACEMENTS:

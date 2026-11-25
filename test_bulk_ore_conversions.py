@@ -87,7 +87,9 @@ class BulkOreConversionTests(unittest.TestCase):
         percentage = Decimal("8.123456789123456789")
         wet = ureg.Quantity(Decimal("100"), "wmt")
         self.assertEqual(c.convert_wet_to_dry_mass(wet, percentage).magnitude, 100 - percentage)
-        self.assertEqual(c.extract_contained_metal(wet, percentage).magnitude, percentage)
+        self.assertEqual(c.extract_contained_metal(ureg.Quantity(Decimal(100), "dmt"), percentage).magnitude, percentage)
+        with self.assertRaises(pint.DimensionalityError):
+            c.extract_contained_metal(wet, percentage)
 
     def test_invalid_percentages_fractions_dimensions_and_grades(self):
         for value in (float("nan"), float("inf"), Decimal("NaN"), Decimal("Infinity"), -1, 101):

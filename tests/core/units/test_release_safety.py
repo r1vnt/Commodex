@@ -42,8 +42,7 @@ class ReleaseSafetyTests(unittest.TestCase):
                     units.ureg.convert(1, source, target)
         self.assertEqual(units.convert(units.Q_(Decimal(100), "wmt"), "dmt", moisture_fraction=Decimal(".08")).magnitude, 92)
         self.assertAlmostEqual(float(units.convert(units.Q_(0, "psig"), "psia").magnitude), conversions.STANDARD_ATMOSPHERE_PSI)
-        with self.assertRaises(pint.DimensionalityError):
-            units.Q_(1, "wmt").to_base_units()
+        self.assertEqual(units.Q_(1, "wmt").to_base_units().dimensionality, {"[wet_bulk_mass]": 1})
 
     def test_unknown_moisture_does_not_mean_zero(self):
         with self.assertRaisesRegex(ValueError, "moisture"):
