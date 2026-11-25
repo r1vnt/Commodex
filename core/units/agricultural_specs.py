@@ -7,6 +7,7 @@ from types import MappingProxyType
 from typing import Any, Final
 
 import pint
+from ._safety import validated_assay
 
 from .conversions import _scale_factor, convert as convert_units
 from .registry import parse_unit
@@ -79,6 +80,7 @@ def _validate_finite_float(val: float | Decimal, name: str) -> float:
 # ---------------------------------------------------------------------------
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class SoftsAssay:
     """Immutable physical, yield, and commercial pricing specification for softs.
@@ -278,6 +280,7 @@ class SoftsAssay:
 # ---------------------------------------------------------------------------
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class OilseedCrushAssay:
     """Immutable crush and volumetric specification for oilseeds and vegetable oils.
@@ -454,6 +457,7 @@ class OilseedCrushAssay:
 # ---------------------------------------------------------------------------
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class LivestockDairyAssay:
     """Immutable yield and solids specification for livestock carcasses and milk.
@@ -597,6 +601,7 @@ class LivestockDairyAssay:
 # ---------------------------------------------------------------------------
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class GrainAssay:
     """Immutable specification for grain bushel weights and moisture deductions.
@@ -862,6 +867,7 @@ class GrainAssay:
 # ---------------------------------------------------------------------------
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class SeafoodAssay:
     """Specifications for finfish, crustaceans, and marine reduction bulk.
@@ -1109,6 +1115,7 @@ _CUBIC_FEET_PER_MBF: Final[float] = 1000.0 / 12.0  # Exact: 83.33333333333333 ft
 _CUBIC_METRES_PER_MBF: Final[float] = 2.359737216  # Exact: 1000 * (0.3048 m)^2 * 0.0254 m
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class PulpLumberAssay:
     """Immutable physical, moisture, and volumetric specification for pulp and lumber.
@@ -1358,6 +1365,7 @@ _KG_PER_MT: Final[float] = 1000.0
 _STANDARD_TSR_BALE_KG: Final[float] = 1000.0 / 30.0  # 33.3333 kg (30 bales per metric tonne)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class RubberAssay:
     """Immutable specification for natural rubber, latex, cup lump, and TSR bales.
@@ -1578,6 +1586,7 @@ _KG_PER_SHORT_TON: Final[float] = 907.18474
 _ETHANOL_DENSITY_KG_PER_M3: Final[float] = 789.0  # Denatured fuel ethanol (~20°C)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class EthanolFeedstockAssay:
     """Immutable specification for grain-to-ethanol conversion and DDGS yield.
@@ -1787,6 +1796,7 @@ _RICE_BUSHEL_LB: Final[float] = 45.0        # Standard US rough rice bushel weig
 _RICE_EXPORT_BAG_KG: Final[float] = 50.0   # Standard international milled rice export bag (50 kg)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class RiceAssay:
     """Immutable milling, bag, and pricing specification for rough and milled rice.
@@ -2038,6 +2048,7 @@ class RiceAssay:
 _STANDARD_GREASY_WOOL_BALE_KG: Final[float] = 175.0  # Typical Australian/NZ greasy wool bale (~170-180 kg)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class WoolAssay:
     """Immutable specification for greasy wool, scoured clean wool, and tops.
@@ -2324,6 +2335,7 @@ _EGGS_PER_CASE: Final[float] = _EGGS_PER_DOZEN * _DOZENS_PER_CASE  # 360 eggs pe
 _DEFAULT_LARGE_EGG_GRAMS: Final[float] = 56.7  # USDA Large egg minimum (~24 oz/dozen = 56.7 g/egg)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class PoultryEggAssay:
     """Immutable yield and packaging specification for poultry meat and shell/breaker eggs.
@@ -2592,6 +2604,7 @@ _CRUDE_MARINE_OIL_KG_PER_M3: Final[float] = 925.0  # Typical crude fish/marine o
 _BULK_FISHMEAL_KG_PER_M3: Final[float] = 640.0     # Typical stowed bulk/bagged fishmeal density (~600-680 kg/m^3)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class FishmealMarineOilAssay:
     """Immutable reduction, protein, and stowage specification for fishmeal and marine oil.
@@ -2813,6 +2826,7 @@ _HONEY_IBC_TOTE_KG: Final[float] = 1400.0    # Standard 1,000 L IBC tote (~1,400
 _HONEY_PAIL_60LB_KG: Final[float] = 27.2155422  # 27.2155 kg (US 5-gallon / 60 lb pail)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class HoneyApicultureAssay:
     """Immutable specification for bulk honey, moisture/Brix solids, drums, and beeswax.
@@ -3040,6 +3054,7 @@ _OLIVE_OIL_DENSITY_KG_PER_M3_20C: Final[float] = 915.0  # Typical olive oil dens
 _OLIVE_OIL_EXPANSION_PER_C: Final[float] = 0.00072    # Approximate volumetric expansion coefficient (/°C)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class OliveOilAssay:
     """Immutable specification for bulk olive oil grades, thermal density, and pricing.
@@ -3267,6 +3282,7 @@ _INDIAN_COTTON_BALE_KG: Final[float] = 170.0           # Standard 170 kg Indian 
 _AU_BR_COTTON_BALE_KG: Final[float] = 227.0            # Standard 227 kg (~500 lb) Australian/Brazilian bale
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class CottonSeedLintAssay:
     """Immutable specification for cotton ginning turnout, lint bales, and cottonseed.
@@ -3541,10 +3557,7 @@ def convert_softs(quantity: pint.Quantity, target_unit: str | pint.Unit, *, assa
     tgt = parse_unit(target_unit)
     m = mode.strip().lower()
     if m == "auto":
-        if quantity.dimensionality == tgt.dimensionality:
-            return quantity.to(tgt)
-        with ureg.context(assay.as_context()):
-            return quantity.to(tgt)
+        return convert_units(quantity, tgt, assay=assay)
     dispatch = {"raw_to_processed": lambda q: assay.raw_to_processed_mass(q), "processed_to_raw": lambda q: assay.processed_to_raw_mass(q),}
     if m not in dispatch:
         raise ValueError(f"Unsupported softs mode {mode!r}. Expected one of {sorted(dispatch)} or 'auto'.")
@@ -3592,10 +3605,7 @@ def convert_livestock_dairy(
     tgt = parse_unit(target_unit)
     m = mode.strip().lower()
     if m == "auto":
-        if quantity.dimensionality == tgt.dimensionality:
-            return quantity.to(tgt)
-        with ureg.context(assay.as_context()):
-            return quantity.to(tgt)
+        return convert_units(quantity, tgt, assay=assay)
     dispatch = {
         "live_to_carcass": lambda q: assay.live_to_carcass_mass(q),
         "carcass_to_live": lambda q: assay.carcass_to_live_mass(q),

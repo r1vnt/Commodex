@@ -89,6 +89,15 @@ class HeatContentDispatchTests(unittest.TestCase):
         )
         self.assertEqual(quote.magnitude, Decimal("5.00"))
 
+    def test_nuclear_burnup_retains_its_noncalorific_path(self):
+        assay = conversions.UraniumAssay.leu_4_5pct()
+        original = ureg.Quantity(Decimal(10), "kg")
+        with patch.object(thermal, "convert_heat_content", side_effect=AssertionError("unexpected calorific dispatch")):
+            energy = conversions.convert(original, "MWh", assay=assay)
+            restored = conversions.convert(energy, "kg", assay=assay)
+        self.assertGreater(energy.magnitude, 0)
+        self.assertAlmostEqual(restored.magnitude, original.magnitude, places=12)
+
     def test_scale_factors_preserve_decimal_precision_and_float_type(self):
         factor = Decimal("1.123456789012345678901234567")
         self.assertEqual(conversions._scale_factor(Decimal(1), factor), factor)

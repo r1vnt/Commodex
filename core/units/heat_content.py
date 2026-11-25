@@ -44,6 +44,7 @@ from typing import Any, Final
 import pint
 
 from .registry import parse_unit, ureg
+from ._safety import authorized_conversion
 from .conversions import _as_decimal, _scale_factor
 
 __all__: Final[tuple[str, ...]] = (
@@ -137,6 +138,12 @@ class HeatContentAssay:
     ncv_to_gcv_ratio: Decimal | float | None = None
     latent_heat_mj_per_kg_water: Decimal | float = Decimal("2.442")
     water_per_kg_hydrogen: Decimal | float = Decimal("8.936")
+    # Standard-state parity inherited only from an explicitly supplied GasAssay.
+    standard_volume_factors: tuple[tuple[str, Decimal], ...] = ()
+    gcv_reference_temperature: pint.Quantity | None = None
+    ncv_reference_temperature: pint.Quantity | None = None
+    gcv_reference_pressure: pint.Quantity | None = None
+    ncv_reference_pressure: pint.Quantity | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "basis", _basis(self.basis))
@@ -179,13 +186,43 @@ class HeatContentAssay:
             _quantity(self.reference_temperature.to("kelvin"), "reference_temperature")
         if self.reference_pressure is not None:
             pressure = self.reference_pressure
-            if any(str(unit).lower().endswith(("psig", "barg", "kpag")) for unit in pressure.units._units):
+            from .conversions import _classify_pressure_datum
+            if _classify_pressure_datum(pressure.units) == "gauge":
                 raise ValueError("Reference pressure must be absolute, not gauge.")
             _quantity(pressure.to("pascal"), "reference_pressure")
+        # Measured values must already describe one reference state. No hidden
+        # ideal-gas correction or density extrapolation is performed here.
+        from .conversions import _classify_pressure_datum
+        for kind, unit in (("temperature", "kelvin"), ("pressure", "pascal")):
+            references = []
+            for prefix in ("", "gcv_", "ncv_"):
+                reference = getattr(self, prefix + "reference_" + kind)
+                if reference is None:
+                    continue
+                if prefix and getattr(self, prefix[:-1]) is None:
+                    raise ValueError("A calorific reference state requires its measured value.")
+                if kind == "pressure" and _classify_pressure_datum(reference.units) == "gauge":
+                    raise ValueError("Calorific reference pressure must be absolute.")
+                references.append(_quantity(reference.to(unit), "calorific reference " + kind).magnitude)
+            if references and any(abs(value - references[0]) > Decimal("1e-8") for value in references[1:]):
+                raise ValueError("Measured calorific reference states differ; normalize explicitly first.")
+        if self.gcv is not None and self.ncv is not None:
+            gross_denominator = ureg.MJ.dimensionality / self.gcv.dimensionality
+            net_denominator = ureg.MJ.dimensionality / self.ncv.dimensionality
+            if _is_volume_dimension(gross_denominator) and _is_volume_dimension(net_denominator) and gross_denominator != net_denominator:
+                raise ValueError("Measured GCV and NCV use different volume reference states; normalize them explicitly first.")
+        seen = set()
+        for unit, factor in self.standard_volume_factors:
+            if unit in seen or not _is_volume_dimension(ureg.Unit(unit).dimensionality):
+                raise ValueError("Invalid/duplicate standard gas volume reference.")
+            seen.add(unit)
+            _number(factor, "standard volume factor", positive=True)
         for field in ("gcv", "ncv"):
             value = getattr(self, field)
             if value is not None:
                 object.__setattr__(self, field, self._to_mass_specific(_quantity(value, field)))
+        if self.gcv is not None and self.ncv is not None and self.gcv.dimensionality != self.ncv.dimensionality:
+            raise ValueError("Measured calorific values require matching density/molar-mass metadata and reference states.")
         if self.gcv is not None and self.ncv is not None and self.ncv > self.gcv:
             raise ValueError("NCV/LHV cannot exceed GCV/HHV.")
 
@@ -302,7 +339,7 @@ class HeatContentAssay:
 def heat_content_from_assay(assay: Any, **overrides: Any) -> HeatContentAssay:
     """Adapts fuel assays, or adds explicit calorific data to any other assay.
 
-    No heat is inferred for metals, ores, crops or nuclear fuel. Their callers
+    No heat is inferred for crude/products, metals, ores, crops or nuclear fuel. Their callers
     supply gcv/ncv quantities. Existing carrier recovery and measured/estimated
     pairs are preserved. Overrides are validated by HeatContentAssay.
     """
@@ -324,6 +361,11 @@ def heat_content_from_assay(assay: Any, **overrides: Any) -> HeatContentAssay:
             rho = assay.relative_density * DRY_AIR_DENSITY_15C_KG_M3 / (FT3_PER_M3 * _DENSITY_RATIO_ISO15)
             data["standard_density"] = ureg.Quantity(rho, "kg/scf")
         data.update(reference_temperature=ureg.Quantity(60, "degF"), reference_pressure=ureg.Quantity(14.73, "psia"))
+        factors = []
+        with ureg.context(assay.as_context(basis="gcv")):
+            for unit in ("scf", "scf_tx", "scf_60F_14696psi_dry", "Sm3", "Nm3", "Sm3_20C", "m3_Groningen"):
+                factors.append((unit, _as_decimal(ureg.Quantity(Decimal(1), unit).to("scf").magnitude)))
+        data["standard_volume_factors"] = tuple(factors)
     elif isinstance(assay, CoalAssay):
         data.update(gcv=ureg.Quantity(assay.gj_per_mt_gar, "MJ/kg"), ncv=ureg.Quantity(assay.gj_per_mt_nar, "MJ/kg"),
                     moisture_pct=assay.total_moisture_pct, air_dried_moisture_pct=assay.inherent_moisture_pct,
@@ -364,18 +406,32 @@ def ncv_to_gcv(ncv: pint.Quantity, **metadata: Any) -> pint.Quantity:
     return _input_type(HeatContentAssay(ncv=ncv, **metadata).energy_density(ncv.units, kind="gcv"), ncv)
 
 
-def as_received_to_dry(value: pint.Quantity, moisture_pct: Any, *, kind: str = "gcv") -> pint.Quantity:
+def as_received_to_dry(
+    value: pint.Quantity,
+    moisture_pct: Any,
+    *,
+    kind: str = "gcv",
+    latent_heat_mj_per_kg_water: Decimal | float = Decimal("2.442"),
+) -> pint.Quantity:
     data = {_kind(kind): value}
-    return _input_type(HeatContentAssay(**data, moisture_pct=moisture_pct).energy_density(value.units, kind=kind, basis="DB"), value)
+    spec = HeatContentAssay(**data, moisture_pct=moisture_pct, latent_heat_mj_per_kg_water=latent_heat_mj_per_kg_water)
+    return _input_type(spec.energy_density(value.units, kind=kind, basis="DB"), value)
 
 
-def dry_to_as_received(value: pint.Quantity, moisture_pct: Any, *, kind: str = "gcv") -> pint.Quantity:
-    # Reverse the wet-to-dry relation, including NCV sample-water loss.
+def dry_to_as_received(
+    value: pint.Quantity,
+    moisture_pct: Any,
+    *,
+    kind: str = "gcv",
+    latent_heat_mj_per_kg_water: Decimal | float = Decimal("2.442"),
+) -> pint.Quantity:
+    """Reverse dry-basis heating values using an explicit sample-water latent heat."""
+    latent_heat = _number(latent_heat_mj_per_kg_water, "latent_heat_mj_per_kg_water", positive=True)
     m = _fraction(moisture_pct, "moisture_pct")
     dry = _quantity(value, "calorific value").to("MJ/kg")
     result = dry * (1 - m)
     if _kind(kind) == "ncv":
-        result -= ureg.Quantity(Decimal("2.442") * m, "MJ/kg")
+        result -= ureg.Quantity(latent_heat * m, "MJ/kg")
     _number(result.magnitude, "Converted calorific value", positive=True)
     return _input_type(result.to(value.units), value)
 
@@ -397,6 +453,14 @@ def create_heat_content_context(assay: HeatContentAssay, *, basis: str = "lhv", 
         nodes.append((volume, heat * rho))
     if assay.molar_mass is not None and heat is not None:
         nodes.append((ureg.mol, heat * assay.molar_mass.to("kg/mol").magnitude))
+    if assay.standard_volume_factors:
+        reference_heat = assay.energy_density("MJ/scf", kind=basis).magnitude
+        present = {unit.dimensionality for unit, _ in nodes}
+        for unit, factor in assay.standard_volume_factors:
+            parsed = ureg.Unit(unit)
+            if parsed.dimensionality not in present:
+                nodes.append((parsed, reference_heat * _as_decimal(factor)))
+                present.add(parsed.dimensionality)
     context = pint.Context(name or f"heat_content_{assay.name}_{_kind(basis)}")
 
     def transform(source: pint.Unit, destination: pint.Unit, factor: Decimal):
@@ -411,6 +475,7 @@ def create_heat_content_context(assay: HeatContentAssay, *, basis: str = "lhv", 
     return context
 
 
+@authorized_conversion
 def convert_heat_content(quantity: pint.Quantity, target_unit: str | pint.Unit, *, assay: Any,
                          basis: str = "lhv", analytical_basis: str | None = None, **metadata: Any) -> pint.Quantity:
     """Converts quantities, rates, quotes or a specific calorific value.
@@ -452,6 +517,7 @@ def _heat_nodes(assay: HeatContentAssay) -> list[tuple[pint.Unit, None]]:
     nodes.extend((ureg.kg / density.units, None) for density in assay._densities())
     if assay.molar_mass is not None:
         nodes.append((ureg.mol, None))
+    nodes.extend((ureg.Unit(unit), None) for unit, _ in assay.standard_volume_factors)
     for value in (assay.gcv, assay.ncv):
         if value is not None:
             nodes.append((ureg.MJ / value.units, None))

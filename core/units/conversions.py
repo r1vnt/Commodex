@@ -10,10 +10,13 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from decimal import Decimal, ROUND_HALF_EVEN, getcontext
 import math
+import inspect
+import warnings
 from types import MappingProxyType
 from typing import TYPE_CHECKING, Any, Final
 
 import pint
+from ._safety import authorized_conversion, validated_assay
 
 from .registry import (CURRENCY_CODES, CURRENCY_MINOR_DIGITS, Quantity, Unit, decompose_quote, parse_unit, sanitize_unit_string, ureg, validate_dimensionality,)
 
@@ -92,6 +95,7 @@ STANDARD_GRAVITY_M_S2: Final[float] = 9.80665
 # 2. Hydrocarbon Physical Assay Specification (Crude Oil & Refined Products)
 # ---------------------------------------------------------------------------
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class CrudeAssay:
     """Immutable physical specification for a crude oil or refined liquid hydrocarbon.
@@ -171,12 +175,12 @@ class CrudeAssay:
             raise ValueError(f"Total Acid Number (TAN) cannot be negative, got {tan}")
 
         object.__setattr__(self, "name", str(name))
-        object.__setattr__(self, "specific_gravity", round(resolved_sg, 6))
-        object.__setattr__(self, "api_gravity", round(calc_api, 4))
-        object.__setattr__(self, "density_kg_per_m3", round(calc_rho_kg_m3, 4))
-        object.__setattr__(self, "density_lb_per_gal", round(calc_rho_lb_gal, 5))
-        object.__setattr__(self, "bbl_per_mt", round(calc_bbl_per_mt, 4))
-        object.__setattr__(self, "mt_per_bbl", round(calc_mt_per_bbl, 6))
+        object.__setattr__(self, "specific_gravity", (resolved_sg))
+        object.__setattr__(self, "api_gravity", (calc_api))
+        object.__setattr__(self, "density_kg_per_m3", (calc_rho_kg_m3))
+        object.__setattr__(self, "density_lb_per_gal", (calc_rho_lb_gal))
+        object.__setattr__(self, "bbl_per_mt", (calc_bbl_per_mt))
+        object.__setattr__(self, "mt_per_bbl", (calc_mt_per_bbl))
         object.__setattr__(self, "product_group", group)
         object.__setattr__(self, "sulfur_percentage", sulfur_percentage)
         object.__setattr__(self, "tan", tan)
@@ -184,7 +188,7 @@ class CrudeAssay:
     @property
     def density_in_air_kg_per_m3(self) -> float:
         """Apparent density in air at 60°F (ASTM D1250 Table 56 buoyancy deduction ~1.1 kg/m³)."""
-        return round(self.density_kg_per_m3 - 1.1, 4)
+        return (self.density_kg_per_m3 - 1.1)
 
     @property
     def gravity_class(self) -> str:
@@ -247,7 +251,7 @@ class CrudeAssay:
 
         alpha_60 = (k0 / (rho ** 2)) + (k1 / rho) + k2
         delta_t = temp_f - 60.0
-        return round(math.exp(-alpha_60 * delta_t * (1.0 + 0.8 * alpha_60 * delta_t)), 6)
+        return (math.exp(-alpha_60 * delta_t * (1.0 + 0.8 * alpha_60 * delta_t)))
 
     def correct_volume_to_60f(self, observed_volume: pint.Quantity, observed_temp_f: float | pint.Quantity, *, bsw_percentage: float = 0.0,) -> pint.Quantity:
         """Corrects an observed gross hydrocarbon volume at `observed_temp_f` to 60°F GSV/NSV."""
@@ -283,11 +287,11 @@ class CrudeAssay:
 
         blended_sulfur: float | None = None
         if self.sulfur_percentage is not None and other.sulfur_percentage is not None:
-            blended_sulfur = round(((self.sulfur_percentage * mass_self) + (other.sulfur_percentage * mass_other)) / total_mass, 4,)
+            blended_sulfur = (((self.sulfur_percentage * mass_self) + (other.sulfur_percentage * mass_other)) / total_mass)
 
         blended_tan: float | None = None
         if self.tan is not None and other.tan is not None:
-            blended_tan = round(((self.tan * mass_self) + (other.tan * mass_other)) / total_mass, 4)
+            blended_tan = (((self.tan * mass_self) + (other.tan * mass_other)) / total_mass)
 
         return CrudeAssay(name=blend_name or f"{self.name}/{other.name} Blend", specific_gravity=blended_sg, product_group=self.product_group, sulfur_percentage=blended_sulfur, tan=blended_tan,)
 
@@ -366,6 +370,7 @@ def _viscosity_from_vbn(vbn: float) -> float:
 # Distillation Cut & Full Refinery Crude Assay
 # ---------------------------------------------------------------------------
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class DistillationCut:
     """Single boiling-point fraction from a True Boiling Point (TBP) assay."""
@@ -391,6 +396,7 @@ class DistillationCut:
             raise ValueError(f"Cut {self.name!r}: specific_gravity must be strictly positive.")
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class RefineryCrudeAssay:
     """Downstream refining specification composing a bulk CrudeAssay with TBP cuts.
@@ -452,7 +458,7 @@ class RefineryCrudeAssay:
                 raise KeyError(f"Missing market price for distillation cut {cut.name!r}.")
             gpw += (cut.yield_vol_pct / 100.0) * float(product_prices_per_bbl[cut.name])
 
-        return round(gpw * (1.0 - refinery_fuel_loss_pct / 100.0), 4)
+        return (gpw * (1.0 - refinery_fuel_loss_pct / 100.0))
 
     def netback_margin(
         self,
@@ -467,7 +473,7 @@ class RefineryCrudeAssay:
             product_prices_per_bbl,
             refinery_fuel_loss_pct=refinery_fuel_loss_pct,
         )
-        return round(gpw - crude_delivered_price_per_bbl - variable_processing_cost_per_bbl, 4)
+        return (gpw - crude_delivered_price_per_bbl - variable_processing_cost_per_bbl)
 
     def blend_with(
         self,
@@ -520,9 +526,9 @@ class RefineryCrudeAssay:
                     name=c1.name,
                     tbp_start_c=c1.tbp_start_c,
                     tbp_end_c=c1.tbp_end_c,
-                    yield_vol_pct=round(b_vol, 4),
-                    yield_wt_pct=round(b_wt, 4),
-                    specific_gravity=round(b_sg, 6),
+                    yield_vol_pct=(b_vol),
+                    yield_wt_pct=(b_wt),
+                    specific_gravity=(b_sg),
                 )
             )
 
@@ -533,12 +539,12 @@ class RefineryCrudeAssay:
                 w_self_wt * _viscosity_blending_number(self.viscosity_cst_50c)
                 + w_other_wt * _viscosity_blending_number(other.viscosity_cst_50c)
             )
-            blended_visc = round(_viscosity_from_vbn(vbn_blend), 3)
+            blended_visc = (_viscosity_from_vbn(vbn_blend))
 
         def _mass_blend(v1: float | None, v2: float | None) -> float | None:
             if v1 is None or v2 is None:
                 return None
-            return round((v1 * w_self_wt) + (v2 * w_other_wt), 4)
+            return ((v1 * w_self_wt) + (v2 * w_other_wt))
 
         return RefineryCrudeAssay(
             bulk=blended_bulk,
@@ -607,62 +613,58 @@ _AGA8_COMPONENTS: Final[tuple[str, ...]] = (
 )
 
 
-def _calculate_z_aga8_detail(p_kpa: float, t_k: float, molar_composition: Mapping[str, float],) -> float:
-    """Computes real-gas Z-factor using an optional AGA-8 Detail / GERG-2008 backend.
+def _validated_composition(composition):
+    if not composition:
+        raise ValueError("A non-empty molar composition is required.")
+    unknown = set(composition) - set(_AGA8_COMPONENTS)
+    if unknown:
+        raise ValueError(f"Unsupported gas components: {sorted(unknown)}")
+    values = {name: float(value) for name, value in composition.items()}
+    if any(not math.isfinite(value) or value < 0 for value in values.values()):
+        raise ValueError("Composition fractions must be finite and non-negative.")
+    total = sum(values.values())
+    if not math.isclose(total, 1., rel_tol=0., abs_tol=1e-6):
+        raise ValueError("Composition fractions must sum to one.")
+    return {name: value / total for name, value in values.items() if value > 0}
 
-    Attempts `pyaga8` first (native AGA-8 Detail Rust/C++ bindings), then `CoolProp`
-    (GERG-2008). Raises ImportError with installation guidance if neither is installed.
-    """
-    if any(v < 0.0 for v in molar_composition.values()):
-        raise ValueError("Molar composition fractions cannot be negative.")
-    total_mol = sum(molar_composition.values())
-    if not (0.999 <= total_mol <= 1.001):
-        raise ValueError(f"Molar composition fractions must sum to 1.0 (got {total_mol:.6f}).")
 
-    # Normalise fractions to exact 1.0
-    norm_comp = {k: float(v) / total_mol for k, v in molar_composition.items() if v > 0.0}
+def _checked_z(value):
+    value = float(value)
+    if not math.isfinite(value) or value <= 0:
+        raise ArithmeticError("Equation-of-state backend returned an invalid Z-factor.")
+    return value
 
-    # 1. Try pyaga8 (AGA-8 Detail EoS)
+
+def _calculate_z_aga8_detail(p_kpa, t_k, molar_composition):
+    """Strict AGA-8 Detail; never substitute a different equation of state."""
+    composition = _validated_composition(molar_composition)
     try:
-        import pyaga8  # type: ignore[import-not-found]
+        import pyaga8
+    except ImportError as error:
+        raise ImportError("method='aga8' requires pyaga8; choose 'heos' or 'gerg2008' explicitly for CoolProp.") from error
+    aga = pyaga8.Detail()
+    aga.set_composition([composition.get(component, 0.) for component in _AGA8_COMPONENTS])
+    aga.p, aga.t = p_kpa, t_k
+    aga.density()
+    aga.properties()
+    return _checked_z(aga.z)
 
-        aga = pyaga8.Detail()
-        comp_vec = [norm_comp.get(c, 0.0) for c in _AGA8_COMPONENTS]
-        aga.set_composition(comp_vec)
-        aga.p = p_kpa
-        aga.t = t_k
-        aga.density()
-        aga.properties()
-        return round(float(aga.z), 6)
-    except ImportError:
-        pass
 
-    # 2. Try CoolProp (GERG-2008 / Helmholtz EoS)
-    try:
-        from CoolProp.CoolProp import PropsSI  # type: ignore[import-not-found]
-
-        cp_map = {
-            "CH4": "Methane", "N2": "Nitrogen", "CO2": "CarbonDioxide",
-            "C2H6": "Ethane", "C3H8": "Propane", "iC4H10": "IsoButane",
-            "nC4H10": "n-Butane", "iC5H12": "IsoPentane", "nC5H12": "n-Pentane",
-            "C6H14": "n-Hexane", "C7H16": "n-Heptane", "C8H18": "n-Octane",
-            "C9H20": "n-Nonane", "C10H22": "n-Decane", "H2": "Hydrogen",
-            "O2": "Oxygen", "CO": "CarbonMonoxide", "H2O": "Water",
-            "H2S": "HydrogenSulfide", "He": "Helium", "Ar": "Argon",
-        }
-        mix_parts = []
-        for comp, frac in norm_comp.items():
-            if comp not in cp_map:
-                raise ValueError(f"Component {comp!r} not mapped for CoolProp backend.")
-            mix_parts.append(f"{cp_map[comp]}[{frac:.8f}]")
-        fluid_str = "HEOS::" + "&".join(mix_parts)
-        z_val = PropsSI("Z", "P", p_kpa * 1000.0, "T", t_k, fluid_str)
-        return round(float(z_val), 6)
-    except ImportError as exc:
-        raise ImportError(
-            "AGA-8 Detail / GERG-2008 requires either 'pyaga8' or 'CoolProp'. "
-            "Install one of them or use method='dak' for the built-in Dranchuk–Abou-Kassem solver."
-        ) from exc
+def _calculate_z_coolprop(p_kpa, t_k, molar_composition, backend):
+    """Use the explicitly named CoolProp model without backend substitution."""
+    norm_comp = _validated_composition(molar_composition)
+    from CoolProp.CoolProp import PropsSI
+    cp_map = {
+        "CH4": "Methane", "N2": "Nitrogen", "CO2": "CarbonDioxide",
+        "C2H6": "Ethane", "C3H8": "Propane", "iC4H10": "IsoButane",
+        "nC4H10": "n-Butane", "iC5H12": "IsoPentane", "nC5H12": "n-Pentane",
+        "C6H14": "n-Hexane", "C7H16": "n-Heptane", "C8H18": "n-Octane",
+        "C9H20": "n-Nonane", "C10H22": "n-Decane", "H2": "Hydrogen",
+        "O2": "Oxygen", "CO": "CarbonMonoxide", "H2O": "Water",
+        "H2S": "HydrogenSulfide", "He": "Helium", "Ar": "Argon",
+    }
+    mixture = "&".join(f"{cp_map[name]}[{fraction:.17g}]" for name, fraction in norm_comp.items())
+    return _checked_z(PropsSI("Z", "P", p_kpa * 1000., "T", t_k, backend + "::" + mixture))
 
 
 def calculate_z_factor(
@@ -683,7 +685,8 @@ def calculate_z_factor(
     -------
     - "dak"  : Built-in Dranchuk–Abou-Kassem (1975) 11-constant EoS with Sutton (1985)
                pseudocritical properties and Wichert–Aziz (1972) sour-gas corrections.
-    - "aga8" : Full 21-component AGA-8 Detail / GERG-2008 via optional `pyaga8` or `CoolProp`.
+    - "aga8" : Strict 21-component AGA-8 Detail via optional pyaga8.
+    - "heos" / "gerg2008": Explicit CoolProp models; HEOS is not GERG-2008.
                Requires `molar_composition` (e.g. {"CH4": 0.94, "C2H6": 0.04, "N2": 0.02}).
     - "auto" : Uses AGA-8 Detail if `molar_composition` is supplied and a backend is
                installed; otherwise falls back to built-in "dak".
@@ -692,9 +695,16 @@ def calculate_z_factor(
         raise TypeError("pressure and temperature must be pint.Quantity instances.")
 
     method_key = method.strip().lower()
-    if method_key not in {"auto", "dak", "aga8"}:
+    if method_key not in {"auto", "dak", "aga8", "heos", "gerg2008"}:
         raise ValueError(f"method must be 'auto', 'dak', or 'aga8', got {method!r}")
 
+    if not math.isfinite(tol) or tol <= 0 or isinstance(max_iter, bool) or not isinstance(max_iter, int) or max_iter <= 0:
+        raise ValueError("tol must be finite/positive and max_iter a positive integer.")
+    if molar_composition is not None:
+        molar_composition = _validated_composition(molar_composition)
+    if method_key in {"heos", "gerg2008"}:
+        if molar_composition is None:
+            raise ValueError("An explicit composition is required for CoolProp models.")
     pressure = convert_pressure(pressure, ureg.pascal)
     p_kpa = float(pressure.to(ureg.kilopascal).magnitude)
     t_k = float(temperature.to(ureg.kelvin).magnitude)
@@ -704,6 +714,8 @@ def calculate_z_factor(
     if p_kpa == 0.0:
         return 1.0
 
+    if method_key in {"heos", "gerg2008"}:
+        return _calculate_z_coolprop(p_kpa, t_k, molar_composition, "HEOS" if method_key == "heos" else "GERG2008")
     # Route to AGA-8 Detail wrapper if explicitly requested or available in auto mode
     if method_key == "aga8":
         if not molar_composition:
@@ -714,6 +726,7 @@ def calculate_z_factor(
         try:
             return _calculate_z_aga8_detail(p_kpa, t_k, molar_composition)
         except ImportError:
+            warnings.warn("AGA-8 backend unavailable; auto selected DAK, not AGA-8/GERG.", RuntimeWarning, stacklevel=2)
             # Gracefully fall back to DAK using CO2/H2S from composition if not overridden
             co2_mol_frac = co2_mol_frac or molar_composition.get("CO2", 0.0)
             h2s_mol_frac = h2s_mol_frac or molar_composition.get("H2S", 0.0)
@@ -721,7 +734,7 @@ def calculate_z_factor(
     # Built-in Dranchuk–Abou-Kassem (1975) solver
     if not (0.50 <= relative_density <= 1.50):
         raise ValueError(f"relative_density out of valid hydrocarbon range [0.50, 1.50]: {relative_density}")
-    if not (0.0 <= co2_mol_frac < 1.0) or not (0.0 <= h2s_mol_frac < 1.0):
+    if not (0.0 <= co2_mol_frac < 1.0) or not (0.0 <= h2s_mol_frac < 1.0) or co2_mol_frac + h2s_mol_frac >= 1:
         raise ValueError("CO2 and H2S mole fractions must be in [0, 1).")
 
     p_psia = float(pressure.to(ureg.psia).magnitude)
@@ -740,6 +753,9 @@ def calculate_z_factor(
         t_pc_adj = t_pc - eps
         p_pc_adj = (p_pc * t_pc_adj) / (t_pc + b_sour * (1.0 - b_sour) * eps)
         p_pc, t_pc = p_pc_adj, t_pc_adj
+
+    if not math.isfinite(p_pc) or not math.isfinite(t_pc) or p_pc <= 0 or t_pc <= 0:
+        raise ValueError("Invalid pseudocritical state after sour-gas correction.")
 
     # 3. Pseudoreduced pressure and temperature
     p_pr = p_psia / p_pc
@@ -774,14 +790,16 @@ def calculate_z_factor(
             + c4 * rho2 * (3.0 + a11 * rho2 * (3.0 - 2.0 * a11 * rho2)) * exp_term
         )
 
-        if df_val == 0.0:
-            break
+        if math.isfinite(f_val) and abs(f_val) <= tol * max(1., abs(rhs)):
+            return _checked_z(rhs / rho_r)
+        if not math.isfinite(df_val) or abs(df_val) < 1e-15:
+            raise ArithmeticError("DAK solver has a singular/nonfinite derivative.")
         step = f_val / df_val
         rho_r = max(1e-12, rho_r - step)
-        if abs(step) < tol:
-            break
+        if not math.isfinite(rho_r):
+            raise ArithmeticError("DAK solver produced nonfinite reduced density.")
 
-    return round(rhs / rho_r, 6)
+    raise ArithmeticError(f"DAK solver failed to establish residual convergence in {max_iter} iterations.")
 
 
 def convert_actual_to_standard_gas_volume(
@@ -939,6 +957,7 @@ def convert_standard_to_actual_gas_volume(
 # Gas Assay
 #--------------------------------------------------------------------------------
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class GasAssay:
     """Immutable thermodynamic specification for natural gas and LNG streams.
@@ -1024,6 +1043,7 @@ class GasAssay:
 
         clean_comp: Mapping[str, float] | None = None
         if molar_composition is not None:
+            _validated_composition(molar_composition)
             if any(not math.isfinite(float(v)) or float(v) < 0.0 for v in molar_composition.values()):
                 raise ValueError("Molar composition fractions must be finite and non-negative.")
             total_mol = sum(float(v) for v in molar_composition.values())
@@ -1041,16 +1061,16 @@ class GasAssay:
             calc_mmbtu_mt = (mj_per_kg * 1000.0) / (MJ_PER_BTU_IT * 1e6)
 
         object.__setattr__(self, "name", str(name))
-        object.__setattr__(self, "gcv_btu_per_scf", round(resolved_gcv_scf, 4))
-        object.__setattr__(self, "ncv_btu_per_scf", round(resolved_ncv_scf, 4))
-        object.__setattr__(self, "gcv_mj_per_sm3", round(calc_mj_sm3, 4))
-        object.__setattr__(self, "gcv_mj_per_nm3", round(calc_mj_nm3, 4))
-        object.__setattr__(self, "mmbtu_per_mt_lng", round(calc_mmbtu_mt, 4) if calc_mmbtu_mt is not None else None)
-        object.__setattr__(self, "relative_density", round(calc_rel_dens, 5) if calc_rel_dens is not None else None)
+        object.__setattr__(self, "gcv_btu_per_scf", (resolved_gcv_scf))
+        object.__setattr__(self, "ncv_btu_per_scf", (resolved_ncv_scf))
+        object.__setattr__(self, "gcv_mj_per_sm3", (calc_mj_sm3))
+        object.__setattr__(self, "gcv_mj_per_nm3", (calc_mj_nm3))
+        object.__setattr__(self, "mmbtu_per_mt_lng", (calc_mmbtu_mt) if calc_mmbtu_mt is not None else None)
+        object.__setattr__(self, "relative_density", (calc_rel_dens) if calc_rel_dens is not None else None)
         object.__setattr__(
             self,
             "wobbe_index_mj_per_sm3",
-            round(calc_wobbe, 4) if calc_wobbe is not None else None,
+            (calc_wobbe) if calc_wobbe is not None else None,
         )
         object.__setattr__(self, "molar_composition", clean_comp)
 
@@ -1079,17 +1099,17 @@ class GasAssay:
         """US FERC Wobbe Index in Btu/scf (GCV_Btu_per_scf / sqrt(SG))."""
         if self.relative_density is None:
             return None
-        return round(self.gcv_btu_per_scf / math.sqrt(self.relative_density), 4)
+        return (self.gcv_btu_per_scf / math.sqrt(self.relative_density))
 
     @property
     def ncv_mj_per_sm3(self) -> float:
         """Net Calorific Value (LHV) in MJ/Sm³ at 15°C, 101.325 kPa."""
-        return round(self.gcv_mj_per_sm3 * (self.ncv_btu_per_scf / self.gcv_btu_per_scf), 4)
+        return (self.gcv_mj_per_sm3 * (self.ncv_btu_per_scf / self.gcv_btu_per_scf))
 
     @property
     def ncv_mj_per_nm3(self) -> float:
         """Net Calorific Value (LHV) in MJ/Nm³ at 0°C, 101.325 kPa."""
-        return round(self.gcv_mj_per_nm3 * (self.ncv_btu_per_scf / self.gcv_btu_per_scf), 4)
+        return (self.gcv_mj_per_nm3 * (self.ncv_btu_per_scf / self.gcv_btu_per_scf))
 
     @property
     def is_h_gas(self) -> bool | None:
@@ -1332,6 +1352,7 @@ _KCAL_KG_TO_GJ_MT: Final[float] = 0.0041868      # 1 kcal_IT/kg = 4.1868 kJ/kg =
 _KCAL_KG_TO_BTU_LB: Final[float] = 1.8           # Exact IT definition
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class CoalAssay:
     """Immutable calorific and moisture specification for thermal and metallurgical coal.
@@ -1435,14 +1456,14 @@ class CoalAssay:
         tce_mt = resolved_nar / 7000.0
 
         object.__setattr__(self, "name", str(name))
-        object.__setattr__(self, "nar_kcal_per_kg", round(resolved_nar, 2))
-        object.__setattr__(self, "gar_kcal_per_kg", round(resolved_gar, 2))
-        object.__setattr__(self, "gad_kcal_per_kg", round(resolved_gad, 2) if resolved_gad is not None else None)
-        object.__setattr__(self, "gar_btu_per_lb", round(resolved_gar * _KCAL_KG_TO_BTU_LB, 2))
-        object.__setattr__(self, "gj_per_mt_nar", round(gj_mt, 4))
-        object.__setattr__(self, "mwh_per_mt_nar", round(mwh_mt, 4))
-        object.__setattr__(self, "mmbtu_per_mt_nar", round(mmbtu_mt, 4))
-        object.__setattr__(self, "tce_per_mt", round(tce_mt, 5))
+        object.__setattr__(self, "nar_kcal_per_kg", (resolved_nar))
+        object.__setattr__(self, "gar_kcal_per_kg", (resolved_gar))
+        object.__setattr__(self, "gad_kcal_per_kg", (resolved_gad) if resolved_gad is not None else None)
+        object.__setattr__(self, "gar_btu_per_lb", (resolved_gar * _KCAL_KG_TO_BTU_LB))
+        object.__setattr__(self, "gj_per_mt_nar", (gj_mt))
+        object.__setattr__(self, "mwh_per_mt_nar", (mwh_mt))
+        object.__setattr__(self, "mmbtu_per_mt_nar", (mmbtu_mt))
+        object.__setattr__(self, "tce_per_mt", (tce_mt))
         object.__setattr__(self, "total_moisture_pct", tm)
         object.__setattr__(self, "inherent_moisture_pct", im)
         object.__setattr__(self, "hydrogen_ar_pct", h_ar)
@@ -1452,34 +1473,34 @@ class CoalAssay:
     @property
     def dry_basis_kcal_per_kg(self) -> float:
         """Gross Calorific Value on a Dry Basis (DB): GAR / (1 - TM/100)."""
-        return round(self.gar_kcal_per_kg * (100.0 / (100.0 - self.total_moisture_pct)), 2)
+        return (self.gar_kcal_per_kg * (100.0 / (100.0 - self.total_moisture_pct)))
 
     @property
     def nar_btu_per_lb(self) -> float:
         """Net Calorific Value (NAR) in Btu/lb."""
-        return round(self.nar_kcal_per_kg * _KCAL_KG_TO_BTU_LB, 2)
+        return (self.nar_kcal_per_kg * _KCAL_KG_TO_BTU_LB)
 
     @property
     def gj_per_mt_gar(self) -> float:
         """Gross Calorific Value (GAR) in GJ/mt."""
-        return round(self.gar_kcal_per_kg * _KCAL_KG_TO_GJ_MT, 4)
+        return (self.gar_kcal_per_kg * _KCAL_KG_TO_GJ_MT)
 
     @property
     def mwh_per_mt_gar(self) -> float:
         """Gross Calorific Value (GAR) in MWh/mt."""
-        return round(self.gj_per_mt_gar / 3.6, 4)
+        return (self.gj_per_mt_gar / 3.6)
 
     @property
     def mmbtu_per_mt_gar(self) -> float:
         """Gross Calorific Value (GAR) in MMBtu_IT/mt."""
-        return round(self.gj_per_mt_gar / (MJ_PER_BTU_IT * 1000.0), 4)
+        return (self.gj_per_mt_gar / (MJ_PER_BTU_IT * 1000.0))
 
     @property
     def daf_kcal_per_kg(self) -> float | None:
         """Gross Calorific Value on a Dry Ash-Free (DAF) basis, or None if ash_pct is unset."""
         if self.ash_pct is None:
             return None
-        return round(self.gar_kcal_per_kg * (100.0 / (100.0 - self.total_moisture_pct - self.ash_pct)), 2)
+        return (self.gar_kcal_per_kg * (100.0 / (100.0 - self.total_moisture_pct - self.ash_pct)))
 
     def wmt_to_dmt(self, wet_metric_tonnes: float | Decimal) -> float:
         """Converts Wet Metric Tonnes (WMT) to Dry Metric Tonnes (DMT) using total moisture."""
@@ -1518,7 +1539,7 @@ class CoalAssay:
             actual_cv = self.gar_kcal_per_kg
         else:
             raise ValueError(f"basis must be 'nar' or 'gar', got {basis!r}")
-        return round(price * (actual_cv / bench_cv), 4)
+        return (price * (actual_cv / bench_cv))
 
     def blend_with(
         self,
@@ -1612,6 +1633,7 @@ _MEOH_HHV_MJ_PER_KG: Final[float] = 22.70             # Pure Methanol (CH3OH) HH
 _MEOH_LIQUID_DENSITY_KG_M3: Final[float] = 792.0      # Liquid Methanol at 15°C, 1 atm
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class CleanFuelAssay:
     """Immutable thermodynamic specification for zero/low-carbon energy carriers.
@@ -1658,45 +1680,45 @@ class CleanFuelAssay:
     # --- Gravimetric & Volumetric Energy Density Properties ---
     @property
     def lhv_kwh_per_kg(self) -> float:
-        return round(self.lhv_mj_per_kg / 3.6, 4)
+        return (self.lhv_mj_per_kg / 3.6)
 
     @property
     def hhv_kwh_per_kg(self) -> float:
-        return round(self.hhv_mj_per_kg / 3.6, 4)
+        return (self.hhv_mj_per_kg / 3.6)
 
     @property
     def lhv_mwh_per_mt(self) -> float:
-        return round(self.lhv_mj_per_kg / 3.6, 4)
+        return (self.lhv_mj_per_kg / 3.6)
 
     @property
     def hhv_mwh_per_mt(self) -> float:
-        return round(self.hhv_mj_per_kg / 3.6, 4)
+        return (self.hhv_mj_per_kg / 3.6)
 
     @property
     def lhv_mmbtu_per_mt(self) -> float:
-        return round(self.lhv_mj_per_kg / (MJ_PER_BTU_IT * 1000.0), 4)
+        return (self.lhv_mj_per_kg / (MJ_PER_BTU_IT * 1000.0))
 
     @property
     def hhv_mmbtu_per_mt(self) -> float:
-        return round(self.hhv_mj_per_kg / (MJ_PER_BTU_IT * 1000.0), 4)
+        return (self.hhv_mj_per_kg / (MJ_PER_BTU_IT * 1000.0))
 
     @property
     def lhv_mj_per_nm3(self) -> float | None:
         if self.density_kg_per_nm3 is None:
             return None
-        return round(self.lhv_mj_per_kg * self.density_kg_per_nm3, 4)
+        return (self.lhv_mj_per_kg * self.density_kg_per_nm3)
 
     @property
     def hhv_mj_per_nm3(self) -> float | None:
         if self.density_kg_per_nm3 is None:
             return None
-        return round(self.hhv_mj_per_kg * self.density_kg_per_nm3, 4)
+        return (self.hhv_mj_per_kg * self.density_kg_per_nm3)
 
     @property
     def lhv_gj_per_m3_liquid(self) -> float | None:
         if self.liquid_density_kg_per_m3 is None:
             return None
-        return round((self.lhv_mj_per_kg * self.liquid_density_kg_per_m3) / 1000.0, 4)
+        return ((self.lhv_mj_per_kg * self.liquid_density_kg_per_m3) / 1000.0)
 
     @property
     def carbon_intensity_g_co2e_per_mj_lhv(self) -> float | None:
@@ -1704,7 +1726,7 @@ class CleanFuelAssay:
         if self.carbon_intensity_kg_co2e_per_kg is None:
             return None
         # (kg CO2e / kg fuel) * 1000 g/kg / (MJ / kg fuel) = gCO2e / MJ
-        return round((self.carbon_intensity_kg_co2e_per_kg * 1000.0) / self.lhv_mj_per_kg, 4)
+        return ((self.carbon_intensity_kg_co2e_per_kg * 1000.0) / self.lhv_mj_per_kg)
 
     def _heating_value_mj_per_kg(self, basis: str) -> float:
         key = basis.strip().lower()
@@ -2036,6 +2058,7 @@ _LITRES_PER_US_GAL: Final[float] = 3.785411784
 _LITRES_PER_BBL: Final[float] = 158.987294928
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class BiofuelAssay:
     """Immutable physical and regulatory specification for liquid biofuels and SAF.
@@ -2082,47 +2105,47 @@ class BiofuelAssay:
     @property
     def specific_gravity(self) -> float:
         """Specific gravity relative to water at 15°C (999.102 kg/m^3)."""
-        return round(self.density_kg_per_m3 / 999.102, 6)
+        return (self.density_kg_per_m3 / 999.102)
     @property
     def bbl_per_mt(self) -> float:
         """Barrels per metric tonne at 15°C / 60°F."""
-        return round(1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_BBL / 1000.0)), 4)
+        return (1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_BBL / 1000.0)))
 
     @property
     def gal_per_mt(self) -> float:
         """US gallons per metric tonne at 15°C / 60°F."""
-        return round(1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)), 4)
+        return (1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)))
 
     @property
     def lhv_mj_per_l(self) -> float:
         """EU RED II volumetric Lower Heating Value (MJ/L)."""
-        return round((self.lhv_mj_per_kg * self.density_kg_per_m3) / 1000.0, 4)
+        return ((self.lhv_mj_per_kg * self.density_kg_per_m3) / 1000.0)
 
     @property
     def hhv_mj_per_l(self) -> float:
         """Volumetric Higher Heating Value (MJ/L)."""
-        return round((self.hhv_mj_per_kg * self.density_kg_per_m3) / 1000.0, 4)
+        return ((self.hhv_mj_per_kg * self.density_kg_per_m3) / 1000.0)
 
     @property
     def lhv_btu_per_gal(self) -> float:
         """US volumetric Lower Heating Value (Btu_IT/gal)."""
-        return round((self.lhv_mj_per_l * _LITRES_PER_US_GAL) / MJ_PER_BTU_IT, 2)
+        return ((self.lhv_mj_per_l * _LITRES_PER_US_GAL) / MJ_PER_BTU_IT)
 
     @property
     def lhv_mwh_per_mt(self) -> float:
-        return round(self.lhv_mj_per_kg / 3.6, 4)
+        return (self.lhv_mj_per_kg / 3.6)
 
     @property
     def lhv_mmbtu_per_mt(self) -> float:
-        return round(self.lhv_mj_per_kg / (MJ_PER_BTU_IT * 1000.0), 4)
+        return (self.lhv_mj_per_kg / (MJ_PER_BTU_IT * 1000.0))
 
     @property
     def hhv_mwh_per_mt(self) -> float:
-        return round(self.hhv_mj_per_kg / 3.6, 4)
+        return (self.hhv_mj_per_kg / 3.6)
 
     @property
     def hhv_mmbtu_per_mt(self) -> float:
-        return round(self.hhv_mj_per_kg / (MJ_PER_BTU_IT * 1000.0), 4)
+        return (self.hhv_mj_per_kg / (MJ_PER_BTU_IT * 1000.0))
 
     def volume_correction_factor(
         self,
@@ -2147,7 +2170,7 @@ class BiofuelAssay:
         alpha = self.thermal_expansion_coeff_per_c
         dt = t_obs_c - ref_temp_c
         vcf = math.exp(-alpha * dt * (1.0 + 0.8 * alpha * dt))
-        return round(vcf, 5)
+        return (vcf)
 
     def ghg_savings_pct(self, fossil_comparator_g_co2e_per_mj: float = 94.0) -> float:
         """Computes EU RED II/III (94.0) or ICAO CORSIA (89.0) GHG emissions savings (%)."""
@@ -2155,7 +2178,7 @@ class BiofuelAssay:
             raise ValueError(f"{self.name!r} does not define carbon_intensity_g_co2e_per_mj.")
         if not math.isfinite(fossil_comparator_g_co2e_per_mj) or fossil_comparator_g_co2e_per_mj <= 0.0:
             raise ValueError("fossil_comparator_g_co2e_per_mj must be strictly positive.")
-        return round((1.0 - (self.carbon_intensity_g_co2e_per_mj / fossil_comparator_g_co2e_per_mj)) * 100.0, 2)
+        return ((1.0 - (self.carbon_intensity_g_co2e_per_mj / fossil_comparator_g_co2e_per_mj)) * 100.0)
 
     def _heating_value_mj_per_kg(self, basis: str) -> float:
         key = basis.strip().lower()
@@ -2223,7 +2246,7 @@ class BiofuelAssay:
         if self.epa_rin_ev is None:
             raise ValueError(f"{self.name!r} does not define an epa_rin_ev equivalence value.")
         gal = float(volume.to(ureg.gallon).magnitude)
-        return round(gal * self.epa_rin_ev, 4)
+        return (gal * self.epa_rin_ev)
 
     def lcfs_credits_mt(
         self,
@@ -2246,7 +2269,7 @@ class BiofuelAssay:
 
         energy_mj = float(self.volume_to_energy(volume, basis="lhv").to(ureg.MJ).magnitude)
         ci_delta = (benchmark_ci_g_co2e_per_mj * eer) - self.carbon_intensity_g_co2e_per_mj
-        return round((ci_delta * energy_mj) / 1e6, 6)
+        return ((ci_delta * energy_mj) / 1e6)
 
     def red_compliance_energy(self, volume: pint.Quantity) -> pint.Quantity:
         """Computes EU RED II/III / UK RTFO compliance energy (GJ LHV) including double-counting."""
@@ -2286,35 +2309,26 @@ class BiofuelAssay:
 
         blended_rin: float | None = None
         if self.epa_rin_ev is not None and other.epa_rin_ev is not None:
-            blended_rin = round((self.epa_rin_ev * v1) + (other.epa_rin_ev * v2), 4)
+            blended_rin = ((self.epa_rin_ev * v1) + (other.epa_rin_ev * v2))
 
         e1 = m1 * self.lhv_mj_per_kg
         e2 = m2 * other.lhv_mj_per_kg
 
         blended_ci: float | None = None
         if self.carbon_intensity_g_co2e_per_mj is not None and other.carbon_intensity_g_co2e_per_mj is not None:
-            blended_ci = round(
-                (self.carbon_intensity_g_co2e_per_mj * e1 + other.carbon_intensity_g_co2e_per_mj * e2) / (e1 + e2),
-                4,
-            )
+            blended_ci = ((self.carbon_intensity_g_co2e_per_mj * e1 + other.carbon_intensity_g_co2e_per_mj * e2) / (e1 + e2))
 
         blended_alpha: float | None = None
         if self.thermal_expansion_coeff_per_c is not None and other.thermal_expansion_coeff_per_c is not None:
-            blended_alpha = round(
-                (self.thermal_expansion_coeff_per_c * v1) + (other.thermal_expansion_coeff_per_c * v2),
-                6,
-            )
+            blended_alpha = ((self.thermal_expansion_coeff_per_c * v1) + (other.thermal_expansion_coeff_per_c * v2))
 
-        blended_red_mult = round(
-            (self.red_energy_multiplier * e1 + other.red_energy_multiplier * e2) / (e1 + e2),
-            4,
-        )
+        blended_red_mult = ((self.red_energy_multiplier * e1 + other.red_energy_multiplier * e2) / (e1 + e2))
 
         return BiofuelAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
-            density_kg_per_m3=round(blended_density, 3),
-            lhv_mj_per_kg=round(blended_lhv, 4),
-            hhv_mj_per_kg=round(blended_hhv, 4),
+            density_kg_per_m3=(blended_density),
+            lhv_mj_per_kg=(blended_lhv),
+            hhv_mj_per_kg=(blended_hhv),
             epa_rin_ev=blended_rin,
             rin_d_code=self.rin_d_code if self.rin_d_code == other.rin_d_code else None,
             carbon_intensity_g_co2e_per_mj=blended_ci,
@@ -2409,6 +2423,7 @@ class BiofuelAssay:
 _WATER_DENSITY_60F_KG_M3: Final[float] = 999.016   # Pure water at 60°F (15.5556°C)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class NGLAssay:
     """Immutable physical and thermodynamic specification for NGLs and LPG (GPA 2145).
@@ -2464,47 +2479,47 @@ class NGLAssay:
     @property
     def density_kg_per_m3(self) -> float:
         """Liquid density at 60°F (kg/m^3)."""
-        return round(self.specific_gravity_60f * _WATER_DENSITY_60F_KG_M3, 3)
+        return (self.specific_gravity_60f * _WATER_DENSITY_60F_KG_M3)
 
     @property
     def gal_per_mt(self) -> float:
         """US gallons per metric tonne at 60°F (Mont Belvieu <-> FEI/ARA factor)."""
-        return round(1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)), 4)
+        return (1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)))
 
     @property
     def bbl_per_mt(self) -> float:
         """Barrels per metric tonne at 60°F."""
-        return round(self.gal_per_mt / 42.0, 4)
+        return (self.gal_per_mt / 42.0)
 
     @property
     def hhv_mmbtu_per_bbl(self) -> float:
         """Gross heating value per barrel (MMBtu_IT/bbl)."""
-        return round((self.hhv_btu_per_gal * 42.0) / 1e6, 5)
+        return ((self.hhv_btu_per_gal * 42.0) / 1e6)
 
     @property
     def lhv_mmbtu_per_bbl(self) -> float:
         """Net heating value per barrel (MMBtu_IT/bbl)."""
-        return round((self.lhv_btu_per_gal * 42.0) / 1e6, 5)
+        return ((self.lhv_btu_per_gal * 42.0) / 1e6)
 
     @property
     def hhv_mmbtu_per_mt(self) -> float:
         """Gross heating value per metric tonne (MMBtu_IT/mt)."""
-        return round((self.hhv_btu_per_gal * self.gal_per_mt) / 1e6, 4)
+        return ((self.hhv_btu_per_gal * self.gal_per_mt) / 1e6)
 
     @property
     def lhv_mmbtu_per_mt(self) -> float:
         """Net heating value per metric tonne (MMBtu_IT/mt)."""
-        return round((self.lhv_btu_per_gal * self.gal_per_mt) / 1e6, 4)
+        return ((self.lhv_btu_per_gal * self.gal_per_mt) / 1e6)
 
     @property
     def hhv_mj_per_kg(self) -> float:
         """Gross heating value (MJ/kg = GJ/mt)."""
-        return round(self.hhv_mmbtu_per_mt * MJ_PER_BTU_IT * 1000.0, 4)
+        return (self.hhv_mmbtu_per_mt * MJ_PER_BTU_IT * 1000.0)
 
     @property
     def lhv_mj_per_kg(self) -> float:
         """Net heating value (MJ/kg = GJ/mt)."""
-        return round(self.lhv_mmbtu_per_mt * MJ_PER_BTU_IT * 1000.0, 4)
+        return (self.lhv_mmbtu_per_mt * MJ_PER_BTU_IT * 1000.0)
 
     def _btu_per_gal(self, basis: str) -> float:
         key = basis.strip().lower()
@@ -2616,7 +2631,7 @@ class NGLAssay:
             raise ValueError("Temperatures must be finite.")
         alpha = self.thermal_expansion_coeff_per_c
         dt = t_obs_c - ref_temp_c
-        return round(math.exp(-alpha * dt * (1.0 + 0.8 * alpha * dt)), 5)
+        return (math.exp(-alpha * dt * (1.0 + 0.8 * alpha * dt)))
 
     def blend_with(
         self,
@@ -2649,29 +2664,26 @@ class NGLAssay:
             n1 = (v1 * self.specific_gravity_60f) / self.molecular_weight_g_per_mol
             n2 = (v2 * other.specific_gravity_60f) / other.molecular_weight_g_per_mol
             x1, x2 = n1 / (n1 + n2), n2 / (n1 + n2)
-            b_mw = round((x1 * self.molecular_weight_g_per_mol) + (x2 * other.molecular_weight_g_per_mol), 3)
+            b_mw = ((x1 * self.molecular_weight_g_per_mol) + (x2 * other.molecular_weight_g_per_mol))
             if self.vapor_pressure_psia_100f is not None and other.vapor_pressure_psia_100f is not None:
-                b_vp = round((x1 * self.vapor_pressure_psia_100f) + (x2 * other.vapor_pressure_psia_100f), 2)
+                b_vp = ((x1 * self.vapor_pressure_psia_100f) + (x2 * other.vapor_pressure_psia_100f))
         elif self.vapor_pressure_psia_100f is not None and other.vapor_pressure_psia_100f is not None:
-            b_vp = round((v1 * self.vapor_pressure_psia_100f) + (v2 * other.vapor_pressure_psia_100f), 2)
+            b_vp = ((v1 * self.vapor_pressure_psia_100f) + (v2 * other.vapor_pressure_psia_100f))
 
         b_alpha: float | None = None
         if self.thermal_expansion_coeff_per_c is not None and other.thermal_expansion_coeff_per_c is not None:
-            b_alpha = round((v1 * self.thermal_expansion_coeff_per_c) + (v2 * other.thermal_expansion_coeff_per_c), 5)
+            b_alpha = ((v1 * self.thermal_expansion_coeff_per_c) + (v2 * other.thermal_expansion_coeff_per_c))
 
         b_refrig_rho: float | None = None
         if self.refrigerated_density_kg_per_m3 is not None and other.refrigerated_density_kg_per_m3 is not None:
-            b_refrig_rho = round(
-                (v1 * self.refrigerated_density_kg_per_m3) + (v2 * other.refrigerated_density_kg_per_m3),
-                3,
-            )
+            b_refrig_rho = ((v1 * self.refrigerated_density_kg_per_m3) + (v2 * other.refrigerated_density_kg_per_m3))
 
         return NGLAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
-            specific_gravity_60f=round(b_sg, 5),
-            hhv_btu_per_gal=round(b_hhv, 2),
-            lhv_btu_per_gal=round(b_lhv, 2),
-            gas_equivalent_scf_per_gal=round(b_scf, 3),
+            specific_gravity_60f=(b_sg),
+            hhv_btu_per_gal=(b_hhv),
+            lhv_btu_per_gal=(b_lhv),
+            gas_equivalent_scf_per_gal=(b_scf),
             molecular_weight_g_per_mol=b_mw,
             vapor_pressure_psia_100f=b_vp,
             thermal_expansion_coeff_per_c=b_alpha,
@@ -2772,6 +2784,7 @@ class NGLAssay:
 # ---------------------------------------------------------------------------
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class OreAssay:
     """Immutable physical and commercial specification for ores and metal concentrates.
@@ -2841,14 +2854,14 @@ class OreAssay:
         """Effective payable metal grade (%) after applying smelter payable factor and minimum deduction."""
         by_factor = self.grade_pct * self.payable_factor
         by_deduction = self.grade_pct - self.min_deduction_pct
-        return round(max(0.0, min(by_factor, by_deduction)), 4)
+        return (max(0.0, min(by_factor, by_deduction)))
 
     @property
     def stowage_factor_m3_per_wmt(self) -> float | None:
         """Vessel stowage factor (m^3 per WMT), or None if bulk_density_wmt_per_m3 is unset."""
         if self.bulk_density_wmt_per_m3 is None:
             return None
-        return round(1.0 / self.bulk_density_wmt_per_m3, 4)
+        return (1.0 / self.bulk_density_wmt_per_m3)
 
     def as_context(self, *, basis: str = "contained", context_name: str | None = None) -> pint.Context:
         """Bridges bulk volume and wet mass; use explicit methods for metal grades."""
@@ -2951,28 +2964,28 @@ class OreAssay:
         p = float(price_per_dmtu)
         if not math.isfinite(p):
             raise ValueError(f"price_per_dmtu must be finite, got {price_per_dmtu}")
-        return round(p * self.grade_pct, 4)
+        return (p * self.grade_pct)
 
     def dmt_price_to_dmtu_price(self, price_per_dmt: float) -> float:
         """Converts a $/dmt quote to $/dmtu."""
         p = float(price_per_dmt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_dmt must be finite, got {price_per_dmt}")
-        return round(p / self.grade_pct, 4)
+        return (p / self.grade_pct)
 
     def dmt_price_to_wmt_price(self, price_per_dmt: float) -> float:
         """Converts a $/dmt quote to $/wmt (wet basis)."""
         p = float(price_per_dmt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_dmt must be finite, got {price_per_dmt}")
-        return round(p * self.dry_mass_fraction, 4)
+        return (p * self.dry_mass_fraction)
 
     def wmt_price_to_dmt_price(self, price_per_wmt: float) -> float:
         """Converts a $/wmt quote to $/dmt (dry basis)."""
         p = float(price_per_wmt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_wmt must be finite, got {price_per_wmt}")
-        return round(p / self.dry_mass_fraction, 4)
+        return (p / self.dry_mass_fraction)
 
     # --- Ore & Concentrate Blending (WMT Moisture, DMT Grade & Impurities) ---
     def blend_with(
@@ -3012,7 +3025,7 @@ class OreAssay:
         if self.impurities_pct is not None and other.impurities_pct is not None:
             all_keys = set(self.impurities_pct) | set(other.impurities_pct)
             b_impurities = {
-                k: round((self.impurities_pct.get(k, 0.0) * dw1) + (other.impurities_pct.get(k, 0.0) * dw2), 4)
+                k: ((self.impurities_pct.get(k, 0.0) * dw1) + (other.impurities_pct.get(k, 0.0) * dw2))
                 for k in sorted(all_keys)
             }
 
@@ -3020,15 +3033,15 @@ class OreAssay:
         if self.bulk_density_wmt_per_m3 is not None and other.bulk_density_wmt_per_m3 is not None:
             # Harmonic mean of bulk densities (additive stowage volumes)
             vol_per_wmt = (w1 / self.bulk_density_wmt_per_m3) + (w2 / other.bulk_density_wmt_per_m3)
-            b_density = round(1.0 / vol_per_wmt, 4)
+            b_density = (1.0 / vol_per_wmt)
 
         return OreAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
             primary_element=self.primary_element,
-            grade_pct=round(b_grade, 4),
-            moisture_pct=round(b_moisture, 4),
-            payable_factor=round((self.payable_factor * dw1) + (other.payable_factor * dw2), 4),
-            min_deduction_pct=round((self.min_deduction_pct * dw1) + (other.min_deduction_pct * dw2), 4),
+            grade_pct=(b_grade),
+            moisture_pct=(b_moisture),
+            payable_factor=((self.payable_factor * dw1) + (other.payable_factor * dw2)),
+            min_deduction_pct=((self.min_deduction_pct * dw1) + (other.min_deduction_pct * dw2)),
             bulk_density_wmt_per_m3=b_density,
             impurities_pct=b_impurities,
         )
@@ -3135,6 +3148,7 @@ _LI2O_TO_LCE_FACTOR: Final[float] = 2.47284      # M(Li2CO3) / M(Li2O)       = 7
 _LIOH_H2O_TO_LCE_FACTOR: Final[float] = 0.88041  # M(Li2CO3) / (2*M(LiOH·H2O)) = 73.891 / 83.928
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class BatteryMaterialAssay:
     """Immutable physical and stoichiometric specification for battery raw materials.
@@ -3177,28 +3191,28 @@ class BatteryMaterialAssay:
     @property
     def dmt_per_mt_contained_metal(self) -> float:
         """Dry Metric Tonnes of material required per 1 mt of contained active metal."""
-        return round(100.0 / self.active_metal_pct, 4)
+        return (100.0 / self.active_metal_pct)
 
     @property
     def dmt_per_mt_lce_stoichiometric(self) -> float | None:
         """Stoichiometric DMT required per 1 mt LCE (100% recovery), or None if non-lithium."""
         if self.lce_factor_per_dmt is None:
             return None
-        return round(1.0 / self.lce_factor_per_dmt, 4)
+        return (1.0 / self.lce_factor_per_dmt)
 
     @property
     def dmt_per_mt_lce_recoverable(self) -> float | None:
         """Effective DMT required per 1 mt LCE at default_recovery_rate, or None if non-lithium."""
         if self.lce_factor_per_dmt is None:
             return None
-        return round(1.0 / (self.lce_factor_per_dmt * self.default_recovery_rate), 4)
+        return (1.0 / (self.lce_factor_per_dmt * self.default_recovery_rate))
 
     @property
     def li2o_pct(self) -> float | None:
         """Equivalent Li2O grade (%) on a dry basis for lithium-bearing materials."""
         if self.lce_factor_per_dmt is None:
             return None
-        return round((self.lce_factor_per_dmt / _LI2O_TO_LCE_FACTOR) * 100.0, 4)
+        return ((self.lce_factor_per_dmt / _LI2O_TO_LCE_FACTOR) * 100.0)
 
     def as_context(self, *, basis: str = "contained", context_name: str | None = None) -> pint.Context:
         """Returns a named context; use explicit methods for metal and LCE masses."""
@@ -3302,14 +3316,14 @@ class BatteryMaterialAssay:
         p = float(price_per_dmt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_dmt must be finite, got {price_per_dmt}")
-        return round(p / (self.active_metal_pct / 100.0), 4)
+        return (p / (self.active_metal_pct / 100.0))
 
     def metal_price_to_dmt_price(self, price_per_mt_metal: float) -> float:
         """Converts a $/mt contained metal quote to $/dmt product equivalent."""
         p = float(price_per_mt_metal)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt_metal must be finite, got {price_per_mt_metal}")
-        return round(p * (self.active_metal_pct / 100.0), 4)
+        return (p * (self.active_metal_pct / 100.0))
 
     def dmt_price_to_lce_price(
         self,
@@ -3326,7 +3340,7 @@ class BatteryMaterialAssay:
         rec = self.default_recovery_rate if recovery_rate is None else float(recovery_rate)
         if not math.isfinite(p) or not math.isfinite(cost) or not math.isfinite(rec) or not (0.0 < rec <= 1.0):
             raise ValueError("Inputs must be finite and recovery_rate must be in (0, 1].")
-        return round((p / (self.lce_factor_per_dmt * rec)) + cost, 4)
+        return ((p / (self.lce_factor_per_dmt * rec)) + cost)
 
     def lce_price_to_dmt_price(
         self,
@@ -3343,7 +3357,7 @@ class BatteryMaterialAssay:
         rec = self.default_recovery_rate if recovery_rate is None else float(recovery_rate)
         if not math.isfinite(p_lce) or not math.isfinite(cost) or not math.isfinite(rec) or not (0.0 < rec <= 1.0):
             raise ValueError("Inputs must be finite and recovery_rate must be in (0, 1].")
-        return round((p_lce - cost) * (self.lce_factor_per_dmt * rec), 4)
+        return ((p_lce - cost) * (self.lce_factor_per_dmt * rec))
 
     def blend_with(
         self,
@@ -3380,20 +3394,20 @@ class BatteryMaterialAssay:
 
         b_purity: float | None = None
         if self.purity_pct is not None and other.purity_pct is not None:
-            b_purity = round((self.purity_pct * dw1) + (other.purity_pct * dw2), 4)
+            b_purity = ((self.purity_pct * dw1) + (other.purity_pct * dw2))
 
         b_lce: float | None = None
         if self.lce_factor_per_dmt is not None and other.lce_factor_per_dmt is not None:
-            b_lce = round((self.lce_factor_per_dmt * dw1) + (other.lce_factor_per_dmt * dw2), 5)
+            b_lce = ((self.lce_factor_per_dmt * dw1) + (other.lce_factor_per_dmt * dw2))
 
         return BatteryMaterialAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
             active_metal=self.active_metal,
-            active_metal_pct=round(b_metal, 4),
-            moisture_pct=round(b_moisture, 4),
+            active_metal_pct=(b_metal),
+            moisture_pct=(b_moisture),
             purity_pct=b_purity,
             lce_factor_per_dmt=b_lce,
-            default_recovery_rate=round(b_rec, 4),
+            default_recovery_rate=(b_rec),
         )
 
     # --- Global Battery Material Benchmark Presets & Factories ---
@@ -3414,9 +3428,9 @@ class BatteryMaterialAssay:
         return cls(
             name=name or f"Spodumene Concentrate ({grade:.2f}% Li2O)",
             active_metal="Li",
-            active_metal_pct=round(li_pct, 4),
+            active_metal_pct=(li_pct),
             moisture_pct=moisture_pct,
-            lce_factor_per_dmt=round((grade / 100.0) * _LI2O_TO_LCE_FACTOR, 5),
+            lce_factor_per_dmt=((grade / 100.0) * _LI2O_TO_LCE_FACTOR),
             default_recovery_rate=recovery_rate,
         )
     @classmethod
@@ -3426,9 +3440,9 @@ class BatteryMaterialAssay:
         return cls(
             name="Spodumene Concentrate (SC6, 6% Li2O)",
             active_metal="Li",
-            active_metal_pct=round(li_pct, 4),
+            active_metal_pct=(li_pct),
             moisture_pct=8.0,
-            lce_factor_per_dmt=round(0.06 * _LI2O_TO_LCE_FACTOR, 5),
+            lce_factor_per_dmt=(0.06 * _LI2O_TO_LCE_FACTOR),
             default_recovery_rate=0.85,
         )
 
@@ -3439,7 +3453,7 @@ class BatteryMaterialAssay:
         return cls(
             name="Lithium Carbonate (BG 99.5%)",
             active_metal="Li",
-            active_metal_pct=round(li_pct, 4),
+            active_metal_pct=(li_pct),
             moisture_pct=0.0,
             purity_pct=99.5,
             lce_factor_per_dmt=0.995,
@@ -3453,10 +3467,10 @@ class BatteryMaterialAssay:
         return cls(
             name="Lithium Hydroxide Monohydrate (BG)",
             active_metal="Li",
-            active_metal_pct=round(li_pct, 4),
+            active_metal_pct=(li_pct),
             moisture_pct=0.0,
             purity_pct=99.5,
-            lce_factor_per_dmt=round(0.995 * _LIOH_H2O_TO_LCE_FACTOR, 5),
+            lce_factor_per_dmt=(0.995 * _LIOH_H2O_TO_LCE_FACTOR),
             default_recovery_rate=1.0,
         )
 
@@ -3531,6 +3545,7 @@ def _dirac_value_function(x_frac: float) -> float:
     return (2.0 * x_frac - 1.0) * math.log(x_frac / (1.0 - x_frac))
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class UraniumAssay:
     """Immutable isotopic and front-end fuel-cycle specification for Uranium.
@@ -3577,14 +3592,14 @@ class UraniumAssay:
         xp = self.product_u235_pct / 100.0
         xf = self.feed_u235_pct / 100.0
         xw = self.tails_u235_pct / 100.0
-        return round((xp - xw) / (xf - xw), 6)
+        return ((xp - xw) / (xf - xw))
 
     @property
     def tails_to_product_ratio(self) -> float:
         """Depleted uranium tails (kgU) produced per 1 kgU of product (W/P)."""
         if not self.is_enriched:
             return 0.0
-        return round(self.feed_to_product_ratio - 1.0, 6)
+        return (self.feed_to_product_ratio - 1.0)
 
     @property
     def swu_per_kg_u(self) -> float:
@@ -3597,7 +3612,7 @@ class UraniumAssay:
         fp = (xp - xw) / (xf - xw)
         wp = fp - 1.0
         swu = _dirac_value_function(xp) + (wp * _dirac_value_function(xw)) - (fp * _dirac_value_function(xf))
-        return round(swu, 6)
+        return (swu)
 
     def as_context(self, *, context_name: str | None = None) -> pint.Context:
         """Bridges EUP mass and thermal energy; use explicit methods for fuel-cycle masses."""
@@ -3688,7 +3703,7 @@ class UraniumAssay:
     def required_swu(self, eup_u_mass: pint.Quantity) -> float:
         """Computes total Separative Work Units (kg-SWU) required for an EUP quantity."""
         kg_u = float(self._validate_mass(eup_u_mass).magnitude)
-        return round(kg_u * self.swu_per_kg_u, 4)
+        return (kg_u * self.swu_per_kg_u)
 
     def u3o8_to_eup(
         self,
@@ -3761,7 +3776,7 @@ class UraniumAssay:
             ).magnitude
         )
         feed_cost_per_kgu = (p_u3o8 * lb_u3o8_per_feed_kgu) + p_conv
-        return round((self.feed_to_product_ratio * feed_cost_per_kgu) + (self.swu_per_kg_u * p_swu), 4)
+        return ((self.feed_to_product_ratio * feed_cost_per_kgu) + (self.swu_per_kg_u * p_swu))
 
     @staticmethod
     def optimal_tails_u235_pct(
@@ -3797,7 +3812,7 @@ class UraniumAssay:
                 lo = mid
             else:
                 hi = mid
-        return round(0.5 * (lo + hi) * 100.0, 5)
+        return (0.5 * (lo + hi) * 100.0)
 
     def blend_with(
         self,
@@ -3817,7 +3832,7 @@ class UraniumAssay:
         blended_u235 = (self.product_u235_pct * w1) + (other.product_u235_pct * w2)
         return UraniumAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
-            product_u235_pct=round(blended_u235, 5),
+            product_u235_pct=(blended_u235),
             feed_u235_pct=self.feed_u235_pct,
             tails_u235_pct=self.tails_u235_pct,
             conversion_loss_pct=self.conversion_loss_pct,
@@ -3866,6 +3881,7 @@ _ISO18125_H_GJ_PER_MT_PCT: Final[float] = 0.2122    # Latent heat of water from 
 _ISO18125_M_GJ_PER_MT_PCT: Final[float] = 0.02443   # Latent heat of vaporisation of moisture at 25°C
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class BiomassAssay:
     """Immutable calorific, moisture, and stowage specification for solid biomass.
@@ -3949,9 +3965,9 @@ class BiomassAssay:
             )
 
         object.__setattr__(self, "name", str(name))
-        object.__setattr__(self, "lhv_gj_per_mt_ar", round(res_lhv_ar, 4))
-        object.__setattr__(self, "hhv_gj_per_mt_ar", round(res_hhv_ar, 4))
-        object.__setattr__(self, "hhv_gj_per_mt_db", round(res_hhv_db, 4))
+        object.__setattr__(self, "lhv_gj_per_mt_ar", (res_lhv_ar))
+        object.__setattr__(self, "hhv_gj_per_mt_ar", (res_hhv_ar))
+        object.__setattr__(self, "hhv_gj_per_mt_db", (res_hhv_db))
         object.__setattr__(self, "moisture_pct", m)
         object.__setattr__(self, "bulk_density_kg_per_m3", rho)
         object.__setattr__(self, "hydrogen_db_pct", h_db)
@@ -3966,51 +3982,51 @@ class BiomassAssay:
 
     @property
     def lhv_mwh_per_mt_ar(self) -> float:
-        return round(self.lhv_gj_per_mt_ar / 3.6, 4)
+        return (self.lhv_gj_per_mt_ar / 3.6)
 
     @property
     def hhv_mwh_per_mt_ar(self) -> float:
-        return round(self.hhv_gj_per_mt_ar / 3.6, 4)
+        return (self.hhv_gj_per_mt_ar / 3.6)
 
     @property
     def lhv_mmbtu_per_mt_ar(self) -> float:
-        return round(self.lhv_gj_per_mt_ar / (MJ_PER_BTU_IT * 1000.0), 4)
+        return (self.lhv_gj_per_mt_ar / (MJ_PER_BTU_IT * 1000.0))
 
     @property
     def hhv_mmbtu_per_mt_ar(self) -> float:
-        return round(self.hhv_gj_per_mt_ar / (MJ_PER_BTU_IT * 1000.0), 4)
+        return (self.hhv_gj_per_mt_ar / (MJ_PER_BTU_IT * 1000.0))
 
     @property
     def stowage_factor_m3_per_wmt(self) -> float:
         """Vessel stowage factor (m^3 per WMT)."""
-        return round(1000.0 / self.bulk_density_kg_per_m3, 4)
+        return (1000.0 / self.bulk_density_kg_per_m3)
 
     @property
     def lhv_gj_per_m3_bulk(self) -> float:
         """Volumetric energy density (GJ LHV per bulk m^3)."""
-        return round(self.lhv_gj_per_mt_ar * (self.bulk_density_kg_per_m3 / 1000.0), 4)
+        return (self.lhv_gj_per_mt_ar * (self.bulk_density_kg_per_m3 / 1000.0))
 
     @property
     def lhv_gj_per_mt_db(self) -> float:
         """Net Calorific Value on a Dry Basis (ISO 18125): HHV_db - 0.2122 * H_db."""
-        return round(self.hhv_gj_per_mt_db - (_ISO18125_H_GJ_PER_MT_PCT * self.hydrogen_db_pct), 4)
+        return (self.hhv_gj_per_mt_db - (_ISO18125_H_GJ_PER_MT_PCT * self.hydrogen_db_pct))
 
     @property
     def lhv_kcal_per_kg_ar(self) -> float:
         """Net As Received calorific value in kcal_IT/kg (Asian PKS / Japanese FIT basis)."""
-        return round(self.lhv_gj_per_mt_ar / _KCAL_KG_TO_GJ_MT, 2)
+        return (self.lhv_gj_per_mt_ar / _KCAL_KG_TO_GJ_MT)
 
     @property
     def hhv_kcal_per_kg_ar(self) -> float:
         """Gross As Received calorific value in kcal_IT/kg."""
-        return round(self.hhv_gj_per_mt_ar / _KCAL_KG_TO_GJ_MT, 2)
+        return (self.hhv_gj_per_mt_ar / _KCAL_KG_TO_GJ_MT)
 
     @property
     def ash_ar_pct(self) -> float | None:
         """As-received ash content (wt%), or None if ash_db_pct is unset."""
         if self.ash_db_pct is None:
             return None
-        return round(self.ash_db_pct * self.dry_mass_fraction, 4)
+        return (self.ash_db_pct * self.dry_mass_fraction)
 
     def _gj_per_mt(self, basis: str) -> float:
         key = basis.strip().lower()
@@ -4113,14 +4129,14 @@ class BiomassAssay:
         p = float(price_per_wmt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_wmt must be finite, got {price_per_wmt}")
-        return round(p / self.dry_mass_fraction, 4)
+        return (p / self.dry_mass_fraction)
 
     def odt_price_to_wmt_price(self, price_per_odt: float) -> float:
         """Converts a $/ODT (Oven-Dry / Bone-Dry Tonne) quote to $/WMT."""
         p = float(price_per_odt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_odt must be finite, got {price_per_odt}")
-        return round(p * self.dry_mass_fraction, 4)
+        return (p * self.dry_mass_fraction)
 
     def blend_with(
         self,
@@ -4158,14 +4174,14 @@ class BiomassAssay:
         def _mix_db(a: float | None, b: float | None) -> float | None:
             if a is None or b is None:
                 return None
-            return round((a * dw1) + (b * dw2), 4)
+            return ((a * dw1) + (b * dw2))
 
         return BiomassAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
             hhv_gj_per_mt_db=b_hhv_db,
-            moisture_pct=round(b_moisture, 4),
-            bulk_density_kg_per_m3=round(b_rho, 2),
-            hydrogen_db_pct=round(b_h_db, 4),
+            moisture_pct=(b_moisture),
+            bulk_density_kg_per_m3=(b_rho),
+            hydrogen_db_pct=(b_h_db),
             ash_db_pct=_mix_db(self.ash_db_pct, other.ash_db_pct),
             chlorine_db_pct=_mix_db(self.chlorine_db_pct, other.chlorine_db_pct),
         )
@@ -4244,6 +4260,7 @@ class BiomassAssay:
 _LB_PER_MT: Final[float] = 1000.0 / 0.45359237    # Exact: 2204.62262185 lb/mt
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class PetrochemAssay:
     """Immutable physical and stoichiometric specification for petrochemicals.
@@ -4289,22 +4306,22 @@ class PetrochemAssay:
     @property
     def specific_gravity(self) -> float:
         """Specific gravity relative to water at 15°C (999.102 kg/m^3)."""
-        return round(self.density_kg_per_m3 / 999.102, 6)
+        return (self.density_kg_per_m3 / 999.102)
 
     @property
     def gal_per_mt(self) -> float:
         """US gallons per metric tonne at reference_temp_c."""
-        return round(1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)), 4)
+        return (1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)))
 
     @property
     def bbl_per_mt(self) -> float:
         """Barrels per metric tonne at reference_temp_c."""
-        return round(self.gal_per_mt / 42.0, 4)
+        return (self.gal_per_mt / 42.0)
 
     @property
     def lb_per_gal(self) -> float:
         """US pounds per US gallon at reference_temp_c (USGC aromatics standard)."""
-        return round(_LB_PER_MT / self.gal_per_mt, 4)
+        return (_LB_PER_MT / self.gal_per_mt)
 
     def as_context(self, *, context_name: str | None = None) -> pint.Context:
         """Builds a Pint transformation context bridging [volume], [mass], and [substance]."""
@@ -4372,12 +4389,12 @@ class PetrochemAssay:
             raise ValueError("Temperatures must be finite.")
         alpha = self.thermal_expansion_coeff_per_c
         dt = t_obs_c - t_ref
-        return round(math.exp(-alpha * dt * (1.0 + 0.8 * alpha * dt)), 5)
+        return (math.exp(-alpha * dt * (1.0 + 0.8 * alpha * dt)))
 
     def density_at_temp(self, observed_temp: float | pint.Quantity) -> float:
         """Computes hot-loaded liquid density (kg/m^3) at observed_temp via ASTM D4311."""
         vcf = self.volume_correction_factor(observed_temp, ref_temp_c=self.reference_temp_c)
-        return round(self.density_kg_per_m3 * vcf, 3)
+        return (self.density_kg_per_m3 * vcf)
 
     def observed_volume_to_mass(
         self,
@@ -4455,14 +4472,14 @@ class PetrochemAssay:
         p = float(price_per_gal)
         if not math.isfinite(p):
             raise ValueError(f"price_per_gal must be finite, got {price_per_gal}")
-        return round(p * self.gal_per_mt, 4)
+        return (p * self.gal_per_mt)
 
     def mt_price_to_gal_price(self, price_per_mt: float) -> float:
         """Converts Europe/Asia $/mt quote to USGC $/gal equivalent."""
         p = float(price_per_mt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
-        return round(p / self.gal_per_mt, 4)
+        return (p / self.gal_per_mt)
 
     @staticmethod
     def lb_price_to_mt_price(price_per_lb: float) -> float:
@@ -4470,7 +4487,7 @@ class PetrochemAssay:
         p = float(price_per_lb)
         if not math.isfinite(p):
             raise ValueError(f"price_per_lb must be finite, got {price_per_lb}")
-        return round(p * _LB_PER_MT, 4)
+        return (p * _LB_PER_MT)
 
     @staticmethod
     def mt_price_to_lb_price(price_per_mt: float) -> float:
@@ -4478,7 +4495,7 @@ class PetrochemAssay:
         p = float(price_per_mt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
-        return round(p / _LB_PER_MT, 6)
+        return (p / _LB_PER_MT)
 
     def blend_with(
         self,
@@ -4520,18 +4537,15 @@ class PetrochemAssay:
 
         b_alpha: float | None = None
         if self.thermal_expansion_coeff_per_c is not None and other.thermal_expansion_coeff_per_c is not None:
-            b_alpha = round(
-                (self.thermal_expansion_coeff_per_c * v1) + (other.thermal_expansion_coeff_per_c * v2),
-                6,
-            )
+            b_alpha = ((self.thermal_expansion_coeff_per_c * v1) + (other.thermal_expansion_coeff_per_c * v2))
 
         return PetrochemAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
             formula=self.formula if self.formula == other.formula else "Blend",
-            molecular_weight_g_per_mol=round(b_mw, 3),
-            density_kg_per_m3=round(b_rho, 3),
+            molecular_weight_g_per_mol=(b_mw),
+            density_kg_per_m3=(b_rho),
             reference_temp_c=self.reference_temp_c,
-            purity_pct=round(b_purity, 4),
+            purity_pct=(b_purity),
             thermal_expansion_coeff_per_c=b_alpha,
             freezing_point_c=None,
         )
@@ -4672,6 +4686,7 @@ _TROY_OUNCES_PER_KG: Final[float] = 1000.0 / 31.1034768       # 32.15074657 ozt/
 _GRAMS_PER_TOLA: Final[float] = 11.6638038                    # Exact India/Dubai bullion tola (3/8 ozt)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class BullionAssay:
     """Immutable fineness and custody specification for precious metals and doré.
@@ -4726,19 +4741,19 @@ class BullionAssay:
     @property
     def millesimal_fineness(self) -> float:
         """Fineness expressed in parts per thousand (e.g. 995.0, 999.9)."""
-        return round(self.fineness * 1000.0, 3)
+        return (self.fineness * 1000.0)
 
     @property
     def karat(self) -> float | None:
         """Karat purity (24K = 1.0) for gold assays; None for non-gold metals."""
         if self.primary_metal.strip().upper() not in {"AU", "GOLD"}:
             return None
-        return round(self.fineness * 24.0, 4)
+        return (self.fineness * 24.0)
 
     @property
     def effective_payable_fineness(self) -> float:
         """Net payable fineness after applying refinery payable_factor."""
-        return round(self.fineness * self.payable_factor, 6)
+        return (self.fineness * self.payable_factor)
 
     def as_context(self, *, basis: str = "fine", context_name: str | None = None) -> pint.Context:
         """Returns a named context; use explicit methods for fine and payable masses."""
@@ -4789,7 +4804,7 @@ class BullionAssay:
         if self.standard_bar_mass_ozt is None:
             raise ValueError(f"{self.name!r} does not define standard_bar_mass_ozt.")
         ozt = float(self._validate_mass(gross_mass).magnitude)
-        return round(ozt / self.standard_bar_mass_ozt, 4)
+        return (ozt / self.standard_bar_mass_ozt)
 
     def bar_count_to_gross(self, bar_count: float) -> pint.Quantity:
         """Converts a nominal standard bar count to gross troy ounces."""
@@ -4807,7 +4822,7 @@ class BullionAssay:
         p = float(price_per_ozt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_ozt must be finite, got {price_per_ozt}")
-        return round(p / _GRAMS_PER_TROY_OUNCE, 6)
+        return (p / _GRAMS_PER_TROY_OUNCE)
 
     @staticmethod
     def gram_price_to_ozt_price(price_per_gram: float) -> float:
@@ -4815,7 +4830,7 @@ class BullionAssay:
         p = float(price_per_gram)
         if not math.isfinite(p):
             raise ValueError(f"price_per_gram must be finite, got {price_per_gram}")
-        return round(p * _GRAMS_PER_TROY_OUNCE, 4)
+        return (p * _GRAMS_PER_TROY_OUNCE)
 
     @staticmethod
     def ozt_price_to_kg_price(price_per_ozt: float) -> float:
@@ -4823,7 +4838,7 @@ class BullionAssay:
         p = float(price_per_ozt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_ozt must be finite, got {price_per_ozt}")
-        return round(p * _TROY_OUNCES_PER_KG, 4)
+        return (p * _TROY_OUNCES_PER_KG)
 
     @staticmethod
     def kg_price_to_ozt_price(price_per_kg: float) -> float:
@@ -4831,21 +4846,21 @@ class BullionAssay:
         p = float(price_per_kg)
         if not math.isfinite(p):
             raise ValueError(f"price_per_kg must be finite, got {price_per_kg}")
-        return round(p / _TROY_OUNCES_PER_KG, 4)
+        return (p / _TROY_OUNCES_PER_KG)
 
     def fine_ozt_price_to_gross_ozt_price(self, price_per_fine_ozt: float) -> float:
         """Converts a $/fine ozt spot quote to implied $/gross ozt value for this assay."""
         p = float(price_per_fine_ozt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_fine_ozt must be finite, got {price_per_fine_ozt}")
-        return round(p * self.fineness * self.payable_factor, 4)
+        return (p * self.fineness * self.payable_factor)
 
     def gross_ozt_price_to_fine_ozt_price(self, price_per_gross_ozt: float) -> float:
         """Converts a $/gross ozt doré/scrap quote to implied $/fine ozt spot parity."""
         p = float(price_per_gross_ozt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_gross_ozt must be finite, got {price_per_gross_ozt}")
-        return round(p / (self.fineness * self.payable_factor), 4)
+        return (p / (self.fineness * self.payable_factor))
 
     @staticmethod
     def ozt_price_to_tola_price(price_per_ozt: float) -> float:
@@ -4853,7 +4868,7 @@ class BullionAssay:
         p = float(price_per_ozt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_ozt must be finite, got {price_per_ozt}")
-        return round(p * (_GRAMS_PER_TOLA / _GRAMS_PER_TROY_OUNCE), 4)
+        return (p * (_GRAMS_PER_TOLA / _GRAMS_PER_TROY_OUNCE))
 
     @staticmethod
     def tola_price_to_ozt_price(price_per_tola: float) -> float:
@@ -4861,7 +4876,7 @@ class BullionAssay:
         p = float(price_per_tola)
         if not math.isfinite(p):
             raise ValueError(f"price_per_tola must be finite, got {price_per_tola}")
-        return round(p * (_GRAMS_PER_TROY_OUNCE / _GRAMS_PER_TOLA), 4)
+        return (p * (_GRAMS_PER_TROY_OUNCE / _GRAMS_PER_TOLA))
 
     def blend_with(
         self,
@@ -4893,15 +4908,15 @@ class BullionAssay:
             d1 = self.byproduct_fineness or {}
             d2 = other.byproduct_fineness or {}
             b_byprod = {
-                k: round((d1.get(k, 0.0) * w1) + (d2.get(k, 0.0) * w2), 6)
+                k: ((d1.get(k, 0.0) * w1) + (d2.get(k, 0.0) * w2))
                 for k in sorted(set(d1) | set(d2))
             }
 
         return BullionAssay(
             name=blend_name or f"{self.name}/{other.name} Melt",
             primary_metal=self.primary_metal,
-            fineness=round((self.fineness * w1) + (other.fineness * w2), 6),
-            payable_factor=round(blended_payable, 6),
+            fineness=((self.fineness * w1) + (other.fineness * w2)),
+            payable_factor=(blended_payable),
             standard_bar_mass_ozt=None,
             byproduct_fineness=b_byprod,
         )
@@ -4922,7 +4937,7 @@ class BullionAssay:
         return cls(
             name=name or f"Gold ({k:g}K)",
             primary_metal="Au",
-            fineness=round(k / 24.0, 6),
+            fineness=(k / 24.0),
             payable_factor=payable_factor,
         )
 
@@ -4953,7 +4968,7 @@ class BullionAssay:
             name="Gold 999.9 Kilobar",
             primary_metal="Au",
             fineness=0.9999,
-            standard_bar_mass_ozt=round(_TROY_OUNCES_PER_KG, 6),
+            standard_bar_mass_ozt=(_TROY_OUNCES_PER_KG),
         )
 
     @classmethod
@@ -5006,6 +5021,7 @@ _K_IN_K2O: Final[float] = 0.83015           # 2 * M(K) / M(K2O)  = 78.197 / 94.1
 _MT_PER_SHORT_TON: Final[float] = 0.90718474  # Exact: 2000 lb in metric tonnes
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class FertilizerAssay:
     """Immutable nutrient-grade and physical specification for fertilisers.
@@ -5052,40 +5068,40 @@ class FertilizerAssay:
     @property
     def elemental_p_pct(self) -> float:
         """Elemental phosphorus content (wt% P) converted from P2O5."""
-        return round(self.p2o5_pct * _P_IN_P2O5, 4)
+        return (self.p2o5_pct * _P_IN_P2O5)
 
     @property
     def elemental_k_pct(self) -> float:
         """Elemental potassium content (wt% K) converted from K2O."""
-        return round(self.k2o_pct * _K_IN_K2O, 4)
+        return (self.k2o_pct * _K_IN_K2O)
 
     @property
     def gal_per_mt(self) -> float | None:
         """US gallons per metric tonne (primarily for liquid UAN), or None if density unset."""
         if self.density_kg_per_m3 is None:
             return None
-        return round(1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)), 4)
+        return (1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)))
 
     @property
     def lb_per_gal(self) -> float | None:
         """US pounds per US gallon (US liquid fertiliser standard), or None if density unset."""
         if self.gal_per_mt is None:
             return None
-        return round(_LB_PER_MT / self.gal_per_mt, 4)
+        return (_LB_PER_MT / self.gal_per_mt)
 
     @property
     def lb_n_per_gal(self) -> float | None:
         """Pounds of elemental Nitrogen per US gallon (UAN application benchmark)."""
         if self.lb_per_gal is None:
             return None
-        return round(self.lb_per_gal * (self.n_pct / 100.0), 4)
+        return (self.lb_per_gal * (self.n_pct / 100.0))
 
     @property
     def stowage_factor_m3_per_mt(self) -> float | None:
         """Bulk stowage factor (m^3 per mt), or None if density unset."""
         if self.density_kg_per_m3 is None:
             return None
-        return round(1000.0 / self.density_kg_per_m3, 4)
+        return (1000.0 / self.density_kg_per_m3)
 
     def _nutrient_fraction(self, nutrient: str) -> float:
         key = nutrient.strip().upper()
@@ -5175,7 +5191,7 @@ class FertilizerAssay:
         p = float(price_per_st)
         if not math.isfinite(p):
             raise ValueError(f"price_per_st must be finite, got {price_per_st}")
-        return round(p / _MT_PER_SHORT_TON, 4)
+        return (p / _MT_PER_SHORT_TON)
 
     @staticmethod
     def mt_price_to_st_price(price_per_mt: float) -> float:
@@ -5183,21 +5199,21 @@ class FertilizerAssay:
         p = float(price_per_mt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
-        return round(p * _MT_PER_SHORT_TON, 4)
+        return (p * _MT_PER_SHORT_TON)
 
     def product_price_to_nutrient_price(self, price_per_mt_product: float, nutrient: str) -> float:
         """Converts a $/mt product quote to implied $/mt contained nutrient (e.g. $/mt N)."""
         p = float(price_per_mt_product)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt_product must be finite, got {price_per_mt_product}")
-        return round(p / self._nutrient_fraction(nutrient), 4)
+        return (p / self._nutrient_fraction(nutrient))
 
     def nutrient_price_to_product_price(self, price_per_mt_nutrient: float, nutrient: str) -> float:
         """Converts a $/mt nutrient quote to implied $/mt product equivalent."""
         p = float(price_per_mt_nutrient)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt_nutrient must be finite, got {price_per_mt_nutrient}")
-        return round(p * self._nutrient_fraction(nutrient), 4)
+        return (p * self._nutrient_fraction(nutrient))
 
     def gal_price_to_mt_price(self, price_per_gal: float) -> float:
         """Converts liquid fertiliser $/gal quote to $/mt equivalent."""
@@ -5206,7 +5222,7 @@ class FertilizerAssay:
         p = float(price_per_gal)
         if not math.isfinite(p):
             raise ValueError(f"price_per_gal must be finite, got {price_per_gal}")
-        return round(p * self.gal_per_mt, 4)
+        return (p * self.gal_per_mt)
 
     def mt_price_to_gal_price(self, price_per_mt: float) -> float:
         """Converts liquid fertiliser $/mt quote to $/gal equivalent."""
@@ -5215,21 +5231,21 @@ class FertilizerAssay:
         p = float(price_per_mt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
-        return round(p / self.gal_per_mt, 4)
+        return (p / self.gal_per_mt)
 
     def st_price_to_lb_nutrient_price(self, price_per_st: float, nutrient: str) -> float:
         """Converts a US $/short_ton product quote to $/lb contained nutrient (e.g. $/lb N)."""
         p = float(price_per_st)
         if not math.isfinite(p):
             raise ValueError(f"price_per_st must be finite, got {price_per_st}")
-        return round(p / (2000.0 * self._nutrient_fraction(nutrient)), 6)
+        return (p / (2000.0 * self._nutrient_fraction(nutrient)))
 
     def st_price_to_unit_price(self, price_per_st: float, nutrient: str) -> float:
         """Converts a US $/short_ton product quote to $/short-ton unit (1 unit = 20 lb nutrient)."""
         p = float(price_per_st)
         if not math.isfinite(p):
             raise ValueError(f"price_per_st must be finite, got {price_per_st}")
-        return round(p / (self._nutrient_fraction(nutrient) * 100.0), 4)
+        return (p / (self._nutrient_fraction(nutrient) * 100.0))
 
     def blend_with(
         self,
@@ -5252,14 +5268,14 @@ class FertilizerAssay:
         b_rho: float | None = None
         if self.density_kg_per_m3 is not None and other.density_kg_per_m3 is not None:
             vol_per_kg = (w1 / self.density_kg_per_m3) + (w2 / other.density_kg_per_m3)
-            b_rho = round(1.0 / vol_per_kg, 2)
+            b_rho = (1.0 / vol_per_kg)
 
         return FertilizerAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
-            n_pct=round((self.n_pct * w1) + (other.n_pct * w2), 4),
-            p2o5_pct=round((self.p2o5_pct * w1) + (other.p2o5_pct * w2), 4),
-            k2o_pct=round((self.k2o_pct * w1) + (other.k2o_pct * w2), 4),
-            s_pct=round((self.s_pct * w1) + (other.s_pct * w2), 4),
+            n_pct=((self.n_pct * w1) + (other.n_pct * w2)),
+            p2o5_pct=((self.p2o5_pct * w1) + (other.p2o5_pct * w2)),
+            k2o_pct=((self.k2o_pct * w1) + (other.k2o_pct * w2)),
+            s_pct=((self.s_pct * w1) + (other.s_pct * w2)),
             density_kg_per_m3=b_rho,
             is_liquid=self.is_liquid,
         )
@@ -5387,6 +5403,7 @@ class FertilizerAssay:
 _ASTM_D4311_GROUP0_ALPHA_PER_C: Final[float] = 0.00062  # Standard Group 0 bitumen thermal expansion (/°C)
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class BitumenAssay:
     """Immutable physical and rheological specification for paving bitumen (asphalt).
@@ -5429,17 +5446,17 @@ class BitumenAssay:
     @property
     def specific_gravity(self) -> float:
         """Specific gravity relative to water at 15°C (999.102 kg/m^3)."""
-        return round(self.density_kg_per_m3 / 999.102, 6)
+        return (self.density_kg_per_m3 / 999.102)
 
     @property
     def bbl_per_mt(self) -> float:
         """Standard barrels per metric tonne at reference_temp_c."""
-        return round(1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_BBL / 1000.0)), 4)
+        return (1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_BBL / 1000.0)))
 
     @property
     def gal_per_mt(self) -> float:
         """Standard US gallons per metric tonne at reference_temp_c."""
-        return round(1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)), 4)
+        return (1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)))
 
     def as_context(self, *, context_name: str | None = None) -> pint.Context:
         """Builds a Pint transformation context bridging standard bitumen [volume] and [mass]."""
@@ -5462,12 +5479,12 @@ class BitumenAssay:
             raise ValueError("Temperatures must be finite.")
         alpha = self.thermal_expansion_coeff_per_c
         dt = t_obs_c - t_ref
-        return round(math.exp(-alpha * dt * (1.0 + 0.8 * alpha * dt)), 5)
+        return (math.exp(-alpha * dt * (1.0 + 0.8 * alpha * dt)))
 
     def density_at_temp(self, observed_temp: float | pint.Quantity) -> float:
         """Computes hot-loaded liquid density (kg/m^3) at observed_temp via ASTM D4311."""
         vcf = self.volume_correction_factor(observed_temp, ref_temp_c=self.reference_temp_c)
-        return round(self.density_kg_per_m3 * vcf, 3)
+        return (self.density_kg_per_m3 * vcf)
 
     def volume_to_mass(self, std_volume: pint.Quantity) -> pint.Quantity:
         """Converts standard-temperature bitumen volume (m^3, bbl, gal) to mass (metric_ton)."""
@@ -5518,7 +5535,7 @@ class BitumenAssay:
         p = float(price_per_st)
         if not math.isfinite(p):
             raise ValueError(f"price_per_st must be finite, got {price_per_st}")
-        return round(p / _MT_PER_SHORT_TON, 4)
+        return (p / _MT_PER_SHORT_TON)
 
     @staticmethod
     def mt_price_to_st_price(price_per_mt: float) -> float:
@@ -5526,35 +5543,35 @@ class BitumenAssay:
         p = float(price_per_mt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
-        return round(p * _MT_PER_SHORT_TON, 4)
+        return (p * _MT_PER_SHORT_TON)
 
     def gal_price_to_mt_price(self, price_per_gal: float) -> float:
         """Converts $/gal bitumen quote to $/mt equivalent at reference temperature."""
         p = float(price_per_gal)
         if not math.isfinite(p):
             raise ValueError(f"price_per_gal must be finite, got {price_per_gal}")
-        return round(p * self.gal_per_mt, 4)
+        return (p * self.gal_per_mt)
 
     def mt_price_to_gal_price(self, price_per_mt: float) -> float:
         """Converts $/mt bitumen quote to $/gal equivalent at reference temperature."""
         p = float(price_per_mt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
-        return round(p / self.gal_per_mt, 4)
+        return (p / self.gal_per_mt)
 
     def bbl_price_to_mt_price(self, price_per_bbl: float) -> float:
         """Converts $/bbl bitumen quote to $/mt equivalent (crude/HSFO crack-spread parity)."""
         p = float(price_per_bbl)
         if not math.isfinite(p):
             raise ValueError(f"price_per_bbl must be finite, got {price_per_bbl}")
-        return round(p * self.bbl_per_mt, 4)
+        return (p * self.bbl_per_mt)
 
     def mt_price_to_bbl_price(self, price_per_mt: float) -> float:
         """Converts $/mt bitumen quote to $/bbl equivalent."""
         p = float(price_per_mt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
-        return round(p / self.bbl_per_mt, 4)
+        return (p / self.bbl_per_mt)
 
     def blend_with(
         self,
@@ -5583,20 +5600,20 @@ class BitumenAssay:
         w2 = 1.0 - w1
 
         vol_per_kg = (w1 / self.density_kg_per_m3) + (w2 / other.density_kg_per_m3)
-        b_rho = round(1.0 / vol_per_kg, 3)
+        b_rho = (1.0 / vol_per_kg)
 
         b_pen: float | None = None
         if self.penetration_dmm is not None and other.penetration_dmm is not None:
             log_pen = (w1 * math.log10(self.penetration_dmm)) + (w2 * math.log10(other.penetration_dmm))
-            b_pen = round(10.0 ** log_pen, 2)
+            b_pen = (10.0 ** log_pen)
 
         b_sp = (
-            round((self.softening_point_c * w1) + (other.softening_point_c * w2), 2)
+            ((self.softening_point_c * w1) + (other.softening_point_c * w2))
             if (self.softening_point_c is not None and other.softening_point_c is not None)
             else None
         )
         b_s = (
-            round((self.sulphur_pct * w1) + (other.sulphur_pct * w2), 3)
+            ((self.sulphur_pct * w1) + (other.sulphur_pct * w2))
             if (self.sulphur_pct is not None and other.sulphur_pct is not None)
             else None
         )
@@ -5605,10 +5622,7 @@ class BitumenAssay:
             name=blend_name or f"{self.name}/{other.name} Blend",
             density_kg_per_m3=b_rho,
             reference_temp_c=self.reference_temp_c,
-            thermal_expansion_coeff_per_c=round(
-                (self.thermal_expansion_coeff_per_c * w1) + (other.thermal_expansion_coeff_per_c * w2),
-                6,
-            ),
+            thermal_expansion_coeff_per_c=((self.thermal_expansion_coeff_per_c * w1) + (other.thermal_expansion_coeff_per_c * w2)),
             penetration_dmm=b_pen,
             softening_point_c=b_sp,
             sulphur_pct=b_s,
@@ -5666,6 +5680,7 @@ class BitumenAssay:
 # ---------------------------------------------------------------------------
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class PetcokeAssay:
     """Immutable calorific, proximate, and bulk-stowage specification for petroleum coke.
@@ -5718,45 +5733,45 @@ class PetcokeAssay:
     @property
     def dry_mass_fraction(self) -> float:
         """Dry matter mass fraction (DMT per WMT)."""
-        return round(1.0 - (self.moisture_pct / 100.0), 6)
+        return (1.0 - (self.moisture_pct / 100.0))
 
     @property
     def fixed_carbon_db_pct(self) -> float:
         """Proximate-analysis Fixed Carbon on a dry basis: 100 - VM_db - Ash_db."""
-        return round(max(0.0, 100.0 - self.volatile_matter_db_pct - self.ash_db_pct), 4)
+        return (max(0.0, 100.0 - self.volatile_matter_db_pct - self.ash_db_pct))
 
     @property
     def lhv_gj_per_mt_ar(self) -> float:
         """As-received Net Calorific Value (LHV / NAR) in GJ/mt."""
-        return round(self.lhv_kcal_per_kg_ar * _KCAL_KG_TO_GJ_MT, 4)
+        return (self.lhv_kcal_per_kg_ar * _KCAL_KG_TO_GJ_MT)
 
     @property
     def hhv_gj_per_mt_ar(self) -> float:
         """As-received Gross Calorific Value (HHV / GAR) in GJ/mt."""
-        return round(self.hhv_kcal_per_kg_ar * _KCAL_KG_TO_GJ_MT, 4)
+        return (self.hhv_kcal_per_kg_ar * _KCAL_KG_TO_GJ_MT)
 
     @property
     def lhv_mmbtu_per_mt_ar(self) -> float:
         """As-received LHV in MMBtu_IT per metric tonne."""
-        return round(self.lhv_gj_per_mt_ar / (MJ_PER_BTU_IT * 1000.0), 4)
+        return (self.lhv_gj_per_mt_ar / (MJ_PER_BTU_IT * 1000.0))
 
     @property
     def hhv_mmbtu_per_mt_ar(self) -> float:
         """As-received HHV in MMBtu_IT per metric tonne."""
-        return round(self.hhv_gj_per_mt_ar / (MJ_PER_BTU_IT * 1000.0), 4)
+        return (self.hhv_gj_per_mt_ar / (MJ_PER_BTU_IT * 1000.0))
 
     @property
     def lhv_mwh_per_mt_ar(self) -> float:
-        return round(self.lhv_gj_per_mt_ar / 3.6, 4)
+        return (self.lhv_gj_per_mt_ar / 3.6)
 
     @property
     def hhv_mwh_per_mt_ar(self) -> float:
-        return round(self.hhv_gj_per_mt_ar / 3.6, 4)
+        return (self.hhv_gj_per_mt_ar / 3.6)
 
     @property
     def stowage_factor_m3_per_wmt(self) -> float:
         """Bulk vessel stowage factor in cubic metres per wet metric tonne."""
-        return round(1000.0 / self.bulk_density_kg_per_m3, 4)
+        return (1000.0 / self.bulk_density_kg_per_m3)
 
     def as_context(self, *, basis: str = "lhv", context_name: str | None = None) -> pint.Context:
         """Builds a Pint transformation context bridging petcoke [mass], [volume], and [energy]."""
@@ -5838,8 +5853,8 @@ class PetcokeAssay:
 
         return PetcokeAssay(
             name=name or f"{self.name} ({m_new:.1f}% M)",
-            lhv_kcal_per_kg_ar=round(new_lhv_ar, 2),
-            hhv_kcal_per_kg_ar=round(new_hhv_ar, 2),
+            lhv_kcal_per_kg_ar=(new_lhv_ar),
+            hhv_kcal_per_kg_ar=(new_hhv_ar),
             moisture_pct=m_new,
             sulphur_db_pct=self.sulphur_db_pct,
             volatile_matter_db_pct=self.volatile_matter_db_pct,
@@ -5856,7 +5871,7 @@ class PetcokeAssay:
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
         mmbtu_per_mt = self.lhv_mmbtu_per_mt_ar if basis.strip().lower() in {"lhv", "nar"} else self.hhv_mmbtu_per_mt_ar
-        return round(p / mmbtu_per_mt, 4)
+        return (p / mmbtu_per_mt)
 
     def mmbtu_price_to_mt_price(self, price_per_mmbtu: float, *, basis: str = "hhv") -> float:
         """Converts $/MMBtu energy quote to implied $/mt petcoke parity."""
@@ -5864,21 +5879,21 @@ class PetcokeAssay:
         if not math.isfinite(p):
             raise ValueError(f"price_per_mmbtu must be finite, got {price_per_mmbtu}")
         mmbtu_per_mt = self.lhv_mmbtu_per_mt_ar if basis.strip().lower() in {"lhv", "nar"} else self.hhv_mmbtu_per_mt_ar
-        return round(p * mmbtu_per_mt, 4)
+        return (p * mmbtu_per_mt)
 
     def wmt_price_to_dmt_price(self, price_per_wmt: float) -> float:
         """Converts a $/WMT quote to $/DMT (dry basis)."""
         p = float(price_per_wmt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_wmt must be finite, got {price_per_wmt}")
-        return round(p / self.dry_mass_fraction, 4)
+        return (p / self.dry_mass_fraction)
 
     def dmt_price_to_wmt_price(self, price_per_dmt: float) -> float:
         """Converts a $/DMT quote to $/WMT (wet basis)."""
         p = float(price_per_dmt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_dmt must be finite, got {price_per_dmt}")
-        return round(p * self.dry_mass_fraction, 4)
+        return (p * self.dry_mass_fraction)
 
     def blend_with(
         self,
@@ -5908,22 +5923,22 @@ class PetcokeAssay:
         dw2 = d2 / d_tot
 
         vol_per_kg = (w1 / self.bulk_density_kg_per_m3) + (w2 / other.bulk_density_kg_per_m3)
-        b_rho = round(1.0 / vol_per_kg, 2)
+        b_rho = (1.0 / vol_per_kg)
 
         b_hgi = (
-            round((self.hgi * dw1) + (other.hgi * dw2), 2)
+            ((self.hgi * dw1) + (other.hgi * dw2))
             if (self.hgi is not None and other.hgi is not None)
             else None
         )
 
         return PetcokeAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
-            lhv_kcal_per_kg_ar=round((self.lhv_kcal_per_kg_ar * w1) + (other.lhv_kcal_per_kg_ar * w2), 2),
-            hhv_kcal_per_kg_ar=round((self.hhv_kcal_per_kg_ar * w1) + (other.hhv_kcal_per_kg_ar * w2), 2),
-            moisture_pct=round((self.moisture_pct * w1) + (other.moisture_pct * w2), 4),
-            sulphur_db_pct=round((self.sulphur_db_pct * dw1) + (other.sulphur_db_pct * dw2), 4),
-            volatile_matter_db_pct=round((self.volatile_matter_db_pct * dw1) + (other.volatile_matter_db_pct * dw2), 4),
-            ash_db_pct=round((self.ash_db_pct * dw1) + (other.ash_db_pct * dw2), 4),
+            lhv_kcal_per_kg_ar=((self.lhv_kcal_per_kg_ar * w1) + (other.lhv_kcal_per_kg_ar * w2)),
+            hhv_kcal_per_kg_ar=((self.hhv_kcal_per_kg_ar * w1) + (other.hhv_kcal_per_kg_ar * w2)),
+            moisture_pct=((self.moisture_pct * w1) + (other.moisture_pct * w2)),
+            sulphur_db_pct=((self.sulphur_db_pct * dw1) + (other.sulphur_db_pct * dw2)),
+            volatile_matter_db_pct=((self.volatile_matter_db_pct * dw1) + (other.volatile_matter_db_pct * dw2)),
+            ash_db_pct=((self.ash_db_pct * dw1) + (other.ash_db_pct * dw2)),
             hgi=b_hgi,
             bulk_density_kg_per_m3=b_rho,
             is_calcined=(self.is_calcined and other.is_calcined),
@@ -6001,6 +6016,7 @@ class PetcokeAssay:
 # (Caustic Soda, Sulphuric/HCl Acids, Methanol, Soda Ash, Sulphur, Chlorine)
 # ---------------------------------------------------------------------------
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class ChemicalAssay:
     """Immutable physical, concentration, and molar specification for industrial chemicals.
@@ -6043,7 +6059,7 @@ class ChemicalAssay:
     @property
     def specific_gravity(self) -> float:
         """Specific gravity relative to water at 15°C (999.102 kg/m^3)."""
-        return round(self.density_kg_per_m3 / WATER_DENSITY_15C_KG_M3, 6)
+        return (self.density_kg_per_m3 / WATER_DENSITY_15C_KG_M3)
 
     @property
     def baume_degrees(self) -> float | None:
@@ -6057,23 +6073,23 @@ class ChemicalAssay:
             return None
         sg = self.density_kg_per_m3 / WATER_DENSITY_15C_KG_M3
         if sg >= 1.0:
-            return round(145.0 - (145.0 / sg), 3)
-        return round((140.0 / sg) - 130.0, 3)
+            return (145.0 - (145.0 / sg))
+        return ((140.0 / sg) - 130.0)
 
     @property
     def gal_per_mt(self) -> float:
         """US gallons per commercial metric tonne at reference_temp_c."""
-        return round(1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)), 4)
+        return (1000.0 / (self.density_kg_per_m3 * (_LITRES_PER_US_GAL / 1000.0)))
 
     @property
     def lb_per_gal(self) -> float:
         """US pounds per US gallon at reference_temp_c."""
-        return round(_LB_PER_MT / self.gal_per_mt, 4)
+        return (_LB_PER_MT / self.gal_per_mt)
 
     @property
     def active_kg_per_m3(self) -> float:
         """Active solute mass (kg) contained in 1 m^3 of commercial solution/bulk."""
-        return round(self.density_kg_per_m3 * self.active_mass_fraction, 3)
+        return (self.density_kg_per_m3 * self.active_mass_fraction)
 
     def as_context(self, *, active_only: bool = True, context_name: str | None = None) -> pint.Context:
         """Builds a Pint transformation context bridging [volume], [mass], and [substance]."""
@@ -6180,7 +6196,7 @@ class ChemicalAssay:
             sol_frac = c_target / self.concentration_pct
             water_frac = 1.0 - sol_frac
             vol_per_kg = (sol_frac / self.density_kg_per_m3) + (water_frac / WATER_DENSITY_15C_KG_M3)
-            est_rho = round(1.0 / vol_per_kg, 2)
+            est_rho = (1.0 / vol_per_kg)
         else:
             est_rho = float(new_density_kg_per_m3)
 
@@ -6221,7 +6237,7 @@ class ChemicalAssay:
             formula=self.formula,
             molecular_weight_g_per_mol=self.molecular_weight_g_per_mol,
             concentration_pct=b_conc,
-            density_kg_per_m3=round(1.0 / vol_per_kg, 2),
+            density_kg_per_m3=(1.0 / vol_per_kg),
             reference_temp_c=self.reference_temp_c,
             is_liquid=self.is_liquid,
         )
@@ -6232,28 +6248,28 @@ class ChemicalAssay:
         p = float(price_per_wmt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_wmt must be finite, got {price_per_wmt}")
-        return round(p / self.active_mass_fraction, 4)
+        return (p / self.active_mass_fraction)
 
     def active_price_to_solution_price(self, price_per_dmt_active: float) -> float:
         """Converts a $/DMT (100% active basis) quote to $/WMT commercial solution."""
         p = float(price_per_dmt_active)
         if not math.isfinite(p):
             raise ValueError(f"price_per_dmt_active must be finite, got {price_per_dmt_active}")
-        return round(p * self.active_mass_fraction, 4)
+        return (p * self.active_mass_fraction)
 
     def gal_price_to_mt_price(self, price_per_gal: float) -> float:
         """Converts USGC $/gal quote (e.g. Methanol) to international $/mt equivalent."""
         p = float(price_per_gal)
         if not math.isfinite(p):
             raise ValueError(f"price_per_gal must be finite, got {price_per_gal}")
-        return round(p * self.gal_per_mt, 4)
+        return (p * self.gal_per_mt)
 
     def mt_price_to_gal_price(self, price_per_mt: float) -> float:
         """Converts international $/mt quote to USGC $/gal equivalent."""
         p = float(price_per_mt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
-        return round(p / self.gal_per_mt, 4)
+        return (p / self.gal_per_mt)
 
     @staticmethod
     def st_price_to_mt_price(price_per_st: float) -> float:
@@ -6261,7 +6277,7 @@ class ChemicalAssay:
         p = float(price_per_st)
         if not math.isfinite(p):
             raise ValueError(f"price_per_st must be finite, got {price_per_st}")
-        return round(p / _MT_PER_SHORT_TON, 4)
+        return (p / _MT_PER_SHORT_TON)
 
     @staticmethod
     def mt_price_to_st_price(price_per_mt: float) -> float:
@@ -6269,7 +6285,7 @@ class ChemicalAssay:
         p = float(price_per_mt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
-        return round(p * _MT_PER_SHORT_TON, 4)
+        return (p * _MT_PER_SHORT_TON)
 
     # --- Global Industrial Chemical Benchmark Presets ---
     @classmethod
@@ -6414,6 +6430,7 @@ _NH3_H2_MASS_FRACTION: Final[float] = 0.17755  # Approximate stoichiometric frac
 _EU_RFNBO_MAX_CI_G_PER_MJ: Final[float] = 28.2
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class HydrogenAssay:
     """Immutable physical, energetic, and regulatory specification for hydrogen and carriers.
@@ -6472,27 +6489,27 @@ class HydrogenAssay:
     @property
     def lhv_kwh_per_kg_h2(self) -> float:
         """Lower Heating Value in kWh per kg of contained H2 (~33.32 kWh/kg)."""
-        return round(self.lhv_mj_per_kg_h2 / 3.6, 4)
+        return (self.lhv_mj_per_kg_h2 / 3.6)
 
     @property
     def hhv_kwh_per_kg_h2(self) -> float:
         """Higher Heating Value in kWh per kg of contained H2 (~39.41 kWh/kg)."""
-        return round(self.hhv_mj_per_kg_h2 / 3.6, 4)
+        return (self.hhv_mj_per_kg_h2 / 3.6)
 
     @property
     def lhv_mmbtu_per_kg_h2(self) -> float:
         """Lower Heating Value in MMBtu per kg of contained H2."""
-        return round(self.lhv_mj_per_kg_h2 / (MJ_PER_BTU_IT * 1_000_000.0), 6)
+        return (self.lhv_mj_per_kg_h2 / (MJ_PER_BTU_IT * 1_000_000.0))
 
     @property
     def hhv_mmbtu_per_kg_h2(self) -> float:
         """Higher Heating Value in MMBtu per kg of contained H2."""
-        return round(self.hhv_mj_per_kg_h2 / (MJ_PER_BTU_IT * 1_000_000.0), 6)
+        return (self.hhv_mj_per_kg_h2 / (MJ_PER_BTU_IT * 1_000_000.0))
 
     @property
     def h2_kg_per_m3(self) -> float:
         """Volumetric H2 storage density (kg contained H2 per m^3 of gas/liquid/carrier)."""
-        return round(self.density_kg_per_m3 * self.h2_mass_fraction, 4)
+        return (self.density_kg_per_m3 * self.h2_mass_fraction)
 
     @property
     def is_eu_rfnbo_compliant(self) -> bool | None:
@@ -6556,7 +6573,7 @@ class HydrogenAssay:
             rate = 0.131
         else:
             rate = 0.0
-        return round(rate * (5 if prevailing_wage_and_apprenticeship else 1), 3)
+        return float(Decimal(str(rate)) * (5 if prevailing_wage_and_apprenticeship else 1))
 
     def _mj_per_kg_h2(self, basis: str) -> float:
         key = basis.strip().lower()
@@ -6722,7 +6739,7 @@ class HydrogenAssay:
         if not math.isfinite(p):
             raise ValueError(f"price_per_kg_h2 must be finite, got {price_per_kg_h2}")
         mwh_per_kg = self._mj_per_kg_h2(basis) / 3600.0
-        return round(p / mwh_per_kg, 4)
+        return (p / mwh_per_kg)
 
     def mwh_price_to_kg_price(self, price_per_mwh: float, *, basis: str = "lhv") -> float:
         """Converts $/MWh energy quote to $/kg H2 parity."""
@@ -6730,7 +6747,7 @@ class HydrogenAssay:
         if not math.isfinite(p):
             raise ValueError(f"price_per_mwh must be finite, got {price_per_mwh}")
         mwh_per_kg = self._mj_per_kg_h2(basis) / 3600.0
-        return round(p * mwh_per_kg, 4)
+        return (p * mwh_per_kg)
 
     def kg_price_to_mmbtu_price(self, price_per_kg_h2: float, *, basis: str = "hhv") -> float:
         """Converts $/kg H2 quote to $/MMBtu natural gas switching parity."""
@@ -6738,7 +6755,7 @@ class HydrogenAssay:
         if not math.isfinite(p):
             raise ValueError(f"price_per_kg_h2 must be finite, got {price_per_kg_h2}")
         mmbtu_per_kg = self._mj_per_kg_h2(basis) / (MJ_PER_BTU_IT * 1_000_000.0)
-        return round(p / mmbtu_per_kg, 4)
+        return (p / mmbtu_per_kg)
 
     def mmbtu_price_to_kg_price(self, price_per_mmbtu: float, *, basis: str = "hhv") -> float:
         """Converts $/MMBtu quote to $/kg H2 parity."""
@@ -6746,7 +6763,7 @@ class HydrogenAssay:
         if not math.isfinite(p):
             raise ValueError(f"price_per_mmbtu must be finite, got {price_per_mmbtu}")
         mmbtu_per_kg = self._mj_per_kg_h2(basis) / (MJ_PER_BTU_IT * 1_000_000.0)
-        return round(p * mmbtu_per_kg, 4)
+        return (p * mmbtu_per_kg)
 
     def carrier_mt_price_to_h2_kg_price(
         self,
@@ -6762,7 +6779,7 @@ class HydrogenAssay:
         if not math.isfinite(p) or not math.isfinite(cost) or not math.isfinite(eff) or not (0.0 < eff <= 1.0):
             raise ValueError("Inputs must be finite and cracking_efficiency must be in (0, 1].")
         delivered_kg_h2_per_mt = 1000.0 * self.h2_mass_fraction * eff
-        return round((p / delivered_kg_h2_per_mt) + cost, 4)
+        return ((p / delivered_kg_h2_per_mt) + cost)
 
     def h2_kg_price_to_carrier_mt_price(
         self,
@@ -6778,7 +6795,7 @@ class HydrogenAssay:
         if not math.isfinite(p) or not math.isfinite(cost) or not math.isfinite(eff) or not (0.0 < eff <= 1.0):
             raise ValueError("Inputs must be finite and cracking_efficiency must be in (0, 1].")
         delivered_kg_h2_per_mt = 1000.0 * self.h2_mass_fraction * eff
-        return round((p - cost) * delivered_kg_h2_per_mt, 4)
+        return ((p - cost) * delivered_kg_h2_per_mt)
 
     def blend_with(
         self,
@@ -6825,7 +6842,7 @@ class HydrogenAssay:
             lhv_mj_per_kg_h2=self.lhv_mj_per_kg_h2,
             hhv_mj_per_kg_h2=self.hhv_mj_per_kg_h2,
             default_cracking_efficiency=(self.default_cracking_efficiency * w1) + (other.default_cracking_efficiency * w2),
-            purity_pct=round((self.purity_pct * w1) + (other.purity_pct * w2), 4),
+            purity_pct=((self.purity_pct * w1) + (other.purity_pct * w2)),
             carbon_intensity_kg_co2e_per_kg_h2=b_ci,
         )
 
@@ -6927,6 +6944,7 @@ class HydrogenAssay:
 _LB_PER_KG: Final[float] = 1.0 / 0.45359237  # Exact: 2.20462262185 lb/kg
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class FerroalloyAssay:
     """Immutable metallurgical and commercial specification for ferroalloys.
@@ -7014,14 +7032,14 @@ class FerroalloyAssay:
     def implied_iron_balance_pct(self) -> float:
         """Approximate iron (Fe) + trace balance (wt%)."""
         sec_sum = sum(self.secondary_elements.values()) if self.secondary_elements else 0.0
-        return round(max(0.0, 100.0 - self.primary_element_pct - sec_sum - (self.carbon_pct or 0.0)), 4)
+        return (max(0.0, 100.0 - self.primary_element_pct - sec_sum - (self.carbon_pct or 0.0)))
 
     @property
     def stowage_factor_m3_per_mt(self) -> float | None:
         """Bulk vessel/container stowage factor (m^3 per mt), or None if bulk density unset."""
         if self.bulk_density_kg_per_m3 is None:
             return None
-        return round(1000.0 / self.bulk_density_kg_per_m3, 4)
+        return (1000.0 / self.bulk_density_kg_per_m3)
 
     def _element_fraction(self, element: str | None) -> float:
         if element is None or element == self.primary_element:
@@ -7124,28 +7142,28 @@ class FerroalloyAssay:
         p = float(price_per_mt_gross)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt_gross must be finite, got {price_per_mt_gross}")
-        return round(p / (1000.0 * self.primary_mass_fraction), 4)
+        return (p / (1000.0 * self.primary_mass_fraction))
 
     def contained_kg_price_to_gross_mt_price(self, price_per_kg_contained: float) -> float:
         """Converts $/kg contained primary metal quote to $/mt gross alloy."""
         p = float(price_per_kg_contained)
         if not math.isfinite(p):
             raise ValueError(f"price_per_kg_contained must be finite, got {price_per_kg_contained}")
-        return round(p * 1000.0 * self.primary_mass_fraction, 4)
+        return (p * 1000.0 * self.primary_mass_fraction)
 
     def gross_mt_price_to_contained_lb_price(self, price_per_mt_gross: float) -> float:
         """Converts $/mt gross alloy quote to $/lb contained primary metal (e.g. $/lb Mo, $/lb Cr)."""
         p = float(price_per_mt_gross)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt_gross must be finite, got {price_per_mt_gross}")
-        return round(p / (_LB_PER_MT * self.primary_mass_fraction), 4)
+        return (p / (_LB_PER_MT * self.primary_mass_fraction))
 
     def contained_lb_price_to_gross_mt_price(self, price_per_lb_contained: float) -> float:
         """Converts $/lb contained primary metal quote to $/mt gross alloy."""
         p = float(price_per_lb_contained)
         if not math.isfinite(p):
             raise ValueError(f"price_per_lb_contained must be finite, got {price_per_lb_contained}")
-        return round(p * _LB_PER_MT * self.primary_mass_fraction, 4)
+        return (p * _LB_PER_MT * self.primary_mass_fraction)
 
     @staticmethod
     def contained_lb_price_to_contained_kg_price(price_per_lb: float) -> float:
@@ -7153,7 +7171,7 @@ class FerroalloyAssay:
         p = float(price_per_lb)
         if not math.isfinite(p):
             raise ValueError(f"price_per_lb must be finite, got {price_per_lb}")
-        return round(p * _LB_PER_KG, 4)
+        return (p * _LB_PER_KG)
 
     @staticmethod
     def contained_kg_price_to_contained_lb_price(price_per_kg: float) -> float:
@@ -7161,7 +7179,7 @@ class FerroalloyAssay:
         p = float(price_per_kg)
         if not math.isfinite(p):
             raise ValueError(f"price_per_kg must be finite, got {price_per_kg}")
-        return round(p / _LB_PER_KG, 4)
+        return (p / _LB_PER_KG)
 
     def pro_rata_price(
         self,
@@ -7175,7 +7193,7 @@ class FerroalloyAssay:
             raise ValueError("Provide basis_grade_pct or set it on the FerroalloyAssay.")
         if not math.isfinite(p) or not math.isfinite(basis) or not (0.0 < basis <= 100.0):
             raise ValueError("benchmark_price_per_mt must be finite and basis_grade_pct in (0, 100].")
-        return round(p * (self.primary_element_pct / basis), 4)
+        return (p * (self.primary_element_pct / basis))
 
     def blend_with(
         self,
@@ -7216,7 +7234,7 @@ class FerroalloyAssay:
         b_rho: float | None = None
         if self.bulk_density_kg_per_m3 is not None and other.bulk_density_kg_per_m3 is not None:
             vol_per_kg = (w1 / self.bulk_density_kg_per_m3) + (w2 / other.bulk_density_kg_per_m3)
-            b_rho = round(1.0 / vol_per_kg, 2)
+            b_rho = (1.0 / vol_per_kg)
 
         return FerroalloyAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
@@ -7332,6 +7350,7 @@ class FerroalloyAssay:
 # ---------------------------------------------------------------------------
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class MetalAlloyAssay:
     """Immutable metallurgical and valuation specification for general metal alloys.
@@ -7414,7 +7433,7 @@ class MetalAlloyAssay:
     @property
     def balance_other_pct(self) -> float:
         """Unlisted/impurity/trace balance (wt%) to 100%."""
-        return round(max(0.0, 100.0 - sum(self.composition_pct.values())), 4)
+        return (max(0.0, 100.0 - sum(self.composition_pct.values())))
 
     @property
     def remelt_yield_fraction(self) -> float:
@@ -7488,7 +7507,7 @@ class MetalAlloyAssay:
         if self.nominal_piece_mass_kg is None:
             raise ValueError(f"{self.name!r} does not define nominal_piece_mass_kg.")
         kg_val = float(self._validate_mass(alloy_mass).to(ureg.kilogram).magnitude)
-        return round(kg_val / self.nominal_piece_mass_kg, 4)
+        return (kg_val / self.nominal_piece_mass_kg)
 
     def piece_count_to_mass(self, piece_count: float) -> pint.Quantity:
         """Converts nominal piece/ingot/billet count to gross alloy mass (kilogram)."""
@@ -7530,7 +7549,7 @@ class MetalAlloyAssay:
                     raise ValueError(f"Price for {elem!r} must be finite, got {element_prices_usd_per_mt[elem]}")
                 gross_val += (pct / 100.0) * yield_mult * price
 
-        return round(gross_val - deduction, 4)
+        return (gross_val - deduction)
 
     @staticmethod
     def lb_price_to_mt_price(price_per_lb: float) -> float:
@@ -7538,7 +7557,7 @@ class MetalAlloyAssay:
         p = float(price_per_lb)
         if not math.isfinite(p):
             raise ValueError(f"price_per_lb must be finite, got {price_per_lb}")
-        return round(p * _LB_PER_MT, 4)
+        return (p * _LB_PER_MT)
 
     @staticmethod
     def mt_price_to_lb_price(price_per_mt: float) -> float:
@@ -7546,7 +7565,7 @@ class MetalAlloyAssay:
         p = float(price_per_mt)
         if not math.isfinite(p):
             raise ValueError(f"price_per_mt must be finite, got {price_per_mt}")
-        return round(p / _LB_PER_MT, 6)
+        return (p / _LB_PER_MT)
 
     def blend_with(
         self,
@@ -7576,7 +7595,7 @@ class MetalAlloyAssay:
         return MetalAlloyAssay(
             name=blend_name or f"{self.name}/{other.name} Blend",
             composition_pct=blended_comp,
-            solid_density_kg_per_m3=round(1.0 / vol_per_kg, 2),
+            solid_density_kg_per_m3=(1.0 / vol_per_kg),
             base_metal=b_base,
             remelt_yield_pct=(self.remelt_yield_pct * w1) + (other.remelt_yield_pct * w2),
             nominal_piece_mass_kg=None,
@@ -8369,10 +8388,11 @@ def convert_commodity(
         # Generic fallback for known assays that provide Pint context transformations.
         if hasattr(assay, "as_context"):
             resolved_target = parse_unit(target_unit)
-            try:
-                ctx = assay.as_context(**{k: v for k, v in kwargs.items() if k in {"basis", "nutrient", "active_only"}})
-            except TypeError:
-                ctx = assay.as_context()
+            method = assay.as_context
+            parameters = inspect.signature(method).parameters
+            accepts_kwargs = any(p.kind == p.VAR_KEYWORD for p in parameters.values())
+            context_kwargs = {k: v for k, v in kwargs.items() if k in {"basis", "nutrient", "active_only"} and (accepts_kwargs or k in parameters)}
+            ctx = method(**context_kwargs)
             if ctx is None:
                 return quantity.to(resolved_target)
             with ureg.context(ctx):
@@ -8459,6 +8479,7 @@ def atmospheric_pressure_at_elevation(
     return ureg.Quantity(pressure, ureg.pascal)
 
 
+@authorized_conversion
 def convert_pressure(
     quantity: pint.Quantity,
     target_unit: str | pint.Unit,
@@ -8927,6 +8948,7 @@ def _ore_mass_factor(unit: pint.Unit) -> tuple[pint.Unit, int, str | None]:
     return factors[0]
 
 
+@authorized_conversion
 def convert_wet_to_dry_mass(wet_mass: pint.Quantity, moisture_pct: float | Decimal) -> pint.Quantity:
     """Converts WMT to DMT: dry mass = wet mass * (1 - moisture/100)."""
     if not isinstance(wet_mass, pint.Quantity):
@@ -8936,6 +8958,7 @@ def convert_wet_to_dry_mass(wet_mass: pint.Quantity, moisture_pct: float | Decim
     return ureg.Quantity(_ore_multiply(mass.magnitude, fraction), ureg.dmt)
 
 
+@authorized_conversion
 def convert_dry_to_wet_mass(dry_mass: pint.Quantity, moisture_pct: float | Decimal) -> pint.Quantity:
     """Converts DMT to WMT: wet mass = dry mass / (1 - moisture/100)."""
     if not isinstance(dry_mass, pint.Quantity):
@@ -8975,6 +8998,7 @@ def convert_ore_moisture_price(
     return convert_bulk_ore(price_quantity, destination, moisture_fraction=moisture / 100)
 
 
+@authorized_conversion
 def extract_contained_metal(
     dry_ore_mass: pint.Quantity,
     grade_pct: float | Decimal,
@@ -8990,6 +9014,7 @@ def extract_contained_metal(
     return metal.to(parse_unit(target_unit))
 
 
+@authorized_conversion
 def extract_dry_mass_from_contained(
     contained_metal: pint.Quantity,
     grade_pct: float | Decimal,
@@ -9009,6 +9034,7 @@ def extract_dry_mass_from_contained(
     return dry.to(parse_unit(target_unit))
 
 
+@validated_assay
 @dataclass(frozen=True, slots=True)
 class BulkOreAssay:
     """Lightweight bulk ore moisture and component grades, expressed as fractions.
@@ -9017,12 +9043,12 @@ class BulkOreAssay:
     """
 
     name: str = "bulk_ore"
-    moisture_fraction: float | Decimal = 0.0
+    moisture_fraction: float | Decimal | None = None
     grades: Mapping[str, float | Decimal] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
-        moisture = _as_decimal(self.moisture_fraction)
-        if not moisture.is_finite() or not (0 <= moisture < 1):
+        moisture = _as_decimal(self.moisture_fraction) if self.moisture_fraction is not None else None
+        if moisture is not None and (not moisture.is_finite() or not (0 <= moisture < 1)):
             raise ValueError("moisture_fraction must be finite and in [0, 1).")
         cleaned = {}
         for component, grade in self.grades.items():
@@ -9030,7 +9056,7 @@ class BulkOreAssay:
             if not value.is_finite() or not (0 <= value <= 1):
                 raise ValueError(f"Grade for {component!r} must be finite and in [0, 1].")
             cleaned[str(component)] = grade if isinstance(grade, Decimal) else float(grade)
-        object.__setattr__(self, "moisture_fraction", self.moisture_fraction if isinstance(self.moisture_fraction, Decimal) else float(self.moisture_fraction))
+        object.__setattr__(self, "moisture_fraction", self.moisture_fraction if self.moisture_fraction is None or isinstance(self.moisture_fraction, Decimal) else float(self.moisture_fraction))
         object.__setattr__(self, "grades", MappingProxyType(cleaned))
 
     def __hash__(self) -> int:
@@ -9038,14 +9064,16 @@ class BulkOreAssay:
 
     @property
     def dry_fraction(self) -> float | Decimal:
+        if self.moisture_fraction is None:
+            raise ValueError("Explicit ore moisture is required for wet/dry conversion.")
         return 1 - self.moisture_fraction
 
     def wmt_to_dmt(self, wet_mass: float | Decimal) -> float | Decimal:
-        return _ore_multiply(wet_mass, 1 - _as_decimal(self.moisture_fraction))
+        return _ore_multiply(wet_mass, _as_decimal(self.dry_fraction))
 
     def dmt_to_wmt(self, dry_mass: float | Decimal) -> float | Decimal:
         _ore_multiply(dry_mass, Decimal(1))
-        fraction = 1 - _as_decimal(self.moisture_fraction)
+        fraction = _as_decimal(self.dry_fraction)
         return dry_mass / (fraction if isinstance(dry_mass, Decimal) else float(fraction))
 
     def contained_metal_dmt(self, dry_mass: float | Decimal, component: str) -> float | Decimal:
@@ -9063,10 +9091,11 @@ class BulkOreAssay:
         return OreAssay(
             name=self.name, primary_element=component,
             grade_pct=float(_as_decimal(self.grades[component]) * 100),
-            moisture_pct=float(_as_decimal(self.moisture_fraction) * 100),
+            moisture_pct=float((1 - _as_decimal(self.dry_fraction)) * 100),
         )
 
 
+@authorized_conversion
 def convert_bulk_ore(
     quantity: pint.Quantity,
     target_unit: str | pint.Unit,
@@ -9093,7 +9122,7 @@ def convert_bulk_ore(
         resolved = BulkOreAssay(assay.name, _as_decimal(assay.moisture_pct) / 100, {component: _as_decimal(assay.grade_pct) / 100})
     elif assay is None:
         resolved = BulkOreAssay(
-            moisture_fraction=moisture_fraction if moisture_fraction is not None else 0.0,
+            moisture_fraction=moisture_fraction,
             grades={component: grade} if grade is not None else {},
         )
     elif isinstance(assay, BulkOreAssay):
@@ -9112,7 +9141,7 @@ def convert_bulk_ore(
     magnitude = scaled.magnitude
     _ore_multiply(magnitude, Decimal(1))
     if source_basis != target_basis:
-        dry_fraction = 1 - _as_decimal(resolved.moisture_fraction)
+        dry_fraction = _as_decimal(resolved.dry_fraction) if "wet" in (source_basis, target_basis) else Decimal(1)
         fraction = None
         if "contained" in (source_basis, target_basis):
             if component not in resolved.grades:
@@ -9361,7 +9390,7 @@ def _is_thermal_endpoint(unit: pint.Unit) -> bool:
         _, unit = _split_ratio_units(unit)
     dimensions = unit.dimensionality
     energy = ureg.joule.dimensionality
-    if dimensions in (energy, ureg.watt.dimensionality):
+    if _is_energy_unit(unit) or dimensions == ureg.watt.dimensionality:
         return True
     denominator = energy / dimensions
     return denominator in (
@@ -9445,6 +9474,18 @@ def convert(
     """
     if not isinstance(quantity, pint.Quantity):
         raise TypeError(f"Expected pint.Quantity, got {type(quantity).__name__}")
+    magnitude = _as_decimal(quantity.magnitude)
+    if not magnitude.is_finite():
+        raise ValueError("Conversion input must be finite.")
+    physical_amount = quantity.dimensionality in (
+        ureg.kilogram.dimensionality, (ureg.meter ** 3).dimensionality, ureg.mole.dimensionality,
+    ) or (
+        len(quantity.dimensionality) == 1
+        and "gas_volume" in next(iter(quantity.dimensionality))
+        and next(iter(quantity.dimensionality.values())) == 1
+    )
+    if physical_amount and magnitude < 0:
+        raise ValueError("Physical mass, volume and molar amounts must be non-negative.")
     target = parse_unit(target_unit)
     pressure_dim = ureg.pascal.dimensionality
     if quantity.dimensionality == pressure_dim and target.dimensionality == pressure_dim:
@@ -9521,7 +9562,10 @@ def convert(
 
     thermal_endpoint = _is_thermal_endpoint(working.units) or _is_thermal_endpoint(target)
     thermal_requested = heat_content is not None or bool(heat_overrides) or (
-        resolved_assay is not None and working.dimensionality != target.dimensionality
+        resolved_assay is not None
+        # Nuclear burnup is an existing assay conversion, not calorific heat.
+        and not isinstance(resolved_assay, UraniumAssay)
+        and working.dimensionality != target.dimensionality
     )
     if heat_overrides and not thermal_endpoint:
         raise ValueError("Heat-content overrides require an energy conversion.")

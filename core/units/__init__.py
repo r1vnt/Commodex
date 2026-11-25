@@ -1,67 +1,25 @@
-"""Public agricultural specifications and shared calorific conversions."""
+"""Public unit registry, conversion, assay and desk-configuration APIs.
 
-from .agricultural_specs import (
-    SoftsAssay,
-    OilseedCrushAssay,
-    LivestockDairyAssay,
-    GrainAssay,
-    SeafoodAssay,
-    PulpLumberAssay,
-    RubberAssay,
-    EthanolFeedstockAssay,
-    RiceAssay,
-    WoolAssay,
-    PoultryEggAssay,
-    FishmealMarineOilAssay,
-    HoneyApicultureAssay,
-    OliveOilAssay,
-    CottonSeedLintAssay,
-    create_softs_context,
-    create_oilseed_crush_context,
-    create_livestock_dairy_context,
-    create_grain_context,
-    create_seafood_context,
-    create_pulp_lumber_context,
-    create_rubber_context,
-    create_ethanol_feedstock_context,
-    create_rice_context,
-    create_wool_context,
-    create_poultry_egg_context,
-    create_fishmeal_marine_oil_context,
-    create_honey_apiculture_context,
-    create_olive_oil_context,
-    create_cotton_seed_lint_context,
-    convert_softs,
-    convert_oilseed_crush,
-    convert_livestock_dairy,
-    convert_grain,
-    convert_seafood,
-    convert_pulp_lumber,
-    convert_rubber,
-    convert_ethanol_feedstock,
-    convert_rice,
-    convert_wool,
-    convert_poultry_egg,
-    convert_fishmeal_marine_oil,
-    convert_honey_apiculture,
-    convert_olive_oil,
-    convert_cotton_seed_lint,
-)
+CleanFuelAssay is the lightweight multi-carrier thermodynamic benchmark.
+HydrogenAssay is the detailed H2/storage/carrier specification with recovery,
+electrolyser demand and 45V/RFNBO screening. Choose the latter when those
+fields matter; matching carrier names do not imply matching assay semantics.
+Crude/products require explicit calorific data for heat-content conversions.
+
+Pressure datum shifts use convert()/convert_pressure(), not raw Pint .to().
+"""
+
+from .registry import *
+from .registry import __all__ as _registry_exports
+from .conversions import *
+from .conversions import __all__ as _conversion_exports
+from .agricultural_specs import *
 from .agricultural_specs import __all__ as _agricultural_exports
-from .heat_content import (
-    HeatContentAssay,
-    heat_content_from_assay,
-    gcv_to_ncv,
-    ncv_to_gcv,
-    as_received_to_dry,
-    dry_to_as_received,
-    create_heat_content_context,
-    convert_heat_content,
-    efficiency_from_heat_rate,
-    heat_rate_from_efficiency,
-    thermal_to_output,
-    output_to_thermal,
-)
+from .heat_content import *
 from .heat_content import __all__ as _heat_exports
+from .config import load_desk_config
+from .config import __all__ as _config_exports
 
-__all__ = _agricultural_exports + _heat_exports
+__all__ = tuple(dict.fromkeys(
+    _registry_exports + _conversion_exports + _agricultural_exports + _heat_exports + _config_exports
+))
