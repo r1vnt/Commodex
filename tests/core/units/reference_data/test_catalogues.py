@@ -5,6 +5,8 @@ import importlib
 import json
 from pathlib import Path
 import pkgutil
+import shutil
+import subprocess
 
 import pytest
 
@@ -15,6 +17,21 @@ from core.units.standards import (REFERENCE_DIRECTORY, REFERENCE_VERSION,
 
 DIRECTORY = REFERENCE_DIRECTORY
 CATEGORIES = tuple(path.stem for path in (DIRECTORY / "assays" / REFERENCE_VERSION).glob("*.json"))
+
+
+def test_git_checkout_preserves_checksum_protected_reference_bytes(repository_root):
+    if not shutil.which('git') or not (repository_root/'.git').exists():
+        pytest.skip('Git checkout attributes apply only to repository checkouts')
+    paths=sorted(path.relative_to(repository_root).as_posix()
+                 for path in DIRECTORY.rglob('*') if path.suffix in {'.json','.xml'})
+    result=subprocess.run(['git','-c','safe.directory='+repository_root.as_posix(),
+                           'check-attr','-z','--stdin','text'],input=('\0'.join(paths)+'\0').encode(),
+                          cwd=repository_root,capture_output=True,timeout=15)
+    assert result.returncode == 0,result.stderr.decode(errors='replace')
+    fields=result.stdout.decode().rstrip('\0').split('\0')
+    attributes={fields[index]:fields[index+2] for index in range(0,len(fields),3)}
+    assert set(attributes) == set(paths)
+    assert all(value == 'unset' for value in attributes.values()),attributes
 
 
 @pytest.mark.parametrize("category", CATEGORIES)

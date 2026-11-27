@@ -10,6 +10,13 @@ import core.units as u
 ATTACKS = ["@import /etc/passwd", "__import__('os').system('x')", "meter.__class__", "meter ** 99999", "meter + second", "meter; print(1)", "(meter"*200, "x"*10000]
 
 
+def test_malformed_unit_arithmetic_has_a_stable_public_error():
+    before = u.get_registry_definition_hash()
+    with pytest.raises(ValueError):
+        u.parse_unit('meter + second')
+    assert u.get_registry_definition_hash() == before
+
+
 @pytest.mark.security
 @pytest.mark.parametrize("text", ATTACKS)
 def test_unit_parser_rejects_malicious_definitions_without_registry_mutation(text):

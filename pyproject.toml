@@ -15,7 +15,7 @@ thermodynamics = ["pyaga8==0.1.18", "CoolProp==8.1.0"]
 data = ["pandas>=2.2,<4", "pyarrow>=18,<24", "pint-pandas>=0.6,<0.8"]
 uncertainty = ["uncertainties>=3.2,<4"]
 config = ["PyYAML>=6,<7", "pydantic>=2.10,<3"]
-dev = ["pytest>=8,<10", "pytest-cov>=6,<8", "hypothesis>=6,<7", "pytest-benchmark>=5,<6", "mypy>=1.14,<2", "ruff>=0.9,<1", "build>=1.2,<2", "pip-audit>=2.9,<3", "radon>=6,<7", "vulture>=2.14,<3", "mutmut>=3,<4; sys_platform != 'win32'"]
+dev = ["pytest>=8,<10", "pytest-cov>=6,<8", "hypothesis>=6,<7", "pytest-benchmark>=5,<6", "mypy>=1.14,<2", "ruff>=0.9,<1", "build>=1.2,<2", "setuptools>=77,<82", "wheel", "packaging", "tzdata; sys_platform == 'win32'", "pip-audit>=2.9,<3", "radon>=6,<7", "vulture>=2.14,<3", "mutmut>=3,<4; sys_platform != 'win32'"]
 all = ["commodex[numerical,thermodynamics,data,uncertainty,config,dev]"]
 
 [tool.setuptools.packages.find]

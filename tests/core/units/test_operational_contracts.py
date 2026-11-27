@@ -80,7 +80,8 @@ class OperationalContracts(unittest.TestCase):
         }
         representatives = {}
         for name in tuple(units.ureg._units):
-            unit = units.ureg.Unit(name)
+            # Resolve atomic aliases before parsing, including upstream Unicode names.
+            unit = units.ureg.Unit(units.ureg.get_name(name))
             representatives.setdefault(unit.dimensionality, unit)
         for name in ("kg", "m^3", "mol", "MJ", "scf", "Nm3"):
             unit = units.parse_unit(name)

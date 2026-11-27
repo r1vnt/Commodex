@@ -56,7 +56,7 @@ class RegistryCompatibilityTests(unittest.TestCase):
         assay = c.GasAssay(gcv_btu_per_scf=1000)
         checked = 0
         for name in tuple(r.ureg._units):
-            unit = r.ureg.Unit(name)
+            unit = r.ureg.Unit(r.ureg.get_name(name))
             if unit.dimensionality in gas_dimensions:
                 target = r.ureg.MJ
             elif unit.dimensionality * time_dimension in gas_dimensions:
@@ -163,7 +163,7 @@ assert abs(restored.magnitude-10)<Decimal("1e-12")
         # Index real registry units by dimension; prefer convenient magnitudes.
         representatives = {}
         for name in tuple(r.ureg._units):
-            unit = r.ureg.Unit(name)
+            unit = r.ureg.Unit(r.ureg.get_name(name))
             representatives.setdefault(unit.dimensionality, unit)
         for name in ("kg", "m^3", "MJ", "mol", "scf", "scf_60F_14696psi_dry", "scf_tx", "Sm3", "Nm3", "m3_Groningen"):
             unit = r.ureg.Unit(name)
@@ -201,7 +201,7 @@ assert abs(restored.magnitude-10)<Decimal("1e-12")
         dimensions = {r.ureg.Unit(unit).dimensionality: unit for unit in ("kg", "m^3", "MJ", "mol", "Pa")}
         checked = 0
         for name in tuple(r.ureg._units):
-            unit = r.ureg.Unit(name)
+            unit = r.ureg.Unit(r.ureg.get_name(name))
             target = dimensions.get(unit.dimensionality)
             if target is None:
                 continue
@@ -227,7 +227,7 @@ assert abs(restored.magnitude-10)<Decimal("1e-12")
         fixings = {currency: Decimal(index + 1) / 10 for index, currency in enumerate(currencies) if currency != "USD"}
         checked = 0
         for name in tuple(r.ureg._units):
-            unit = r.ureg.Unit(name)
+            unit = r.ureg.Unit(r.ureg.get_name(name))
             dimensions = unit.dimensionality
             if len(dimensions) != 1:
                 continue

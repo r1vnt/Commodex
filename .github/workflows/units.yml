@@ -17,7 +17,14 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -m pip install ".[dev]" tzdata
-      - run: python -B -m pytest -q --test-order-seed=991
+      - run: python -m pip check
+      - run: python -B -m pytest -q --test-order-seed=991 --junitxml=artifacts/tests.xml
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: platform-${{ matrix.os }}-${{ matrix.python }}
+          path: artifacts/*.xml
+          if-no-files-found: ignore
 
   dependency-boundaries:
     runs-on: ubuntu-latest
@@ -30,13 +37,21 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          # Pint >=0.26 requires Python >=3.12; NumPy 2.0.2 supports 3.12.
+          python-version: '3.12'
       - run: python -m pip install ".[dev]" "pint==${{ matrix.pint }}" tzdata
       - if: matrix.numpy == 'latest'
         run: python -m pip install "numpy>=2,<3"
       - if: matrix.numpy != 'latest'
         run: python -m pip install "numpy==${{ matrix.numpy }}"
-      - run: python -B -m pytest -q
+      - run: python -m pip check
+      - run: python -B -m pytest -q --junitxml=artifacts/tests.xml
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: dependencies-pint-${{ matrix.pint }}-numpy-${{ matrix.numpy }}
+          path: artifacts/*.xml
+          if-no-files-found: ignore
 
   optional-integrations:
     runs-on: ubuntu-latest
@@ -46,10 +61,19 @@ jobs:
         with:
           python-version: '3.13'
       - run: python -m pip install ".[all]"
+      - run: python -m pip check
       - run: python -B -m pytest -q --test-order-seed=1729 --cov=core.units --cov-branch --cov-report=json:artifacts/unit-coverage.json --cov-fail-under=79 --junitxml=artifacts/unit-results.xml
       - run: >-
           python -c "import json; t=json.load(open('artifacts/unit-coverage.json'))['totals']; assert 100*t['covered_lines']/t['num_statements'] >= 83; assert 100*t['covered_branches']/t['num_branches'] >= 67"
-      - run: python -B -m pytest -q tests/core/units/test_packaging.py --run-release-install
+      - run: python -B -m pytest -q tests/core/units/test_packaging.py --run-release-install --junitxml=artifacts/packaging-results.xml
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: optional-integration-results
+          path: |
+            artifacts/*.xml
+            artifacts/*coverage.json
+          if-no-files-found: ignore
 
   extended-gates:
     if: github.event_name == 'workflow_dispatch'

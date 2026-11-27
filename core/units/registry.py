@@ -1457,7 +1457,11 @@ def parse_unit(unit: str | pint.Unit, *, default_currency: str | None = None, co
         raise ValueError(f"Unit expression must be a non-empty string, got {unit!r}")
 
     sanitized = sanitize_unit_string(unit, default_currency, context=context)
-    return ureg.Unit(sanitized)
+    try:
+        return ureg.Unit(sanitized)
+    except TypeError as error:
+        # Older Pint releases leak ParserHelper arithmetic errors for malformed text.
+        raise ValueError(f"Invalid unit expression {unit!r}: {error}") from error
 
 def _parse_magnitude(value, as_decimal):
     if isinstance(value, str):

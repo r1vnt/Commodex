@@ -164,14 +164,14 @@ sha256 = "3738b456192dcb3e15620f324c447721023c0293f6af9955b481e91d00179846"
 
 [[packages]]
 name = "hypothesis"
-version = "6.170.17"
+version = "6.170.22"
 
 [[packages.wheels]]
-name = "hypothesis-6.170.17-cp313-cp313-win_amd64.whl"
-url = "https://files.pythonhosted.org/packages/02/47/bb5f9133e96abb05407ac17050b477cf992f002fadef26a81528f6e25e5b/hypothesis-6.170.17-cp313-cp313-win_amd64.whl"
+name = "hypothesis-6.170.22-cp313-cp313-win_amd64.whl"
+url = "https://files.pythonhosted.org/packages/0e/1c/624725ed196aaac3dd5a42df3f05a3017b7af373f06570e4c0d7d0ea827c/hypothesis-6.170.22-cp313-cp313-win_amd64.whl"
 
 [packages.wheels.hashes]
-sha256 = "795f0aa12adfcb29775147688a3abd335df8bed0545d5793fca463decd2c0a0b"
+sha256 = "eb36575ca7f3c4137c32617148b25bc29e3468c7c696023ac1581566b4e1da3b"
 
 [[packages]]
 name = "idna"
@@ -406,14 +406,14 @@ sha256 = "4659bc2a667783e7a15d190f6fccf8b2486685b6dba4c19c3876314769c57526"
 
 [[packages]]
 name = "platformdirs"
-version = "4.14.8"
+version = "4.14.9"
 
 [[packages.wheels]]
-name = "platformdirs-4.14.8-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/5b/be/373cc7341f53bfd3acba3e5db62433fd960a45fcf73ad64a5f4d27e74910/platformdirs-4.14.8-py3-none-any.whl"
+name = "platformdirs-4.14.9-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/3b/e7/fc53dfd2f9469cce9be9c58385bdcdb5087e790c135c9dadd4cc8401bb3d/platformdirs-4.14.9-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "1e34af590de4d978631b751eb2202f2fee4497537a17c1720b12fcf57b331392"
+sha256 = "d0d3a23e7ff282cfa94b77f5a22b81030dcb68ba0430f90c74f4bd8d090782ea"
 
 [[packages]]
 name = "pluggy"
@@ -636,6 +636,17 @@ url = "https://files.pythonhosted.org/packages/93/0e/e0348fbc0dbab65c114cf78957e
 sha256 = "559ed65f60c1af5a03f3912605a1b5114f522c7c32fb23c3376ae8f03219fe28"
 
 [[packages]]
+name = "setuptools"
+version = "81.0.0"
+
+[[packages.wheels]]
+name = "setuptools-81.0.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/e1/e3/c164c88b2e5ce7b24d667b9bd83589cf4f3520d97cad01534cd3c4f55fdb/setuptools-81.0.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "fdd925d5c5d9f62e4b74b30d6dd7828ce236fd6ed998a08d81de62ce5a6310d6"
+
+[[packages]]
 name = "six"
 version = "1.17.0"
 
@@ -744,3 +755,14 @@ url = "https://files.pythonhosted.org/packages/f5/be/f935130312330614811dae2ea9d
 
 [packages.wheels.hashes]
 sha256 = "6e0f1c312cef1c87856957e5c2ca9608834a7c794c2180477f30bf0e4cc58eee"
+
+[[packages]]
+name = "wheel"
+version = "0.48.0"
+
+[[packages.wheels]]
+name = "wheel-0.48.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/2e/29/69cfbb602cd91690c55d38ba9fe53e6a7e76a6fa647bf38f19c138d25449/wheel-0.48.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "3217dcc807155e45db462d7ef2431f5ddda0d7273b700d05a67b271ceb1287ab"

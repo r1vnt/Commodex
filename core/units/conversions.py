@@ -15,8 +15,6 @@ import math
 import pint
 import warnings
 
-
-
 # ---------------------------------------------------------------------------
 # 1. Physical, Thermodynamic & Custody-Transfer Reference Constants
 # ---------------------------------------------------------------------------
@@ -25,159 +23,76 @@ import warnings
 # Standard reference density of air-free water at 60°F (15.5556°C) in kg/m³ (US/API basis)
 WATER_DENSITY_60F_KG_M3: Final[float] = 999.016
 
-
-
 # Standard reference density of air-free water at 15°C (59°F) in kg/m³ (ISO/Metric basis)
 WATER_DENSITY_15C_KG_M3: Final[float] = 999.102
-
-
 
 # Standard reference density of air-free water at 60°F in lb/gal (US liquid)
 WATER_DENSITY_60F_LB_GAL: Final[float] = 8.337183637
 
-
-
 # Exact volume of one 42-US-gallon petroleum barrel in cubic metres
 BARREL_TO_M3: Final[float] = 0.158987294928
-
-
 
 # Mass of 1 bbl of water at 60°F in metric tonnes (~0.158830764 mt)
 MT_PER_BBL_WATER: Final[float] = (BARREL_TO_M3 * WATER_DENSITY_60F_KG_M3) / 1000.0
 
-
-
 # Exact cubic feet per cubic metre (1 / 0.3048³)
 FT3_PER_M3: Final[float] = 35.31466672148859
-
-
 
 # Exact International Table MJ per Btu_it (1055.05585262 J / 1e6)
 MJ_PER_BTU_IT: Final[float] = 0.00105505585262
 
-
-
-
 # Legacy temperature-only empirical constants; not a complete API MPMS 11.1 implementation.
 # For bounded/product-specific CTL/CPL/CTPL use converters.petroleum methods.
 API_VCF_CRUDE_K0: Final[float] = 341.0957
-
-
-
 API_VCF_CRUDE_K1: Final[float] = 0.0
-
-
-
 API_VCF_CRUDE_K2: Final[float] = 0.0
-
-
-
 API_VCF_GASOLINE_K0: Final[float] = 192.4571
-
-
-
 API_VCF_GASOLINE_K1: Final[float] = 0.2438
-
-
-
 API_VCF_DISTILLATE_K0: Final[float] = 103.8720
-
-
-
 API_VCF_DISTILLATE_K1: Final[float] = 0.2701
-
-
-
 
 # --- Fundamental Gas & Ideal Gas Law Constants (CODATA 2019 / AGA Report No. 8) ---
 # Exact CODATA molar gas constant R in J / (mol * K)
 UNIVERSAL_GAS_CONSTANT_J_MOL_K: Final[float] = 8.314462618
 
-
-
 # Ideal gas standard molar volume at 0°C (273.15 K) and 1 atm (101.325 kPa) in m³/kmol
 MOLAR_VOLUME_0C_1ATM_M3_KMOL: Final[float] = 22.413969545014137
-
-
 
 # Ideal gas standard molar volume at 15°C (288.15 K) and 1 atm (101.325 kPa) in m³/kmol
 MOLAR_VOLUME_15C_1ATM_M3_KMOL: Final[float] = 23.644800214596617
 
-
-
 # Standard molar mass of dry air in kg/kmol (AGA Report No. 8 / ISO 6976)
 DRY_AIR_MOLAR_MASS_KG_KMOL: Final[float] = 28.96546
-
-
 
 # Standard density of dry air at 0°C, 101.325 kPa in kg/m³
 DRY_AIR_DENSITY_0C_KG_M3: Final[float] = 1.292923
 
-
-
 # Standard density of dry air at 15°C, 101.325 kPa in kg/m³
 DRY_AIR_DENSITY_15C_KG_M3: Final[float] = 1.225525
-
-
-
 
 # --- Cryogenic LNG & Clean Energy Carrier Benchmarks (GIIGNL / ISO 6976) ---
 # Typical liquefied natural gas density at atmospheric boiling point (-162°C) in kg/m³
 LNG_LIQUID_DENSITY_KG_M3: Final[float] = 450.0
-
-
-
 # Standard GIIGNL nominal LNG volume-to-gas expansion factor (Sm³ gas per m³ liquid LNG)
 LNG_GAS_EXPANSION_SM3_PER_M3: Final[float] = 600.0
-
-
-
 # Pure Hydrogen (H2) gravimetric calorific values (ISO 6976 / NIST) in MJ/kg
 H2_LHV_MJ_PER_KG: Final[float] = 119.96
-
-
-
 H2_HHV_MJ_PER_KG: Final[float] = 141.88
-
-
-
 # Pure Hydrogen standard volumetric density at 0°C, 101.325 kPa in kg/Nm³
 H2_DENSITY_0C_KG_NM3: Final[float] = 0.08988
-
-
-
 # Anhydrous Ammonia (NH3) gravimetric calorific values in MJ/kg
 NH3_LHV_MJ_PER_KG: Final[float] = 18.60
-
-
-
 NH3_HHV_MJ_PER_KG: Final[float] = 22.50
-
-
-
 
 # --- Atmospheric & Barometric Datum Constants (ISO 2533 Standard Atmosphere) ---
 # Standard sea-level atmospheric pressure in Pascals (101.325 kPa = 14.6959488 psia = 1.01325 bara)
 STANDARD_ATMOSPHERE_PA: Final[float] = 101325.0
-
-
-
 # Standard sea-level temperature in Kelvin (15°C)
 STANDARD_SEA_LEVEL_TEMP_K: Final[float] = 288.15
-
-
-
 # Standard tropospheric temperature lapse rate in K/m
 BAROMETRIC_LAPSE_RATE_K_M: Final[float] = 0.0065
-
-
-
 # Standard gravitational acceleration in m/s²
 STANDARD_GRAVITY_M_S2: Final[float] = 9.80665
-
-
-
-
 
 # ---------------------------------------------------------------------------
 # Refutas Viscosity Blending Index (Standard Refinery LP Approximation)
@@ -189,98 +104,39 @@ def _viscosity_blending_number(viscosity_cst: float) -> float:
         raise ValueError(f"Refutas kinematic viscosity must exceed 0.2 cSt, got {viscosity_cst}")
     return 14.534 * math.log(math.log(viscosity_cst + 0.8)) + 10.975
 
-
-
-
-
 def _viscosity_from_vbn(vbn: float) -> float:
     """Inverts Refutas VBN back to kinematic viscosity (cSt)."""
     return math.exp(math.exp((vbn - 10.975) / 14.534)) - 0.8
-
-
-
-
 
 # ---------------------------------------------------------------------------
 # Thermodynamic Gas Reference Constants (Ideal Gas Law: PV / T = const)
 # ---------------------------------------------------------------------------
 
 _T_60F_K: Final[float] = 288.70555555555555
-
-
-
 _T_20C_K: Final[float] = 293.15  # GOST 2939-63 Eurasian/CIS reference temperature (20°C)
-
-
-
 _T_15C_K: Final[float] = 288.15
-
-
-
 _T_0C_K: Final[float] = 273.15
-
-
-
-
 _P_14_73_KPA: Final[float] = 101.559775234
-
-
-
 _P_14_65_KPA: Final[float] = 101.008194216
-
-
-
 _P_1ATM_KPA: Final[float] = 101.325
-
-
-
 
 # Ideal-gas molar density ratios relative to FERC 60°F / 14.73 psia (assumes Z_src / Z_dst = 1.0)
 _DENSITY_RATIO_FERC: Final[float] = 1.0
-
-
-
 _DENSITY_RATIO_TX: Final[float] = (_P_14_65_KPA / _T_60F_K) / (_P_14_73_KPA / _T_60F_K)
-
-
-
 _DENSITY_RATIO_ISO15: Final[float] = (_P_1ATM_KPA / _T_15C_K) / (_P_14_73_KPA / _T_60F_K)
-
-
-
 _DENSITY_RATIO_DIN0: Final[float] = (_P_1ATM_KPA / _T_0C_K) / (_P_14_73_KPA / _T_60F_K)
-
-
-
 _DENSITY_RATIO_GOST20: Final[float] = (_P_1ATM_KPA / _T_20C_K) / (_P_14_73_KPA / _T_60F_K)
-
-
-
-
 _GRONINGEN_MJ_PER_M3: Final[float] = 35.17
-
-
-
-
 
 def _ideal_gas_density_per_scf(molar_mass_g_per_mol: float) -> float:
     """Mass per FERC scf for the compatibility gas model's ideal reference states."""
-    return (_P_14_73_KPA * 1000 * (molar_mass_g_per_mol / 1000)
-            / (UNIVERSAL_GAS_CONSTANT_J_MOL_K * _T_60F_K) * (0.3048 ** 3))
-
-
-
-
+    return (_P_14_73_KPA * 1000 * (molar_mass_g_per_mol / 1000) / (UNIVERSAL_GAS_CONSTANT_J_MOL_K * _T_60F_K) * (0.3048 ** 3))
 
 def _scale_factor(magnitude: Any, factor: float | Decimal | int) -> Decimal | float:
     """Returns a Decimal or float multiplier matching the incoming Quantity magnitude."""
     if isinstance(magnitude, Decimal):
         return Decimal(str(factor))
     return float(factor)
-
-
-
-
 
 _DAK_A: Final[tuple[float, ...]] = (
     0.3265,    # A1
@@ -296,9 +152,6 @@ _DAK_A: Final[tuple[float, ...]] = (
     0.7210,    # A11
 )
 
-
-
-
 # Canonical 21-component AGA-8 Detail / GERG-2008 molar ordering
 _AGA8_COMPONENTS: Final[tuple[str, ...]] = (
     "CH4", "N2", "CO2", "C2H6", "C3H8", "iC4H10", "nC4H10",
@@ -306,13 +159,7 @@ _AGA8_COMPONENTS: Final[tuple[str, ...]] = (
     "H2", "O2", "CO", "H2O", "H2S", "He", "Ar",
 )
 
-
-
 _DAK_UNSUPPORTED_NON_HYDROCARBONS: Final[frozenset[str]] = frozenset({"H2", "O2", "CO", "H2O", "He", "Ar"})
-
-
-
-
 
 def _validated_composition(composition, *, normalize=False):
     from core.units.thermodynamics import SolverDomainError
@@ -333,10 +180,6 @@ def _validated_composition(composition, *, normalize=False):
         raise SolverDomainError("Composition fractions must sum to one; request normalization explicitly.")
     return {name: value / total if normalize else value for name, value in values.items() if value > 0}
 
-
-
-
-
 def _checked_backend_z(value: Any, backend_label: str) -> float:
     from core.units.thermodynamics import SolverBackendError
     try:
@@ -346,10 +189,6 @@ def _checked_backend_z(value: Any, backend_label: str) -> float:
     if not math.isfinite(z_val) or z_val <= 0.0:
         raise SolverBackendError(f"{backend_label} returned an invalid Z-factor: {z_val!r}")
     return z_val
-
-
-
-
 
 def _detect_package_version(module_obj: Any, dist_name: str) -> str | None:
     ver = getattr(module_obj, "__version__", None)
@@ -367,16 +206,11 @@ def _detect_package_version(module_obj: Any, dist_name: str) -> str | None:
             pass
     return None
 
-
 from core.units.standards import _reference_reference_document
 _GAS_REFERENCE_PRESETS = {
     record["id"]: (record["tagged_unit"], record["geometric_unit"], Decimal(record["temperature"]), Decimal(record["pressure"]))
     for record in _reference_reference_document("units", "gas_standards")["records"]
 }
-
-
-
-
 
 def _absolute_reference_temperature(value: pint.Quantity, label: str) -> pint.Quantity:
     from core.units.registry import ureg
@@ -390,10 +224,6 @@ def _absolute_reference_temperature(value: pint.Quantity, label: str) -> pint.Qu
     if not converted.magnitude.is_finite() or converted.magnitude <= 0:
         raise ValueError(f"{label} must be finite and greater than zero kelvin.")
     return converted
-
-
-
-
 
 def _reference_geometric_unit(unit: pint.Unit, state: GasReferenceConditions) -> tuple[pint.Unit, pint.Unit]:
     from core.units.registry import ureg
@@ -410,23 +240,7 @@ def _reference_geometric_unit(unit: pint.Unit, state: GasReferenceConditions) ->
         return tag, ureg.Unit(geometric)
     raise ValueError("Expected geometric gas volume or a matching named reference volume; calorific-equivalent volumes need an energy model.")
 
-
-
-
-
-def convert_gas_reference_volume(
-    quantity: pint.Quantity,
-    target_unit: str | pint.Unit,
-    *,
-    source: GasReferenceConditions,
-    target: GasReferenceConditions,
-    conserve: str = "dry_gas",
-    return_metadata: bool = False,
-    strict: bool = False,
-    uncertainties: Any = None,
-    covariance: Any = None,
-    correlations: Any = None,
-) -> Any:
+def convert_gas_reference_volume(quantity: pint.Quantity, target_unit: str | pint.Unit, *, source: GasReferenceConditions, target: GasReferenceConditions, conserve: str = "dry_gas", return_metadata: bool = False, strict: bool = False, uncertainties: Any = None, covariance: Any = None, correlations: Any = None,) -> Any:
     """Convert single-phase gas volumes between arbitrary contractual states.
 
     dry_gas conserves non-water moles and multiplies P1/P2*T2/T1*Z2/Z1 by
@@ -472,9 +286,7 @@ def convert_gas_reference_volume(
     source_base, source_geometry = _reference_geometric_unit(quantity.units, source)
     target_base, target_geometry = _reference_geometric_unit(destination, target)
     geometrical = ureg.Quantity(quantity.to(source_base).magnitude, source_geometry).to(target_geometry)
-    factor = (source.absolute_pressure.magnitude / target.absolute_pressure.magnitude
-              * target.temperature.magnitude / source.temperature.magnitude
-              * target.compressibility_factor / source.compressibility_factor * water_factor)
+    factor = (source.absolute_pressure.magnitude / target.absolute_pressure.magnitude * target.temperature.magnitude / source.temperature.magnitude * target.compressibility_factor / source.compressibility_factor * water_factor)
     result = ureg.Quantity(geometrical.magnitude * _scale_factor(geometrical.magnitude, factor), target_base).to(destination)
     if not _as_decimal(result.magnitude).is_finite():
         raise ValueError("Converted gas volume exceeds the numeric representation.")
@@ -520,18 +332,8 @@ def convert_gas_reference_volume(
 
     def _eval_gas_ref(p: Mapping[str, Decimal]) -> Decimal:
         from core.units.registry import ureg
-        src_p = replace(
-            source,
-            temperature=ureg.Quantity(p["source_temperature"], source.temperature.units),
-            absolute_pressure=ureg.Quantity(p["source_pressure"], source.absolute_pressure.units),
-            compressibility_factor=p["z_source"],
-        )
-        dst_p = replace(
-            target,
-            temperature=ureg.Quantity(p["target_temperature"], target.temperature.units),
-            absolute_pressure=ureg.Quantity(p["target_pressure"], target.absolute_pressure.units),
-            compressibility_factor=p["z_target"],
-        )
+        src_p = replace(source, temperature=ureg.Quantity(p["source_temperature"], source.temperature.units), absolute_pressure=ureg.Quantity(p["source_pressure"], source.absolute_pressure.units), compressibility_factor=p["z_source"],)
+        dst_p = replace(target, temperature=ureg.Quantity(p["target_temperature"], target.temperature.units), absolute_pressure=ureg.Quantity(p["target_pressure"], target.absolute_pressure.units), compressibility_factor=p["z_target"],)
         q_in = ureg.Quantity(p["quantity"], quantity.units)
         out = convert_gas_reference_volume(q_in, destination, source=src_p, target=dst_p, conserve=conserve)
         return _as_decimal(out.magnitude)
@@ -552,29 +354,7 @@ def convert_gas_reference_volume(
         base_parameters=base_params,
     )
 
-
-
-
-
-def convert_actual_to_standard_gas_volume(
-    actual_volume: pint.Quantity,
-    actual_pressure: pint.Quantity,
-    actual_temperature: pint.Quantity,
-    *,
-    target_standard: str = "ferc",
-    relative_density: float = 0.60,
-    method: str = "auto",
-    molar_composition: dict[str, float] | None = None,
-    z_actual: float | None = None,
-    z_standard: float | None = None,
-    co2_mol_frac: float | None = None,
-    h2s_mol_frac: float | None = None,
-    return_metadata: bool = False,
-    strict: bool = False,
-    uncertainties: Any = None,
-    covariance: Any = None,
-    correlations: Any = None,
-) -> Any:
+def convert_actual_to_standard_gas_volume(actual_volume: pint.Quantity, actual_pressure: pint.Quantity, actual_temperature: pint.Quantity, *, target_standard: str = "ferc", relative_density: float = 0.60, method: str = "auto", molar_composition: dict[str, float] | None = None, z_actual: float | None = None, z_standard: float | None = None, co2_mol_frac: float | None = None, h2s_mol_frac: float | None = None, return_metadata: bool = False, strict: bool = False, uncertainties: Any = None, covariance: Any = None, correlations: Any = None,) -> Any:
     """Converts actual flowing or storage gas volume to standard reference volume.
 
     Applies the real-gas law:
@@ -595,15 +375,10 @@ def convert_actual_to_standard_gas_volume(
     from core.units.registry import ureg
     from core.units.thermodynamics import calculate_z_factor
     if strict and (z_actual is None or z_standard is None) and method.strip().lower() == "auto":
-        raise MissingReferenceConditionsError(
-            "strict=True requires explicit z_actual/z_standard or an explicit EOS method instead of method='auto'."
-        )
+        raise MissingReferenceConditionsError("strict=True requires explicit z_actual/z_standard or an explicit EOS method instead of method='auto'.")
     std_key = target_standard.strip().lower()
     gost_unit = ureg.m3_20C_101325kPa_dry
-    std_configs = {
-        key: (ureg.Unit(tagged), ureg.Unit(geometric), pressure, temperature)
-        for key, (tagged, geometric, temperature, pressure) in _GAS_REFERENCE_PRESETS.items()
-    }
+    std_configs = {key: (ureg.Unit(tagged), ureg.Unit(geometric), pressure, temperature) for key, (tagged, geometric, temperature, pressure) in _GAS_REFERENCE_PRESETS.items()}
     if std_key not in std_configs:
         raise ValueError(f"Unknown target_standard {target_standard!r}. Choose from {tuple(std_configs)}.")
 
@@ -4552,16 +4327,10 @@ def sus_to_cst(
         return ureg.Quantity(_converters__interpolation_match_scalar_type(converted.magnitude, sus), dst)
     return _converters__interpolation_match_scalar_type(nu_cst, sus)
 
-
 from core.units.validation import authorized_conversion
 
-
 @authorized_conversion
-def cst_to_sfs(
-    viscosity_cst: pint.Quantity | float | int | Decimal,
-    *,
-    temp_f: pint.Quantity | float | int | Decimal = 122.0,
-) -> pint.Quantity | float | Decimal:
+def cst_to_sfs(viscosity_cst: pint.Quantity | float | int | Decimal, *, temp_f: pint.Quantity | float | int | Decimal = 122.0,) -> pint.Quantity | float | Decimal:
     """Convert kinematic viscosity (cSt) to Saybolt Furol Seconds (SFS) at 122 °F per ASTM D2161."""
     from core.units.registry import ureg
     from core.units.registry import validate_registry_quantity
@@ -4569,10 +4338,7 @@ def cst_to_sfs(
     from core.units.thermodynamics import _converters__interpolation_validate_real_scalar
     t_f = _converters_viscosity_resolve_temp_f(temp_f)
     if abs(t_f - _converters_viscosity_SFS_REF_TEMP_F) > 1e-6:
-        raise DomainError(
-            f"ASTM D2161 Table 3 Saybolt Furol conversion requires 122 °F (50 °C), got {t_f} °F."
-        )
-
+        raise DomainError(f"ASTM D2161 Table 3 Saybolt Furol conversion requires 122 °F (50 °C), got {t_f} °F.")
     is_qty = isinstance(viscosity_cst, pint.Quantity)
     if is_qty:
         validate_registry_quantity(viscosity_cst)
@@ -4604,12 +4370,7 @@ from core.units.validation import authorized_conversion
 
 
 @authorized_conversion
-def sfs_to_cst(
-    sfs: pint.Quantity | float | int | Decimal,
-    *,
-    temp_f: pint.Quantity | float | int | Decimal = 122.0,
-    target_unit: str | pint.Unit = "centistokes",
-) -> pint.Quantity | float | Decimal:
+def sfs_to_cst(sfs: pint.Quantity | float | int | Decimal, *, temp_f: pint.Quantity | float | int | Decimal = 122.0, target_unit: str | pint.Unit = "centistokes",) -> pint.Quantity | float | Decimal:
     """Invert Saybolt Furol Seconds (SFS) at 122 °F back to kinematic viscosity (cSt)."""
     from core.units.registry import parse_unit
     from core.units.registry import ureg
@@ -4618,9 +4379,7 @@ def sfs_to_cst(
     from core.units.thermodynamics import _converters__interpolation_validate_real_scalar
     t_f = _converters_viscosity_resolve_temp_f(temp_f)
     if abs(t_f - _converters_viscosity_SFS_REF_TEMP_F) > 1e-6:
-        raise DomainError(
-            f"ASTM D2161 Table 3 Saybolt Furol inversion requires 122 °F (50 °C), got {t_f} °F."
-        )
+        raise DomainError(f"ASTM D2161 Table 3 Saybolt Furol inversion requires 122 °F (50 °C), got {t_f} °F.")
 
     is_qty = isinstance(sfs, pint.Quantity)
     if is_qty:
@@ -4655,11 +4414,9 @@ def sfs_to_cst(
 
 from core.units.validation import authorized_conversion
 
-
 # ---------------------------------------------------------------------------
 # Unified Two-Stage Viscosity Pipeline Router
 # ---------------------------------------------------------------------------
-
 
 @authorized_conversion
 def convert_viscosity(
