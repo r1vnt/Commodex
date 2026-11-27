@@ -1,45 +1,132 @@
-"""commodities.core.units.registry.
-
-Institutional-grade unit registry for physical and financial commodities.
-Configures independent currency dimensions, thermodynamic gas volume standards,
-petroleum volumes, flow rates, environmental instruments, and strict serialisation.
-"""
-
+"""Commodex registry implementation and public interfaces."""
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping
 from contextlib import contextmanager
-import copy
-from dataclasses import dataclass
+from contextvars import ContextVar
+from dataclasses import dataclass, replace
 from decimal import Decimal, InvalidOperation
 from functools import cache, wraps
+from hashlib import sha256
+from pathlib import Path
+from types import MappingProxyType
+from typing import Any, Final, Iterator
+import ast
+import copy
+import json
+import keyword
+import math
+import pint
 import re
 import threading
-from typing import Any, Final, Iterator
-import pint
-from ._safety import _SEMANTIC_SCOPE, authorized_conversion
-from .currencies import CURRENCY_CATALOG, CURRENCY_CONVENTIONS
+from pint.facets.nonmultiplicative.definitions import OffsetConverter
+from core.units.exceptions import CommodityUnitError
 
-# ---------------------------------------------------------------------------
-# ISO-4217 Currency Codes
-# ---------------------------------------------------------------------------
+class _DecimalOffsetConverter(OffsetConverter):
+    """Preserve Decimal affine arithmetic on older supported Pint releases."""
 
-# Current ISO codes and all parseable reference denominations are separate views.
-CURRENCY_CODES: Final[tuple[str, ...]] = tuple(sorted({record.code for record in CURRENCY_CATALOG.records if record.status == "current" and record.kind == "iso4217"}))
-CURRENCY_REFERENCE_CODES: Final[tuple[str, ...]] = tuple(sorted({record.code for record in CURRENCY_CATALOG.records}))
-CURRENCY_SYMBOL_TO_CODE: Final[dict[str, str]] = dict(CURRENCY_CONVENTIONS["symbols"])
+    def to_reference(self, value, inplace=False):
+        if isinstance(value, Decimal):
+            return value * Decimal(str(self.scale)) + Decimal(str(self.offset))
+        return super().to_reference(value, inplace)
 
-# ISO decimal exponents are not physical coin subdivisions or cash increments.
-CURRENCY_MINOR_UNIT_EXPONENT: Final[dict[str, int]] = {
-    record.code: record.minor_digits for record in CURRENCY_CATALOG.records if record.minor_digits is not None
-}
-CURRENCY_MINOR_DIGITS: dict[str, int] = dict(CURRENCY_MINOR_UNIT_EXPONENT)
-_ZERO_MINOR_UNIT = frozenset(code for code, digits in CURRENCY_MINOR_DIGITS.items() if digits == 0)
-_THREE_MINOR_UNIT = frozenset(code for code, digits in CURRENCY_MINOR_DIGITS.items() if digits == 3)
-_NON_DECIMAL_MINOR_UNIT = frozenset({"MGA", "MRU"})  # physical fifth subdivisions, not ISO precision
+    def from_reference(self, value, inplace=False):
+        if isinstance(value, Decimal):
+            return (value - Decimal(str(self.offset))) / Decimal(str(self.scale))
+        return super().from_reference(value, inplace)
+
+class ForeignRegistryError(CommodityUnitError, ValueError):
+    """Raised when a Pint Quantity or Unit belongs to a foreign UnitRegistry."""
+
+from core.units.exceptions import RegistryVersionMismatchError
+
+class RegistryCompatibilityError(RegistryVersionMismatchError):
+    """Raised when registry schema, version, definition hash, or required units mismatch."""
 
 # Global lock to ensure thread-safe dynamic registration of custom units and currencies
 _REGISTRY_LOCK = threading.RLock()
 _REGISTRY_FROZEN: bool = False
+
+class _FreezableDict(dict):
+    """Dictionary supporting startup registration that seals permanently on freeze_registry()."""
+
+    def _ensure_mutable(self) -> None:
+        from core.units.exceptions import RegistryFrozenError
+        if _REGISTRY_FROZEN:
+            raise RegistryFrozenError("UnitRegistry is frozen; registry metadata mappings cannot be mutated.")
+
+    def _restore(self, snapshot: Mapping[Any, Any]) -> None:
+        dict.clear(self)
+        dict.update(self, snapshot)
+
+    def __setitem__(self, key: Any, value: Any) -> None:
+        self._ensure_mutable()
+        super().__setitem__(key, value)
+
+    def __delitem__(self, key: Any) -> None:
+        self._ensure_mutable()
+        super().__delitem__(key)
+
+    def pop(self, *args: Any) -> Any:
+        self._ensure_mutable()
+        return super().pop(*args)
+
+    def popitem(self) -> tuple[Any, Any]:
+        self._ensure_mutable()
+        return super().popitem()
+
+    def clear(self) -> None:
+        self._ensure_mutable()
+        super().clear()
+
+    def update(self, *args: Any, **kwargs: Any) -> None:
+        self._ensure_mutable()
+        super().update(*args, **kwargs)
+
+    def setdefault(self, key: Any, default: Any = None) -> Any:
+        if key in self:
+            return self[key]
+        self._ensure_mutable()
+        return super().setdefault(key, default)
+
+# ---------------------------------------------------------------------------
+# ISO-4217 Currency Codes & Reference Data Integrity
+# ---------------------------------------------------------------------------
+
+REGISTRY_SCHEMA_VERSION: Final[int] = 1
+from core.units.currencies import CURRENCY_CATALOG
+REGISTRY_VERSION: Final[str] = f"commodex-units-v{REGISTRY_SCHEMA_VERSION}+{CURRENCY_CATALOG.version}"
+_DATA_ROOT: Final[Path] = (Path(__file__).resolve().parents[0] / "reference_data")
+
+from core.units.currencies import DATA_DIRECTORY
+REFERENCE_DATA_HASHES: Final[Mapping[str, str]] = MappingProxyType({
+    "currencies_manifest": sha256((DATA_DIRECTORY / "manifest.json").read_bytes()).hexdigest(),
+    "currencies_reference": sha256((DATA_DIRECTORY / "reference.json").read_bytes()).hexdigest(),
+    "currencies_conventions": sha256((DATA_DIRECTORY / "conventions.json").read_bytes()).hexdigest(),
+    "currencies_overlay": sha256((DATA_DIRECTORY / "overlay.json").read_bytes()).hexdigest(),
+    "energy_specs": sha256((_DATA_ROOT / "units" / "energy_specs.json").read_bytes()).hexdigest(),
+    "assay_reference_manifest": sha256(((Path(__file__).resolve().parents[0] / "reference_data") / "standards" / "2026-11-27" / "manifest.json").read_bytes()).hexdigest(),
+    "gas_components": sha256((_DATA_ROOT / "assays" / "gas_components.json").read_bytes()).hexdigest(),
+    "astm_d2161": sha256((_DATA_ROOT / "units" / "astm_d2161.json").read_bytes()).hexdigest(),
+    "icumsa_brix": sha256((_DATA_ROOT / "units" / "icumsa_brix.json").read_bytes()).hexdigest(),
+})
+
+from core.units.currencies import CURRENCY_CATALOG
+
+# Current ISO codes and all parseable reference denominations are separate views.
+CURRENCY_CODES: Final[tuple[str, ...]] = tuple(sorted({record.code for record in CURRENCY_CATALOG.records if record.status == "current" and record.kind == "iso4217"}))
+from core.units.currencies import CURRENCY_CATALOG
+CURRENCY_REFERENCE_CODES: Final[tuple[str, ...]] = tuple(sorted({record.code for record in CURRENCY_CATALOG.records}))
+from core.units.currencies import CURRENCY_CONVENTIONS
+CURRENCY_SYMBOL_TO_CODE: Final[dict[str, str]] = _FreezableDict(CURRENCY_CONVENTIONS["symbols"])
+from core.units.currencies import CURRENCY_CATALOG
+
+# ISO decimal exponents are not physical coin subdivisions or cash increments.
+CURRENCY_MINOR_UNIT_EXPONENT: Final[Mapping[str, int]] = MappingProxyType({record.code: record.minor_digits for record in CURRENCY_CATALOG.records if record.minor_digits is not None})
+CURRENCY_MINOR_DIGITS: dict[str, int] = _FreezableDict(CURRENCY_MINOR_UNIT_EXPONENT)
+_ZERO_MINOR_UNIT = frozenset(code for code, digits in CURRENCY_MINOR_DIGITS.items() if digits == 0)
+_THREE_MINOR_UNIT = frozenset(code for code, digits in CURRENCY_MINOR_DIGITS.items() if digits == 3)
+_NON_DECIMAL_MINOR_UNIT = frozenset({"MGA", "MRU"})  # physical fifth subdivisions, not ISO precision
 
 # Each monetary denomination has an independent dimension. Only undated,
 # unscaled aliases in the default namespace are safe in the generic parser.
@@ -51,6 +138,7 @@ CURRENCY_UNIT_DEFINITIONS: Final[tuple[str, ...]] = tuple(
     ) for code in CURRENCY_REFERENCE_CODES
 )
 
+from core.units.currencies import CURRENCY_CONVENTIONS
 # Constructs Pint definitions for the minor units of each ISO 4217 currency, allowing for precise representation of fractional currency amounts in calculations.
 CURRENCY_MINOR_UNIT_DEFINITIONS: Final[tuple[str, ...]] = tuple(CURRENCY_CONVENTIONS["minor_definitions"])
 
@@ -61,711 +149,13 @@ CURRENCY_MINOR_UNIT_DEFINITIONS: Final[tuple[str, ...]] = tuple(CURRENCY_CONVENT
 # Mutable hook for desk configurations or application settings prior to registry build
 CUSTOM_COMMODITY_UNIT_DEFINITIONS: tuple[str, ...] = ()
 
+from core.units.standards import _reference_reference_document
+
 COMMODITY_UNIT_DEFINITIONS: Final[tuple[str, ...]] = (
-    *CURRENCY_UNIT_DEFINITIONS,
-    *CURRENCY_MINOR_UNIT_DEFINITIONS,
-
-    # =========================================================================
-    # Financial Margins, Quality Adjustments & Basis Points
-    # =========================================================================
-    "basis_point = 0.0001 = bp = bps = bips",  # 0.01 percent
-    "percent = 0.01 = pct = percentage = %",
-
-    # --- Time Constants & Operational Year Baselines ---
-    # Standard 365-day operational calendar year (8,760 hours) universally adopted in
-    # mining technical feasibility studies (JORC Code, NI 43-101), LNG Sale and Purchase
-    # Agreements (GIIGNL SPA standards), and bulk terminal port allocation rules.
-    "trading_year_365 = 365 * day = year_365 = annum_365 = op_year",                                   # Operational Year Basis (365 days / 8,760 hours nameplate capacity standard)
-
-
-    # =========================================================================
-    # Thermodynamic Energy & Gas Billing Units
-    # =========================================================================
-
-    # --- Energy Units: International Table Basis (Default Cash/Futures Anchor) ---
-    # Defined under ISO 80000-5 and ISO 31-4 via the 1956 London International Steam
-    # Table Conference (1 cal_IT = 4.1868 J exact), the International Table Btu
-    # establishes an algebraically fixed Joule equivalent free from empirical
-    # temperature variance, providing the reference energy basis for physical gas
-    # delivery under CME Rulebook Ch. 220 (60°F, 14.73 psia) and ISO 13443 (15°C, 101.325 kPa).
-    "btu_it = 1055.05585262 * joule = btu = Btu = BTU = btu_IT = Btu_IT = BTU_IT",  # British Thermal Unit (Exact IT definition, 1055.05585262 J)
-    "kBtu_it = 1e3 * btu_it = kBtu = kbtu = KBTU = kBtu_it = KBtu_it",              # Kilo-British Thermal Unit (1,000 Btu)
-    "MMBtu_it = 1e6 * btu_it = MMBtu = mmbtu = MMBTU = mmBtu = MMBtu_IT",            # Million British Thermal Units (NYMEX/ICE natural gas benchmark)
-    "BBtu_it = 1e9 * btu_it = BBtu = bbtu = BBTU = BBtu_IT",                        # Billion British Thermal Units (1,000 MMBtu)
-    "TBtu_it = 1e12 * btu_it = TBtu = tbtu = TBTU = TBtu_IT",                      # Trillion British Thermal Units (LNG cargo / regional balance scale)
-    "quad_it = 1e15 * btu_it = quad = Quad = QUAD = quadBtu = QuadBtu = QUADBTU",    # Quadrillion British Thermal Units (National/global energy balances)
-
-    # US Utility & Retail Gas Contracts (100,000 Btu)
-    "therm_it = 1e5 * btu_it = therm = th = Therm = THERM = th_it",                 # Therm (100,000 Btu, utility retail gas billing standard)
-    "dth_it = 10 * therm_it = dth = Dth = DTH = dekatherm = Dekatherm = DEKATHERM",  # Dekatherm (10 Therms or 1 MMBtu, US pipeline capacity tariff standard)
-
-    # --- Energy Units: US Regulatory & Custody Transfer Basis (59°F / 15°C) ---
-    # Defined under NIST SP 811, ASTM E380, and AGA standards as the heat required
-    # to raise 1 lb of air-free water from 58.5°F to 59.5°F at 1 atm (14.696 psia /
-    # 101.325 kPa), the 59°F Btu (1054.804 J, corresponding to the 15°C calorie)
-    # serves as the legal calorimetric baseline for legacy North American utility
-    # rate tariffs, statutory gas billing, and state pipeline transport contracts.
-    "btu_us59 = 1054.804 * joule = btu_59F = Btu_59F = BTU_59F = btu_us = Btu_us",  # British Thermal Unit (59°F / 15°C water-heat basis, 1054.804 J)
-    "kBtu_us59 = 1e3 * btu_us59 = kBtu_59F = kbtu_59F = KBTU_59F = kBtu_us",        # Kilo-British Thermal Unit (59°F basis)
-    "MMBtu_us59 = 1e6 * btu_us59 = MMBtu_59F = mmbtu_59F = MMBTU_59F = MMBtu_us",    # Million British Thermal Units (59°F basis)
-    "BBtu_us59 = 1e9 * btu_us59 = BBtu_59F = bbtu_59F = BBTU_59F = BBtu_us",        # Billion British Thermal Units (59°F basis)
-    "TBtu_us59 = 1e12 * btu_us59 = TBtu_59F = tbtu_59F = TBTU_59F = TBtu_us",      # Trillion British Thermal Units (59°F basis)
-    "quad_us59 = 1e15 * btu_us59 = quad_59F = Quad_59F = QUAD_59F = quad_us",      # Quadrillion British Thermal Units (59°F basis)
-
-    # US 59°F Utility & Pipeline Billing
-    "therm_us59 = 1e5 * btu_us59 = therm_59F = th_59F = therm_us = th_us",          # Therm (59°F basis, 100,000 Btu_59F)
-    "dth_us59 = 10 * therm_us59 = dth_59F = Dth_59F = dekatherm_59F = dth_us",      # Dekatherm (59°F basis, 10 Therms_59F)
-
-    # =========================================================================
-    # Macro Energy, Upstream Reserves & Coal Thermodynamics
-    # =========================================================================
-
-    # --- Upstream Hydrocarbon Reserves & Production (BOE Framework) ---
-    # Defined under US IRS § 45K / § 29 thermal equivalence (5.80 MMBtu = 5,800 scf @ 1,000 Btu/scf)
-    # as the baseline physical commodity conversion, alongside the statutory US SEC Rule 4-10
-    # (Regulation S-X) reporting standard (6.00 MMBtu = 6,000 scf @ 1,000 Btu/scf) used in public E&P
-    # 10-K reserves disclosures and Society of Petroleum Engineers (SPE-PRMS) guidelines.
-    "boe_58 = 5.8 * MMBtu_it = boe = BOE = barrel_of_oil_equivalent",                  # Barrel of Oil Equivalent (IRS standard thermal basis, 5.8 MMBtu / ~5,800 scf)
-    "boe_sec = 6.0 * MMBtu_it = boe_6 = BOE_SEC = boe_S_X",                            # Barrel of Oil Equivalent (US SEC Reg S-X Rule 4-10 statutory basis, 6.0 MMBtu / 6,000 scf)
-    "kboe = 1e3 * boe = KBOE = kBOE",                                                  # Thousand Barrels of Oil Equivalent (kBOE, 1,000 boe)
-    "MMboe = 1e6 * boe = MMBOE = mmboe",                                               # Million Barrels of Oil Equivalent (MMBOE, field/basin reserve scale)
-    "Bboe = 1e9 * boe = BBOE = bboe",                                                  # Billion Barrels of Oil Equivalent (BBOE, national/global reserve benchmark)
-
-    # Upstream Production Flow Rates
-    "boed = boe / day = BOED = boe_per_day = boe_d",                                   # Barrels of Oil Equivalent per Day (BOED, field-level production rate)
-    "kboed = 1e3 * boed = KBOED = kboe_d = Mboed",                                     # Thousand Barrels of Oil Equivalent per Day (kBOED / Mboed, basin production rate)
-    "MMboed = 1e6 * boed = MMBOED = mmboed = MMboe_d",                                 # Million Barrels of Oil Equivalent per Day (MMBOED, IEA/OPEC global liquids aggregate)
-
-    # --- Macro Thermodynamic Balances (IEA / OECD / UN Standards) ---
-    # Defined by the International Energy Agency (IEA), OECD, and Eurostat as exactly 10 Gcal_IT
-    # (41.868 GJ net calorific value), the Tonne of Oil Equivalent (toe) normalises cross-commodity
-    # macro energy statistics. The Tonne of Coal Equivalent (tce), codified under UN Statistics
-    # Division standards and DIN 54115, represents exactly 7 Gcal_IT (29.3076 GJ net calorific value),
-    # corresponding to the energy yield of one metric tonne of standard hard coal (7,000 kcal/kg).
-    "toe = 41.868 * gigajoule = TOE = tonne_of_oil_equivalent",                        # Tonne of Oil Equivalent (TOE, IEA/OECD standard net calorific basis, 41.868 GJ / 10 Gcal)
-    "ktoe = 1e3 * toe = KTOE = ktoe_it",                                               # Kilotonne of Oil Equivalent (kTOE, 1,000 toe, national energy balance accounting)
-    "Mtoe = 1e6 * toe = MTOE = mtoe = Mtoe_it",                                        # Megatonne of Oil Equivalent (MTOE, 1,000,000 toe, global primary energy demand)
-
-    "tce = 29.3076 * gigajoule = TCE = tonne_of_coal_equivalent",                      # Tonne of Coal Equivalent (TCE, UN/DIN 54115 standard, 29.3076 GJ / 7 Gcal)
-    "ktce = 1e3 * tce = KTCE = ktce_it",                                               # Kilotonne of Coal Equivalent (kTCE, 1,000 tce, regional coal balance accounting)
-    "Mtce = 1e6 * tce = MTCE = mtce = Mtce_it",                                        # Megatonne of Coal Equivalent (MTCE, 1,000,000 tce, global thermal coal demand)
-
-    # --- International Table Caloric Hierarchy (Coal & Power Generation) ---
-    # Defined via the 1956 International Steam Table Conference standard (1 cal_IT = 4.1868 J exact)
-    # used in international seaborne coal swap settlement (API 2, API 4, Newcastle FOB) and
-    # Japanese / Korean bilateral LNG import pricing (Customs Cleared LNG / JLC calorific tests).
-    "cal_it = 4.1868 * joule = cal = Cal = cal_IT",                                    # Small Calorie (Exact 1956 International Steam Table definition, 4.1868 J)
-    "kcal_it = 1e3 * cal_it = kcal = Kcal = KCAL = kcal_IT",                           # Kilocalorie (kcal, seaborne coal pricing benchmark, e.g. 6,000 kcal/kg NAR)
-    "mcal_it = 1e6 * cal_it = mcal = Mcal = MCAL = megacalorie",                       # Megacalorie (Mcal, 1,000 kcal / 1e6 cal, district heating & industrial heat)
-    "gcal_it = 1e9 * cal_it = gcal = Gcal = GCAL = gigacalorie",                       # Gigacalorie (Gcal, 1e9 cal / 4.1868 GJ, Eastern European gas & power tariffs)
-
-    # =========================================================================
-    # Gas Reference-Volume Units (Thermodynamic Standard Conditions)
-    # =========================================================================
-
-    # NGL gas-equivalent volume at 60 degrees F and one standard atmosphere.
-    # Kept dimensionally distinct from FERC's 14.73-psia custody-transfer basis.
-    "scf_60F_14696psi_dry = [standard_gas_volume_60F_1atm_dry] = scf_60F_1atm_dry",
-
-    # GOST reference volume: dry gas at 20 degrees C and 101.325 kPa.
-    "m3_20C_101325kPa_dry = [standard_gas_volume_20C_101325kPa_dry] = Sm3_20C",
-
-    # --- US Standard Gas Volumes: FERC / Interstate / NYMEX (60°F, 14.73 psia) ---
-    # Defined under AGA Report No. 3 (API MPMS Ch. 14.3), ASTM D3588, and GPA 2172 at 60°F (288.71 K)
-    # and 14.73 psia (30.00 inHg / 101.5598 kPa absolute, dry), representing the legal custody-transfer
-    # benchmark for US interstate pipeline tariffs (FERC) and CME/NYMEX Henry Hub physical delivery.
-    "scf_60F_14_73psia = [standard_gas_volume_60F_14_73psia] = scf = standard_cubic_foot = scf_14_73", # Standard Cubic Foot (60°F, 14.73 psia, US pipeline & NYMEX delivery basis)
-    "ccf_60F_14_73psia = 100 * scf_60F_14_73psia = ccf = Ccf = CCF",                                   # Hundred Standard Cubic Feet (100 scf, US retail utility volumetric billing)
-    "Mscf_60F_14_73psia = 1e3 * scf_60F_14_73psia = Mscf = mscf = Mcf = MCF",                          # Thousand Standard Cubic Feet (1,000 scf, standard US upstream well volume)
-    "MMscf_60F_14_73psia = 1e6 * scf_60F_14_73psia = MMscf = mmscf = MMcf = MMCF",                     # Million Standard Cubic Feet (1,000 Mcf, US pipeline dispatch & processing scale)
-    "Bscf_60F_14_73psia = 1e9 * scf_60F_14_73psia = Bscf = bscf = Bcf = BCF",                          # Billion Standard Cubic Feet (1,000 MMcf, US storage capacity & regional flow)
-    "Tscf_60F_14_73psia = 1e12 * scf_60F_14_73psia = Tscf = tscf = Tcf = TCF",                         # Trillion Standard Cubic Feet (1,000 Bcf, national basin & EIA reserve accounting)
-
-    # --- US Statutory Wellhead Gas Volumes: Texas / Midcontinent (60°F, 14.65 psia) ---
-    # Statutory base pressure defined by the Texas Railroad Commission (Rule 34), Oklahoma, Louisiana,
-    # and Kansas state conservation statutes (60°F / 288.71 K and 14.65 psia / 101.008 kPa absolute, dry).
-    # Accounting for this 0.543% expansion difference is essential when reconciling gathering meters to interstate lines.
-    "scf_60F_14_65psia = [standard_gas_volume_60F_14_65psia] = scf_texas = scf_tx = scf_14_65",       # Standard Cubic Foot (Texas RRC / Gulf Coast state statutory wellhead basis, 14.65 psia)
-    "Mscf_60F_14_65psia = 1e3 * scf_60F_14_65psia = Mscf_tx = Mcf_tx = MCF_TX",                       # Thousand Standard Cubic Feet (14.65 psia statutory wellhead basis)
-    "MMscf_60F_14_65psia = 1e6 * scf_60F_14_65psia = MMscf_tx = MMcf_tx = MMCF_TX",                   # Million Standard Cubic Feet (14.65 psia statutory wellhead basis)
-    "Bscf_60F_14_65psia = 1e9 * scf_60F_14_65psia = Bscf_tx = Bcf_tx = BCF_TX",                       # Billion Standard Cubic Feet (14.65 psia statutory wellhead basis)
-
-    # --- Normal Gas Volumes: Continental European Industrial Basis (0°C, 101.325 kPa) ---
-    # Defined under DIN 1343, ISO 2533, and IUPAC reference conditions at 0°C (273.15 K) and 101.325 kPa
-    # (1 atm absolute, dry), universally applied across Continental European industrial gas transport,
-    # German pipeline network balancing, Central European underground gas storage (UGS), and refinery gas processing.
-    "Nm3_0C_101325kPa_dry = [normal_gas_volume_0C_101325kPa_dry] = Nm3 = normal_m3 = nm3",            # Normal Cubic Metre (DIN 1343 basis, 0°C, 101.325 kPa, dry)
-    "kNm3_0C_101325kPa_dry = 1e3 * Nm3_0C_101325kPa_dry = kNm3 = knm3 = kNm3_dry",                    # Thousand Normal Cubic Metres (1,000 Nm3)
-    "MNm3_0C_101325kPa_dry = 1e6 * Nm3_0C_101325kPa_dry = MNm3 = mnm3 = MMnm3 = MNm3_dry",            # Million Normal Cubic Metres (1,000 kNm3, Continental European industrial scale)
-    "BNm3_0C_101325kPa_dry = 1e9 * Nm3_0C_101325kPa_dry = BNm3 = bnm3 = Bnm3 = Bcm_normal",           # Billion Normal Cubic Metres (1,000 MNm3, Continental European macro balance)
-
-    # --- Standard Metric Gas Volumes: ISO / UK / Global LNG Basis (15°C, 101.325 kPa) ---
-    # Defined under ISO 13443 ("Natural gas - Standard reference conditions") at 15°C (288.15 K) and
-    # 101.325 kPa (1 atm absolute, dry). The global physical benchmark adopted by ENTSOG, the UK National
-    # Grid (NTS), Norwegian offshore pipelines (Gassco), Australian LNG plants, and seaborne GIIGNL trade.
-    "Sm3_15C_101325kPa_dry = [standard_gas_volume_15C_101325kPa_dry] = Sm3 = standard_m3 = sm3",      # Standard Cubic Metre (ISO 13443 basis, 15°C, 101.325 kPa, dry)
-    "kSm3_15C_101325kPa_dry = 1e3 * Sm3_15C_101325kPa_dry = kSm3 = ksm3 = kSm3_dry",                  # Thousand Standard Cubic Metres (1,000 Sm3, Norwegian continental shelf flow metric)
-    "MSm3_15C_101325kPa_dry = 1e6 * Sm3_15C_101325kPa_dry = MSm3 = msm3 = MMsm3 = MSm3_dry",          # Million Standard Cubic Metres (1,000 kSm3, European border interconnect daily rate)
-    "BSm3_15C_101325kPa_dry = 1e9 * Sm3_15C_101325kPa_dry = BSm3 = bsm3 = Bcm = BCM = bcm",           # Billion Standard Cubic Metres (1,000 MSm3, global LNG & European gas benchmark)
-
-    # --- Groningen Caloric Standard Gas Volumes: Dutch GTS / TTF Standard ---
-    # Standardised low-calorific gas volume (G-gas) defined by Gasunie Transport Services (GTS) with a
-    # standardised gross calorific value (GCV) of exactly 35.17 MJ/m3 (9.7694 kWh/m3) at 0°C / 101.325 kPa.
-    # Serves as the volumetric reference for physical TTF title transfers and domestic Dutch/German L-gas billing.
-    "m3_Groningen = [groningen_gas_volume] = m3_G = Nm3_G = G_m3",                                     # Groningen Standard Cubic Metre (GTS low-cal G-gas benchmark, 35.17 MJ/Nm3)
-    "thousand_m3_Groningen = 1e3 * m3_Groningen = km3_G = kNm3_G",                                     # Thousand Groningen Cubic Metres (1,000 m3_G)
-    "million_m3_Groningen = 1e6 * m3_Groningen = MMm3_G = MNm3_G",                                     # Million Groningen Cubic Metres (1,000 km3_G, GTS daily balancing standard)
-    "billion_m3_Groningen = 1e9 * m3_Groningen = Bcm_G = BCM_G = BNm3_G",                              # Billion Groningen Cubic Metres (1,000 MMm3_G, annual Dutch capacity & storage)
-
-    # =========================================================================
-    # Gas Flow Rates, Pipeline Nominations & Capacity Bookings
-    # =========================================================================
-
-    # --- US Volumetric Flow Rates: Interstate / FERC Basis (60°F, 14.73 psia) ---
-    # Standard volumetric flow rates governing US interstate pipeline electronic bulletin boards (EBB),
-    # NAESB nomination cycles, gathering system dispatch, and EIA production reporting.
-    "scfd_60F = scf_60F_14_73psia / day = scfd = SCFD = scf_d",                                       # Standard Cubic Feet per Day (scf / day)
-    "scfh_60F = scf_60F_14_73psia / hour = scfh = SCFH = scf_h",                                     # Standard Cubic Feet per Hour (scf / hour)
-    "Mscfd_60F = Mscf_60F_14_73psia / day = Mscfd = mscfd = Mcfd = mcfd = MCFD = Mcf_d",              # Thousand Standard Cubic Feet per Day (1,000 scfd)
-    "Mscfh_60F = Mscf_60F_14_73psia / hour = Mscfh = mscfh = Mcfh = mcfh = MCFH = Mcf_h",            # Thousand Standard Cubic Feet per Hour (1,000 scfh)
-    "MMscfd_60F = MMscf_60F_14_73psia / day = MMscfd = mmscfd = MMcfd = mmcfd = MMCFD = MMcf_d",     # Million Standard Cubic Feet per Day (1,000 Mcfd, standard pipeline nomination unit)
-    "MMscfh_60F = MMscf_60F_14_73psia / hour = MMscfh = mmscfh = MMcfh = mmcfh = MMCFH = MMcf_h",   # Million Standard Cubic Feet per Hour (1,000 Mcfh, CCGT hourly swing burn)
-    "Bcfd_60F = Bscf_60F_14_73psia / day = Bcfd = bcfd = BCFD = Bscfd = Bcf_d",                      # Billion Standard Cubic Feet per Day (1,000 MMcfd, major basin/national takeaway)
-
-    # --- US Volumetric Flow Rates: Texas Statutory Wellhead Basis (60°F, 14.65 psia) ---
-    # Statutory wellhead production and gathering flow rates compliant with Texas RRC Rule 34 and Midcontinent laws.
-    "scfd_60F_14_65psia = scf_60F_14_65psia / day = scfd_tx = scf_d_tx",                              # Standard Cubic Feet per Day (Texas 14.65 psia basis)
-    "Mscfd_60F_14_65psia = Mscf_60F_14_65psia / day = Mscfd_tx = Mcfd_tx = Mcf_d_tx",                # Thousand Standard Cubic Feet per Day (Texas 14.65 psia basis)
-    "MMscfd_60F_14_65psia = MMscf_60F_14_65psia / day = MMscfd_tx = MMcfd_tx = MMcf_d_tx",          # Million Standard Cubic Feet per Day (Texas 14.65 psia basis)
-    "Bcfd_60F_14_65psia = Bscf_60F_14_65psia / day = Bcfd_tx = Bcf_d_tx",                            # Billion Standard Cubic Feet per Day (Texas 14.65 psia basis)
-
-    # --- Continental European Normal Volumetric Rates: DIN 1343 Basis (0°C, 101.325 kPa) ---
-    # Used across Central European TSO dispatch, underground storage (UGS) injection/withdrawal, and industrial metering.
-    "Nm3_per_hour_0C = Nm3_0C_101325kPa_dry / hour = Nm3_h = nm3_h = Nm3h",                          # Normal Cubic Metres per Hour (Nm3 / hour, industrial metering standard)
-    "Nm3_per_day_0C = Nm3_0C_101325kPa_dry / day = Nm3_d = nm3_d = Nm3d",                            # Normal Cubic Metres per Day (Nm3 / day)
-    "kNm3_per_hour_0C = kNm3_0C_101325kPa_dry / hour = kNm3_h = knm3_h",                             # Thousand Normal Cubic Metres per Hour (1,000 Nm3/h)
-    "kNm3_per_day_0C = kNm3_0C_101325kPa_dry / day = kNm3_d = knm3_d",                               # Thousand Normal Cubic Metres per Day (1,000 Nm3/d)
-    "MNm3_per_day_0C = MNm3_0C_101325kPa_dry / day = MNm3_d = mnm3_d = MMnm3_d",                     # Million Normal Cubic Metres per Day (1,000 kNm3/d, TSO grid dispatch)
-
-    # --- Standard Metric Volumetric Rates: ISO 13443 Basis (15°C, 101.325 kPa) ---
-    # Operating standard for Norwegian offshore pipe dispatch (Gassco), UK NTS terminal deliveries, and seaborne LNG.
-    "Sm3_per_hour_15C = Sm3_15C_101325kPa_dry / hour = Sm3_h = sm3_h = Sm3h",                        # Standard Cubic Metres per Hour (Sm3 / hour)
-    "Sm3_per_day_15C = Sm3_15C_101325kPa_dry / day = Sm3_d = sm3_d = Sm3d",                          # Standard Cubic Metres per Day (Sm3 / day)
-    "kSm3_per_day_15C = kSm3_15C_101325kPa_dry / day = kSm3_d = ksm3_d",                             # Thousand Standard Cubic Metres per Day (1,000 Sm3/d)
-    "MSm3_per_day_15C = MSm3_15C_101325kPa_dry / day = MSm3_d = msm3_d = MMsm3_d = mcm_d",           # Million Standard Cubic Metres per Day (1,000 kSm3/d, European cross-border flows)
-    "Bcm_per_day_15C = BSm3_15C_101325kPa_dry / day = Bcm_d = bcm_d = BCMD",                         # Billion Standard Cubic Metres per Day (1,000 MSm3/d)
-
-    # Annualised International Pipeline & LNG Terminal Capacity
-    "bcma = BSm3_15C_101325kPa_dry / trading_year_365 = BCMA = bcm_a = Bcm_year",                     # Billion Cubic Metres per Annum (Long-term cross-border transit treaty standard)
-
-    # --- Dutch Groningen Volumetric Rates: GTS Standard (Low-Cal G-Gas Basis) ---
-    # Governs Dutch national transport, Gasunie Transport Services (GTS) entry/exit bookings, and physical TTF delivery.
-    "m3_Groningen_per_hour = m3_Groningen / hour = m3_G_h = Nm3_G_h",                                  # Groningen Cubic Metres per Hour (m3_G / hour)
-    "million_m3_Groningen_per_day = million_m3_Groningen / day = MMm3_G_d = MNm3_G_d",                 # Million Groningen Cubic Metres per Day (GTS system daily balancing capacity)
-
-    # --- US Energy Nomination Rates: Thermal Basis (International Table) ---
-    # Standard contractual nomination units for US interstate pipeline firm transportation (FT) and interruptible (IT) contracts.
-    "MMBtu_per_day = MMBtu_it / day = mmbtu_d = MMBtud = MMBTU_d = mmBtu_d",                          # Million British Thermal Units per Day (US pipeline primary nomination unit)
-    "MMBtu_per_hour = MMBtu_it / hour = mmbtu_h = MMBtuh = MMBTU_h = mmBtu_h",                        # Million British Thermal Units per Hour (Power plant hourly burn capability)
-    "dth_per_day = dth_it / day = dth_d = Dth_d = DTHD = Dthd",                                       # Dekatherms per Day (10 Therms/day = 1 MMBtu/day, legal tariff standard)
-    "dth_per_hour = dth_it / hour = dth_h = Dth_h = DTHH = Dthh",                                     # Dekatherms per Hour (Hourly meter nomination capacity)
-    "therms_per_day = therm_it / day = th_d = therm_d = Therms_d",                                    # Therms per Day (US commercial & municipal utility nominations)
-
-    # --- European & UK Energy Nomination Rates: CAM NC / PRISMA Standard ---
-    # Defined under EU Regulation 2017/459 (CAM NC) and UK Uniform Network Code (UNC).
-    # All European TSO auctions (PRISMA, RBP, GSA) and UK NTS daily entry/exit capacity operate strictly in electrical energy rates.
-    "kWh_per_hour = kilowatt_hour / hour = kWh_h = kWh_per_h",                                        # Kilowatt Hours per Hour (PRISMA standard bundled capacity auction unit)
-    "kWh_per_day = kilowatt_hour / day = kWh_d = kWh_per_d",                                          # Kilowatt Hours per Day (UK NTS primary daily entry/exit capacity unit)
-    "MWh_per_hour = megawatt_hour / hour = MWh_h = MWh_per_h",                                        # Megawatt Hours per Hour (European interconnector hourly capacity nomination)
-    "MWh_per_day = megawatt_hour / day = MWh_d = MWh_per_d",                                          # Megawatt Hours per Day (European border point aggregate daily flow)
-    "GWh_per_day = gigawatt_hour / day = GWh_d = GWh_per_d",                                          # Gigawatt Hours per Day (UK/Continental high-pressure transmission line capacity)
-
-    # =========================================================================
-    # Petroleum Volumes, Refinery Throughput & Tanker Logistics
-    # =========================================================================
-
-    # --- Petroleum Volumetric Hierarchy: API MPMS Ch. 11 / ASTM D1250 Basis ---
-    # Standard 42-US-gallon blue barrel defined at 60°F (15.56°C) and equilibrium vapor pressure
-    # under API Manual of Petroleum Measurement Standards (MPMS) Chapter 11.1, ASTM D1250, and IP 200.
-    # Enforces oilfield Roman numeral conventions (Mbbl = 1,000 bbl; MMbbl = 1,000,000 bbl).
-    "bbl = oil_barrel = BBL = barrel_oil = bbls",                                                      # Standard Petroleum Barrel (42 US gallons / 158.9873 litres @ 60°F)
-    "kbbl = 1e3 * bbl = Mbbl = MBBL = kbbls",                                                          # Thousand Barrels of Oil (1,000 bbl, standard oilfield M-notation)
-    "MMbbl = 1e6 * bbl = mmbbl = MMBBL = MMbbls",                                                      # Million Barrels of Oil (1,000 Mbbl, commercial field and commercial tank farm scale)
-    "Gbbl = 1e9 * bbl = gbbl = GBBL = Bbbl = BBBL",                                                    # Billion Barrels of Oil (1,000 MMbbl, national proved crude reserves benchmark)
-
-    # --- Wholesale Refined Products & Rack Distribution ---
-    # Standard volumetric measures for finished products (Gasoline, Diesel, Jet A-1, Gasoil).
-    # NYMEX RBOB and Heating Oil contracts clear physically on 42,000-gallon lots (1,000 bbl).
-    "gallon_petroleum = gallon = gal = Gal = us_gal",                                                  # US Liquid Gallon (231 cu in / 3.78541 litres, NYMEX refined products basis)
-    "kgal = 1e3 * gallon_petroleum = Kgal = Mgal_us",                                                  # Thousand US Gallons (Wholesale truck rack and terminal rack dispatch)
-
-    # --- Petroleum Production & Refinery Flow Rates ---
-    # Daily production rates and refinery processing runs, distinguishing between calendar-day
-    # averages (bpcd) and unconstrained nameplate stream-day operating capacities (bpsd).
-    "bpd = bbl / day = bbl_d = BPD = bbl_per_day = barrels_per_day",                                   # Barrels per Day (Standard calendar-day production / throughput, bpcd)
-    "bpcd = bpd = BPCD = barrels_per_calendar_day",                                                   # Barrels per Calendar Day (Throughput accounting for downtime and maintenance)
-    "bpsd = bbl / day = BPSD = barrels_per_stream_day",                                                # Barrels per Stream Day (Maximum sustainable 24-hour CDU capacity)
-    "kbpd = 1e3 * bpd = Mbpd = mbpd = KBPD = kbbl_d = Mbbl_d = kbd = Mbd",                            # Thousand Barrels per Day (1,000 bpd, regional pipeline flows and refinery throughput)
-    "MMbpd = 1e6 * bpd = mmbpd = MMBPD = MMbbl_d = mmbbl_d = MMbd = mmbd",                            # Million Barrels per Day (1,000 kbpd, OPEC/IEA global liquids supply and demand)
-
-    # --- Tanker Loading, Pipeline Pumping & Marine Laytime Logistics ---
-    # Hourly transfer rates governing terminal nominations, NOR laytime, and demurrage calculations
-    # under standard tanker charterparties (ASBATANKVOY, BPVOY5, ShellVOY6).
-    "bph = bbl / hour = BPH = bbl_h = bbl_per_hour = barrels_per_hour",                                # Barrels per Hour (Marine loading-arm and pipeline pumping rate)
-    "kbph = 1e3 * bph = Kbph = Mbph",                                                                  # Thousand Barrels per Hour (1,000 bph, VLCC / Suezmax loading terminal manifold capacity)
-
-    # --- Metric Petroleum Volumes & Marine Bunkering Flows ---
-    # Metric cubic metres and hourly discharge rates universally adopted across European, Asian,
-    # and Middle Eastern tank storage terminals (ARA, Jurong, Fujairah) and bunker deliveries.
-    "cbm = meter ** 3 = cbm_oil = CBM = m3_oil",                                                       # Cubic Metre (1,000 litres / ~6.2898 bbl, global metric liquid storage standard)
-    "kcbm = 1e3 * cbm = kCBM = km3_oil",                                                               # Thousand Cubic Metres (1,000 cbm, commercial shore-tank terminal capacity)
-    "Mcbm = 1e6 * cbm = MCBM = MMm3_oil",                                                              # Million Cubic Metres (1,000 kcbm, macro strategic petroleum reserve capacity)
-    "cbm_h = cbm / hour = m3_per_hour = cbm_per_hour = m3_h = CBM_h",                                  # Cubic Metres per Hour (Terminal pumping rate and marine bunker manifold delivery)
-    "cbm_d = cbm / day = m3_per_day = cbm_per_day = m3_d = CBM_d",                                     # Cubic Metres per Day (Refinery daily intake and cross-border liquid pipeline flows)
-
-    # =========================================================================
-    # Power Baseload Blocks, PPA Delivery & Environmental Attributes
-    # =========================================================================
-
-    # --- PPA Baseload Delivery Blocks & Contractual Strips ---
-    # Standardised delivery blocks used in long-term Power Purchase Agreements (PPAs), tolling agreements,
-    # and exchange-cleared power futures (EEX, Nord Pool, ICE Endex, CME PJM/ERCOT). Represents continuous
-    # block generation over standard calendar intervals (1 MW baseload strip).
-    "MWa = 8760 * megawatt_hour = MWA = megawatt_average = MW_year = MWyr",                            # Megawatt-Average (Standard 8,760 hours non-leap year baseload delivery, 8.76 GWh)
-    "MWa_leap = 8784 * megawatt_hour = MWA_leap = MW_year_leap = MWyr_leap",                           # Megawatt-Average Leap Year (366 days / 8,784 hours baseload delivery, 8.784 GWh)
-    "MW_day = 24 * megawatt_hour = MWd = MWD = megawatt_day",                                          # Megawatt Day (24-hour continuous baseload contract block, 24 MWh)
-    "MW_peak_16 = 16 * megawatt_hour = MW_pk16 = peak_block_16h",                                      # Megawatt Peak Block (Standard 16-hour diurnal peak delivery block, 16 MWh)
-
-    # --- North American Renewable Energy Certificates (EAC Framework) ---
-    # Issued under US state Renewable Portfolio Standards (RPS) and tracked via regional registries
-    # (PJM-GATS, NEPOOL-GIS, WREGIS, ERCOT, M-RETS). Exactly 1 MWh of certified renewable generation.
-    "REC = [instrument_REC] = rec = renewable_energy_certificate = recs = RECs",                      # Renewable Energy Certificate (Standard US/Canada compliance & voluntary certificate, 1 MWh)
-    "SREC = [instrument_SREC] = srec = solar_renewable_energy_certificate = srecs",                    # Solar Renewable Energy Certificate (US state RPS solar carve-out compliance unit, 1 MWh)
-
-    # --- European & UK Guarantees of Origin (AIB / Ofgem) ---
-    # Distinct legal attribute instruments post-Brexit. European GOs operate under Directive (EU) 2018/2001
-    # (RED II) and the AIB EECS standard. UK REGOs are administered separately by Ofgem under statutory GB rules.
-    "GO = [instrument_GO] = Guarantee_of_Origin = guarantees_of_origin = go = eu_go = EU_GO",        # Guarantee of Origin (EU RED II / AIB EECS standard tracking instrument, 1 MWh)
-    "REGO = [instrument_REGO] = rego = renewable_energy_guarantee_of_origin = regos = REGOs",          # Renewable Energy Guarantee of Origin (UK Ofgem statutory compliance certificate, 1 MWh)
-
-    # --- International & Multi-Regional Attribute Standards ---
-    # Global tracking systems for corporate Scope 2 greenhouse gas reporting (GHG Protocol Scope 2 Guidance)
-    # across non-AIB jurisdictions (Latin America, Middle East, Africa, Asia-Pacific).
-    "IREC = [instrument_IREC] = irec = I_REC = international_rec = irecs",                             # International REC (I-REC Standard Foundation global tracking instrument, 1 MWh)
-    "TIGR = 1 * megawatt_hour = tigr = tigrs = tradable_instrument_global_renewables",                 # Tradable Instrument for Global Renewables (APX international tracking standard, 1 MWh)
-    "GEC = [instrument_GEC] = gec = green_electricity_certificate = lvezheng = GECs",                 # Green Electricity Certificate (China NDRC / NEA national renewable attribute, 1 MWh)
-
-    # --- Australian Renewable Energy Target (Clean Energy Regulator) ---
-    # Statutory instruments created under the Australian Renewable Energy (Electricity) Act 2000.
-    # Encompasses both wholesale grid generation (LRET) and deemed small-scale installations (SRES).
-    "LGC = [instrument_LGC] = lgc = large_scale_generation_certificate = lgcs = LGCs",                # Large-scale Generation Certificate (Australian LRET wholesale compliance unit, 1 MWh)
-    "STC = [instrument_STC] = stc = small_scale_technology_certificate = stcs = STCs",                # Small-scale Technology Certificate (Australian SRES solar/deemed generation unit, 1 MWh)
-
-    # --- Capacity Markets & Diurnal Block Shaping ---
-    # Used in PJM Reliability Pricing Model (RPM), ISO-NE Forward Capacity Market, and grid balancing.
-    "MW_month = 730 * megawatt_hour = MW_mo = MWm = megawatt_month",                                   # Megawatt Month (Average 730 hours monthly power capacity reservation block, 730 MWh)
-    "kW_month = 0.001 * MW_month = kW_mo = kWm = kilowatt_month",                                      # Kilowatt Month (Standard US utility capacity tariff reservation unit)
-    "MW_offpeak_8 = 8 * megawatt_hour = MW_op8 = offpeak_block_8h",                                    # Megawatt Off-Peak Block (Standard 8-hour nocturnal off-peak delivery block, 8 MWh)
-
-    # =========================================================================
-    # Mass, Bulk Metals, Precious Bullion & Mining Concentrates
-    # =========================================================================
-
-    # --- Imperial & Metric Mass Benchmarks (Exchange Clearance & Physical Trade) ---
-    # Governed by the 1959 International Yard and Pound Agreement (1 lb = 0.45359237 kg exact)
-    # and ISO 80000-4. Forms the primary settlement delivery units across the London Metal Exchange
-    # (LME - metric tonnes), CME Group / COMEX (short tons, cwt, pounds), and SHFE (metric tonnes).
-    "mt = 1e3 * kilogram = metric_tonne = tonne = Tonne = TONNE = MT",                                 # Metric Tonne (1,000 kg, global LME/SHFE base metals & bulk shipping standard)
-    "kmt = 1e3 * mt = kt = KT = kMT = thousand_metric_tonnes",                                         # Thousand Metric Tonnes (1,000 mt, macro bulk cargo & mining production)
-    "Mmt = 1e6 * mt = Mt = MT_macro = MMT = million_metric_tonnes",                                    # Million Metric Tonnes (1,000 kmt, national trade balances & annual mining output)
-
-    "commodity_short_hundredweight = 100 * pound = cwt = CWT = short_cwt = hundredweight",            # Short Hundredweight (100 lb / 45.3592 kg, CME Live Cattle & agricultural benchmark)
-    "commodity_long_hundredweight = 112 * pound = long_cwt = Long_cwt = cwt_uk",                       # Long Hundredweight (112 lb / 50.8023 kg, UK/Commonwealth scrap & imperial bulk)
-
-    "commodity_short_ton = 2000 * pound = short_ton = ston = STON = s_ton = Short_Ton",               # Short Ton (2,000 lb / 907.1847 kg, US domestic steel, coal & scrap benchmark)
-    "commodity_long_ton = 2240 * pound = long_ton = lton = LTON = l_ton = Long_Ton",                  # Long Ton (2,240 lb / 1,016.0469 kg, UK/Commonwealth marine bulk & legacy tin)
-
-    # --- Bulk Mining, Iron Ore & Mineral Concentrates (Moisture & Grade Framework) ---
-    # Governed by ISO 3082 (Iron ores - Sampling and sample preparation) and commercial smelter
-    # contracts. Bulk ores trade on a dry basis (DMT = WMT * [1 - moisture fraction]), whilst contained
-    # metal pricing benchmarks are normalised via dry metric tonne units (1 DMTU = 1% metal per tonne).
-    "dmt = [dry_bulk_mass] = DMT = dry_metric_tonne = dry_tonne",                                       # Dry Metric Tonne (1,000 kg bone-dry ore mass excluding free moisture)
-    "wmt = [wet_bulk_mass] = WMT = wet_metric_tonne = wet_tonne",                                       # Wet Metric Tonne (1,000 kg gross run-of-mine ore mass including free moisture)
-    "contained_metal_tonne = [contained_metal_mass] = contained_mt",
-    "payable_metal_tonne = [payable_metal_mass] = payable_mt",
-    "dmtu = 0.01 * contained_metal_tonne = DMTU = dry_metric_tonne_unit",                                             # Dry Metric Tonne Unit (10 kg pure contained element / 1% Fe per DMT, 62% Fe CFR China benchmark)
-    "mtu = 10 * kilogram = MTU = metric_tonne_unit",                                                   # Metric Tonne Unit (10 kg contained WO3/Li2O/Mn, minor metals & ferro-alloys benchmark)
-    "stu = 20 * pound = STU = short_ton_unit",                                                         # Short Ton Unit (20 lb / 9.0718 kg pure element / 1% of a short ton, US tungsten & lithium standard)
-    "dltu = 22.4 * pound = DLTU = dry_long_ton_unit",                                                 # Dry Long Ton Unit (22.4 lb pure metal / 1% of a long ton, legacy UK/Indian iron ore contracts)
-
-    # --- Precious Bullion, Loco-London Standards & Regional Mandis ---
-    # Governed by the London Bullion Market Association (LBMA) Good Delivery Rules, Bureau of Indian
-    # Standards (BIS), and Chinese Gold & Silver Exchange Society (CGSE). Based on the troy ounce
-    # (480 grains = 31.1034768 g exact), with distinct regional physical trading units.
-    "toz = 31.1034768 * gram = troy_ounce = troy_oz = ozt = OZT = TOZ",                               # Troy Ounce (31.1034768 g exact, LBMA/COMEX gold, silver, platinum & palladium benchmark)
-    "fine_troy_ounce = toz = ftoz = FTOZ = fine_ounce = fine_toz",                                    # Fine Troy Ounce (Pure 24-karat metal mass = gross toz * assay fineness)
-    "tola = 11.6638038 * gram = tola_gold = TOLA",                                                     # Tola (180 troy grains / 11.6638 g, Indian/Pakistani bullion bazaar & MCX physical standard)
-    "tael_hk = 37.79936375 * gram = tael = hk_tael = HK_tael = Tael",                                  # Hong Kong Tael (1-1/3 oz avoirdupois / 37.7994 g, CGSE Loco-Hong Kong gold bar standard)
-    "tael_china = 37.429 * gram = mainland_tael = shanghai_tael",                                      # Shanghai Tael (37.429 g, traditional Chinese mainland precious metals trading weight)
-    "tael_taiwan = 37.5 * gram = taiwan_tael = ryo = Ryo",                                             # Taiwan Tael / Japanese Ryo (37.5 g exact, Taiwanese & Japanese physical gold bullion bar standard)
-    "baht_gold = 15.244 * gram = baht_bullion = thai_baht_gold",                                       # Thai Gold Baht (15.244 g @ 96.5% purity, Bangkok Gold Traders Association standard)
-    "carat = 200 * milligram = ct = CT = metric_carat = Carat",                                        # Metric Carat (200 mg / 0.2 g, international diamond and gemstone valuation standard)
-
-    # --- Speciality, Minor Metals & Nuclear Energy Fuels ---
-    # Unique industry pricing standards for commercial industrial compounds and elemental liquid metals.
-    "flask_mercury = 76 * pound = flask = FLASK = mercury_flask = Flask",                              # Flask of Mercury (76 lb / 34.473 kg, European/US benchmark elemental mercury unit)
-    "pound_U3O8 = pound = lb_U3O8 = U3O8_lb = U3O8 = u3o8",                                            # Pound of Triuranium Octoxide (UxC / TradeTech spot uranium yellowcake pricing benchmark)
-
-    # --- Battery Metals & Chemical Equivalents ---
-    # Universal standard for lithium reserves, chemical supply contracts, and exchange pricing
-    # (Fastmarkets, S&P Platts, CME). Normalises spodumene, lithium carbonate, and hydroxide to Li2CO3.
-    "tonne_LCE = 1 * mt = LCE = t_LCE = mt_LCE = tonne_lce",                                           # Metric Tonne of Lithium Carbonate Equivalent (Global battery chemical benchmark)
-
-    # --- Troy System Sub-Divisions (LBMA / Assay Standards) ---
-    # Exact subdivisions of the troy ounce (480 grains = 1 toz exact).
-    "grain = (1 / 480) * toz = gr = grain_troy",                                                       # Troy Grain (64.79891 mg exact, fundamental mass bridge between avoirdupois and troy)
-    "pennyweight = 24 * grain = pwt = PWT = dwt_troy = dwt_bullion",                                   # Pennyweight (1/20 toz / 1.55517 g, jewellery, dental alloy & scrap bullion)
-
-    # --- Ferrous Scrap & Steel Mill Imperial Mass ---
-    # US domestic scrap steel benchmarks (e.g. No. 1 Heavy Melting Steel [HMS 1/2], Shredded Scrap).
-    "gross_ton = commodity_long_ton = GT = gross_ton_steel = gt",                                      # Gross Ton (2,240 lb / 1,016.0469 kg, US scrap steel & metallurgical coke benchmark)
-
-    # =========================================================================
-    # Maritime Shipping, Freight Derivatives & Vessel Chartering
-    # =========================================================================
-
-    # --- Vessel Capacity, Container Slots & Freight Demand ---
-    # Governed by the Baltic Exchange, BIMCO, and International Maritime Organization (IMO)
-    # standards. Deadweight tonnage (dwt) reflects total vessel carrying capacity (cargo, bunkers,
-    # fresh water, ballast, crew) in metric tonnes. Container freight follows ISO 668 standards
-    # based on standard 20-foot and 40-foot intermodal equivalent units (TEU / FEU).
-    "dwt = 1e3 * kilogram = DWT = deadweight_ton = deadweight_tonne",                                  # Deadweight Tonnage (1,000 kg vessel cargo, fuel, ballast & stores capacity)
-    "TEU = [container_capacity] = teu = twenty_foot_equivalent_unit",                                  # Twenty-Foot Equivalent Unit (ISO 668 standard 20-foot container slot capacity)
-    "FEU = 2 * TEU = feu = forty_foot_equivalent_unit",                                                # Forty-Foot Equivalent Unit (2 TEU, standard 40-foot container slot capacity)
-    "tonne_nautical_mile = tonne * nautical_mile = tonne_nm = ton_nm",                      # Tonne-Nautical Mile (Bulk shipping transport demand: cargo mass multiplied by sea distance)
-
-    # --- Tanker Freight Benchmarks & Gas Carrier Capacities ---
-    # Managed by the Worldscale Association (London and New York). Nominal flat rates in USD/mt
-    # are reissued annually; market fixtures are negotiated as percentage points of the flat rate (WS).
-    "worldscale_point = [tanker_freight_index] = WS = worldscale = ws_point",                          # Worldscale Point (1% of published annual nominal tanker flat rate for a given route)
-    "cbm_lng = meter ** 3 = cbm_liquid_lng = m3_lng",                                                  # Cubic Metre of Liquefied Natural Gas (-162°C cryogenic cargo capacity, e.g. 174,000 cbm)
-    "cbm_lpg = meter ** 3 = cbm_liquid_lpg = m3_lpg",                                                  # Cubic Metre of Liquefied Petroleum Gas (Pressurised/refrigerated liquid parcel volume)
-
-    # --- Charterparty Hire & Laytime Demurrage Rates ---
-    # Governed by standard charterparty forms (NYPE, ASBATANKVOY, BPVOY5, ShellVOY6).
-    # Essential for calculating Time Charter Equivalent (TCE) earnings and port laytime demurrage.
-    "day_charter = day = charter_day = hire_day",                                                      # Charter Day (24-hour operational hire period for daily TCE earnings settlement)
-    "hour_demurrage = hour = demurrage_hour",                                                          # Demurrage Hour (Hourly penalty rate incurred past agreed laytime allowances)
-
-    # =========================================================================
-    # Annualised Mining, LNG Liquefaction & Bulk Freight Flow Rates
-    # =========================================================================
-
-    # --- Hourly & Daily Industrial Processing Rates (Mines, Mills & Ports) ---
-    # Hourly throughput for crushing circuits, conveyor systems, and bulk shiploader nameplates,
-    # alongside daily mill run rates for concentrators, smelters, and leach pads.
-    "tph = tonne / hour = TPH = tonne_per_hour = t_h",                                                 # Tonnes per Hour (Bulk shiploader, conveyor belt, and crusher circuit capacity)
-    "tpd = tonne / day = TPD = tonne_per_day = t_d",                                                   # Tonnes per Day (Standard mining mill throughput and concentrator intake)
-    "ktpd = 1e3 * tpd = KTPD = kt_d = ktonne_per_day",                                                 # Thousand Tonnes per Day (1,000 tpd, tier-1 open-pit copper/gold mill capacity)
-
-    # --- Annual Metric Flow Rates (LNG Export Trains & Base Metals) ---
-    # Standard annualised capacity units across international LNG liquefaction trains,
-    # regasification terminals, alumina refineries, and primary metal smelters.
-    "tpa = tonne / trading_year_365 = TPA = tpy = TPY = tonne_per_year = tonnes_per_annum",            # Tonnes per Annum (Baseline annualised metric flow rate)
-    "ktpa = 1e3 * tpa = KTPA = ktpy = KTPY = thousand_tonnes_per_annum",                               # Thousand Tonnes per Annum (1,000 tpa, cathode copper & nickel chemical production)
-    "mtpa = 1e6 * tpa = MTPA = mtpy = MTPY = million_tonnes_per_annum",                               # Million Tonnes per Annum (1,000 ktpa, global LNG liquefaction & macro bulk capacity)
-
-    # --- Bulk Mining Moisture-Adjusted Annual Capacities (Iron Ore & Bauxite) ---
-    # Specific dry-basis and wet-basis annual production volumes governing off-take agreements
-    # and port throughput declarations under ISO 3082.
-    "dmtpa = dmt / trading_year_365 = DMTPA = dmtpy = DMTPY = dry_metric_tonnes_per_annum",            # Dry Metric Tonnes per Annum (Bone-dry ore production excluding moisture)
-    "wmtpa = wmt / trading_year_365 = WMTPA = wmtpy = WMTPY = wet_metric_tonnes_per_annum",            # Wet Metric Tonnes per Annum (Run-of-mine physical shipping volume including moisture)
-
-    # --- Imperial Mining & Quarrying Flow Rates (US Domestic Coal & Aggregates) ---
-    # Standard US short-ton flow rates for domestic coal preparation plants, trona refining,
-    # and quarrying operations.
-    "stpd = commodity_short_ton / day = STPD = short_ton_per_day = st_d",                              # Short Tons per Day (US coal prep plant and domestic mill throughput)
-    "stpa = commodity_short_ton / trading_year_365 = STPA = stpy = STPY = short_ton_per_year",         # Short Tons per Annum (US domestic mining and aggregate production capacity)
-
-    # =========================================================================
-    # Agricultural Grains, Tropical Softs & Regional Cash Mandis
-    # =========================================================================
-
-    # --- Statutory Grain Bushels: Exchange Mass Benchmarks ---
-    # Under USDA, CME Group (CBOT), and Kansas City Board of Trade rules, commercial grain
-    # contracts settle strictly on statutory mass (weight), not volumetric Winchester bushels
-    # (2,150.42 cu in). Binding statutory crop weights prevents severe volume-to-mass conversion errors.
-    "bushel_corn = 56 * pound = bu_corn = BU_CORN = bushel_sorghum = bushel_flaxseed",                  # Standard Corn/Sorghum Bushel (56 lb / 25.4012 kg, CBOT Corn standard; 1 mt ~ 39.368 bu)
-    "bushel_wheat = 60 * pound = bu_wheat = BU_WHEAT = bushel_soybeans = bu_soy = BU_SOY",             # Standard Wheat/Soybean Bushel (60 lb / 27.2155 kg, CBOT Wheat/Soybean standard; 1 mt ~ 36.744 bu)
-    "bushel_barley = 48 * pound = bu_barley = BU_BARLEY",                                              # Standard Barley Bushel (48 lb / 21.7724 kg, 1 mt ~ 45.930 bu)
-    "bushel_oats = 32 * pound = bu_oats = BU_OATS",                                                    # Standard Oats Bushel (32 lb / 14.5150 kg, CBOT Oats standard; 1 mt ~ 68.894 bu)
-    "bushel_rye = 56 * pound = bu_rye = BU_RYE",                                                      # Standard Rye Bushel (56 lb / 25.4012 kg)
-
-    # --- European & International Grain Trade Benchmarks ---
-    # Governed by Euronext (Paris Milling Wheat / Rapeseed) and GAFTA / FOSFA contract rules.
-    # The metric quintal serves as the cash quotation standard across France, Germany, and India.
-    "hectolitre = 100 * liter = hl = HL = hectoliter",                                                 # Hectolitre (100 litres, European grain specific weight / test weight volume denominator)
-    "kg_per_hl = kilogram / hectolitre = kg_hl",                                                       # Kilograms per Hectolitre (European grain density / milling quality benchmark, e.g. 76 kg/hl)
-    "quintal = 100 * kilogram = q = metric_quintal = Quintal",                                         # Metric Quintal (100 kg, universal European and Indian cash grain pricing standard)
-    "spanish_quintal = 46 * kilogram = quintal_ag = qq = QQ",                                          # Agricultural Spanish Quintal (100 Castilian lb / 46 kg, Central American coffee/sugar cash trade)
-
-    # --- Tropical Softs Packaging & Commercial Export Bags ---
-    # Standardised commercial bags and packing units codified under International Coffee Organization (ICO),
-    # Federation of Cocoa Commerce (FCC), and ICE Futures Europe / US contract rules.
-    "coffee_bag_60kg = 60 * kilogram = coffee_bag = bag_coffee = sac_coffee_brazil",                   # Coffee Bag 60kg (ICO / ICE Arabica & Robusta standard export bag; 1 mt ~ 16.667 bags)
-    "coffee_bag_colombia = 70 * kilogram = bag_coffee_co",                                             # Colombian Federation Coffee Bag (70 kg standard export pack)
-    "cocoa_bag_62_5kg = 62.5 * kilogram = cocoa_bag = bag_cocoa",                                     # Cocoa Bag 62.5kg (West African FCC/CMA export standard; exactly 16 bags = 1 mt)
-    "sugar_bag_50kg = 50 * kilogram = sugar_bag = bag_sugar",                                         # Refined White Sugar Bag (50 kg, ICE White Sugar No. 407 physical parcel unit; 20 bags = 1 mt)
-
-    # --- Cotton Bales, Asian Cash Mandis & Latin American Mass ---
-    # Governed by ICE Cotton No. 2 contract specifications, B3 Brazil standards, and South Asian
-    # agricultural mandi regulatory boards.
-    "cotton_bale = 480 * pound = cotton_bale_net = bale_cotton = Cotton_Bale",                         # Cotton Net Export Bale (480 lb net / 217.724 kg, ICE Cotton No. 2 contract basis)
-    "cotton_bale_gross = 500 * pound = cotton_bale_gr",                                                # Cotton Gross Bale (500 lb gross including bagging and wire ties / 226.796 kg)
-    "candy = 355.62 * kilogram = khandi = candy_cotton",                                               # Indian Cotton Candy (355.62 kg / ~784 lb, MCX / domestic Indian physical lint pricing unit)
-    "arroba = 15 * kilogram = arroba_beef = ARROBA = arroba_net",                                      # Brazilian Arroba (15 kg net carcass mass, B3 Live Cattle & domestic raw cotton benchmark)
-    "maund_metric = 40 * kilogram = metric_maund = mnd_metric",                                        # Metric Maund (40 kg exact, modern Indian Mandi statutory delivery standard)
-    "maund_imperial = 82.2857 * pound = maund = mnd = imperial_maund",                                  # Imperial Maund (82.2857 lb / ~37.3242 kg, legacy Pakistani/North Indian ag trade)
-    "kati = 0.6 * kilogram = catty = Kati = Catty",                                                    # Southeast Asian Kati / Catty (0.6 kg / 600 g, domestic palm oil and rubber cash weight)
-    "picul = 100 * kati = pikul = Picul",                                              # Southeast Asian Picul (60 kg, Malaysian / Indonesian palm oil, rubber & tin cash unit)
-
-    # --- Legacy Imperial Volumetric Agricultural Measures ---
-    # Dry capacity measures derived from the Winchester bushel (2,150.42 cu in / 35.2391 litres).
-    "commodity_peck = 0.25 * bushel = peck = Peck = pk",                                               # Imperial/US Dry Peck (0.25 dry bushel / 2 dry gallons / 8.8098 litres)
-
-    # =========================================================================
-    # Forestry, Timber & Structural Building Materials
-    # =========================================================================
-
-    # --- Lumber & Wood Products (CME Group / Physical Yard Standards) ---
-    # Governed by the American Softwood Lumber Standard (NIST PS 20) and CME Lumber (LBR)
-    # contract rules. 1 board foot represents the nominal volume of a 1 ft x 1 ft x 1 in board
-    # (1/12 cu ft / 144 cu in / ~0.00236 m3). Quoted in dollars per thousand board feet ($/MBF).
-    # Pulp basis labels each denote one physical tonne. Fibre/moisture basis
-    # changes require PulpLumberAssay methods, rather than plain .to() scaling.
-    "admt = metric_ton = ADMT = air_dry_metric_tonne",
-    "bdmt = metric_ton = BDMT = bone_dry_metric_tonne = odmt = ODMT",
-    "board_foot = foot ** 2 * inch = bf = BF = fbm = FBM = board_feet",                     # Board Foot (Nominal timber volume: 144 cu in / 2.3597 litres, CME Lumber basis)
-    "thousand_board_feet = 1e3 * board_foot = mbf = MBF = kbf = kFBM",                                 # Thousand Board Feet (1,000 bf, standard wholesale and CME trading lot unit)
-    "million_board_feet = 1e6 * board_foot = MMbf = MMBF = MMfbm",                                     # Million Board Feet (1,000 MBF, sawmill annual capacity & commercial forestry harvest)
-    "cord_wood = 128 * foot ** 3 = cord = Cord = firewood_cord",                                       # Cord of Wood (128 cu ft / 3.6246 m3 stacked roundwood / firewood standard volume)
-
-    # =========================================================================
-    # Environmental Attributes, Compliance Emissions & Carbon Offsets
-    # =========================================================================
-
-    # --- Greenhouse Gas Mass Equivalents: IPCC / UNFCCC Basis ---
-    # Codified under UNFCCC reporting guidelines and IPCC Fifth/Sixth Assessment Reports (AR5/AR6).
-    # Metric tonnes of direct CO2 and Global Warming Potential (GWP)-weighted greenhouse gas equivalents
-    # (covering CH4, N2O, SF6, HFCs, PFCs, and NF3 normalised over a 100-year timescale).
-    "tonne_CO2 = tonne = tCO2 = t_CO2 = MT_CO2 = mt_CO2",                                               # Metric Tonne of Carbon Dioxide (1,000 kg direct fossil CO2 mass benchmark)
-    "tonne_CO2e = tonne = tCO2e = t_CO2e = MT_CO2e = mt_CO2e",                                         # Metric Tonne of CO2 Equivalent (1,000 kg GWP-adjusted greenhouse gas emissions)
-
-    # Compliance instruments have independent dimensions. Surrender rules,
-    # vintages and eligibility require an explicit instrument-level policy.
-    "EU_allowance = [instrument_EU_allowance] = EUA = eua = eu_allowance = EUAs",                                  # European Union Allowance (EU ETS Directive 2003/87/EC Phase 4 compliance instrument, 1 tCO2e)
-    "EU_aviation_allowance = [instrument_EU_aviation_allowance] = EUAA = euaa = eu_aviation_allowance",                    # EU Aviation Allowance (EU ETS aircraft operator compliance unit; merged into EUA Phase 4)
-    "UK_allowance = [instrument_UK_allowance] = UKA = uka = uk_allowance = UKAs",                                  # UK Allowance (UK ETS Statutory Instrument 2020 No. 1265 post-Brexit compliance unit, 1 tCO2e)
-    "California_carbon_allowance = [instrument_California_carbon_allowance] = CCA = cca = california_allowance = CCAs",           # California Carbon Allowance (CARB Cap-and-Trade / WCI linked market compliance unit, 1 tCO2e)
-    "ACCU = [instrument_ACCU] = accu = ACCUs = australian_carbon_credit_unit",                             # Australian Carbon Credit Unit (Clean Energy Regulator Safeguard Mechanism compliance unit, 1 tCO2e)
-    "NZU = [instrument_NZU] = nzu = NZUs = new_zealand_unit",                                             # New Zealand Unit (NZ ETS Climate Change Response Act statutory compliance unit, 1 tCO2e)
-    "CEA = [instrument_CEA] = cea = CEAs = china_emission_allowance",                                     # China Emission Allowance (National ETS compliance quota, Shanghai Environment and Energy Exchange)
-    "KAU = [instrument_KAU] = kau = KAUs = korea_allowance_unit",                                         # Korea Allowance Unit (K-ETS statutory allocation unit, Korea Exchange - KRX)
-
-    # --- Sub-National Short-Ton Compliance (RGGI) ---
-    # The Regional Greenhouse Gas Initiative (US Northeast power sector cap-and-invest programme)
-    # is legally denominated in US short tons of CO2 rather than metric tonnes (1 short ton = 0.907185 tCO2e).
-    "RGGI_allowance = [instrument_RGGI_allowance] = RGGI = rggi = rggi_allowance = RGGIs",                  # RGGI Allowance (US Northeast cap-and-invest power sector compliance unit, 1 short ton CO2)
-
-    # --- Voluntary Carbon Markets (VCM) & Article 6 Mitigation Instruments ---
-    # Project-based carbon crediting mechanisms verified against international standards
-    # (Verra VCS, Gold Standard, American Carbon Registry, Climate Action Reserve) and UNFCCC Article 6.
-    "VCU = [instrument_VCU] = vcu = VCUs = verified_carbon_unit",                                         # Verified Carbon Unit (Verra Verified Carbon Standard [VCS] offset credit, 1 tCO2e)
-    "GS_VER = [instrument_GS_VER] = gs_ver = GS_VERs = gold_standard_ver = VER = ver",                      # Gold Standard Verified Emission Reduction (Gold Standard Foundation carbon credit, 1 tCO2e)
-    "ACR_offset = [instrument_ACR_offset] = ACR = acr = american_carbon_registry = ACRs",                        # American Carbon Registry Emission Reduction Measurement (Winrock International standard, 1 tCO2e)
-    "CAR_CRT = [instrument_CAR_CRT] = CRT = crt = climate_reserve_tonne = CRTs",                              # Climate Reserve Tonne (Climate Action Reserve North American offset protocol, 1 tCO2e)
-    "ITMO = [instrument_ITMO] = itmo = ITMOs = article_6_itmo",                                            # Internationally Transferred Mitigation Outcome (UNFCCC Paris Agreement Article 6.2/6.4 unit)
-    "CORSIA_eligible_unit = [instrument_CORSIA_eligible_unit] = ceu = CEU = CEUs = CORSIA",                                # CORSIA Eligible Unit (ICAO global aviation carbon offsetting and reduction scheme, 1 tCO2e)
-
-    # --- US EPA Renewable Fuel Standard (RFS2) D-Codes ---
-    # Mandated under 40 CFR Part 80. Renewable Identification Numbers (RINs) are generated
-    # per physical gallon of renewable fuel based on its statutory Equivalence Value (EV).
-    "RIN = [renewable_identification_number] = rin = rins = RFS_RIN",                                  # Renewable Identification Number (US EPA RFS2 compliance credit, 1 ethanol-equivalent gallon)
-    "RIN_D3 = RIN = rin_d3 = cellulosic_biofuel_rin",                                                 # D3 Cellulosic Biofuel RIN (Cellulosic ethanol, renewable natural gas [RNG])
-    "RIN_D4 = RIN = rin_d4 = biomass_based_diesel_rin",                                               # D4 Biomass-Based Diesel RIN (Biodiesel, Renewable Diesel; EV 1.5–1.7 RINs/gal)
-    "RIN_D5 = RIN = rin_d5 = advanced_biofuel_rin",                                                    # D5 Advanced Biofuel RIN (Sugarcane ethanol, non-corn starch biofuels)
-    "RIN_D6 = RIN = rin_d6 = renewable_fuel_rin",                                                      # D6 Conventional Renewable Fuel RIN (Corn starch ethanol)
-
-    # --- Sub-National Clean Fuel Standards & European GHG Mandates ---
-    # Performance-based lifecycle carbon-intensity compliance mechanisms.
-    "LCFS_credit = [instrument_LCFS_credit] = lcfs = LCFS = carb_lcfs = clean_fuel_credit",                      # LCFS Credit (California CARB / Oregon CFP deficit offset, 1 tCO2e reduction)
-    "THG_quota = [instrument_THG_quota] = thg = THG = thg_quote = ghg_quota",                                  # German THG-Quote (38. BImSchV transport emission compliance unit, 1 tCO2e reduction)
-
-    # =========================================================================
-    # Bespoke, Desk-Specific & Proprietary Commodity Extensions
-    # =========================================================================
-
-    # --- Proprietary Desk Overrides & User-Defined Extensions ---
-    # Injected tuple for environment-specific, OTC counterparty-bespoke, or proprietary
-    # firm-internal units (e.g. internal pipeline zone thermal factors, non-standard
-    # storage terminal tank parcels, or proprietary crack spread formulations).
-    # =========================================================================
-    # Weather Derivatives & Thermal Degree Days
-    # =========================================================================
-    # Temperature differences accumulated over time, not affine temperatures.
-    # HDD/CDD aliases identify index units; baseline and daily observation logic
-    # belong in the weather model rather than the registry.
-    "degree_day_F = delta_degF * day = degree_day = HDD = CDD = DD = degree_days",
-    "degree_day_C = delta_degC * day = degree_day_c = HDD_c = CDD_c = DD_c",
-    "degree_hour_F = delta_degF * hour = degree_hour = HDH = CDH",
-    "degree_hour_C = delta_degC * hour = degree_hour_c = HDH_c = CDH_c",
-
-    # =========================================================================
-    # Power Generation Heat Rates & Spark/Dark Spread Quoting Scales
-    # =========================================================================
-    # Energy/energy is dimensionless in Pint. Named units retain the quoting
-    # scale; they do not enforce fuel-versus-electrical energy semantics.
-    "heat_rate_us = btu_it / kilowatt_hour = heat_rate = HR = btu_per_kwh = Btu_kWh",
-    "heat_rate_macro = MMBtu_it / megawatt_hour = MMBtu_per_MWh = mmbtu_mwh = MMBtu_MWh",
-    "heat_rate_metric = megajoule / kilowatt_hour = MJ_per_kWh = MJ_kWh",
-    "heat_rate_gas_turbine = gigajoule / megawatt_hour = GJ_per_MWh = GJ_MWh",
-    # Thermal/electrical labels carry the same dimensions. Efficiency is
-    # applied explicitly by heat_content.thermal_to_output/output_to_thermal.
-    "MWh_thermal = megawatt_hour = MWh_th",
-    "MWh_electric = megawatt_hour = MWh_e",
-    "MW_thermal = megawatt = MW_th = MWth",
-    "MW_electric = megawatt = MW_e = MWe",
-
-    # =========================================================================
-    # Hydrogen, Clean Fuel Carriers & Energy Transition
-    # =========================================================================
-    # Commodity and calorific-basis labels retain the underlying dimensions.
-    # Heating-value factors and LHV/HHV transformations belong in conversions.py.
-    "kg_H2 = kilogram = kg_h2 = KG_H2",
-    "tonne_H2 = 1e3 * kg_H2 = t_H2 = mt_h2",
-    "Nm3_H2 = Nm3_0C_101325kPa_dry = nm3_h2",
-    "MWh_lhv = megawatt_hour = MWh_LHV = mwh_lhv",
-    "MWh_hhv = megawatt_hour = MWh_HHV = mwh_hhv",
-    "tonne_ammonia = 1e3 * kilogram = t_NH3 = mt_NH3 = tonne_NH3",
-    "gallon_SAF = gallon_petroleum = gal_saf = SAF_gal",
-
-    # =========================================================================
-    # Pipeline Operating Pressure Labels
-    # =========================================================================
-    # Gauge and absolute labels share pressure dimensions. Datum shifts require
-    # explicit handling in conversions.py; these aliases apply no pressure offset.
-    "psia = psi = PSIA = lb_per_sq_in_abs",
-    "psig = psi = PSIG = lb_per_sq_in_gauge",
-    "bara = bar = BARA = bar_absolute",
-    "barg = bar = BARG = bar_gauge",
-
-    # =========================================================================
-    # Clean Fuel Lifecycle Carbon Intensity
-    # =========================================================================
-    "gCO2e = 1e-6 * tonne_CO2e = g_CO2e = g_co2e",
-    "kgCO2e = 1e-3 * tonne_CO2e = kg_CO2e = kg_co2e",
-    "CI_unit = gCO2e / megajoule = CI = ci_score = CI_score = gCO2e_per_MJ",
-    "kgCO2e_per_MWh = kgCO2e / megawatt_hour = kg_per_MWh_CO2e",
-
-    # =========================================================================
-    # Physical Bullion Bars & Nominal Vault Specifications
-    # =========================================================================
-    # Good Delivery units are nominal reference masses, not actual bar assays.
-    "kilobar_gold = kilogram = kilobar = kilo_gold = k_bar",
-    "ten_tola_bar = 10 * tola = tt_bar = TT_bar = TT_Bar",
-    "good_delivery_gold = 400 * toz = lgd_gold = bar_gold_400oz",
-    "good_delivery_silver = 1000 * toz = lgd_silver = bar_silver_1000oz",
-
-    # =========================================================================
-    # Grid Dynamics, Battery Storage & Frequency Regulation
-    # =========================================================================
-    "MW_per_minute = megawatt / minute = MW_min = MW_per_min = ramp_rate_mw",
-    "kW_per_minute = kilowatt / minute = kW_min = kW_per_min",
-    "C_rate = 1 / hour = c_rate = C_Rate",
-
-    # Crop-weight bushels, not generic dry-volume bushels.
-    "bushel_canola = 50 * pound = bu_canola",
-    "bushel_rice = 45 * pound = bu_rice",
-
-    # Nuclear-fuel labels are case-sensitive: mtU must never alias mtu (10 kg).
-    "SWU = [separative_work] = swu = separative_work_unit",
-    "kgU = kilogram = kg_uranium",
-    "mtU = 1e3 * kgU = tU = tonne_uranium",
-
-    # Metric pressure labels retain datum metadata for convert_pressure().
-    "kpaa = kilopascal = kPa_a = kpa_a = kilopascal_absolute",
-    "kpag = kilopascal = kPa_g = kpa_g = kilopascal_gauge",
-    "mpaa = megapascal = MPa_a = mpa_a = megapascal_absolute",
-    "mpag = megapascal = MPa_g = mpa_g = megapascal_gauge",
-    "paa = pascal = Pa_a = pa_a = pascal_absolute",
-    "pag = pascal = Pa_g = pa_g = pascal_gauge",
-
-    # Apparent/reactive power labels share electrical power dimensions.
-    # Power factor and active/reactive dispatch require explicit grid models.
-    "kilovolt_ampere = 1e3 * volt * ampere = kVA",
-    "megavolt_ampere = 1e6 * volt * ampere = MVA",
-    "kilovolt_ampere_reactive = 1e3 * volt * ampere = kVAR = kVAr",
-    "megavolt_ampere_reactive = 1e6 * volt * ampere = MVAR = MVAr",
-
-    # Coverage audit: reuse Pint's SI/prefixed units instead of redefining them.
-    # SP 811 B.8/B.9: thermochemical Btu is distinct from IT and 59-F Btu.
-    "btu_th = thermochemical_british_thermal_unit",
-    # Korean bullion-market convention (not an assay or purity specification).
-    "don_korea = 3.75 * gram = korean_don",
-
-    # Explicit concentration bases. Changing fraction bases needs composition.
-    "parts_per_billion = 1e-9 = ppb",
-    "parts_per_trillion = 1e-12",
-    "mass_fraction = [mass_fraction_basis]",
-    "mole_fraction = [mole_fraction_basis]",
-    "volume_fraction = [volume_fraction_basis]",
-    "mass_percent = 0.01 * mass_fraction",
-    "mole_percent = 0.01 * mole_fraction",
-    "volume_percent = 0.01 * volume_fraction",
-    "molarity = mole / liter",
-    "normality = [reaction_equivalent_concentration]",
-
-    # Conditional empirical readings: deliberately not fixed density/viscosity factors.
-    "degree_Brix = [brix_reading] = degBrix",
-    "degree_Plato = [plato_reading] = degPlato",
-    "degree_Baume_heavy = [baume_heavy_reading]",
-    "degree_Baume_light = [baume_light_reading]",
-    "saybolt_universal_second = [saybolt_universal_reading] = SUS",
-    "saybolt_furol_second = [saybolt_furol_reading] = SFS",
-
-    # Region-qualified agricultural-area conventions; bare mu is ambiguous in Pint.
-    "acre_us_survey = 43560 * survey_foot ** 2",
-    "acre_foot_us_survey = acre_us_survey * survey_foot",
-    "mu_china = hectare / 15 = chinese_mu",
-    "feddan_4200 = 4200 * meter ** 2",
-    "tonne_mile = tonne * mile",
-    "short_ton_mile = commodity_short_ton * mile",
-    "displacement_tonne = metric_ton",
-    # IMO tonnage indices require vessel geometry; neither is displacement or mass.
-    "gross_tonnage = [gross_tonnage_index]",
-    "net_tonnage = [net_tonnage_index]",
-
-    "gigawatt_day = gigawatt * day = GWd",
-    # Counts require contract/packing metadata before physical or monetary delivery.
-    "item = [item_count]",
-    "dozen = 12 * item = doz",
-    "api_gravity = [api_gravity_reading] = degree_API",
-    "contract = [contract_count]",
-    "lot = [lot_count]",
-    "delivery_unit = [delivery_count]",
-    "crate = [crate_count]",
-    "sack = [sack_count]",
-    "price_tick = [price_tick_count]",
-
+    *CURRENCY_UNIT_DEFINITIONS, *CURRENCY_MINOR_UNIT_DEFINITIONS,
+    *(record["definition"] for record in _reference_reference_document("units", "registry_units")["records"]),
     *CUSTOM_COMMODITY_UNIT_DEFINITIONS,
-
-    # Examples of bespoke physical parcel and container overrides:
-    # "bespoke_iso_tank_24kl = 24000 * liter = iso_tank_24k",                         # 24,000L Chemical/Bunkering ISO Tank Container
-    # "flexitank_24kl = 24000 * liter = flexibag",                                    # 24,000L Bulk Liquid Foodgrade/Chemical Flexitank
-    # "drum_steel_200l = 200 * liter = drum_200l = standard_drum",                    # 200L / 55 US Gal Standard Industrial Steel Drum
-    # "pipeline_batch_nymex = 10000 * oil_barrel = nymex_batch",                      # 10,000 bbl Minimum NYMEX Pipeline Delivery Batch
 )
-
 
 # ---------------------------------------------------------------------------
 # Registry Singleton & Serialisation Bindings
@@ -773,7 +163,7 @@ COMMODITY_UNIT_DEFINITIONS: Final[tuple[str, ...]] = (
 
 # Only these observed Pint-default collisions are deliberate. New collisions
 # (including desk extensions) must fail instead of silently replacing a unit.
-_BOOTSTRAP_COLLISIONS: Final[dict[str, frozenset[str]]] = {
+PINT_COLLISION_ALLOWLIST: Final[Mapping[str, frozenset[str]]] = MappingProxyType({
     "USD_mill": frozenset({"mil"}), "basis_point": frozenset({"bp", "bps"}),
     "percent": frozenset({"%", "percent"}), "btu_it": frozenset({"BTU", "Btu"}),
     "quad_it": frozenset({"quad"}), "therm_it": frozenset({"th", "therm"}),
@@ -786,14 +176,45 @@ _BOOTSTRAP_COLLISIONS: Final[dict[str, frozenset[str]]] = {
     "grain": frozenset({"gr", "grain"}), "pennyweight": frozenset({"pennyweight"}),
     "dwt": frozenset({"dwt"}), "commodity_peck": frozenset({"peck", "pk"}),
     "board_foot": frozenset({"BF", "FBM", "board_feet", "board_foot"}),
-}
+})
 
+_BOOTSTRAP_COLLISIONS: Final[Mapping[str, frozenset[str]]] = PINT_COLLISION_ALLOWLIST
+_FORBIDDEN_DEFINITION_TOKENS: Final[frozenset[str]] = frozenset({"ppt", "mu", "ton_mile"})
+_MAX_UNIT_STRING_LENGTH: Final[int] = 256
+_MAX_UNIT_EXPONENT: Final[int] = 12
+
+def _compute_definition_hash(definitions: Iterable[str], custom_registrations: Iterable[str] = (),) -> str:
+    """Compute a deterministic SHA-256 fingerprint of registry definitions and reference snapshots."""
+    from core.units.currencies import CURRENCY_CATALOG
+    canonical_payload = {
+        "schema_version": REGISTRY_SCHEMA_VERSION,
+        "registry_version": REGISTRY_VERSION,
+        "currency_data_version": CURRENCY_CATALOG.version,
+        "reference_data_hashes": dict(sorted(REFERENCE_DATA_HASHES.items())),
+        "collision_allowlist": {
+            key: sorted(tokens) for key, tokens in sorted(PINT_COLLISION_ALLOWLIST.items())
+        },
+        "commodity_definitions": list(definitions),
+        "custom_registrations": list(custom_registrations),
+    }
+    encoded = json.dumps(canonical_payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("utf-8")
+    return sha256(encoded).hexdigest()
+
+BASELINE_DEFINITION_HASH: Final[str] = _compute_definition_hash(COMMODITY_UNIT_DEFINITIONS, ())
+
+def _clone_context_chain(chain: pint.facets.context.objects.ContextChain,) -> pint.facets.context.objects.ContextChain:
+    cloned = pint.facets.context.objects.ContextChain()
+    cloned.contexts = list(chain.contexts)
+    cloned.maps = list(chain.maps)
+    cloned._graph = None
+    return cloned
 
 class _SemanticCompatibility:
     def is_compatible_with(self, other, *contexts, **kwargs):
+        from core.units.validation import _safety_SEMANTIC_SCOPE
         if not super().is_compatible_with(other, *contexts, **kwargs):
             return False
-        if _SEMANTIC_SCOPE.get():
+        if _safety_SEMANTIC_SCOPE.get():
             return True
         registry = self._REGISTRY
         source = self.units if isinstance(self, pint.Quantity) else self
@@ -807,41 +228,107 @@ class _SemanticCompatibility:
             target = registry.dimensionless
         return registry._semantic_tags(source._units) == registry._semantic_tags(target._units)
 
-
 class _SemanticUnit(_SemanticCompatibility, pint.Unit):
     pass
-
 
 class _SemanticQuantity(_SemanticCompatibility, pint.Quantity):
     pass
 
-
 class _GuardedUnitRegistry(pint.UnitRegistry):
-    """Guard ordinary Pint APIs as well as the package's public wrappers."""
+    """Guard ordinary Pint APIs, isolate active contexts per thread/task, and seal on freeze."""
     _sealed = False
     Unit = _SemanticUnit
     Quantity = _SemanticQuantity
 
+    def __init__(self, *args, **kwargs):
+        object.__setattr__(self, "_sealed", False)
+        object.__setattr__(self, "_bootstrap_complete", False)
+        object.__setattr__(self, "_in_currency_registration", False)
+        object.__setattr__(self, "_in_internal_redefine", False)
+        object.__setattr__(self, "_semantic_tag_cache", {})
+        object.__setattr__(self, "_custom_registrations", ())
+        object.__setattr__(self, "_definition_hash", "")
+        object.__setattr__(self, "_active_ctx_var", ContextVar(f"commodex_active_ctx_{id(self)}", default=None),)
+        super().__init__(*args, **kwargs)
+
+    @property
+    def _active_ctx(self):
+        var = self.__dict__["_active_ctx_var"]
+        chain = var.get()
+        if chain is None:
+            chain = pint.facets.context.objects.ContextChain()
+            var.set(chain)
+        return chain
+
+    @_active_ctx.setter
+    def _active_ctx(self, value):
+        from core.units.exceptions import RegistryFrozenError
+        if self.__dict__.get("_sealed", False):
+            raise RegistryFrozenError("UnitRegistry is frozen; active contexts cannot be reassigned directly.")
+        self.__dict__["_active_ctx_var"].set(value)
+
     def __setattr__(self, name, value):
-        if self.__dict__.get("_sealed", False) and not name.startswith("_"):
-            raise RuntimeError("UnitRegistry is frozen; conversion policies cannot be reassigned.")
+        from core.units.exceptions import RegistryFrozenError
+        if self.__dict__.get("_sealed", False):
+            raise RegistryFrozenError("UnitRegistry is frozen; attributes and conversion policies cannot be reassigned.")
         super().__setattr__(name, value)
 
+    def __delattr__(self, name):
+        from core.units.exceptions import RegistryFrozenError
+        if self.__dict__.get("_sealed", False):
+            raise RegistryFrozenError("UnitRegistry is frozen; attributes cannot be deleted.")
+        super().__delattr__(name)
+
     def _mutable(self):
-        if self._sealed:
-            raise RuntimeError("UnitRegistry is frozen.")
+        from core.units.exceptions import RegistryFrozenError
+        if self.__dict__.get("_sealed", False):
+            raise RegistryFrozenError("UnitRegistry is frozen.")
+
+    def _redefine(self, definition):
+        with _REGISTRY_LOCK:
+            self._mutable()
+            object.__setattr__(self, "_in_internal_redefine", True)
+            try:
+                return super()._redefine(definition)
+            finally:
+                object.__setattr__(self, "_in_internal_redefine", False)
 
     def define(self, definition):
         with _REGISTRY_LOCK:
             self._mutable()
+            post_bootstrap = self.__dict__.get("_bootstrap_complete", False)
+            in_redefine = self.__dict__.get("_in_internal_redefine", False)
+            if post_bootstrap and not in_redefine:
+                if not isinstance(definition, str):
+                    raise TypeError("Post-bootstrap definitions must be validated unit definition strings.")
+                allow_ccy = self.__dict__.get("_in_currency_registration", False)
+                validate_unit_definition(definition, registry=self, allow_new_dimension=allow_ccy, allow_alias_directive=True, _allow_currency_dimension=allow_ccy,)
             result = super().define(definition)
-            self.__dict__.get("_semantic_tag_cache", {}).clear()
+            self.__dict__["_semantic_tag_cache"].clear()
+            if post_bootstrap and not in_redefine and isinstance(definition, str):
+                updated = (*self.__dict__["_custom_registrations"], definition.strip())
+                object.__setattr__(self, "_custom_registrations", updated)
+                object.__setattr__(self, "_definition_hash", _compute_definition_hash(COMMODITY_UNIT_DEFINITIONS, updated),)
             return result
 
-    def load_definitions(self, *args, **kwargs):
+    def load_definitions(self, file, is_resource=False):
         with _REGISTRY_LOCK:
             self._mutable()
-            return super().load_definitions(*args, **kwargs)
+            if not self.__dict__.get("_bootstrap_complete", False):
+                return super().load_definitions(file, is_resource)
+            if isinstance(file, (str, Path)) or is_resource:
+                raise ValueError("Loading external Pint definition files or resources at runtime is prohibited; register validated definitions explicitly.")
+            cleaned: list[str] = []
+            for line in file:
+                if not isinstance(line, str):
+                    raise ValueError("All loaded definitions must be validated unit definition strings.")
+                stripped = line.strip()
+                if not stripped:
+                    continue
+                validate_unit_definition(stripped, registry=self, allow_new_dimension=False, allow_alias_directive=False,)
+                cleaned.append(stripped)
+            for stripped in cleaned:
+                self.define(stripped)
 
     def add_context(self, *args, **kwargs):
         with _REGISTRY_LOCK:
@@ -852,6 +339,73 @@ class _GuardedUnitRegistry(pint.UnitRegistry):
         with _REGISTRY_LOCK:
             self._mutable()
             return super().remove_context(*args, **kwargs)
+
+    def _prepare_contexts(self, names_or_contexts, kwargs):
+        from core.units.exceptions import RegistryFrozenError
+        var = self.__dict__["_active_ctx_var"]
+        current = var.get()
+        if current is not None and current.defaults:
+            merged_kwargs = dict(current.defaults, **kwargs)
+        else:
+            merged_kwargs = dict(kwargs)
+        with _REGISTRY_LOCK:
+            ctxs = [self._contexts[name] if isinstance(name, str) else name for name in names_or_contexts]
+            for ctx in ctxs:
+                if not isinstance(ctx, pint.facets.context.objects.Context):
+                    raise TypeError(f"Expected pint.Context or registered context name, got {type(ctx).__name__}.")
+                if ctx.redefinitions and self.__dict__.get("_sealed", False):
+                    raise RegistryFrozenError("UnitRegistry is frozen; contexts with unit redefinitions are prohibited.")
+                if not ctx.checked:
+                    funcs_copy = dict(ctx.funcs)
+                    for (src, dst), func in funcs_copy.items():
+                        src_ = self._get_dimensionality(src)
+                        dst_ = self._get_dimensionality(dst)
+                        if src != src_ or dst != dst_:
+                            ctx.remove_transformation(src, dst)
+                            ctx.add_transformation(src_, dst_, func)
+                    ctx.checked = True
+            return tuple(pint.facets.context.objects.Context.from_context(ctx, **merged_kwargs) for ctx in ctxs)
+
+    def enable_contexts(self, *names_or_contexts, **kwargs):
+        with _REGISTRY_LOCK:
+            self._mutable()
+            prepared = self._prepare_contexts(names_or_contexts, kwargs)
+            var = self.__dict__["_active_ctx_var"]
+            previous = var.get()
+            new_chain = (_clone_context_chain(previous) if previous is not None else pint.facets.context.objects.ContextChain())
+            new_chain.insert_contexts(*prepared)
+            var.set(new_chain)
+            self._switch_context_cache_and_units()
+
+    def disable_contexts(self, n=None):
+        with _REGISTRY_LOCK:
+            self._mutable()
+            var = self.__dict__["_active_ctx_var"]
+            previous = var.get()
+            new_chain = (_clone_context_chain(previous) if previous is not None else pint.facets.context.objects.ContextChain())
+            new_chain.remove_contexts(n)
+            var.set(new_chain)
+            self._switch_context_cache_and_units()
+
+    @contextmanager
+    def context(self, *names, **kwargs):
+        prepared = self._prepare_contexts(names, kwargs)
+        var = self.__dict__["_active_ctx_var"]
+        previous = var.get()
+        new_chain = (_clone_context_chain(previous) if previous is not None else pint.facets.context.objects.ContextChain())
+        new_chain.insert_contexts(*prepared)
+        has_redefs = any(ctx.redefinitions for ctx in new_chain.contexts) or (previous is not None and any(ctx.redefinitions for ctx in previous.contexts))
+        token = var.set(new_chain)
+        if has_redefs:
+            with _REGISTRY_LOCK:
+                self._switch_context_cache_and_units()
+        try:
+            yield self
+        finally:
+            var.reset(token)
+            if has_redefs:
+                with _REGISTRY_LOCK:
+                    self._switch_context_cache_and_units()
 
     def get_name(self, *args, **kwargs):
         with _REGISTRY_LOCK:
@@ -870,7 +424,7 @@ class _GuardedUnitRegistry(pint.UnitRegistry):
             return super().parse_expression(*args, **kwargs)
 
     def _semantic_tags(self, container):
-        cache = self.__dict__.setdefault("_semantic_tag_cache", {})
+        cache = self.__dict__["_semantic_tag_cache"]
         if container in cache:
             return cache[container]
         tags = {}
@@ -915,10 +469,11 @@ class _GuardedUnitRegistry(pint.UnitRegistry):
         return result / divisor
 
     def _convert(self, value, src, dst, *args, **kwargs):
+        from core.units.validation import _safety_SEMANTIC_SCOPE
         with _REGISTRY_LOCK:
-            if not _SEMANTIC_SCOPE.get() and self._semantic_tags(src) != self._semantic_tags(dst):
+            if not _safety_SEMANTIC_SCOPE.get() and self._semantic_tags(src) != self._semantic_tags(dst):
                 raise pint.DimensionalityError(src, dst, extra_msg="; pressure datum or mass-basis changes require a validated conversion/assay API")
-            if _SEMANTIC_SCOPE.get():
+            if _safety_SEMANTIC_SCOPE.get():
                 semantic = {"wet", "dry", "contained", "payable"}
                 source_tags = set(self._semantic_tags(src)) & semantic
                 target_tags = set(self._semantic_tags(dst)) & semantic
@@ -928,9 +483,19 @@ class _GuardedUnitRegistry(pint.UnitRegistry):
                     return self._convert_mass_scale(value, src, dst)
             return super()._convert(value, src, dst, *args, **kwargs)
 
-
 def _new_registry() -> pint.UnitRegistry:
     registry = _GuardedUnitRegistry(autoconvert_offset_to_baseunit=True, on_redefinition="ignore")
+    try:
+        OffsetConverter(1, 273.15).to_reference(Decimal(0))
+    except TypeError:
+        # Replace only this registry's immutable definitions; preserve shared aliases.
+        replacements = {}
+        for name, definition in tuple(registry._units.items()):
+            converter = definition.converter
+            if isinstance(converter, OffsetConverter):
+                if id(definition) not in replacements:
+                    replacements[id(definition)] = replace(definition, converter=_DecimalOffsetConverter(converter.scale, converter.offset))
+                registry._units[name] = replacements[id(definition)]
     for definition in COMMODITY_UNIT_DEFINITIONS:
         before = dict(registry._units)
         registry.define(definition)
@@ -940,15 +505,24 @@ def _new_registry() -> pint.UnitRegistry:
         if unexpected:
             raise pint.errors.RedefinitionError(", ".join(sorted(unexpected)), "unit")
     registry._on_redefinition = "raise"
+    object.__setattr__(registry, "_definition_hash", _compute_definition_hash(COMMODITY_UNIT_DEFINITIONS, ()))
+    object.__setattr__(registry, "_bootstrap_complete", True)
     return registry
 
+_MASTER_REGISTRY: pint.UnitRegistry | None = None
 
-@cache
 def get_registry() -> pint.UnitRegistry:
-    registry = _new_registry()
-    pint.set_application_registry(registry)
-    return registry
-
+    """Atomically construct, bind, and publish the process-wide UnitRegistry singleton."""
+    global _MASTER_REGISTRY
+    published = _MASTER_REGISTRY
+    if published is not None:
+        return published
+    with _REGISTRY_LOCK:
+        if _MASTER_REGISTRY is None:
+            candidate = _new_registry()
+            pint.set_application_registry(candidate)
+            _MASTER_REGISTRY = candidate
+        return _MASTER_REGISTRY
 
 def _locked_registry(function):
     @wraps(function)
@@ -956,7 +530,6 @@ def _locked_registry(function):
         with _REGISTRY_LOCK:
             return function(*args, **kwargs)
     return locked
-
 
 # Module-level singleton instance and Quantity constructor export
 ureg: Final[pint.UnitRegistry] = get_registry()
@@ -983,11 +556,10 @@ _SORTED_SAFE_SYMBOLS: tuple[str, ...] = tuple(sorted(_SAFE_SYMBOLS.keys(), key=l
 
 _CURRENCY_CODES_SET: Final[set[str]] = set(CURRENCY_REFERENCE_CODES)
 _CURRENCY_CANONICAL_CODES: Final[dict[str, str]] = {code: code for code in CURRENCY_REFERENCE_CODES}
-
 _CURRENCY_DEFINITION_LINES: Final[frozenset[str]] = (frozenset(CURRENCY_UNIT_DEFINITIONS) | frozenset(CURRENCY_MINOR_UNIT_DEFINITIONS)) #Composite set that merges all primary currency dimensional definitions with their corresponding fractional minor unit definitions
 
 #translation table mapping colloquial trading screen shorthands, sub-unit glyphs, and vendor ticker conventions to their canonical Pint minor currency units
-minor_mapping: Final[dict[str, str]] = {
+minor_mapping: Final[dict[str, str]] = _FreezableDict({
     "zac": "ZAR_cent",
     "zarc": "ZAR_cent",
     "c": "USD_cent",
@@ -1003,8 +575,7 @@ minor_mapping: Final[dict[str, str]] = {
     "a¢": "AUD_cent",
     "cc": "CAD_cent",
     "c¢": "CAD_cent",
-}
-
+})
 
 def _register_minor_unit_definition(definition: str) -> None:
     """Populates minor_mapping from a Pint currency minor-unit definition string."""
@@ -1024,7 +595,8 @@ def _register_minor_unit_definition(definition: str) -> None:
 # Establishing the two foundational lookup tables required to decompose and normalise <numerator>/<denominator> broker market quotes
 for _minor_definition in CURRENCY_MINOR_UNIT_DEFINITIONS:
     _register_minor_unit_definition(_minor_definition)
-irregular_denominators: Final[dict[str, str]] = {}
+
+irregular_denominators: Final[dict[str, str]] = _FreezableDict()
 
 def _register_commodity_denominator_definition(definition: str) -> None:
     """This function extract valid unit identifiers and aliases from Pint definition strings
@@ -1071,8 +643,6 @@ for _denomination_aliases, _canonical_denomination in (  # Iterates through pair
         if _alias.lower() != "mt" or _alias in ("mt", "MT"):  # Case collision guard: prevents mixed-case 'Mt' (megatonnes/million tonnes) from corrupting metric tonnes ('mt')
             irregular_denominators[_alias.lower()] = _canonical_denomination  # Registers lowercase version to enable case-insensitive screen quote matching
 
-
-
 # ---------------------------------------------------------------------------
 # Dynamic Quote Resolution Engine
 # ---------------------------------------------------------------------------
@@ -1094,7 +664,6 @@ def _resolve_quote_expression(quote: str) -> str | None:
 
     num = raw_numerator.strip() #Strips incase of any whitespaces
     denomination = raw_denomination.strip() #Strips incase of any whitespaces
-
     # -----------------------------------------------------------------------
     # 1. Resolve Currency Numerator
     # -----------------------------------------------------------------------
@@ -1152,13 +721,52 @@ class QuoteReplacementsMap(dict[str, str]):
     get: Returns a quote’s value, or a default if it cannot be resolved.
     """
 
+    def _ensure_mutable(self) -> None:
+        if _REGISTRY_FROZEN:
+            raise RuntimeError("UnitRegistry is frozen; quote replacement mappings cannot be mutated.")
+
+    def _restore(self, snapshot: Mapping[str, str]) -> None:
+        dict.clear(self)
+        dict.update(self, snapshot)
+
+    def __setitem__(self, key: str, value: str) -> None:
+        self._ensure_mutable()
+        super().__setitem__(key, value)
+
+    def __delitem__(self, key: str) -> None:
+        self._ensure_mutable()
+        super().__delitem__(key)
+
+    def pop(self, *args: Any) -> Any:
+        self._ensure_mutable()
+        return super().pop(*args)
+
+    def popitem(self) -> tuple[str, str]:
+        self._ensure_mutable()
+        return super().popitem()
+
+    def clear(self) -> None:
+        self._ensure_mutable()
+        super().clear()
+
+    def update(self, *args: Any, **kwargs: Any) -> None:
+        self._ensure_mutable()
+        super().update(*args, **kwargs)
+
+    def setdefault(self, key: str, default: Any = None) -> Any:
+        if super().__contains__(key):
+            return dict.__getitem__(self, key)
+        self._ensure_mutable()
+        return super().setdefault(key, default)
+
     def __missing__(self, key: str) -> str:
         with _REGISTRY_LOCK: #Locks the registry while it resolves and possibly stores the quote, helping prevent simultaneous lookups from interfering.
             if dict.__contains__(self, key): #Checks whether the key is stored. Another lookup may have added it while this call was waiting for the lock.
                 return dict.__getitem__(self, key) #If it is now stored, returns its value directly.
             resolved = _resolve_quote_expression(key) #Tries to parse and normalise the quote key.
             if resolved is not None: #Checks whether parsing succeeded.
-                self[key] = resolved #Stores the resolved expression in the dictionary so it can be reused.
+                if not _REGISTRY_FROZEN:
+                    dict.__setitem__(self, key, resolved) #Stores the resolved expression in the dictionary while unfrozen.
                 return resolved #Returns the resolved expression.
             raise KeyError(key) 
 
@@ -1174,7 +782,6 @@ class QuoteReplacementsMap(dict[str, str]):
             return self[key]
         except KeyError:
             return default #Returns the supplied default value instead of raising KeyError.
-
 
 # Master lookup map populated with baseline institutional benchmarks
 _QUOTE_REPLACEMENTS: Final[QuoteReplacementsMap] = QuoteReplacementsMap({
@@ -1211,7 +818,6 @@ _QUOTE_REPLACEMENTS: Final[QuoteReplacementsMap] = QuoteReplacementsMap({
     "$/CCA": "USD / California_carbon_allowance",
 })
 
-
 # ---------------------------------------------------------------------------
 # Pre-Parsing Token Interventions & Regex Matchers
 # ---------------------------------------------------------------------------
@@ -1240,7 +846,6 @@ _UNIT_TOKEN_REPLACEMENTS: Final[list[tuple[re.Pattern[str], str]]] = [
 # Require digits and valid three-digit comma groups, retaining decimal/exponent support.
 #This builds a regular expression for matching a numeric magnitude, such as 1234, 1,234.50 or 2.5e-3.
 _MAGNITUDE_PATTERN = r"(?:(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?"
-
 
 #Builds and stores a regular expression for matching quotes that start with a 
 #currency symbol, such as -$1,234.50/bbl or ($1,234.50/bbl). 
@@ -1278,12 +883,11 @@ _BARE_MAGNITUDE_PATTERN = re.compile(
     r"\s*(?(bracket)\))\s*$"
 )
 
+from core.units.currencies import CURRENCY_CONVENTIONS
 
 # Symbols that can represent several currencies.
 # Add every shared glyph or market alias your registry accepts.
-_SHARED_SYMBOL_CURRENCIES: dict[str, frozenset[str]] = {
-    symbol: frozenset(codes) for symbol, codes in CURRENCY_CONVENTIONS["shared_symbols"].items()
-}
+_SHARED_SYMBOL_CURRENCIES: Final[Mapping[str, frozenset[str]]] = MappingProxyType({symbol: frozenset(codes) for symbol, codes in CURRENCY_CONVENTIONS["shared_symbols"].items()})
 
 def _resolve_currency_symbol(symbol: str, default_currency: str | None,) -> str:
     """Resolve any registered currency symbol, using context for shared symbols."""
@@ -1303,6 +907,288 @@ def _resolve_currency_symbol(symbol: str, default_currency: str | None,) -> str:
     if default_currency not in valid_codes:
         raise ValueError(f"{symbol!r} is not a valid currency symbol for {default_currency}")
     return default_currency
+
+# ---------------------------------------------------------------------------
+# Foreign-Registry Validation, Snapshots, Compatibility & Definition Guards
+# ---------------------------------------------------------------------------
+
+def validate_registry_quantity(value: Any, *, allow_unit: bool = True, registry: pint.UnitRegistry | None = None,) -> Any:
+    """Verify that a Pint Quantity or Unit belongs to the active Commodex UnitRegistry.
+
+    Raises ForeignRegistryError when an object was constructed by a foreign
+    ``pint.UnitRegistry()`` or an isolated ``sandbox_registry()``.
+    """
+    target = ureg if registry is None else registry
+    if isinstance(value, pint.Quantity):
+        if getattr(value, "_REGISTRY", None) is not target:
+            raise ForeignRegistryError("Quantity belongs to a foreign UnitRegistry; all quantities must originate from the active Commodex registry.")
+    elif allow_unit and isinstance(value, pint.Unit):
+        if getattr(value, "_REGISTRY", None) is not target:
+            raise ForeignRegistryError("Unit belongs to a foreign UnitRegistry; all units must originate from the active Commodex registry.")
+    return value
+
+def _validate_identifier_token(token: str, *, label: str) -> None:
+    from core.units.exceptions import AmbiguousUnitError
+    if not token or not token.isidentifier():
+        raise ValueError(f"{label} {token!r} must be a valid identifier.")
+    if keyword.iskeyword(token) or token in {"True", "False", "None"}:
+        raise ValueError(f"{label} {token!r} cannot be a Python keyword.")
+    if token.startswith("_"):
+        raise ValueError(f"{label} {token!r} cannot start with an underscore.")
+    if token in _FORBIDDEN_DEFINITION_TOKENS:
+        raise AmbiguousUnitError(f"{label} {token!r} is a reserved ambiguous market token.")
+
+def _check_token_collision(token: str, target_registry: pint.UnitRegistry, *, is_currency_registration: bool = False,) -> None:
+    if token in target_registry._units:
+        raise pint.errors.RedefinitionError(token, "unit")
+    if target_registry is ureg and not is_currency_registration:
+        if token.upper() in _CURRENCY_CODES_SET or token in CURRENCY_SYMBOL_TO_CODE or token in minor_mapping:
+            raise pint.errors.RedefinitionError(token, "unit")
+
+def _validate_definition_rhs_ast(rhs: str, target_registry: pint.UnitRegistry,) -> None:
+    if any(ch in rhs for ch in ("^", "[", "]", ";", "#", "@", "=", "'", '"', "`", "\\")):
+        raise ValueError(f"Unit definition RHS {rhs!r} contains prohibited syntax.")
+    try:
+        tree = ast.parse(rhs, mode="eval")
+    except (SyntaxError, ValueError) as error:
+        raise ValueError(f"Invalid algebraic unit definition RHS {rhs!r}.") from error
+
+    unit_refs: list[str] = []
+
+    def eval_scale(node: ast.AST) -> float:
+        if isinstance(node, ast.Constant):
+            if isinstance(node.value, bool) or not isinstance(node.value, (int, float)):
+                raise ValueError("Unit definition constants must be real numbers.")
+            val = float(node.value)
+            if not math.isfinite(val) or val <= 0.0 or val > 1e30:
+                raise ValueError(f"Numeric factor in unit definition must be finite and in (0, 1e30], got {node.value!r}.")
+            return val
+        if isinstance(node, ast.Name):
+            name = node.id
+            if keyword.iskeyword(name) or name.startswith("_"):
+                raise ValueError(f"Invalid unit identifier {name!r} in definition RHS.")
+            if name not in target_registry._units and not target_registry.parse_unit_name(name):
+                raise ValueError(f"Unknown reference unit {name!r} in unit definition.")
+            unit_refs.append(name)
+            return 1.0
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.UAdd):
+            return eval_scale(node.operand)
+        if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Mult, ast.Div)):
+            left = eval_scale(node.left)
+            right = eval_scale(node.right)
+            if right == 0.0:
+                raise ValueError("Division by zero in unit definition.")
+            return left * right if isinstance(node.op, ast.Mult) else left / right
+        if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Pow):
+            base_scale = eval_scale(node.left)
+            exp_node = node.right
+            sign = 1
+            if isinstance(exp_node, ast.UnaryOp) and isinstance(exp_node.op, (ast.UAdd, ast.USub)):
+                sign = -1 if isinstance(exp_node.op, ast.USub) else 1
+                exp_node = exp_node.operand
+            if (not isinstance(exp_node, ast.Constant) or isinstance(exp_node.value, bool) or not isinstance(exp_node.value, int)):
+                raise ValueError("Exponents in custom unit definitions must be integer literals.")
+            exponent = sign * exp_node.value
+            if exponent == 0 or abs(exponent) > _MAX_UNIT_EXPONENT:
+                raise ValueError(f"Unit exponent must be a non-zero integer within [-{_MAX_UNIT_EXPONENT}, {_MAX_UNIT_EXPONENT}].")
+            return base_scale ** exponent
+        raise ValueError("Custom unit definitions allow only positive numbers, existing units, *, /, and bounded integer ** powers.")
+
+    net_scale = eval_scale(tree.body)
+    if not unit_refs:
+        raise ValueError("Custom unit definitions must reference at least one existing physical or financial unit.")
+    if not math.isfinite(net_scale) or not (1e-36 <= net_scale <= 1e36):
+        raise ValueError(f"Net scaling factor {net_scale} in unit definition is out of safe bounds [1e-36, 1e36].")
+
+def validate_unit_definition(definition: str, *, registry: pint.UnitRegistry | None = None, allow_new_dimension: bool = False, allow_alias_directive: bool = False, _allow_currency_dimension: bool = False,) -> tuple[str, str, tuple[str, ...]]:
+    """Validate a user- or config-supplied Pint definition string before registration.
+
+    Blocks multi-line payloads, ``@import``/``@context``/``@system``/``@group`` directives,
+    prefix definitions (``foo- = ...``), affine offset units (``; offset:``), comments,
+    unapproved root dimensions, non-positive/extreme scales, and collisions with existing
+    units or aliases. Returns ``(canonical_name, rhs, aliases)``.
+    """
+    if not isinstance(definition, str):
+        raise ValueError("Unit definition must be a string.")
+    if len(definition) > _MAX_UNIT_STRING_LENGTH:
+        raise ValueError(f"Unit definition exceeds maximum length of {_MAX_UNIT_STRING_LENGTH} characters.")
+    if any(ch in ("\n", "\r", "\x00") or (ord(ch) < 32 and ch != "\t") or ord(ch) == 127 for ch in definition):
+        raise ValueError("Unit definition must be a single line without control characters.")
+    stripped = definition.strip()
+    if not stripped:
+        raise ValueError("Unit definition must be a non-empty string.")
+    if "#" in stripped:
+        raise ValueError("Inline '#' comments are prohibited in runtime unit definitions.")
+    if ";" in stripped or "offset:" in stripped.lower():
+        raise ValueError("Affine/offset unit definitions ('; offset:') are prohibited at runtime.")
+
+    target_registry = ureg if registry is None else registry
+
+    if stripped.startswith("@"):
+        if not allow_alias_directive or not stripped.startswith("@alias "):
+            raise ValueError("Pint '@' directives (@import, @context, @alias, @system, @group) are prohibited in custom unit definitions.")
+        body = stripped[len("@alias "):].strip()
+        parts = [part.strip() for part in body.split("=")]
+        if len(parts) < 2 or any(not p for p in parts):
+            raise ValueError(f"Invalid @alias definition: {definition!r}")
+        existing = parts[0]
+        _validate_identifier_token(existing, label="Alias target")
+        if existing not in target_registry._units:
+            raise pint.errors.UndefinedUnitError(existing)
+        aliases = tuple(parts[1:])
+        seen_aliases: set[str] = {existing}
+        for alias in aliases:
+            _validate_identifier_token(alias, label="Unit alias")
+            if alias in seen_aliases:
+                raise ValueError(f"Duplicate identifier {alias!r} in @alias definition.")
+            seen_aliases.add(alias)
+            _check_token_collision(alias, target_registry)
+        return existing, existing, aliases
+
+    if "@" in stripped:
+        raise ValueError("Pint '@' directives are prohibited in custom unit definitions.")
+
+    parts = [part.strip() for part in stripped.split("=")]
+    if len(parts) < 2 or len(parts) > 12 or any(not part for part in parts):
+        raise ValueError(f"Invalid unit definition format: {definition!r}")
+
+    canonical = parts[0]
+    if "-" in canonical or ":" in canonical:
+        raise ValueError("Prefix definitions and colon metadata are prohibited in custom unit definitions.")
+    _validate_identifier_token(canonical, label="Unit name")
+    _check_token_collision(canonical, target_registry, is_currency_registration=_allow_currency_dimension,)
+
+    rhs = parts[1]
+    raw_aliases = parts[2:]
+    aliases_out: list[str] = []
+    seen: set[str] = {canonical}
+    for idx, alias in enumerate(raw_aliases):
+        if idx == 0 and alias == "_":
+            continue
+        _validate_identifier_token(alias, label="Unit alias")
+        if alias in seen:
+            raise ValueError(f"Duplicate identifier {alias!r} in unit definition.")
+        seen.add(alias)
+        _check_token_collision(alias, target_registry, is_currency_registration=_allow_currency_dimension,)
+        aliases_out.append(alias)
+
+    if "[" in rhs or "]" in rhs:
+        if not allow_new_dimension:
+            raise ValueError("Defining new root dimensions ('[...]') is prohibited in custom unit definitions.")
+        dim_match = re.fullmatch(r"\[([A-Za-z][A-Za-z0-9_]{0,63})\]", rhs)
+        if dim_match is None:
+            raise ValueError(f"Invalid root dimension syntax {rhs!r}.")
+        dim_name = dim_match.group(1)
+        if dim_name.startswith("currency_") and not _allow_currency_dimension:
+            raise ValueError("Currency dimensions can only be created via register_currency().")
+    else:
+        _validate_definition_rhs_ast(rhs, target_registry)
+
+    return canonical, rhs, tuple(aliases_out)
+
+def _validate_external_unit_text(raw: str) -> None:
+    """Reject directive, definition, multi-line, and overlong external unit/quote strings."""
+    if not isinstance(raw, str):
+        raise TypeError(f"Expected string unit expression, got {type(raw).__name__}.")
+    if len(raw) > _MAX_UNIT_STRING_LENGTH:
+        raise ValueError(f"Unit expression exceeds maximum length of {_MAX_UNIT_STRING_LENGTH} characters.")
+    if any(ch in ("\n", "\r", "\x00") or (ord(ch) < 32 and ch != "\t") or ord(ch) == 127 for ch in raw):
+        raise ValueError("Unit expression must not contain newlines or control characters.")
+    if any(ch in raw for ch in ("@", "=", ";", "#", "[", "]", "'", '"', "`", "\\", "{", "}")):
+        raise ValueError(f"Unit expression {raw!r} contains prohibited directive or definition syntax.")
+    if "__" in raw:
+        raise ValueError(f"Unit expression {raw!r} contains prohibited dunder identifier syntax.")
+
+def _validate_sanitized_unit_expression(expr: str) -> None:
+    """Reject function calls, attribute access, and unbounded exponents in unit expressions."""
+    _validate_external_unit_text(expr)
+    if re.search(r"[A-Za-z0-9_]\s*\(", expr):
+        raise ValueError(f"Function call syntax is prohibited in unit expression {expr!r}.")
+    if re.search(r"[A-Za-z_]\s*\.|\.\s*[A-Za-z_]", expr):
+        raise ValueError(f"Attribute access syntax is prohibited in unit expression {expr!r}.")
+    for match in re.finditer(r"(?:\*\*|\^)\s*([+-]?\d+)?", expr):
+        digits = match.group(1)
+        if digits is None:
+            raise ValueError(f"Unit exponent in {expr!r} must be an integer literal.")
+        if abs(int(digits)) > _MAX_UNIT_EXPONENT:
+            raise ValueError(f"Unit exponent {digits} in {expr!r} exceeds maximum magnitude {_MAX_UNIT_EXPONENT}.")
+    if re.search(r"(?:\*\*|\^)\s*[+-]?\d+\s*\.", expr):
+        raise ValueError(f"Non-integer unit exponent is prohibited in {expr!r}.")
+
+@dataclass(frozen=True, slots=True)
+class RegistrySnapshot:
+    """Immutable point-in-time audit snapshot of a UnitRegistry and its reference data."""
+    schema_version: int
+    registry_version: str
+    currency_data_version: str
+    baseline_definition_hash: str
+    definition_hash: str
+    is_frozen: bool
+    unit_count: int
+    currency_codes: tuple[str, ...]
+    custom_registrations: tuple[str, ...]
+    collision_allowlist: Mapping[str, frozenset[str]]
+    reference_data_hashes: Mapping[str, str]
+
+def get_registry_definition_hash(registry: pint.UnitRegistry | None = None) -> str:
+    """Return the SHA-256 definition hash of the active or supplied UnitRegistry."""
+    target = ureg if registry is None else registry
+    with _REGISTRY_LOCK:
+        stored = getattr(target, "_definition_hash", "")
+        if stored:
+            return stored
+        custom = getattr(target, "_custom_registrations", ())
+        return _compute_definition_hash(COMMODITY_UNIT_DEFINITIONS, custom)
+
+def get_registry_snapshot(registry: pint.UnitRegistry | None = None) -> RegistrySnapshot:
+    """Capture an immutable audit snapshot of registry version, hashes, and state."""
+    from core.units.currencies import CURRENCY_CATALOG
+    target = ureg if registry is None else registry
+    with _REGISTRY_LOCK:
+        is_master = target is ureg
+        frozen = _REGISTRY_FROZEN if is_master else bool(getattr(target, "_sealed", False))
+        custom = tuple(getattr(target, "_custom_registrations", ()))
+        codes = tuple(sorted(_CURRENCY_CODES_SET)) if is_master else CURRENCY_REFERENCE_CODES
+        unit_count = len(target._units)
+        def_hash = get_registry_definition_hash(target)
+    return RegistrySnapshot(schema_version=REGISTRY_SCHEMA_VERSION, registry_version=REGISTRY_VERSION, currency_data_version=CURRENCY_CATALOG.version, baseline_definition_hash=BASELINE_DEFINITION_HASH, definition_hash=def_hash, is_frozen=frozen, unit_count=unit_count, currency_codes=codes, custom_registrations=custom, collision_allowlist=PINT_COLLISION_ALLOWLIST, reference_data_hashes=REFERENCE_DATA_HASHES,)
+
+def assert_registry_compatible(*, expected_schema_version: int | None = None, expected_registry_version: str | None = None, expected_definition_hash: str | None = None, allow_superset_extensions: bool = False, required_units: Mapping[str, str] | Iterable[str] = (), registry: pint.UnitRegistry | None = None,) -> None:
+    """Assert that a registry satisfies version, definition-hash, and unit-contract checks. Raises RegistryCompatibilityError on any mismatch."""
+    target = ureg if registry is None else registry
+    with _REGISTRY_LOCK:
+        if expected_schema_version is not None and expected_schema_version != REGISTRY_SCHEMA_VERSION:
+            raise RegistryCompatibilityError(f"Registry schema_version mismatch: expected {expected_schema_version}, active is {REGISTRY_SCHEMA_VERSION}.")
+        if expected_registry_version is not None and expected_registry_version != REGISTRY_VERSION:
+            raise RegistryCompatibilityError(f"Registry version mismatch: expected {expected_registry_version!r}, active is {REGISTRY_VERSION!r}.")
+        actual_hash = get_registry_definition_hash(target)
+        if expected_definition_hash is not None and actual_hash != expected_definition_hash:
+            if not (allow_superset_extensions and expected_definition_hash == BASELINE_DEFINITION_HASH):
+                raise RegistryCompatibilityError(f"Registry definition_hash mismatch: expected {expected_definition_hash!r}, active is {actual_hash!r}.")
+        if isinstance(required_units, Mapping):
+            for unit_expr, expected_dim_expr in required_units.items():
+                try:
+                    resolved = target.Unit(unit_expr)
+                    expected_dim = target.get_dimensionality(expected_dim_expr)
+                except (pint.PintError, ValueError, TypeError) as error:
+                    raise RegistryCompatibilityError(f"Required unit contract failed for {unit_expr!r}: {error}") from error
+                if resolved.dimensionality != expected_dim:
+                    raise RegistryCompatibilityError(f"Required unit {unit_expr!r} has dimensionality {resolved.dimensionality}, expected {expected_dim}.")
+        else:
+            for unit_expr in required_units:
+                try:
+                    target.Unit(unit_expr)
+                except (pint.PintError, ValueError, TypeError) as error:
+                    raise RegistryCompatibilityError(f"Required unit {unit_expr!r} is missing or invalid: {error}") from error
+
+def check_registry_compatibility(*, expected_schema_version: int | None = None, expected_registry_version: str | None = None, expected_definition_hash: str | None = None, allow_superset_extensions: bool = False, required_units: Mapping[str, str] | Iterable[str] = (), registry: pint.UnitRegistry | None = None,) -> bool:
+    """Return True when the registry satisfies all requested compatibility constraints."""
+    try:
+        assert_registry_compatible(expected_schema_version=expected_schema_version, expected_registry_version=expected_registry_version, expected_definition_hash=expected_definition_hash, allow_superset_extensions=allow_superset_extensions, required_units=required_units, registry=registry,)
+        return True
+    except RegistryCompatibilityError:
+        return False
+
 # ---------------------------------------------------------------------------
 # Public Sanitisation & Ingestion APIs
 # ---------------------------------------------------------------------------
@@ -1318,29 +1204,40 @@ def sandbox_registry() -> Iterator[pint.UnitRegistry]:
     sandbox = _new_registry()
     yield sandbox
 
-
 @contextmanager
 def _registry_transaction():
     global _REGISTRY_FROZEN, _SORTED_SAFE_SYMBOLS, _PREFIX_CURRENCY_PATTERN
     with _REGISTRY_LOCK:
         _check_frozen()
-        state = copy.deepcopy(ureg.__dict__, {id(ureg): ureg, id(ureg.Quantity): ureg.Quantity, id(ureg.Unit): ureg.Unit})
+        ctx_var = ureg.__dict__["_active_ctx_var"]
+        memo = {
+            id(ureg): ureg,
+            id(ureg.Quantity): ureg.Quantity,
+            id(ureg.Unit): ureg.Unit,
+            id(ctx_var): ctx_var,
+        }
+        state = copy.deepcopy(ureg.__dict__, memo)
         names = ("CURRENCY_MINOR_DIGITS", "CURRENCY_SYMBOL_TO_CODE", "_SAFE_SYMBOLS", "_CURRENCY_CODES_SET", "_CURRENCY_CANONICAL_CODES", "minor_mapping", "irregular_denominators", "_QUOTE_REPLACEMENTS")
-        snapshots = {name: globals()[name].copy() for name in names}
+        snapshots = {name: dict(globals()[name]) if isinstance(globals()[name], dict) else globals()[name].copy() for name in names}
         tokens = _UNIT_TOKEN_REPLACEMENTS[:]
         frozen, symbols, pattern = _REGISTRY_FROZEN, _SORTED_SAFE_SYMBOLS, _PREFIX_CURRENCY_PATTERN
         try:
             yield
         except BaseException:
+            _REGISTRY_FROZEN = frozen
+            object.__setattr__(ureg, "_sealed", False)
             ureg.__dict__.clear()
             ureg.__dict__.update(state)
             for name, snapshot in snapshots.items():
-                globals()[name].clear()
-                globals()[name].update(snapshot)
+                target = globals()[name]
+                if hasattr(target, "_restore"):
+                    target._restore(snapshot)
+                else:
+                    target.clear()
+                    target.update(snapshot)
             _UNIT_TOKEN_REPLACEMENTS[:] = tokens
-            _REGISTRY_FROZEN, _SORTED_SAFE_SYMBOLS, _PREFIX_CURRENCY_PATTERN = frozen, symbols, pattern
+            _SORTED_SAFE_SYMBOLS, _PREFIX_CURRENCY_PATTERN = symbols, pattern
             raise
-
 
 def freeze_registry() -> None:
     """Seal public registration after service startup configuration.
@@ -1348,13 +1245,13 @@ def freeze_registry() -> None:
     Register approved currencies and commodity units during process
     initialisation, then call ``freeze_registry()`` before serving requests.
     Freezing is permanent for this process and blocks the public registration
-    APIs and the registry's define/load_definitions/add_context/remove_context
-    mutators. Reading units and activating an existing context remain available.
+    APIs, registry mutators, and module-level metadata mappings. Reading units
+    and activating an existing context via ``with ureg.context(...):`` remain available.
     """
     global _REGISTRY_FROZEN
     with _REGISTRY_LOCK:
         _REGISTRY_FROZEN = True
-        ureg._sealed = True
+        object.__setattr__(ureg, "_sealed", True)
 
 def is_registry_frozen() -> bool:
     """Return whether public runtime registration has been disabled."""
@@ -1363,8 +1260,9 @@ def is_registry_frozen() -> bool:
 
 def _check_frozen() -> None:
     """Check the registration guard while the caller holds _REGISTRY_LOCK."""
+    from core.units.exceptions import RegistryFrozenError
     if _REGISTRY_FROZEN:
-        raise RuntimeError("UnitRegistry is frozen. Dynamic registration of custom units or currencies is prohibited in locked production environments.")
+        raise RegistryFrozenError("UnitRegistry is frozen. Dynamic registration of custom units or currencies is prohibited in locked production environments.")
 
 def register_currency(code: str, *, decimals: int, symbols: tuple[str, ...] = (), aliases: tuple[str, ...] = (), sub_units: dict[str, str] | None = None, quote_aliases: dict[str, str] | None = None,) -> None:
     """
@@ -1421,12 +1319,19 @@ def register_currency(code: str, *, decimals: int, symbols: tuple[str, ...] = ()
             raise ValueError(f"Currency '{cleaned_currency_code_attempt}' is already registered in the unit registry.")
 
         # 1. Register canonical base currency dimension
-        ureg.define(base_definition)
+        object.__setattr__(ureg, "_in_currency_registration", True)
+        try:
+            ureg.define(base_definition)
+        finally:
+            object.__setattr__(ureg, "_in_currency_registration", False)
 
         # 2. Register minor / sub-denominations (e.g., satoshis, gwei, wei)
         if sub_units:
             for sub_name, sub_expressions in sub_units.items():
+                if not isinstance(sub_name, str) or not isinstance(sub_expressions, str):
+                    raise ValueError("Currency sub_units keys and expressions must be strings.")
                 sub_definition = f"{sub_name} = {sub_expressions}"
+                validate_unit_definition(sub_definition, registry=ureg, allow_new_dimension=False, allow_alias_directive=False,)
                 ureg.define(sub_definition)
                 _register_minor_unit_definition(sub_definition)
 
@@ -1450,6 +1355,9 @@ def register_currency(code: str, *, decimals: int, symbols: tuple[str, ...] = ()
         # 4. Register vendor market data quote substitutions
         if quote_aliases:
             for raw_quote, normalised_expressions in quote_aliases.items():
+                _validate_external_unit_text(raw_quote)
+                _validate_sanitized_unit_expression(normalised_expressions)
+                ureg.Unit(normalised_expressions)
                 _QUOTE_REPLACEMENTS[raw_quote] = normalised_expressions
 
 
@@ -1470,38 +1378,42 @@ def register_commodity_unit(definition: str, *, quote_aliases: dict[str, str] | 
     if not isinstance(definition, str) or not definition.strip(): # If the definition is not a string or is empty after stripping whitespace
         raise ValueError("Unit definition must be a non-empty string.") # Raise an error
 
-    clean_definition = definition.strip() # Extract canonical unit name (everything prior to the first '=' or space)
-    canonical_name = clean_definition.split("=")[0].split(":")[0].strip() # Strip whitespace from the canonical name
+    clean_definition = definition.strip()
 
-    # Check if the unit is already defined in the registry
+    # Check if the unit is already defined and strictly conforms to the safe definition grammar
     with _registry_transaction(): # Roll back partial definitions and metadata on failure
         _check_frozen()
-        if canonical_name in ureg: # If the name is already in the registry, raise an error
-            raise ValueError(f"Unit '{canonical_name}' is already defined in the registry.")
+        canonical_name, _, validated_aliases = validate_unit_definition(clean_definition, registry=ureg, allow_new_dimension=False, allow_alias_directive=False,)
 
         ureg.define(clean_definition) # Register into active Pint registry
         _register_commodity_denominator_definition(clean_definition)
 
         # Resolve custom symbols and aliases before Pint can interpret them as
         # prefixed units. Keep matching case-sensitive for desk-defined names.
-        for token in clean_definition.split("#", 1)[0].split("=")[2:]:
-            token = token.strip()
-            if token and token != "_":
-                _UNIT_TOKEN_REPLACEMENTS.insert(0, (re.compile(r"(?<![A-Za-z0-9_])" + re.escape(token) + r"(?![A-Za-z0-9_])"), canonical_name,))
+        for token in validated_aliases:
+            _UNIT_TOKEN_REPLACEMENTS.insert(0, (re.compile(r"(?<![A-Za-z0-9_])" + re.escape(token) + r"(?![A-Za-z0-9_])"), canonical_name,))
 
         if quote_aliases: # Register vendor screen quote replacements if provided
-            for screen_quote, normalised_expressions in quote_aliases.items(): # For each screen quote and its corresponding normalised expression in the provided dictionary
-                _QUOTE_REPLACEMENTS[screen_quote] = normalised_expressions # Quote replacements are updated with the new mappings
-
-
+            for screen_quote, normalised_expressions in quote_aliases.items():
+                _validate_external_unit_text(screen_quote)
+                _validate_sanitized_unit_expression(normalised_expressions)
+                ureg.Unit(normalised_expressions)
+                _QUOTE_REPLACEMENTS[screen_quote] = normalised_expressions
 
 @_locked_registry
-def sanitize_unit_string(raw_unit: str, default_currency: str | None = None) -> str:
-    """Normalises raw market quotations and tickers into Pint-compliant unit expressions."""
+def sanitize_unit_string(raw_unit: str, default_currency: str | None = None, *, context: QuoteParsingContext | None = None) -> str:
+    """Normalize unit text; context selects source-aware commodity quote parsing."""
+    from core.units.exceptions import AmbiguousUnitError
+    _validate_external_unit_text(raw_unit)
+    if context is not None:
+        from core.units.quote_parser import _quote_parsing_normalize_quote_expression as _normalize_quote_expression
+        result = _normalize_quote_expression(raw_unit, context, default_currency)
+        _validate_sanitized_unit_expression(result)
+        return result
     text = re.sub(r"\s+per\s+", " / ", raw_unit.strip(), flags=re.I)
     ambiguous = re.search(r"(?<![A-Za-z0-9_])(ppt|mu|ton_mile)(?![A-Za-z0-9_])", text)
     if ambiguous:
-        raise ValueError(f"Ambiguous market unit {ambiguous[0]!r}; use an explicit ratio, area or freight convention.")
+        raise AmbiguousUnitError(f"Ambiguous market unit {ambiguous[0]!r}; use an explicit ratio, area or freight convention.")
 
     # 1. Fast-path lookup against cached quote mappings
     if default_currency is None and text in _QUOTE_REPLACEMENTS:
@@ -1530,19 +1442,22 @@ def sanitize_unit_string(raw_unit: str, default_currency: str | None = None) -> 
     for pattern, replacement in _UNIT_TOKEN_REPLACEMENTS:
         text = pattern.sub(replacement, text)
 
+    _validate_sanitized_unit_expression(text)
     return text
 
-
 @_locked_registry
-def parse_unit(unit: str | pint.Unit, *, default_currency: str | None = None) -> pint.Unit:
+def parse_unit(unit: str | pint.Unit, *, default_currency: str | None = None, context: QuoteParsingContext | None = None) -> pint.Unit:
     """Parse and normalise a raw unit expression into a validated Pint Unit."""
     if isinstance(unit, pint.Unit):
+        validate_registry_quantity(unit)
+        if context is not None:
+            raise TypeError("Source-aware quote parsing requires original text, not a pre-parsed Unit.")
         return unit
     if not isinstance(unit, str) or not unit.strip():
         raise ValueError(f"Unit expression must be a non-empty string, got {unit!r}")
 
-    return ureg.Unit(sanitize_unit_string(unit, default_currency))
-
+    sanitized = sanitize_unit_string(unit, default_currency, context=context)
+    return ureg.Unit(sanitized)
 
 def _parse_magnitude(value, as_decimal):
     if isinstance(value, str):
@@ -1559,17 +1474,24 @@ def _parse_magnitude(value, as_decimal):
         raise ValueError("Quantity magnitude must be finite and representable.")
     return magnitude
 
-
 @_locked_registry
-def parse_quantity(value: int | float | Decimal | str, unit: str | None = None, *, default_currency: str | None = None, as_decimal: bool = True,) -> pint.Quantity:
+def parse_quantity(value: int | float | Decimal | str, unit: str | None = None, *, default_currency: str | None = None, as_decimal: bool = True, context: QuoteParsingContext | None = None,) -> pint.Quantity:
     """Parses numeric expressions or quotation strings into validated Pint Quantities.
 
     Handles currency-prefixed strings ("$75.50/bbl"), spaced numbers ("75.50 USD/bbl"),
     accounting negatives ("(1,500) MWh"), percentages ("2.5%"), and scientific
     notation ("1.5e6 scfd"). Preserves high-precision arithmetic by
     defaulting to `Decimal` magnitude storage.
+
+    With context, require a commodity quote and resolve its original tokens
+    using explicit source conventions before any legacy ticker normalization.
     """
+    if isinstance(value, (pint.Quantity, pint.Unit)):
+        validate_registry_quantity(value)
+    if isinstance(unit, (pint.Quantity, pint.Unit)):
+        validate_registry_quantity(unit)
     if isinstance(value, str) and unit is None:
+        _validate_external_unit_text(value)
         # Pattern A: Leading currency symbol expressions (e.g. "$75.50/bbl", "-£45.20 / MWh")
         prefix_match = _PREFIX_CURRENCY_PATTERN.match(value)
         if prefix_match:
@@ -1578,11 +1500,11 @@ def parse_quantity(value: int | float | Decimal | str, unit: str | None = None, 
             mag_str = sign + prefix_match.group("magnitude").replace(",", "")
             denomination = prefix_match.group("denomination")
 
-            currency_code = _resolve_currency_symbol(symbol, default_currency)
+            currency_code = _resolve_currency_symbol(symbol, default_currency) if context is None else symbol
             # Keep the screen ticker intact so explicit mappings such as EUR
             # carbon quotes retain their commodity identity on round trips.
             unit_str = f"{symbol}/{denomination}" if denomination else currency_code
-            sanitized = sanitize_unit_string(unit_str, default_currency)
+            sanitized = sanitize_unit_string(unit_str, default_currency, context=context)
             magnitude = _parse_magnitude(mag_str, as_decimal)
             return ureg.Quantity(magnitude, sanitized)
 
@@ -1593,24 +1515,28 @@ def parse_quantity(value: int | float | Decimal | str, unit: str | None = None, 
             if num_match.group("bracket"):
                 mag_str = "-" + mag_str.lstrip("+-")
             unit_str = num_match.group("unit")
-            sanitized = sanitize_unit_string(unit_str, default_currency)
+            sanitized = sanitize_unit_string(unit_str, default_currency, context=context)
             magnitude = _parse_magnitude(mag_str, as_decimal)
             return ureg.Quantity(magnitude, sanitized)
 
         if _BARE_MAGNITUDE_PATTERN.fullmatch(value):
+            if context is not None:
+                raise ValueError("A commodity quote requires currency/commodity units.")
             return ureg.Quantity(_parse_magnitude(value, as_decimal), ureg.dimensionless)
 
         # Pattern C: Standalone dimensional unit strings with implicit unit magnitude (e.g. "USD/bbl")
-        parsed = ureg.Quantity(sanitize_unit_string(value, default_currency))
+        parsed = ureg.Quantity(sanitize_unit_string(value, default_currency, context=context))
         magnitude = _parse_magnitude(parsed.magnitude, as_decimal)
         return ureg.Quantity(magnitude, parsed.units)
 
     # Pattern D: Numerical value supplied without an explicit unit (dimensionless quantity)
     if unit is None:
+        if context is not None:
+            raise ValueError("A commodity quote requires currency/commodity units.")
         return ureg.Quantity(_parse_magnitude(value, as_decimal), ureg.dimensionless)
 
     # Pattern E: Explicit separate value and unit parameters passed
-    sanitized = sanitize_unit_string(unit, default_currency)
+    sanitized = sanitize_unit_string(unit, default_currency, context=context)
     return ureg.Quantity(_parse_magnitude(value, as_decimal), sanitized)
 
 # ---------------------------------------------------------------------------
@@ -1625,8 +1551,10 @@ def validate_dimensionality(quantity: pint.Quantity, expected_dimension: str | p
     """
     if not isinstance(quantity, pint.Quantity):
         raise TypeError(f"Expected pint.Quantity, received {type(quantity).__name__}")
+    validate_registry_quantity(quantity)
 
     if isinstance(expected_dimension, (pint.Unit, pint.Quantity)):
+        validate_registry_quantity(expected_dimension)
         return quantity.check(expected_dimension.dimensionality)
 
     # Resolve raw string through sanitiser prior to registry dimensionality verification
@@ -1637,12 +1565,16 @@ def ensure_unit(quantity: pint.Quantity, target_unit: str | pint.Unit,) -> pint.
     """Converts a quantity to a specified unit, raising Pint's DimensionalityError on mismatch."""
     if not isinstance(quantity, pint.Quantity):
         raise TypeError(f"Expected pint.Quantity, received {type(quantity).__name__}")
+    validate_registry_quantity(quantity)
+    if isinstance(target_unit, (pint.Unit, pint.Quantity)):
+        validate_registry_quantity(target_unit)
     sanitized_target = (sanitize_unit_string(target_unit) if isinstance(target_unit, str) else target_unit)
     return quantity.to(sanitized_target)
 
-
 def are_convertible(source_unit: str | pint.Unit | pint.Quantity, target_unit: str | pint.Unit | pint.Quantity, *, default_currency: str | None = None,) -> bool:
     """Return whether ordinary conversion is dimensionally and semantically safe."""
+    validate_registry_quantity(source_unit)
+    validate_registry_quantity(target_unit)
     def resolve_unit(value: str | pint.Unit | pint.Quantity) -> pint.Unit:
         if isinstance(value, pint.Quantity):
             return value.units
@@ -1652,6 +1584,8 @@ def are_convertible(source_unit: str | pint.Unit | pint.Quantity, target_unit: s
         if source.dimensionality != target.dimensionality:
             return False
         return ureg._semantic_tags(source._units) == ureg._semantic_tags(target._units)
+    except ForeignRegistryError:
+        raise
     except (pint.PintError, TypeError, ValueError):
         return False
 
@@ -1659,7 +1593,7 @@ def are_convertible(source_unit: str | pint.Unit | pint.Quantity, target_unit: s
 # Reverse Market Formatting
 # ---------------------------------------------------------------------------
 
-_CANONICAL_TO_MARKET_TICKER: Final[dict[str, str]] = {
+_CANONICAL_TO_MARKET_TICKER: Final[Mapping[str, str]] = MappingProxyType({
     "USD / oil_barrel": "$/bbl",
     "USD / gallon": "$/gal",
     "USD_cent / gallon": "c/gal",
@@ -1689,11 +1623,11 @@ _CANONICAL_TO_MARKET_TICKER: Final[dict[str, str]] = {
     "USD / boe_58": "$/boe",
     "USD / commodity_short_hundredweight": "$/cwt",
     "USD_cent / commodity_short_hundredweight": "c/cwt",
-}
-# Resolve aliases through Pint once, so its preferred spelling cannot prevent a match.
-_MARKET_TICKERS: Final[dict[pint.Unit, str]] = {ureg.Unit(canonical): ticker for canonical, ticker in _CANONICAL_TO_MARKET_TICKER.items()}
+})
 
-_CANONICAL_UNIT_DISPLAY: Final[dict[str, str]] = {
+# Resolve aliases through Pint once, so its preferred spelling cannot prevent a match.
+_MARKET_TICKERS: Final[Mapping[pint.Unit, str]] = MappingProxyType({ureg.Unit(canonical): ticker for canonical, ticker in _CANONICAL_TO_MARKET_TICKER.items()})
+_CANONICAL_UNIT_DISPLAY: Final[Mapping[str, str]] = MappingProxyType({
     "gCO2e / megajoule": "CI",
     "CI_unit": "CI",
     # Render complete ratios before replacing individual energy identifiers.
@@ -1722,7 +1656,7 @@ _CANONICAL_UNIT_DISPLAY: Final[dict[str, str]] = {
     "boe_58": "boe",
     "basis_point": "bps",
     "percent": "%",
-}
+})
 
 def _format_quantity_latex(quantity: pint.Quantity, magnitude: str) -> str:
     """Typeset clean unit names using Pint's structural factors and exponents."""
@@ -1764,7 +1698,6 @@ def _format_quantity_latex(quantity: pint.Quantity, magnitude: str) -> str:
         magnitude = rf"{scientific[1]}\times 10^{{{int(scientific[2])}}}"
     return rf"{magnitude}\,{unit_latex}" if unit_latex else magnitude
 
-
 @_locked_registry
 def format_quantity(quantity: pint.Quantity, *, style: str = "market", precision: int | None = None,) -> str:
     """Format a quantity as market, standard, canonical, or LaTeX notation.
@@ -1776,6 +1709,7 @@ def format_quantity(quantity: pint.Quantity, *, style: str = "market", precision
     """
     if not isinstance(quantity, pint.Quantity):
         raise TypeError(f"Expected pint.Quantity, got {type(quantity).__name__}")
+    validate_registry_quantity(quantity)
     if style not in {"market", "standard", "canonical", "latex"}:
         raise ValueError(f"Unknown quantity format style: {style!r}")
     if precision is not None and (isinstance(precision, bool) or not isinstance(precision, int) or precision < 0):
@@ -1815,29 +1749,41 @@ def _classify_dimensions(dimensions) -> tuple[bool, bool, bool, bool]:
 
 def is_currency(quantity: pint.Quantity) -> bool:
     """Return True for an isolated currency or its fractional denominations."""
-    return isinstance(quantity, pint.Quantity) and _classify_dimensions(quantity.dimensionality)[0]
+    if not isinstance(quantity, pint.Quantity):
+        return False
+    validate_registry_quantity(quantity)
+    return _classify_dimensions(quantity.dimensionality)[0]
 
 def is_commodity_price(quantity: pint.Quantity) -> bool:
     """Return True for one currency over physical dimensions, excluding FX rates."""
-    return isinstance(quantity, pint.Quantity) and _classify_dimensions(quantity.dimensionality)[1]
+    if not isinstance(quantity, pint.Quantity):
+        return False
+    validate_registry_quantity(quantity)
+    return _classify_dimensions(quantity.dimensionality)[1]
 
 def is_flow_rate(quantity: pint.Quantity) -> bool:
     """Return True for non-financial quantities per time, such as bpd or tph."""
-    return isinstance(quantity, pint.Quantity) and _classify_dimensions(quantity.dimensionality)[2]
+    if not isinstance(quantity, pint.Quantity):
+        return False
+    validate_registry_quantity(quantity)
+    return _classify_dimensions(quantity.dimensionality)[2]
 
 def is_fx_rate(quantity_or_unit: pint.Quantity | pint.Unit) -> bool:
     """Return True for pure currency ratios such as EUR/USD or GBP/USD."""
-    return (isinstance(quantity_or_unit, (pint.Quantity, pint.Unit)) and _classify_dimensions(quantity_or_unit.dimensionality)[3])
+    if not isinstance(quantity_or_unit, (pint.Quantity, pint.Unit)):
+        return False
+    validate_registry_quantity(quantity_or_unit)
+    return _classify_dimensions(quantity_or_unit.dimensionality)[3]
 
 @_locked_registry
-def parse_quantities(values: list[str | int | float | Decimal], units: str | list[str] | None = None, *, default_currency: str | None = None, as_decimal: bool = True,) -> list[pint.Quantity]:
+def parse_quantities(values: list[str | int | float | Decimal], units: str | list[str] | None = None, *, default_currency: str | None = None, as_decimal: bool = True, context: QuoteParsingContext | None = None,) -> list[pint.Quantity]:
     """Batch parse expressions or magnitudes with shared or paired units.
 
     Repeated units are sanitised once per call. Paired lists must have equal
     lengths. Separate magnitudes support grouped numbers and accounting signs.
     """
     if units is None:
-        return [parse_quantity(value, default_currency=default_currency, as_decimal=as_decimal) for value in values]
+        return [parse_quantity(value, default_currency=default_currency, as_decimal=as_decimal, context=context) for value in values]
     if not isinstance(units, (str, list)):
         raise TypeError("units must be a string, a list of strings, or None.")
     if isinstance(units, list) and len(values) != len(units):
@@ -1846,7 +1792,7 @@ def parse_quantities(values: list[str | int | float | Decimal], units: str | lis
     sanitised_units: dict[str, pint.Unit] = {}
     def resolve_unit(raw_unit: str) -> pint.Unit:
         if raw_unit not in sanitised_units:
-            sanitised_units[raw_unit] = ureg.Unit(sanitize_unit_string(raw_unit, default_currency))
+            sanitised_units[raw_unit] = ureg.Unit(sanitize_unit_string(raw_unit, default_currency, context=context))
         return sanitised_units[raw_unit]
 
     shared_unit = resolve_unit(units) if isinstance(units, str) else None
@@ -1871,7 +1817,7 @@ class QuoteComponents:
     canonical_expression: str
 
 @_locked_registry
-def decompose_quote(quote: str, default_currency: str | None = None) -> QuoteComponents:
+def decompose_quote(quote: str, default_currency: str | None = None, *, context: QuoteParsingContext | None = None) -> QuoteComponents:
     """Validate and decompose a currency/commodity quote without price conversion.
 
     Currency dimensions identify registered proprietary sub-units as well as
@@ -1879,7 +1825,7 @@ def decompose_quote(quote: str, default_currency: str | None = None) -> QuoteCom
     """
     if not isinstance(quote, str):
         raise TypeError("quote must be a string.")
-    expression = sanitize_unit_string(quote, default_currency)
+    expression = sanitize_unit_string(quote, default_currency, context=context)
     if "/" not in expression:
         raise ValueError(f"Expression {quote!r} is not a two-sided quote.")
     numerator_string, denomination_string = (part.strip() for part in expression.split("/", 1))
@@ -1907,27 +1853,65 @@ def decompose_quote(quote: str, default_currency: str | None = None) -> QuoteCom
     return QuoteComponents(currency=currency, commodity_unit=str(denomination), is_minor_currency=minor, settlement_decimals=CURRENCY_MINOR_DIGITS.get(currency), canonical_expression=f"{numerator} / ({denomination})" if "/" in str(denomination) else f"{numerator} / {denomination}",)
 
 @_locked_registry
-def quantity_to_dict(quantity: pint.Quantity) -> dict[str, str]:
-    """Serialise a finite scalar quantity to JSON-safe magnitude/unit strings."""
+def quantity_to_dict(quantity: pint.Quantity, *, include_metadata: bool = False,) -> dict[str, Any]:
+    """Serialise a finite scalar quantity to JSON-safe magnitude/unit strings.
+
+    When ``include_metadata=True``, embeds ``schema_version``, ``registry_version``,
+    and ``definition_hash`` for cross-process compatibility verification.
+    """
     if not isinstance(quantity, pint.Quantity):
         raise TypeError(f"Expected pint.Quantity, got {type(quantity).__name__}")
+    validate_registry_quantity(quantity)
     magnitude = quantity.magnitude
     if isinstance(magnitude, bool) or not isinstance(magnitude, (int, float, Decimal)):
         raise TypeError("Only scalar int, float, and Decimal magnitudes are supported.")
     if not Decimal(str(magnitude)).is_finite():
         raise ValueError("Quantity magnitude must be finite.")
-    return {"m": str(magnitude), "u": str(quantity.units)}
+    payload: dict[str, Any] = {"m": str(magnitude), "u": str(quantity.units)}
+    if include_metadata:
+        payload["schema_version"] = REGISTRY_SCHEMA_VERSION
+        payload["registry_version"] = REGISTRY_VERSION
+        payload["definition_hash"] = get_registry_definition_hash()
+    return payload
 
 @_locked_registry
-def quantity_from_dict(payload: dict[str, Any], *, as_decimal: bool = True) -> pint.Quantity:
-    """Restore exact stored unit identifiers, bypassing market alias normalisation."""
+def quantity_from_dict(payload: dict[str, Any], *, as_decimal: bool = True, expected_schema_version: int | None = None, expected_registry_version: str | None = None, expected_definition_hash: str | None = None, allow_superset_extensions: bool = False,) -> pint.Quantity:
+    """Restore exact stored unit identifiers, verifying registry compatibility metadata when present."""
     if not isinstance(payload, dict) or not {"m", "u"} <= payload.keys():
         raise ValueError("Invalid quantity payload; must contain 'm' and 'u'.")
+
+    schema_ver = payload.get("schema_version")
+    if schema_ver is not None:
+        if isinstance(schema_ver, bool) or not isinstance(schema_ver, int):
+            raise RegistryCompatibilityError("Payload 'schema_version' must be an integer.")
+        if expected_schema_version is not None and schema_ver != expected_schema_version:
+            raise RegistryCompatibilityError(f"Payload schema_version {schema_ver} conflicts with expected_schema_version {expected_schema_version}.")
+        expected_schema_version = schema_ver
+
+    reg_ver = payload.get("registry_version")
+    if reg_ver is not None:
+        if not isinstance(reg_ver, str):
+            raise RegistryCompatibilityError("Payload 'registry_version' must be a string.")
+        if expected_registry_version is not None and reg_ver != expected_registry_version:
+            raise RegistryCompatibilityError(f"Payload registry_version {reg_ver!r} conflicts with expected_registry_version {expected_registry_version!r}.")
+        expected_registry_version = reg_ver
+
+    def_hash = payload.get("definition_hash")
+    if def_hash is not None:
+        if not isinstance(def_hash, str):
+            raise RegistryCompatibilityError("Payload 'definition_hash' must be a string.")
+        if expected_definition_hash is not None and def_hash != expected_definition_hash:
+            raise RegistryCompatibilityError(f"Payload definition_hash {def_hash!r} conflicts with expected_definition_hash {expected_definition_hash!r}.")
+        expected_definition_hash = def_hash
+
+    assert_registry_compatible(expected_schema_version=expected_schema_version, expected_registry_version=expected_registry_version, expected_definition_hash=expected_definition_hash, allow_superset_extensions=allow_superset_extensions,)
+
     raw_magnitude, raw_unit = payload["m"], payload["u"]
     if isinstance(raw_magnitude, bool) or not isinstance(raw_magnitude, (str, int, float, Decimal)):
         raise ValueError("Payload magnitude must be a numeric scalar or string.")
     if not isinstance(raw_unit, str) or not raw_unit.strip():
         raise ValueError("Payload unit must be a non-empty string.")
+    _validate_sanitized_unit_expression(raw_unit)
     try:
         decimal_magnitude = Decimal(str(raw_magnitude))
         if not decimal_magnitude.is_finite():
@@ -1938,6 +1922,9 @@ def quantity_from_dict(payload: dict[str, Any], *, as_decimal: bool = True) -> p
         return ureg.Quantity(magnitude, ureg.Unit(raw_unit))
     except (InvalidOperation, pint.PintError, TypeError, OverflowError) as error:
         raise ValueError(f"Invalid quantity payload: {error}") from error
+
+
+from core.units.validation import authorized_conversion
 
 @authorized_conversion
 def verify_registry_integrity() -> None:
@@ -1965,18 +1952,22 @@ def verify_registry_integrity() -> None:
     weather_index = ureg.Quantity(10, "delta_degF") * ureg.Quantity(1, "day")
     check_scale("Weather degree day", weather_index, "degree_day", 10)
     check_scale("Weather degree hour", ureg.Quantity(1, "degree_day_C"), "degree_hour_C", 24)
-    heat_rate = ureg.Quantity(7.5, "MMBtu_it / megawatt_hour")
-    expected_dimensions = (ureg.joule / (ureg.watt * ureg.second)).dimensionality
+    heat_rate = ureg.Quantity(7.5, "MMBtu_th / MWh_e")
+    expected_dimensions = (ureg.joule_thermal / ureg.joule_electric).dimensionality
+
     if heat_rate.dimensionality != expected_dimensions:
         raise AssertionError("Heat rate must retain energy-per-electrical-output dimensions.")
+
     check_scale("Heat rate quoting scale", ureg.Quantity(1, "heat_rate_macro"), "heat_rate_us", 1000)
     check_scale("Metric heat rate quoting scale", ureg.Quantity(1, "heat_rate_gas_turbine"), "heat_rate_metric", 1)
     check_scale("Hydrogen mass", ureg.Quantity(1, "tonne_H2"), "kg_H2", 1000)
     check_scale("Hydrogen normal volume", ureg.Quantity(1, "Nm3_H2"), "Nm3_0C_101325kPa_dry", 1)
     check_scale("SAF gallon", ureg.Quantity(1, "gallon_SAF"), "gallon", 1)
+
     ci_dimensions = (ureg.gram / ureg.megajoule).dimensionality
     if ureg.Quantity(35.5, "CI").dimensionality != ci_dimensions:
         raise AssertionError("Carbon intensity must have mass-per-energy dimensions.")
+
     check_scale("Carbon intensity mass basis", ureg.Quantity(1, "gCO2e"), "gram", 1)
     check_scale("Absolute pipeline pressure", ureg.Quantity(14.73, "psia"), "psi", 14.73)
     check_scale("Gauge pipeline pressure scale", ureg.Quantity(600, "psig"), "psi", 600)
@@ -1997,10 +1988,8 @@ def verify_registry_integrity() -> None:
     check_scale("Metric gauge pressure", ureg.Quantity(500, "kpag"), "kilopascal", 500)
     check_scale("Uranium tonne", ureg.Quantity(1, "mtU"), "kgU", 1000)
     check_scale("Metric tonne unit isolation", ureg.Quantity(1, "mtu"), "kilogram", 10)
-    for unit, dimension in (
-        ("m3_20C_101325kPa_dry", "[standard_gas_volume_20C_101325kPa_dry]"),
-        ("scf_60F_14696psi_dry", "[standard_gas_volume_60F_1atm_dry]"),
-    ):
+
+    for unit, dimension in (("m3_20C_101325kPa_dry", "[standard_gas_volume_20C_101325kPa_dry]"), ("scf_60F_14696psi_dry", "[standard_gas_volume_60F_1atm_dry]"),):
         if ureg.Unit(unit).dimensionality != {dimension: 1}:
             raise AssertionError(f"Gas reference dimensional isolation failed for {unit}.")
     with _REGISTRY_LOCK:
@@ -2018,392 +2007,19 @@ def verify_registry_integrity() -> None:
 Unit: Final = ureg.Unit
 Quantity: Final = ureg.Quantity
 
-__all__: Final[tuple[str, ...]] = (
-    # =========================================================================
-    # Core Registry Singletons, Constructors & Types
-    # =========================================================================
-    "ureg",
-    # The master, thread-safe pint.UnitRegistry singleton instance. It holds the pre-compiled dimensional
-    # definitions for every sovereign currency, physical commodity, thermodynamic reference condition,
-    # and environmental compliance instrument.
-    #
-    # from registry import ureg
-    # # Direct unit multiplication and registry inspection
-    # barrel_vol = 100 * ureg.oil_barrel
-    # energy_density = ureg("MMBtu_it / megawatt_hour")
-    # # Accessing base dimensions directly
-    # print(ureg.USD)           # 1 <Unit('USD')>
-    # print(ureg.oil_barrel)    # 1 <Unit('oil_barrel')>
+__all__ = ('BASELINE_DEFINITION_HASH', 'COMMODITY_UNIT_DEFINITIONS', 'CURRENCY_CODES', 'CURRENCY_MINOR_DIGITS', 'CURRENCY_MINOR_UNIT_EXPONENT', 'CURRENCY_REFERENCE_CODES', 'CURRENCY_SYMBOL_TO_CODE', 'ForeignRegistryError', 'PINT_COLLISION_ALLOWLIST', 'Q_', 'Quantity', 'QuoteComponents', 'QuoteParsingContext', 'QuoteTokenRule', 'REFERENCE_DATA_HASHES', 'REGISTRY_SCHEMA_VERSION', 'REGISTRY_VERSION', 'RegistryCompatibilityError', 'RegistrySnapshot', 'Unit', 'are_convertible', 'assert_registry_compatible', 'check_registry_compatibility', 'decompose_quote', 'ensure_unit', 'format_quantity', 'freeze_registry', 'get_registry', 'get_registry_definition_hash', 'get_registry_snapshot', 'is_commodity_price', 'is_currency', 'is_flow_rate', 'is_fx_rate', 'is_registry_frozen', 'parse_quantities', 'parse_quantity', 'parse_unit', 'quantity_from_dict', 'quantity_to_dict', 'register_commodity_unit', 'register_currency', 'sandbox_registry', 'sanitize_unit_string', 'ureg', 'validate_dimensionality', 'validate_registry_quantity', 'validate_unit_definition', 'verify_registry_integrity')
+_PUBLIC_ALIASES = {'RegistryFrozenError': ('exceptions', 'RegistryFrozenError'), 'AmbiguousUnitError': ('exceptions', 'AmbiguousUnitError'), 'CURRENCY_CATALOG': ('currencies', 'CURRENCY_CATALOG'), '_SEMANTIC_SCOPE': ('validation', '_safety_SEMANTIC_SCOPE'), 'RegistryVersionMismatchError': ('exceptions', 'RegistryVersionMismatchError'), 'QuoteTokenRule': ('quote_parser', 'QuoteTokenRule'), 'CURRENCY_CONVENTIONS': ('currencies', 'CURRENCY_CONVENTIONS'), '_CURRENCY_DATA_DIRECTORY': ('currencies', 'DATA_DIRECTORY'), '_reference_document': ('standards', '_reference_reference_document'), 'CommodityUnitError': ('exceptions', 'CommodityUnitError'), 'QuoteParsingContext': ('quote_parser', 'QuoteParsingContext'), 'authorized_conversion': ('validation', 'authorized_conversion')}
 
-    "Q_",
-    # Direct alias for ureg.Quantity. Used as a concise shorthand to instantiate new quantities without
-    # needing verbose method calls.
-    #
-    # from decimal import Decimal
-    # from registry import Q_
-    # # Construct quantities using standard magnitude and unit parameters
-    # crude_lot = Q_(1000, "bbl")
-    # power_price = Q_(Decimal("84.50"), "EUR / megawatt_hour")
+def __getattr__(name):
+    from importlib import import_module
+    try:
+        module, symbol = _PUBLIC_ALIASES[name]
+    except KeyError:
+        raise AttributeError(name) from None
+    return getattr(import_module("core.units." + module), symbol)
 
-    "Unit",
-    # Type alias pointing to ureg.Unit. Used in function signatures, data models (such as Pydantic models or
-    # dataclasses), and type annotations to enforce that an argument is a unit rather than a magnitude or quantity.
-    #
-    # from registry import Unit, parse_unit
-    #
-    # def validate_trading_book_unit(expected_unit: Unit, trade_unit: Unit) -> bool:
-    #     return expected_unit.dimensionality == trade_unit.dimensionality
-    #
-    # book_unit: Unit = parse_unit("USD / oil_barrel")
-
-    "Quantity",
-    # Type alias pointing to ureg.Quantity. Used for strict type hints in execution algorithms, pricing
-    # calculators, and risk models to guarantee inputs carry physical dimensions.
-    #
-    # from registry import Quantity, parse_quantity
-    #
-    # def calculate_gross_notional(volume: Quantity, price: Quantity) -> Quantity:
-    #     notional = volume * price
-    #     return notional
-    #
-    # vol: Quantity = parse_quantity("50000 bbl")
-    # px: Quantity = parse_quantity("$75.20/bbl")
-    # notional: Quantity = calculate_gross_notional(vol, px)
-
-    "get_registry",
-    # The cached factory function (@cache) that initialises, configures, and binds the master UnitRegistry
-    # singleton. It handles Pint's application registry binding (pint.set_application_registry) so
-    # multiprocessing and pickle operations do not lose custom dimensions.
-    #
-    # from registry import get_registry
-    #
-    # # Retrieve the active singleton (returns the identical cached instance)
-    # registry = get_registry()
-    # assert registry is ureg
-
-    "verify_registry_integrity",
-    # A self-audit diagnostics suite designed to run during container boot sequences and test runners.
-    # Asserts critical physical invariants—confirming that a petroleum barrel resolves to 42 US gallons,
-    # that IT Btus match the 1956 International Steam Table joule value, that sovereign currencies remain
-    # dimensionally isolated without an FX context, and that Roman numeral gas notations scale correctly.
-    #
-    # from registry import verify_registry_integrity
-    #
-    # def test_startup_invariants():
-    #     verify_registry_integrity()
-    #     print("Registry verified: All dimensional invariants intact.")
-
-    "sandbox_registry",
-    # A context manager providing an isolated, ephemeral fork of the registry loaded with all commodity
-    # and currency definitions, leaving the master singleton untouched and un-frozen. Ideal for test
-    # fixtures, backtesting runs, or evaluating untrusted counterparty definitions.
-    #
-    # from registry import sandbox_registry
-    #
-    # with sandbox_registry() as test_reg:
-    #     test_reg.define("pipeline_batch = 10000 * oil_barrel")
-    #     batch = test_reg.Quantity(2, "pipeline_batch")
-    #     assert batch.to("oil_barrel").magnitude == 20000
-
-    # =========================================================================
-    # Immutability & Lifecycle Governance
-    # =========================================================================
-    "freeze_registry",
-    # A production security switch that permanently locks the registry against further runtime additions.
-    # Calling this prevents rogue background tasks or malformed order tickets from redefining existing
-    # units or injecting unintended currency dimensions into production.
-    #
-    # from registry import freeze_registry, register_commodity_unit
-    #
-    # freeze_registry()
-    # try:
-    #     register_commodity_unit("desk_tank = 500 * barrel")
-    # except RuntimeError as err:
-    #     print(f"Action blocked: {err}")
-
-    "is_registry_frozen",
-    # A thread-safe boolean query returning True if the registry has been sealed via freeze_registry(),
-    # or False if it remains open to dynamic configuration.
-    #
-    # from registry import is_registry_frozen
-    #
-    # if not is_registry_frozen():
-    #     # Safe to load desk-specific bespoke units
-    #     pass
-
-    # =========================================================================
-    # Lexical Ingestion, Parsing & Deconstruction
-    # =========================================================================
-    "sanitize_unit_string",
-    # The lexical pre-parser. Cleans broker tickers and vendor shorthands into Pint-compliant algebraic
-    # unit strings. Strips leading currency symbols, resolves Roman numeral conflicts (MMcf, MMbbl), converts
-    # colloquial English 'per' into '/', normalises exchange minor units (p/, c/), and maps cached market tickers.
-    #
-    # from registry import sanitize_unit_string
-    #
-    # print(sanitize_unit_string("$/bbl"))               # "USD / oil_barrel"
-    # print(sanitize_unit_string("p/th"))                # "GBP_penny / therm_it"
-    # print(sanitize_unit_string("MMBtu per hour"))       # "MMBtu_it / hour"
-    # print(sanitize_unit_string("100 Mcfd"))            # "100 Mscf_60F_14_73psia / day"
-    # print(sanitize_unit_string("$/bbl", default_currency="CAD")) # "CAD / oil_barrel"
-
-    "parse_quantity",
-    # The primary ingestion engine. Converts numbers, dirty screen strings, accounting formats, and
-    # array-like magnitudes into strongly typed pint.Quantity objects. Handles grouped thousands (1,500),
-    # accounting negative parentheses ((45.20)), currency prefixes ($75.50/bbl), percentages (2.5%),
-    # and vectorised arrays.
-    #
-    # from decimal import Decimal
-    # import numpy as np
-    # from registry import parse_quantity
-    #
-    # q1 = parse_quantity("$75.50/bbl")                  # 75.50 <Unit('USD / oil_barrel')>
-    # q2 = parse_quantity("($1,250.00/mt)")              # -1250.00 <Unit('USD / tonne')>
-    # q3 = parse_quantity("(500) MWh")                   # -500 <Unit('megawatt_hour')>
-    # q4 = parse_quantity("2.5%")                        # 2.5 <Unit('percent')>
-    # q5 = parse_quantity(Decimal("100.25"), "USD/bbl")  # Decimal magnitude preserved
-    # prices = parse_quantity(np.array([72.5, 73.1, 71.9]), "$/bbl")
-
-    "parse_quantities",
-    # A batch ingestion utility optimised for large datasets (e.g. forward curve tenors or tick-data feeds).
-    # Parses arrays of magnitudes sharing the same unit, caching the sanitised unit once rather than
-    # re-parsing it for every row.
-    #
-    # from registry import parse_quantities
-    #
-    # curve_ticks = ["75.10", "75.25", "75.40", "75.80"]
-    # quantities = parse_quantities(curve_ticks, units="$/bbl")
-    #
-    # legs_val = ["1000", "5000", "200"]
-    # legs_units = ["bbl", "MMBtu", "MWh"]
-    # trade_legs = parse_quantities(legs_val, units=legs_units)
-
-    "parse_unit",
-    # Parses and normalises a raw unit string directly into a validated pint.Unit instance without
-    # requiring a dummy numeric magnitude.
-    #
-    # from registry import parse_unit
-    #
-    # fuel_unit = parse_unit("c/gal")
-    # gas_unit = parse_unit("$/MMBTU")
-    # power_unit = parse_unit("£/MWh")
-    # print(type(fuel_unit))  # <class 'pint.Unit'>
-    # print(fuel_unit)        # USD_cent / gallon
-
-    "decompose_quote",
-    # Breaks down any <currency>/<commodity> quote string into its discrete financial, physical,
-    # and settlement parameters.
-    #
-    # from registry import decompose_quote
-    #
-    # quote = decompose_quote("c/bu")
-    # print(quote.currency)              # "USD"
-    # print(quote.commodity_unit)        # "bushel"
-    # print(quote.is_minor_currency)     # True
-    # print(quote.settlement_decimals)   # 2
-    # print(quote.canonical_expression)  # "USD_cent / bushel"
-
-    "QuoteComponents",
-    # The immutable dataclass(frozen=True, slots=True) returned by decompose_quote. Provides typed field
-    # access to the decomposed elements of a quotation.
-    #
-    # from registry import QuoteComponents, decompose_quote
-    #
-    # comp: QuoteComponents = decompose_quote("p/th")
-    # if comp.is_minor_currency:
-    #     print(f"Settling in sub-unit of {comp.currency} with {comp.settlement_decimals} decimals.")
-
-    # =========================================================================
-    # Formatting & Lossless Serialisation
-    # =========================================================================
-    "format_quantity",
-    # The reverse canonicaliser. Converts internal Pint quantities back into clean, institutional display
-    # formats across four selectable styles: 'market' (screen tickers like $/bbl), 'standard', 'canonical',
-    # and 'latex'.
-    #
-    # from registry import parse_quantity, format_quantity
-    #
-    # q = parse_quantity("75.5 USD / oil_barrel")
-    # print(format_quantity(q, style="market"))             # "$75.50/bbl"
-    # print(format_quantity(q, style="standard"))           # "75.5 USD/bbl"
-    # print(format_quantity(q, style="canonical"))          # "75.5 USD / oil_barrel"
-    # print(format_quantity(q, style="latex", precision=2)) # r"75.50\,\mathrm{\frac{USD}{bbl}}"
-
-    "quantity_to_dict",
-    # Serialises a pint.Quantity into a JSON-serialisable dictionary while retaining exact magnitude precision
-    # (converting Decimal to string). Prevents binary float drift across Redis caches, message queues, and document databases.
-    #
-    # from registry import parse_quantity, quantity_to_dict
-    #
-    # trade_vol = parse_quantity("1500.50 bbl")
-    # packet = quantity_to_dict(trade_vol)
-    # print(packet)  # {'m': '1500.50', 'u': 'oil_barrel'}
-
-    "quantity_from_dict",
-    # The exact inverse of quantity_to_dict. Reconstructs a pint.Quantity from a dictionary packet,
-    # restoring full Decimal precision by default.
-    #
-    # from registry import quantity_from_dict
-    #
-    # packet = {'m': '1500.50', 'u': 'oil_barrel'}
-    # restored_q = quantity_from_dict(packet, as_decimal=True)
-    # print(restored_q)  # 1500.50 oil_barrel
-
-    # =========================================================================
-    # Dynamic Registrations
-    # =========================================================================
-    "register_currency",
-    # Thread-safely adds a new sovereign currency, cryptocurrency, or central bank digital currency (CBDC)
-    # into the registry before it is frozen. Automatically registers its independent dimension, typographical
-    # symbols, fractional sub-units, settlement rounding exponents, and quote aliases.
-    #
-    # from registry import register_currency, parse_quantity
-    #
-    # register_currency(
-    #     "BTC",
-    #     decimals=8,
-    #     symbols=("₿",),
-    #     aliases=("XBT", "bitcoin"),
-    #     sub_units={"satoshi": "1e-8 * BTC = sat = sats"},
-    #     quote_aliases={"BTC/USD": "BTC / USD"}
-    # )
-    # q_btc = parse_quantity("₿0.5")
-    # print(q_btc.to("satoshi"))  # 50000000.0 satoshi
-
-    "register_commodity_unit",
-    # Thread-safely registers a desk-specific, bespoke, or non-standard physical container or parcel into
-    # the active registry.
-    #
-    # from registry import register_commodity_unit, parse_quantity
-    #
-    # register_commodity_unit(
-    #     "drum_200l = 200 * liter = standard_drum = steel_drum",
-    #     quote_aliases={"$/drum": "USD / drum_200l"}
-    # )
-    # drum_order = parse_quantity("50 drum_200l")
-    # print(drum_order.to("liter"))  # 10000 liter
-
-    # =========================================================================
-    # Dimensional Governance & Semantic Predicates
-    # =========================================================================
-    "validate_dimensionality",
-    # Verifies whether a quantity strictly matches an expected physical dimension or reference unit string.
-    # Prevents operational mismatches (such as booking volumetric barrels against a mass-denominated forward curve).
-    #
-    # from registry import parse_quantity, validate_dimensionality
-    #
-    # cargo = parse_quantity("600000 bbl")
-    # assert validate_dimensionality(cargo, "gallon") == True
-    # assert validate_dimensionality(cargo, "meter ** 3") == True
-    # assert validate_dimensionality(cargo, "tonne") == False  # Barrels are volume, not mass!
-
-    "ensure_unit",
-    # Converts a quantity to a specified target unit, raising a clean pint.DimensionalityError if the
-    # conversion violates dimensional physics.
-    #
-    # from registry import parse_quantity, ensure_unit
-    #
-    # gas_flow = parse_quantity("50000 MMBtu")
-    # dth_flow = ensure_unit(gas_flow, "Dth")  # Converts cleanly within same dimension
-    # try:
-    #     ensure_unit(gas_flow, "mt")          # Raises DimensionalityError
-    # except Exception as err:
-    #     print(f"Blocked: {err}")
-
-    "are_convertible",
-    # A fast boolean predicate checking whether two units or quantities share the exact same physical
-    # dimensionality without raising an unhandled exception.
-    #
-    # from registry import are_convertible
-    #
-    # print(are_convertible("bbl", "gal"))       # True (both volume)
-    # print(are_convertible("bbl", "mt"))        # False (volume vs mass)
-    # print(are_convertible("MWh", "MMBtu"))     # True (both energy)
-    # print(are_convertible("$/bbl", "EUR/bbl")) # False (USD and EUR are isolated dimensions)
-
-    "is_currency",
-    # Returns True if a quantity or unit represents a purely financial sovereign currency or fractional
-    # denomination (with no physical denominator).
-    #
-    # from registry import parse_quantity, is_currency
-    #
-    # print(is_currency(parse_quantity("100 USD")))        # True
-    # print(is_currency(parse_quantity("500 GBP_penny")))  # True
-    # print(is_currency(parse_quantity("$75.50/bbl")))     # False (commodity price)
-
-    "is_fx_rate",
-    # Returns True if the expression represents a pure foreign exchange currency cross rate ([currency_A] / [currency_B]).
-    #
-    # from registry import parse_quantity, parse_unit, is_fx_rate
-    #
-    # eur_usd = parse_quantity("1.0850 EUR / USD")
-    # gbp_usd_unit = parse_unit("GBP / USD")
-    # print(is_fx_rate(eur_usd))                           # True
-    # print(is_fx_rate(gbp_usd_unit))                      # True
-    # print(is_fx_rate(parse_quantity("$75.50/bbl")))      # False
-
-    "is_commodity_price",
-    # Returns True if the quantity represents a valid commodity screen quote ([currency] / [physical_dimension]).
-    #
-    # from registry import parse_quantity, is_commodity_price
-    #
-    # print(is_commodity_price(parse_quantity("$75.50/bbl")))   # True
-    # print(is_commodity_price(parse_quantity("p/th")))         # True
-    # print(is_commodity_price(parse_quantity("100 bbl")))      # False (volume)
-    # print(is_commodity_price(parse_quantity("1.08 EUR/USD"))) # False (FX rate)
-
-    "is_flow_rate",
-    # Returns True if the quantity represents a physical commodity delivered over time ([physical] / [time]).
-    #
-    # from registry import parse_quantity, is_flow_rate
-    #
-    # print(is_flow_rate(parse_quantity("10000 bpd")))  # True
-    # print(is_flow_rate(parse_quantity("500 tph")))    # True (tonnes per hour)
-    # print(is_flow_rate(parse_quantity("50 MMscfd")))  # True
-    # print(is_flow_rate(parse_quantity("1000 bbl")))   # False (static volume)
-
-    # =========================================================================
-    # Domain Reference Metadata Collections
-    # =========================================================================
-    "CURRENCY_CODES",
-    "CURRENCY_REFERENCE_CODES",
-    # An immutable tuple[str, ...] containing every official ISO-4217 sovereign currency code recognised
-    # globally (USD, EUR, GBP, JPY, AED, BHD, etc.).
-    #
-    # from registry import CURRENCY_CODES
-    #
-    # if "EUR" in CURRENCY_CODES:
-    #     print("EUR is a recognised sovereign currency.")
-
-    "CURRENCY_SYMBOL_TO_CODE",
-    # A dictionary mapping raw currency glyphs, multi-character symbols, and wire abbreviations
-    # ('$', '£', '€', 'د.إ', 'US$', 'A$') to their canonical ISO-4217 3-letter codes.
-    #
-    # from registry import CURRENCY_SYMBOL_TO_CODE
-    #
-    # print(CURRENCY_SYMBOL_TO_CODE["$"])    # "USD"
-    # print(CURRENCY_SYMBOL_TO_CODE["£"])    # "GBP"
-    # print(CURRENCY_SYMBOL_TO_CODE["A$"])   # "AUD"
-    # print(CURRENCY_SYMBOL_TO_CODE["د.إ"])  # "AED"
-
-    "CURRENCY_MINOR_DIGITS",
-    # A lookup dictionary mapping each ISO-4217 currency code to its statutory minor unit settlement precision
-    # (number of decimal places). Used downstream by settlement accounting and cash-rounding engines to prevent decimal drift.
-    #
-    # from registry import CURRENCY_MINOR_DIGITS
-    #
-    # print(CURRENCY_MINOR_DIGITS["USD"])  # 2 (cents)
-    # print(CURRENCY_MINOR_DIGITS["BHD"])  # 3 (fils - 3 decimal places)
-    # print(CURRENCY_MINOR_DIGITS["JPY"])  # 0 (yen - zero decimal places in active trade)
-    # print(CURRENCY_MINOR_DIGITS["CLP"])  # 0 (Chilean Peso - zero decimal places)
-
-    "COMMODITY_UNIT_DEFINITIONS",
-    # The master, immutable tuple[str, ...] holding all raw definition strings used to build the unit registry.
-    # Contains the exact mathematical specifications for energy, thermodynamic gas volumes, petroleum barrels,
-    # mass standards, agricultural bushels, carbon compliance units, and grid ramp rates.
-    #
-    # from registry import COMMODITY_UNIT_DEFINITIONS
-    #
-    # for definition in COMMODITY_UNIT_DEFINITIONS[:5]:
-    #     print(definition)
-)
+# Static declarations for lazy public interfaces.
+from typing import TYPE_CHECKING, Any, Callable
+if TYPE_CHECKING:
+    from core.units.quote_parser import QuoteParsingContext
+    from core.units.quote_parser import QuoteTokenRule

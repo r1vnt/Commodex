@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "ISO 1928",
+      "application": "Coal calorific values",
+      "source": {
+        "citation": "ISO 1928",
+        "url": null,
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    },
+    {
+      "id": "ISO 18125",
+      "application": "Solid biofuel calorific values",
+      "source": {
+        "citation": "ISO 18125",
+        "url": null,
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    },
+    {
+      "id": "ISO 18134",
+      "application": "Solid biofuel moisture determination",
+      "source": {
+        "citation": "ISO 18134",
+        "url": null,
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    },
+    {
+      "id": "ISO 712",
+      "application": "Cereal moisture determination",
+      "source": {
+        "citation": "ISO 712",
+        "url": null,
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    },
+    {
+      "id": "USDA grain standards",
+      "application": "Agricultural trade weights and quality",
+      "source": {
+        "citation": "USDA grain standards",
+        "url": null,
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    }
+  ]
+}

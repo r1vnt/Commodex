@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "ferc",
+      "source": {
+        "citation": "Commodex legacy named gas reference state; verify against the applicable contract and edition"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "temperature": "K",
+        "pressure": "kPa"
+      },
+      "uncertainty": {
+        "status": "commercial_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "tagged_unit": "scf_60F_14_73psia",
+      "geometric_unit": "foot**3",
+      "temperature": "288.7055555555556",
+      "pressure": "101.559775234"
+    },
+    {
+      "id": "tx",
+      "source": {
+        "citation": "Commodex legacy named gas reference state; verify against the applicable contract and edition"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "temperature": "K",
+        "pressure": "kPa"
+      },
+      "uncertainty": {
+        "status": "commercial_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "tagged_unit": "scf_60F_14_65psia",
+      "geometric_unit": "foot**3",
+      "temperature": "288.7055555555556",
+      "pressure": "101.008194216"
+    },
+    {
+      "id": "iso15",
+      "source": {
+        "citation": "Commodex legacy named gas reference state; verify against the applicable contract and edition"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "temperature": "K",
+        "pressure": "kPa"
+      },
+      "uncertainty": {
+        "status": "commercial_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "tagged_unit": "Sm3_15C_101325kPa_dry",
+      "geometric_unit": "meter**3",
+      "temperature": "288.15",
+      "pressure": "101.325"
+    },
+    {
+      "id": "din0",
+      "source": {
+        "citation": "Commodex legacy named gas reference state; verify against the applicable contract and edition"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "temperature": "K",
+        "pressure": "kPa"
+      },
+      "uncertainty": {
+        "status": "commercial_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "tagged_unit": "Nm3_0C_101325kPa_dry",
+      "geometric_unit": "meter**3",
+      "temperature": "273.15",
+      "pressure": "101.325"
+    },
+    {
+      "id": "gost20",
+      "source": {
+        "citation": "Commodex legacy named gas reference state; verify against the applicable contract and edition"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "temperature": "K",
+        "pressure": "kPa"
+      },
+      "uncertainty": {
+        "status": "commercial_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "tagged_unit": "m3_20C_101325kPa_dry",
+      "geometric_unit": "meter**3",
+      "temperature": "293.15",
+      "pressure": "101.325"
+    },
+    {
+      "id": "atm60f",
+      "source": {
+        "citation": "Commodex legacy named gas reference state; verify against the applicable contract and edition"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "temperature": "K",
+        "pressure": "kPa"
+      },
+      "uncertainty": {
+        "status": "commercial_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "tagged_unit": "scf_60F_14696psi_dry",
+      "geometric_unit": "foot**3",
+      "temperature": "288.7055555555556",
+      "pressure": "101.325"
+    }
+  ]
+}

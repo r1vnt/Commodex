@@ -1,0 +1,5667 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "basis_point",
+      "order": 0,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "basis_point = 0.0001 = bp = bps = bips"
+    },
+    {
+      "id": "percent",
+      "order": 1,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "percent = 0.01 = pct = percentage = %"
+    },
+    {
+      "id": "trading_year_365",
+      "order": 2,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "trading_year_365 = 365 * day = year_365 = annum_365 = op_year"
+    },
+    {
+      "id": "btu_it",
+      "order": 3,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "btu_it = 1055.05585262 * joule = btu = Btu = BTU = btu_IT = Btu_IT = BTU_IT"
+    },
+    {
+      "id": "kBtu_it",
+      "order": 4,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kBtu_it = 1e3 * btu_it = kBtu = kbtu = KBTU = kBtu_it = KBtu_it"
+    },
+    {
+      "id": "MMBtu_it",
+      "order": 5,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMBtu_it = 1e6 * btu_it = MMBtu = mmbtu = MMBTU = mmBtu = MMBtu_IT"
+    },
+    {
+      "id": "BBtu_it",
+      "order": 6,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "BBtu_it = 1e9 * btu_it = BBtu = bbtu = BBTU = BBtu_IT"
+    },
+    {
+      "id": "TBtu_it",
+      "order": 7,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "TBtu_it = 1e12 * btu_it = TBtu = tbtu = TBTU = TBtu_IT"
+    },
+    {
+      "id": "quad_it",
+      "order": 8,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "quad_it = 1e15 * btu_it = quad = Quad = QUAD = quadBtu = QuadBtu = QUADBTU"
+    },
+    {
+      "id": "therm_it",
+      "order": 9,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "therm_it = 1e5 * btu_it = therm = th = Therm = THERM = th_it"
+    },
+    {
+      "id": "dth_it",
+      "order": 10,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "dth_it = 10 * therm_it = dth = Dth = DTH = dekatherm = Dekatherm = DEKATHERM"
+    },
+    {
+      "id": "btu_us59",
+      "order": 11,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "btu_us59 = 1054.804 * joule = btu_59F = Btu_59F = BTU_59F = btu_us = Btu_us"
+    },
+    {
+      "id": "kBtu_us59",
+      "order": 12,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kBtu_us59 = 1e3 * btu_us59 = kBtu_59F = kbtu_59F = KBTU_59F = kBtu_us"
+    },
+    {
+      "id": "MMBtu_us59",
+      "order": 13,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMBtu_us59 = 1e6 * btu_us59 = MMBtu_59F = mmbtu_59F = MMBTU_59F = MMBtu_us"
+    },
+    {
+      "id": "BBtu_us59",
+      "order": 14,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "BBtu_us59 = 1e9 * btu_us59 = BBtu_59F = bbtu_59F = BBTU_59F = BBtu_us"
+    },
+    {
+      "id": "TBtu_us59",
+      "order": 15,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "TBtu_us59 = 1e12 * btu_us59 = TBtu_59F = tbtu_59F = TBTU_59F = TBtu_us"
+    },
+    {
+      "id": "quad_us59",
+      "order": 16,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "quad_us59 = 1e15 * btu_us59 = quad_59F = Quad_59F = QUAD_59F = quad_us"
+    },
+    {
+      "id": "therm_us59",
+      "order": 17,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "therm_us59 = 1e5 * btu_us59 = therm_59F = th_59F = therm_us = th_us"
+    },
+    {
+      "id": "dth_us59",
+      "order": 18,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "dth_us59 = 10 * therm_us59 = dth_59F = Dth_59F = dekatherm_59F = dth_us"
+    },
+    {
+      "id": "boe_58",
+      "order": 19,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "boe_58 = 5.8 * MMBtu_it = boe = BOE = barrel_of_oil_equivalent"
+    },
+    {
+      "id": "boe_sec",
+      "order": 20,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "boe_sec = 6.0 * MMBtu_it = boe_6 = BOE_SEC = boe_S_X"
+    },
+    {
+      "id": "kboe",
+      "order": 21,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kboe = 1e3 * boe = KBOE = kBOE"
+    },
+    {
+      "id": "MMboe",
+      "order": 22,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMboe = 1e6 * boe = MMBOE = mmboe"
+    },
+    {
+      "id": "Bboe",
+      "order": 23,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Bboe = 1e9 * boe = BBOE = bboe"
+    },
+    {
+      "id": "boed",
+      "order": 24,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "boed = boe / day = BOED = boe_per_day = boe_d"
+    },
+    {
+      "id": "kboed",
+      "order": 25,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kboed = 1e3 * boed = KBOED = kboe_d = Mboed"
+    },
+    {
+      "id": "MMboed",
+      "order": 26,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMboed = 1e6 * boed = MMBOED = mmboed = MMboe_d"
+    },
+    {
+      "id": "toe",
+      "order": 27,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "toe = 41.868 * gigajoule = TOE = tonne_of_oil_equivalent"
+    },
+    {
+      "id": "ktoe",
+      "order": 28,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "ktoe = 1e3 * toe = KTOE = ktoe_it"
+    },
+    {
+      "id": "Mtoe",
+      "order": 29,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Mtoe = 1e6 * toe = MTOE = mtoe = Mtoe_it"
+    },
+    {
+      "id": "tce",
+      "order": 30,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tce = 29.3076 * gigajoule = TCE = tonne_of_coal_equivalent"
+    },
+    {
+      "id": "ktce",
+      "order": 31,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "ktce = 1e3 * tce = KTCE = ktce_it"
+    },
+    {
+      "id": "Mtce",
+      "order": 32,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Mtce = 1e6 * tce = MTCE = mtce = Mtce_it"
+    },
+    {
+      "id": "cal_it",
+      "order": 33,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "cal_it = 4.1868 * joule = cal = Cal = cal_IT"
+    },
+    {
+      "id": "kcal_it",
+      "order": 34,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kcal_it = 1e3 * cal_it = kcal = Kcal = KCAL = kcal_IT"
+    },
+    {
+      "id": "mcal_it",
+      "order": 35,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mcal_it = 1e6 * cal_it = mcal = Mcal = MCAL = megacalorie"
+    },
+    {
+      "id": "gcal_it",
+      "order": 36,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "gcal_it = 1e9 * cal_it = gcal = Gcal = GCAL = gigacalorie"
+    },
+    {
+      "id": "scf_60F_14696psi_dry",
+      "order": 37,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "scf_60F_14696psi_dry = [standard_gas_volume_60F_1atm_dry] = scf_60F_1atm_dry"
+    },
+    {
+      "id": "m3_20C_101325kPa_dry",
+      "order": 38,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "m3_20C_101325kPa_dry = [standard_gas_volume_20C_101325kPa_dry] = Sm3_20C"
+    },
+    {
+      "id": "scf_60F_14_73psia",
+      "order": 39,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "scf_60F_14_73psia = [standard_gas_volume_60F_14_73psia] = scf = standard_cubic_foot = scf_14_73"
+    },
+    {
+      "id": "ccf_60F_14_73psia",
+      "order": 40,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "ccf_60F_14_73psia = 100 * scf_60F_14_73psia = ccf = Ccf = CCF"
+    },
+    {
+      "id": "Mscf_60F_14_73psia",
+      "order": 41,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Mscf_60F_14_73psia = 1e3 * scf_60F_14_73psia = Mscf = mscf = Mcf = MCF"
+    },
+    {
+      "id": "MMscf_60F_14_73psia",
+      "order": 42,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMscf_60F_14_73psia = 1e6 * scf_60F_14_73psia = MMscf = mmscf = MMcf = MMCF"
+    },
+    {
+      "id": "Bscf_60F_14_73psia",
+      "order": 43,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Bscf_60F_14_73psia = 1e9 * scf_60F_14_73psia = Bscf = bscf = Bcf = BCF"
+    },
+    {
+      "id": "Tscf_60F_14_73psia",
+      "order": 44,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Tscf_60F_14_73psia = 1e12 * scf_60F_14_73psia = Tscf = tscf = Tcf = TCF"
+    },
+    {
+      "id": "scf_60F_14_65psia",
+      "order": 45,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "scf_60F_14_65psia = [standard_gas_volume_60F_14_65psia] = scf_texas = scf_tx = scf_14_65"
+    },
+    {
+      "id": "Mscf_60F_14_65psia",
+      "order": 46,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Mscf_60F_14_65psia = 1e3 * scf_60F_14_65psia = Mscf_tx = Mcf_tx = MCF_TX"
+    },
+    {
+      "id": "MMscf_60F_14_65psia",
+      "order": 47,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMscf_60F_14_65psia = 1e6 * scf_60F_14_65psia = MMscf_tx = MMcf_tx = MMCF_TX"
+    },
+    {
+      "id": "Bscf_60F_14_65psia",
+      "order": 48,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Bscf_60F_14_65psia = 1e9 * scf_60F_14_65psia = Bscf_tx = Bcf_tx = BCF_TX"
+    },
+    {
+      "id": "Nm3_0C_101325kPa_dry",
+      "order": 49,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Nm3_0C_101325kPa_dry = [normal_gas_volume_0C_101325kPa_dry] = Nm3 = normal_m3 = nm3"
+    },
+    {
+      "id": "kNm3_0C_101325kPa_dry",
+      "order": 50,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kNm3_0C_101325kPa_dry = 1e3 * Nm3_0C_101325kPa_dry = kNm3 = knm3 = kNm3_dry"
+    },
+    {
+      "id": "MNm3_0C_101325kPa_dry",
+      "order": 51,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MNm3_0C_101325kPa_dry = 1e6 * Nm3_0C_101325kPa_dry = MNm3 = mnm3 = MMnm3 = MNm3_dry"
+    },
+    {
+      "id": "BNm3_0C_101325kPa_dry",
+      "order": 52,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "BNm3_0C_101325kPa_dry = 1e9 * Nm3_0C_101325kPa_dry = BNm3 = bnm3 = Bnm3 = Bcm_normal"
+    },
+    {
+      "id": "Sm3_15C_101325kPa_dry",
+      "order": 53,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Sm3_15C_101325kPa_dry = [standard_gas_volume_15C_101325kPa_dry] = Sm3 = standard_m3 = sm3"
+    },
+    {
+      "id": "kSm3_15C_101325kPa_dry",
+      "order": 54,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kSm3_15C_101325kPa_dry = 1e3 * Sm3_15C_101325kPa_dry = kSm3 = ksm3 = kSm3_dry"
+    },
+    {
+      "id": "MSm3_15C_101325kPa_dry",
+      "order": 55,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MSm3_15C_101325kPa_dry = 1e6 * Sm3_15C_101325kPa_dry = MSm3 = msm3 = MMsm3 = MSm3_dry"
+    },
+    {
+      "id": "BSm3_15C_101325kPa_dry",
+      "order": 56,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "BSm3_15C_101325kPa_dry = 1e9 * Sm3_15C_101325kPa_dry = BSm3 = bsm3 = Bcm = BCM = bcm"
+    },
+    {
+      "id": "m3_Groningen",
+      "order": 57,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "m3_Groningen = [groningen_gas_volume] = m3_G = Nm3_G = G_m3"
+    },
+    {
+      "id": "thousand_m3_Groningen",
+      "order": 58,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "thousand_m3_Groningen = 1e3 * m3_Groningen = km3_G = kNm3_G"
+    },
+    {
+      "id": "million_m3_Groningen",
+      "order": 59,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "million_m3_Groningen = 1e6 * m3_Groningen = MMm3_G = MNm3_G"
+    },
+    {
+      "id": "billion_m3_Groningen",
+      "order": 60,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "billion_m3_Groningen = 1e9 * m3_Groningen = Bcm_G = BCM_G = BNm3_G"
+    },
+    {
+      "id": "scfd_60F",
+      "order": 61,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "scfd_60F = scf_60F_14_73psia / day = scfd = SCFD = scf_d"
+    },
+    {
+      "id": "scfh_60F",
+      "order": 62,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "scfh_60F = scf_60F_14_73psia / hour = scfh = SCFH = scf_h"
+    },
+    {
+      "id": "Mscfd_60F",
+      "order": 63,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Mscfd_60F = Mscf_60F_14_73psia / day = Mscfd = mscfd = Mcfd = mcfd = MCFD = Mcf_d"
+    },
+    {
+      "id": "Mscfh_60F",
+      "order": 64,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Mscfh_60F = Mscf_60F_14_73psia / hour = Mscfh = mscfh = Mcfh = mcfh = MCFH = Mcf_h"
+    },
+    {
+      "id": "MMscfd_60F",
+      "order": 65,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMscfd_60F = MMscf_60F_14_73psia / day = MMscfd = mmscfd = MMcfd = mmcfd = MMCFD = MMcf_d"
+    },
+    {
+      "id": "MMscfh_60F",
+      "order": 66,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMscfh_60F = MMscf_60F_14_73psia / hour = MMscfh = mmscfh = MMcfh = mmcfh = MMCFH = MMcf_h"
+    },
+    {
+      "id": "Bcfd_60F",
+      "order": 67,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Bcfd_60F = Bscf_60F_14_73psia / day = Bcfd = bcfd = BCFD = Bscfd = Bcf_d"
+    },
+    {
+      "id": "scfd_60F_14_65psia",
+      "order": 68,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "scfd_60F_14_65psia = scf_60F_14_65psia / day = scfd_tx = scf_d_tx"
+    },
+    {
+      "id": "Mscfd_60F_14_65psia",
+      "order": 69,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Mscfd_60F_14_65psia = Mscf_60F_14_65psia / day = Mscfd_tx = Mcfd_tx = Mcf_d_tx"
+    },
+    {
+      "id": "MMscfd_60F_14_65psia",
+      "order": 70,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMscfd_60F_14_65psia = MMscf_60F_14_65psia / day = MMscfd_tx = MMcfd_tx = MMcf_d_tx"
+    },
+    {
+      "id": "Bcfd_60F_14_65psia",
+      "order": 71,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Bcfd_60F_14_65psia = Bscf_60F_14_65psia / day = Bcfd_tx = Bcf_d_tx"
+    },
+    {
+      "id": "Nm3_per_hour_0C",
+      "order": 72,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Nm3_per_hour_0C = Nm3_0C_101325kPa_dry / hour = Nm3_h = nm3_h = Nm3h"
+    },
+    {
+      "id": "Nm3_per_day_0C",
+      "order": 73,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Nm3_per_day_0C = Nm3_0C_101325kPa_dry / day = Nm3_d = nm3_d = Nm3d"
+    },
+    {
+      "id": "kNm3_per_hour_0C",
+      "order": 74,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kNm3_per_hour_0C = kNm3_0C_101325kPa_dry / hour = kNm3_h = knm3_h"
+    },
+    {
+      "id": "kNm3_per_day_0C",
+      "order": 75,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kNm3_per_day_0C = kNm3_0C_101325kPa_dry / day = kNm3_d = knm3_d"
+    },
+    {
+      "id": "MNm3_per_day_0C",
+      "order": 76,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MNm3_per_day_0C = MNm3_0C_101325kPa_dry / day = MNm3_d = mnm3_d = MMnm3_d"
+    },
+    {
+      "id": "Sm3_per_hour_15C",
+      "order": 77,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Sm3_per_hour_15C = Sm3_15C_101325kPa_dry / hour = Sm3_h = sm3_h = Sm3h"
+    },
+    {
+      "id": "Sm3_per_day_15C",
+      "order": 78,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Sm3_per_day_15C = Sm3_15C_101325kPa_dry / day = Sm3_d = sm3_d = Sm3d"
+    },
+    {
+      "id": "kSm3_per_day_15C",
+      "order": 79,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kSm3_per_day_15C = kSm3_15C_101325kPa_dry / day = kSm3_d = ksm3_d"
+    },
+    {
+      "id": "MSm3_per_day_15C",
+      "order": 80,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MSm3_per_day_15C = MSm3_15C_101325kPa_dry / day = MSm3_d = msm3_d = MMsm3_d = mcm_d"
+    },
+    {
+      "id": "Bcm_per_day_15C",
+      "order": 81,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Bcm_per_day_15C = BSm3_15C_101325kPa_dry / day = Bcm_d = bcm_d = BCMD"
+    },
+    {
+      "id": "bcma",
+      "order": 82,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bcma = BSm3_15C_101325kPa_dry / trading_year_365 = BCMA = bcm_a = Bcm_year"
+    },
+    {
+      "id": "m3_Groningen_per_hour",
+      "order": 83,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "m3_Groningen_per_hour = m3_Groningen / hour = m3_G_h = Nm3_G_h"
+    },
+    {
+      "id": "million_m3_Groningen_per_day",
+      "order": 84,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "million_m3_Groningen_per_day = million_m3_Groningen / day = MMm3_G_d = MNm3_G_d"
+    },
+    {
+      "id": "MMBtu_per_day",
+      "order": 85,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMBtu_per_day = MMBtu_it / day = mmbtu_d = MMBtud = MMBTU_d = mmBtu_d"
+    },
+    {
+      "id": "MMBtu_per_hour",
+      "order": 86,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMBtu_per_hour = MMBtu_it / hour = mmbtu_h = MMBtuh = MMBTU_h = mmBtu_h"
+    },
+    {
+      "id": "dth_per_day",
+      "order": 87,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "dth_per_day = dth_it / day = dth_d = Dth_d = DTHD = Dthd"
+    },
+    {
+      "id": "dth_per_hour",
+      "order": 88,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "dth_per_hour = dth_it / hour = dth_h = Dth_h = DTHH = Dthh"
+    },
+    {
+      "id": "therms_per_day",
+      "order": 89,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "therms_per_day = therm_it / day = th_d = therm_d = Therms_d"
+    },
+    {
+      "id": "kWh_per_hour",
+      "order": 90,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kWh_per_hour = kilowatt_hour / hour = kWh_h = kWh_per_h"
+    },
+    {
+      "id": "kWh_per_day",
+      "order": 91,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kWh_per_day = kilowatt_hour / day = kWh_d = kWh_per_d"
+    },
+    {
+      "id": "MWh_per_hour",
+      "order": 92,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MWh_per_hour = megawatt_hour / hour = MWh_h = MWh_per_h"
+    },
+    {
+      "id": "MWh_per_day",
+      "order": 93,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MWh_per_day = megawatt_hour / day = MWh_d = MWh_per_d"
+    },
+    {
+      "id": "GWh_per_day",
+      "order": 94,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "GWh_per_day = gigawatt_hour / day = GWh_d = GWh_per_d"
+    },
+    {
+      "id": "bbl",
+      "order": 95,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bbl = oil_barrel = BBL = barrel_oil = bbls"
+    },
+    {
+      "id": "kbbl",
+      "order": 96,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kbbl = 1e3 * bbl = Mbbl = MBBL = kbbls"
+    },
+    {
+      "id": "MMbbl",
+      "order": 97,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMbbl = 1e6 * bbl = mmbbl = MMBBL = MMbbls"
+    },
+    {
+      "id": "Gbbl",
+      "order": 98,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Gbbl = 1e9 * bbl = gbbl = GBBL = Bbbl = BBBL"
+    },
+    {
+      "id": "gallon_petroleum",
+      "order": 99,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "gallon_petroleum = gallon = gal = Gal = us_gal"
+    },
+    {
+      "id": "kgal",
+      "order": 100,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kgal = 1e3 * gallon_petroleum = Kgal = Mgal_us"
+    },
+    {
+      "id": "bpd",
+      "order": 101,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bpd = bbl / day = bbl_d = BPD = bbl_per_day = barrels_per_day"
+    },
+    {
+      "id": "bpcd",
+      "order": 102,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bpcd = bpd = BPCD = barrels_per_calendar_day"
+    },
+    {
+      "id": "bpsd",
+      "order": 103,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bpsd = bbl / day = BPSD = barrels_per_stream_day"
+    },
+    {
+      "id": "kbpd",
+      "order": 104,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kbpd = 1e3 * bpd = Mbpd = mbpd = KBPD = kbbl_d = Mbbl_d = kbd = Mbd"
+    },
+    {
+      "id": "MMbpd",
+      "order": 105,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMbpd = 1e6 * bpd = mmbpd = MMBPD = MMbbl_d = mmbbl_d = MMbd = mmbd"
+    },
+    {
+      "id": "bph",
+      "order": 106,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bph = bbl / hour = BPH = bbl_h = bbl_per_hour = barrels_per_hour"
+    },
+    {
+      "id": "kbph",
+      "order": 107,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kbph = 1e3 * bph = Kbph = Mbph"
+    },
+    {
+      "id": "cbm",
+      "order": 108,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "cbm = meter ** 3 = cbm_oil = CBM = m3_oil"
+    },
+    {
+      "id": "kcbm",
+      "order": 109,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kcbm = 1e3 * cbm = kCBM = km3_oil"
+    },
+    {
+      "id": "Mcbm",
+      "order": 110,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Mcbm = 1e6 * cbm = MCBM = MMm3_oil"
+    },
+    {
+      "id": "cbm_h",
+      "order": 111,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "cbm_h = cbm / hour = m3_per_hour = cbm_per_hour = m3_h = CBM_h"
+    },
+    {
+      "id": "cbm_d",
+      "order": 112,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "cbm_d = cbm / day = m3_per_day = cbm_per_day = m3_d = CBM_d"
+    },
+    {
+      "id": "MWa",
+      "order": 113,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MWa = 8760 * megawatt_hour = MWA = megawatt_average = MW_year = MWyr"
+    },
+    {
+      "id": "MWa_leap",
+      "order": 114,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MWa_leap = 8784 * megawatt_hour = MWA_leap = MW_year_leap = MWyr_leap"
+    },
+    {
+      "id": "MW_day",
+      "order": 115,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MW_day = 24 * megawatt_hour = MWd = MWD = megawatt_day"
+    },
+    {
+      "id": "MW_peak_16",
+      "order": 116,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MW_peak_16 = 16 * megawatt_hour = MW_pk16 = peak_block_16h"
+    },
+    {
+      "id": "REC",
+      "order": 117,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "REC = [instrument_REC] = rec = renewable_energy_certificate = recs = RECs"
+    },
+    {
+      "id": "SREC",
+      "order": 118,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "SREC = [instrument_SREC] = srec = solar_renewable_energy_certificate = srecs"
+    },
+    {
+      "id": "GO",
+      "order": 119,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "GO = [instrument_GO] = Guarantee_of_Origin = guarantees_of_origin = go = eu_go = EU_GO"
+    },
+    {
+      "id": "REGO",
+      "order": 120,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "REGO = [instrument_REGO] = rego = renewable_energy_guarantee_of_origin = regos = REGOs"
+    },
+    {
+      "id": "IREC",
+      "order": 121,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "IREC = [instrument_IREC] = irec = I_REC = international_rec = irecs"
+    },
+    {
+      "id": "TIGR",
+      "order": 122,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "TIGR = 1 * megawatt_hour = tigr = tigrs = tradable_instrument_global_renewables"
+    },
+    {
+      "id": "GEC",
+      "order": 123,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "GEC = [instrument_GEC] = gec = green_electricity_certificate = lvezheng = GECs"
+    },
+    {
+      "id": "LGC",
+      "order": 124,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "LGC = [instrument_LGC] = lgc = large_scale_generation_certificate = lgcs = LGCs"
+    },
+    {
+      "id": "STC",
+      "order": 125,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "STC = [instrument_STC] = stc = small_scale_technology_certificate = stcs = STCs"
+    },
+    {
+      "id": "MW_month",
+      "order": 126,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MW_month = 730 * megawatt_hour = MW_mo = MWm = megawatt_month"
+    },
+    {
+      "id": "kW_month",
+      "order": 127,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kW_month = 0.001 * MW_month = kW_mo = kWm = kilowatt_month"
+    },
+    {
+      "id": "MW_offpeak_8",
+      "order": 128,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MW_offpeak_8 = 8 * megawatt_hour = MW_op8 = offpeak_block_8h"
+    },
+    {
+      "id": "mt",
+      "order": 129,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mt = 1e3 * kilogram = metric_tonne = tonne = Tonne = TONNE = MT"
+    },
+    {
+      "id": "kmt",
+      "order": 130,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kmt = 1e3 * mt = kt = KT = kMT = thousand_metric_tonnes"
+    },
+    {
+      "id": "Mmt",
+      "order": 131,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Mmt = 1e6 * mt = Mt = MT_macro = MMT = million_metric_tonnes"
+    },
+    {
+      "id": "commodity_short_hundredweight",
+      "order": 132,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "commodity_short_hundredweight = 100 * pound = cwt = CWT = short_cwt = hundredweight"
+    },
+    {
+      "id": "commodity_long_hundredweight",
+      "order": 133,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "commodity_long_hundredweight = 112 * pound = long_cwt = Long_cwt = cwt_uk"
+    },
+    {
+      "id": "commodity_short_ton",
+      "order": 134,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "commodity_short_ton = 2000 * pound = short_ton = ston = STON = s_ton = Short_Ton"
+    },
+    {
+      "id": "commodity_long_ton",
+      "order": 135,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "commodity_long_ton = 2240 * pound = long_ton = lton = LTON = l_ton = Long_Ton"
+    },
+    {
+      "id": "dmt",
+      "order": 136,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "dmt = [dry_bulk_mass] = DMT = dry_metric_tonne = dry_tonne"
+    },
+    {
+      "id": "wmt",
+      "order": 137,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "wmt = [wet_bulk_mass] = WMT = wet_metric_tonne = wet_tonne"
+    },
+    {
+      "id": "contained_metal_tonne",
+      "order": 138,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "contained_metal_tonne = [contained_metal_mass] = contained_mt"
+    },
+    {
+      "id": "payable_metal_tonne",
+      "order": 139,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "payable_metal_tonne = [payable_metal_mass] = payable_mt"
+    },
+    {
+      "id": "dmtu",
+      "order": 140,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "dmtu = 0.01 * contained_metal_tonne = DMTU = dry_metric_tonne_unit"
+    },
+    {
+      "id": "mtu",
+      "order": 141,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mtu = 10 * kilogram = MTU = metric_tonne_unit"
+    },
+    {
+      "id": "stu",
+      "order": 142,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "stu = 20 * pound = STU = short_ton_unit"
+    },
+    {
+      "id": "dltu",
+      "order": 143,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "dltu = 22.4 * pound = DLTU = dry_long_ton_unit"
+    },
+    {
+      "id": "toz",
+      "order": 144,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "toz = 31.1034768 * gram = troy_ounce = troy_oz = ozt = OZT = TOZ"
+    },
+    {
+      "id": "fine_troy_ounce",
+      "order": 145,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "fine_troy_ounce = toz = ftoz = FTOZ = fine_ounce = fine_toz"
+    },
+    {
+      "id": "tola",
+      "order": 146,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tola = 11.6638038 * gram = tola_gold = TOLA"
+    },
+    {
+      "id": "tael_hk",
+      "order": 147,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tael_hk = 37.79936375 * gram = tael = hk_tael = HK_tael = Tael"
+    },
+    {
+      "id": "tael_china",
+      "order": 148,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tael_china = 37.429 * gram = mainland_tael = shanghai_tael"
+    },
+    {
+      "id": "tael_taiwan",
+      "order": 149,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tael_taiwan = 37.5 * gram = taiwan_tael = ryo = Ryo"
+    },
+    {
+      "id": "baht_gold",
+      "order": 150,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "baht_gold = 15.244 * gram = baht_bullion = thai_baht_gold"
+    },
+    {
+      "id": "carat",
+      "order": 151,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "carat = 200 * milligram = ct = CT = metric_carat = Carat"
+    },
+    {
+      "id": "flask_mercury",
+      "order": 152,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "flask_mercury = 76 * pound = flask = FLASK = mercury_flask = Flask"
+    },
+    {
+      "id": "pound_U3O8",
+      "order": 153,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "pound_U3O8 = pound = lb_U3O8 = U3O8_lb = U3O8 = u3o8"
+    },
+    {
+      "id": "tonne_LCE",
+      "order": 154,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tonne_LCE = 1 * mt = LCE = t_LCE = mt_LCE = tonne_lce"
+    },
+    {
+      "id": "grain",
+      "order": 155,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "grain = (1 / 480) * toz = gr = grain_troy"
+    },
+    {
+      "id": "pennyweight",
+      "order": 156,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "pennyweight = 24 * grain = pwt = PWT = dwt_troy = dwt_bullion"
+    },
+    {
+      "id": "gross_ton",
+      "order": 157,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "gross_ton = commodity_long_ton = GT = gross_ton_steel = gt"
+    },
+    {
+      "id": "dwt",
+      "order": 158,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "dwt = 1e3 * kilogram = DWT = deadweight_ton = deadweight_tonne"
+    },
+    {
+      "id": "TEU",
+      "order": 159,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "TEU = [container_capacity] = teu = twenty_foot_equivalent_unit"
+    },
+    {
+      "id": "FEU",
+      "order": 160,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "FEU = 2 * TEU = feu = forty_foot_equivalent_unit"
+    },
+    {
+      "id": "tonne_nautical_mile",
+      "order": 161,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tonne_nautical_mile = tonne * nautical_mile = tonne_nm = ton_nm"
+    },
+    {
+      "id": "worldscale_point",
+      "order": 162,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "worldscale_point = [tanker_freight_index] = WS = worldscale = ws_point"
+    },
+    {
+      "id": "cbm_lng",
+      "order": 163,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "cbm_lng = meter ** 3 = cbm_liquid_lng = m3_lng"
+    },
+    {
+      "id": "cbm_lpg",
+      "order": 164,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "cbm_lpg = meter ** 3 = cbm_liquid_lpg = m3_lpg"
+    },
+    {
+      "id": "day_charter",
+      "order": 165,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "day_charter = day = charter_day = hire_day"
+    },
+    {
+      "id": "hour_demurrage",
+      "order": 166,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "hour_demurrage = hour = demurrage_hour"
+    },
+    {
+      "id": "tph",
+      "order": 167,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tph = tonne / hour = TPH = tonne_per_hour = t_h"
+    },
+    {
+      "id": "tpd",
+      "order": 168,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tpd = tonne / day = TPD = tonne_per_day = t_d"
+    },
+    {
+      "id": "ktpd",
+      "order": 169,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "ktpd = 1e3 * tpd = KTPD = kt_d = ktonne_per_day"
+    },
+    {
+      "id": "tpa",
+      "order": 170,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tpa = tonne / trading_year_365 = TPA = tpy = TPY = tonne_per_year = tonnes_per_annum"
+    },
+    {
+      "id": "ktpa",
+      "order": 171,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "ktpa = 1e3 * tpa = KTPA = ktpy = KTPY = thousand_tonnes_per_annum"
+    },
+    {
+      "id": "mtpa",
+      "order": 172,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mtpa = 1e6 * tpa = MTPA = mtpy = MTPY = million_tonnes_per_annum"
+    },
+    {
+      "id": "dmtpa",
+      "order": 173,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "dmtpa = dmt / trading_year_365 = DMTPA = dmtpy = DMTPY = dry_metric_tonnes_per_annum"
+    },
+    {
+      "id": "wmtpa",
+      "order": 174,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "wmtpa = wmt / trading_year_365 = WMTPA = wmtpy = WMTPY = wet_metric_tonnes_per_annum"
+    },
+    {
+      "id": "stpd",
+      "order": 175,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "stpd = commodity_short_ton / day = STPD = short_ton_per_day = st_d"
+    },
+    {
+      "id": "stpa",
+      "order": 176,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "stpa = commodity_short_ton / trading_year_365 = STPA = stpy = STPY = short_ton_per_year"
+    },
+    {
+      "id": "bushel_corn",
+      "order": 177,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bushel_corn = 56 * pound = bu_corn = BU_CORN = bushel_sorghum = bushel_flaxseed"
+    },
+    {
+      "id": "bushel_wheat",
+      "order": 178,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bushel_wheat = 60 * pound = bu_wheat = BU_WHEAT = bushel_soybeans = bu_soy = BU_SOY"
+    },
+    {
+      "id": "bushel_barley",
+      "order": 179,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bushel_barley = 48 * pound = bu_barley = BU_BARLEY"
+    },
+    {
+      "id": "bushel_oats",
+      "order": 180,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bushel_oats = 32 * pound = bu_oats = BU_OATS"
+    },
+    {
+      "id": "bushel_rye",
+      "order": 181,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bushel_rye = 56 * pound = bu_rye = BU_RYE"
+    },
+    {
+      "id": "hectolitre",
+      "order": 182,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "hectolitre = 100 * liter = hl = HL = hectoliter"
+    },
+    {
+      "id": "kg_per_hl",
+      "order": 183,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kg_per_hl = kilogram / hectolitre = kg_hl"
+    },
+    {
+      "id": "quintal",
+      "order": 184,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "quintal = 100 * kilogram = q = metric_quintal = Quintal"
+    },
+    {
+      "id": "spanish_quintal",
+      "order": 185,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "spanish_quintal = 46 * kilogram = quintal_ag = qq = QQ"
+    },
+    {
+      "id": "coffee_bag_60kg",
+      "order": 186,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "coffee_bag_60kg = 60 * kilogram = coffee_bag = bag_coffee = sac_coffee_brazil"
+    },
+    {
+      "id": "coffee_bag_colombia",
+      "order": 187,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "coffee_bag_colombia = 70 * kilogram = bag_coffee_co"
+    },
+    {
+      "id": "cocoa_bag_62_5kg",
+      "order": 188,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "cocoa_bag_62_5kg = 62.5 * kilogram = cocoa_bag = bag_cocoa"
+    },
+    {
+      "id": "sugar_bag_50kg",
+      "order": 189,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "sugar_bag_50kg = 50 * kilogram = sugar_bag = bag_sugar"
+    },
+    {
+      "id": "cotton_bale",
+      "order": 190,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "cotton_bale = 480 * pound = cotton_bale_net = bale_cotton = Cotton_Bale"
+    },
+    {
+      "id": "cotton_bale_gross",
+      "order": 191,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "cotton_bale_gross = 500 * pound = cotton_bale_gr"
+    },
+    {
+      "id": "candy",
+      "order": 192,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "candy = 355.62 * kilogram = khandi = candy_cotton"
+    },
+    {
+      "id": "arroba",
+      "order": 193,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "arroba = 15 * kilogram = arroba_beef = ARROBA = arroba_net"
+    },
+    {
+      "id": "maund_metric",
+      "order": 194,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "maund_metric = 40 * kilogram = metric_maund = mnd_metric"
+    },
+    {
+      "id": "maund_imperial",
+      "order": 195,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "maund_imperial = 82.2857 * pound = maund = mnd = imperial_maund"
+    },
+    {
+      "id": "kati",
+      "order": 196,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kati = 0.6 * kilogram = catty = Kati = Catty"
+    },
+    {
+      "id": "picul",
+      "order": 197,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "picul = 100 * kati = pikul = Picul"
+    },
+    {
+      "id": "commodity_peck",
+      "order": 198,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "commodity_peck = 0.25 * bushel = peck = Peck = pk"
+    },
+    {
+      "id": "admt",
+      "order": 199,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "admt = metric_ton = ADMT = air_dry_metric_tonne"
+    },
+    {
+      "id": "bdmt",
+      "order": 200,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bdmt = metric_ton = BDMT = bone_dry_metric_tonne = odmt = ODMT"
+    },
+    {
+      "id": "board_foot",
+      "order": 201,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "board_foot = foot ** 2 * inch = bf = BF = fbm = FBM = board_feet"
+    },
+    {
+      "id": "thousand_board_feet",
+      "order": 202,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "thousand_board_feet = 1e3 * board_foot = mbf = MBF = kbf = kFBM"
+    },
+    {
+      "id": "million_board_feet",
+      "order": 203,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "million_board_feet = 1e6 * board_foot = MMbf = MMBF = MMfbm"
+    },
+    {
+      "id": "cord_wood",
+      "order": 204,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "cord_wood = 128 * foot ** 3 = cord = Cord = firewood_cord"
+    },
+    {
+      "id": "tonne_CO2",
+      "order": 205,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tonne_CO2 = tonne = tCO2 = t_CO2 = MT_CO2 = mt_CO2"
+    },
+    {
+      "id": "tonne_CO2e",
+      "order": 206,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tonne_CO2e = tonne = tCO2e = t_CO2e = MT_CO2e = mt_CO2e"
+    },
+    {
+      "id": "EU_allowance",
+      "order": 207,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "EU_allowance = [instrument_EU_allowance] = EUA = eua = eu_allowance = EUAs"
+    },
+    {
+      "id": "EU_aviation_allowance",
+      "order": 208,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "EU_aviation_allowance = [instrument_EU_aviation_allowance] = EUAA = euaa = eu_aviation_allowance"
+    },
+    {
+      "id": "UK_allowance",
+      "order": 209,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "UK_allowance = [instrument_UK_allowance] = UKA = uka = uk_allowance = UKAs"
+    },
+    {
+      "id": "California_carbon_allowance",
+      "order": 210,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "California_carbon_allowance = [instrument_California_carbon_allowance] = CCA = cca = california_allowance = CCAs"
+    },
+    {
+      "id": "ACCU",
+      "order": 211,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "ACCU = [instrument_ACCU] = accu = ACCUs = australian_carbon_credit_unit"
+    },
+    {
+      "id": "NZU",
+      "order": 212,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "NZU = [instrument_NZU] = nzu = NZUs = new_zealand_unit"
+    },
+    {
+      "id": "CEA",
+      "order": 213,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "CEA = [instrument_CEA] = cea = CEAs = china_emission_allowance"
+    },
+    {
+      "id": "KAU",
+      "order": 214,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "KAU = [instrument_KAU] = kau = KAUs = korea_allowance_unit"
+    },
+    {
+      "id": "RGGI_allowance",
+      "order": 215,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "RGGI_allowance = [instrument_RGGI_allowance] = RGGI = rggi = rggi_allowance = RGGIs"
+    },
+    {
+      "id": "VCU",
+      "order": 216,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "VCU = [instrument_VCU] = vcu = VCUs = verified_carbon_unit"
+    },
+    {
+      "id": "GS_VER",
+      "order": 217,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "GS_VER = [instrument_GS_VER] = gs_ver = GS_VERs = gold_standard_ver = VER = ver"
+    },
+    {
+      "id": "ACR_offset",
+      "order": 218,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "ACR_offset = [instrument_ACR_offset] = ACR = acr = american_carbon_registry = ACRs"
+    },
+    {
+      "id": "CAR_CRT",
+      "order": 219,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "CAR_CRT = [instrument_CAR_CRT] = CRT = crt = climate_reserve_tonne = CRTs"
+    },
+    {
+      "id": "ITMO",
+      "order": 220,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "ITMO = [instrument_ITMO] = itmo = ITMOs = article_6_itmo"
+    },
+    {
+      "id": "CORSIA_eligible_unit",
+      "order": 221,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "CORSIA_eligible_unit = [instrument_CORSIA_eligible_unit] = ceu = CEU = CEUs = CORSIA"
+    },
+    {
+      "id": "RIN",
+      "order": 222,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "RIN = [renewable_identification_number] = rin = rins = RFS_RIN"
+    },
+    {
+      "id": "RIN_D3",
+      "order": 223,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "RIN_D3 = RIN = rin_d3 = cellulosic_biofuel_rin"
+    },
+    {
+      "id": "RIN_D4",
+      "order": 224,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "RIN_D4 = RIN = rin_d4 = biomass_based_diesel_rin"
+    },
+    {
+      "id": "RIN_D5",
+      "order": 225,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "RIN_D5 = RIN = rin_d5 = advanced_biofuel_rin"
+    },
+    {
+      "id": "RIN_D6",
+      "order": 226,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "RIN_D6 = RIN = rin_d6 = renewable_fuel_rin"
+    },
+    {
+      "id": "LCFS_credit",
+      "order": 227,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "LCFS_credit = [instrument_LCFS_credit] = lcfs = LCFS = carb_lcfs = clean_fuel_credit"
+    },
+    {
+      "id": "THG_quota",
+      "order": 228,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "THG_quota = [instrument_THG_quota] = thg = THG = thg_quote = ghg_quota"
+    },
+    {
+      "id": "degree_day_F",
+      "order": 229,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "degree_day_F = delta_degF * day = degree_day = HDD = CDD = DD = degree_days"
+    },
+    {
+      "id": "degree_day_C",
+      "order": 230,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "degree_day_C = delta_degC * day = degree_day_c = HDD_c = CDD_c = DD_c"
+    },
+    {
+      "id": "degree_hour_F",
+      "order": 231,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "degree_hour_F = delta_degF * hour = degree_hour = HDH = CDH"
+    },
+    {
+      "id": "degree_hour_C",
+      "order": 232,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "degree_hour_C = delta_degC * hour = degree_hour_c = HDH_c = CDH_c"
+    },
+    {
+      "id": "thermal_energy_kind",
+      "order": 233,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "thermal_energy_kind = [thermal_energy_kind]"
+    },
+    {
+      "id": "electrical_energy_kind",
+      "order": 234,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "electrical_energy_kind = [electrical_energy_kind]"
+    },
+    {
+      "id": "joule_thermal",
+      "order": 235,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "joule_thermal = joule * thermal_energy_kind = J_th"
+    },
+    {
+      "id": "kilojoule_thermal",
+      "order": 236,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kilojoule_thermal = 1e3 * joule_thermal = kJ_th"
+    },
+    {
+      "id": "megajoule_thermal",
+      "order": 237,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "megajoule_thermal = 1e6 * joule_thermal = MJ_th"
+    },
+    {
+      "id": "gigajoule_thermal",
+      "order": 238,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "gigajoule_thermal = 1e9 * joule_thermal = GJ_th"
+    },
+    {
+      "id": "btu_it_thermal",
+      "order": 239,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "btu_it_thermal = btu_it * thermal_energy_kind = Btu_it_th"
+    },
+    {
+      "id": "MMBtu_thermal",
+      "order": 240,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MMBtu_thermal = MMBtu_it * thermal_energy_kind = MMBtu_th"
+    },
+    {
+      "id": "kilowatt_hour_thermal",
+      "order": 241,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kilowatt_hour_thermal = kilowatt_hour * thermal_energy_kind = kWh_th"
+    },
+    {
+      "id": "MWh_thermal",
+      "order": 242,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MWh_thermal = megawatt_hour * thermal_energy_kind = MWh_th"
+    },
+    {
+      "id": "joule_electric",
+      "order": 243,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "joule_electric = joule * electrical_energy_kind = J_e"
+    },
+    {
+      "id": "kilojoule_electric",
+      "order": 244,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kilojoule_electric = 1e3 * joule_electric = kJ_e"
+    },
+    {
+      "id": "megajoule_electric",
+      "order": 245,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "megajoule_electric = 1e6 * joule_electric = MJ_e"
+    },
+    {
+      "id": "gigajoule_electric",
+      "order": 246,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "gigajoule_electric = 1e9 * joule_electric = GJ_e"
+    },
+    {
+      "id": "kilowatt_hour_electric",
+      "order": 247,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kilowatt_hour_electric = kilowatt_hour * electrical_energy_kind = kWh_e"
+    },
+    {
+      "id": "MWh_electric",
+      "order": 248,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MWh_electric = megawatt_hour * electrical_energy_kind = MWh_e"
+    },
+    {
+      "id": "watt_thermal",
+      "order": 249,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "watt_thermal = joule_thermal / second = W_th"
+    },
+    {
+      "id": "kilowatt_thermal",
+      "order": 250,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kilowatt_thermal = 1e3 * watt_thermal = kW_th"
+    },
+    {
+      "id": "MW_thermal",
+      "order": 251,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MW_thermal = 1e6 * watt_thermal = MW_th = MWth"
+    },
+    {
+      "id": "watt_electric",
+      "order": 252,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "watt_electric = joule_electric / second = W_e"
+    },
+    {
+      "id": "kilowatt_electric",
+      "order": 253,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kilowatt_electric = 1e3 * watt_electric = kW_e"
+    },
+    {
+      "id": "MW_electric",
+      "order": 254,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MW_electric = 1e6 * watt_electric = MW_e = MWe"
+    },
+    {
+      "id": "heat_rate_us",
+      "order": 255,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "heat_rate_us = btu_it_thermal / kilowatt_hour_electric = heat_rate = HR = btu_per_kwh = Btu_kWh"
+    },
+    {
+      "id": "heat_rate_macro",
+      "order": 256,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "heat_rate_macro = MMBtu_thermal / MWh_electric = MMBtu_per_MWh = mmbtu_mwh = MMBtu_MWh"
+    },
+    {
+      "id": "heat_rate_metric",
+      "order": 257,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "heat_rate_metric = megajoule_thermal / kilowatt_hour_electric = MJ_per_kWh = MJ_kWh"
+    },
+    {
+      "id": "heat_rate_gas_turbine",
+      "order": 258,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "heat_rate_gas_turbine = gigajoule_thermal / MWh_electric = GJ_per_MWh = GJ_MWh"
+    },
+    {
+      "id": "kg_H2",
+      "order": 259,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kg_H2 = kilogram = kg_h2 = KG_H2"
+    },
+    {
+      "id": "tonne_H2",
+      "order": 260,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tonne_H2 = 1e3 * kg_H2 = t_H2 = mt_h2"
+    },
+    {
+      "id": "Nm3_H2",
+      "order": 261,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "Nm3_H2 = Nm3_0C_101325kPa_dry = nm3_h2"
+    },
+    {
+      "id": "MWh_lhv",
+      "order": 262,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MWh_lhv = MWh_thermal = MWh_LHV = mwh_lhv"
+    },
+    {
+      "id": "MWh_hhv",
+      "order": 263,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MWh_hhv = MWh_thermal = MWh_HHV = mwh_hhv"
+    },
+    {
+      "id": "tonne_ammonia",
+      "order": 264,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tonne_ammonia = 1e3 * kilogram = t_NH3 = mt_NH3 = tonne_NH3"
+    },
+    {
+      "id": "gallon_SAF",
+      "order": 265,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "gallon_SAF = gallon_petroleum = gal_saf = SAF_gal"
+    },
+    {
+      "id": "psia",
+      "order": 266,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "psia = psi = PSIA = lb_per_sq_in_abs"
+    },
+    {
+      "id": "psig",
+      "order": 267,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "psig = psi = PSIG = lb_per_sq_in_gauge"
+    },
+    {
+      "id": "bara",
+      "order": 268,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bara = bar = BARA = bar_absolute"
+    },
+    {
+      "id": "barg",
+      "order": 269,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "barg = bar = BARG = bar_gauge"
+    },
+    {
+      "id": "gCO2e",
+      "order": 270,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "gCO2e = 1e-6 * tonne_CO2e = g_CO2e = g_co2e"
+    },
+    {
+      "id": "kgCO2e",
+      "order": 271,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kgCO2e = 1e-3 * tonne_CO2e = kg_CO2e = kg_co2e"
+    },
+    {
+      "id": "CI_unit",
+      "order": 272,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "CI_unit = gCO2e / megajoule = CI = ci_score = CI_score = gCO2e_per_MJ"
+    },
+    {
+      "id": "kgCO2e_per_MWh",
+      "order": 273,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kgCO2e_per_MWh = kgCO2e / megawatt_hour = kg_per_MWh_CO2e"
+    },
+    {
+      "id": "kilobar_gold",
+      "order": 274,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kilobar_gold = kilogram = kilobar = kilo_gold = k_bar"
+    },
+    {
+      "id": "ten_tola_bar",
+      "order": 275,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "ten_tola_bar = 10 * tola = tt_bar = TT_bar = TT_Bar"
+    },
+    {
+      "id": "good_delivery_gold",
+      "order": 276,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "good_delivery_gold = 400 * toz = lgd_gold = bar_gold_400oz"
+    },
+    {
+      "id": "good_delivery_silver",
+      "order": 277,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "good_delivery_silver = 1000 * toz = lgd_silver = bar_silver_1000oz"
+    },
+    {
+      "id": "MW_per_minute",
+      "order": 278,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "MW_per_minute = megawatt / minute = MW_min = MW_per_min = ramp_rate_mw"
+    },
+    {
+      "id": "kW_per_minute",
+      "order": 279,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kW_per_minute = kilowatt / minute = kW_min = kW_per_min"
+    },
+    {
+      "id": "C_rate",
+      "order": 280,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "C_rate = 1 / hour = c_rate = C_Rate"
+    },
+    {
+      "id": "bushel_canola",
+      "order": 281,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bushel_canola = 50 * pound = bu_canola"
+    },
+    {
+      "id": "bushel_rice",
+      "order": 282,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "bushel_rice = 45 * pound = bu_rice"
+    },
+    {
+      "id": "SWU",
+      "order": 283,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "SWU = [separative_work] = swu = separative_work_unit"
+    },
+    {
+      "id": "kgU",
+      "order": 284,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kgU = kilogram = kg_uranium"
+    },
+    {
+      "id": "mtU",
+      "order": 285,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mtU = 1e3 * kgU = tU = tonne_uranium"
+    },
+    {
+      "id": "kpaa",
+      "order": 286,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kpaa = kilopascal = kPa_a = kpa_a = kilopascal_absolute"
+    },
+    {
+      "id": "kpag",
+      "order": 287,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kpag = kilopascal = kPa_g = kpa_g = kilopascal_gauge"
+    },
+    {
+      "id": "mpaa",
+      "order": 288,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mpaa = megapascal = MPa_a = mpa_a = megapascal_absolute"
+    },
+    {
+      "id": "mpag",
+      "order": 289,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mpag = megapascal = MPa_g = mpa_g = megapascal_gauge"
+    },
+    {
+      "id": "paa",
+      "order": 290,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "paa = pascal = Pa_a = pa_a = pascal_absolute"
+    },
+    {
+      "id": "pag",
+      "order": 291,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "pag = pascal = Pa_g = pa_g = pascal_gauge"
+    },
+    {
+      "id": "kilovolt_ampere",
+      "order": 292,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kilovolt_ampere = 1e3 * volt * ampere = kVA"
+    },
+    {
+      "id": "megavolt_ampere",
+      "order": 293,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "megavolt_ampere = 1e6 * volt * ampere = MVA"
+    },
+    {
+      "id": "kilovolt_ampere_reactive",
+      "order": 294,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "kilovolt_ampere_reactive = 1e3 * volt * ampere = kVAR = kVAr"
+    },
+    {
+      "id": "megavolt_ampere_reactive",
+      "order": 295,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "megavolt_ampere_reactive = 1e6 * volt * ampere = MVAR = MVAr"
+    },
+    {
+      "id": "btu_th",
+      "order": 296,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "btu_th = thermochemical_british_thermal_unit"
+    },
+    {
+      "id": "don_korea",
+      "order": 297,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "don_korea = 3.75 * gram = korean_don"
+    },
+    {
+      "id": "parts_per_billion",
+      "order": 298,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "parts_per_billion = 1e-9 = ppb"
+    },
+    {
+      "id": "parts_per_trillion",
+      "order": 299,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "parts_per_trillion = 1e-12"
+    },
+    {
+      "id": "mass_fraction",
+      "order": 300,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mass_fraction = [mass_fraction_basis]"
+    },
+    {
+      "id": "mole_fraction",
+      "order": 301,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mole_fraction = [mole_fraction_basis]"
+    },
+    {
+      "id": "volume_fraction",
+      "order": 302,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "volume_fraction = [volume_fraction_basis]"
+    },
+    {
+      "id": "mass_percent",
+      "order": 303,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mass_percent = 0.01 * mass_fraction"
+    },
+    {
+      "id": "mole_percent",
+      "order": 304,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mole_percent = 0.01 * mole_fraction"
+    },
+    {
+      "id": "volume_percent",
+      "order": 305,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "volume_percent = 0.01 * volume_fraction"
+    },
+    {
+      "id": "molarity",
+      "order": 306,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "molarity = mole / liter"
+    },
+    {
+      "id": "normality",
+      "order": 307,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "normality = [reaction_equivalent_concentration]"
+    },
+    {
+      "id": "degree_Brix",
+      "order": 308,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "degree_Brix = [brix_reading] = degBrix"
+    },
+    {
+      "id": "degree_Plato",
+      "order": 309,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "degree_Plato = [plato_reading] = degPlato"
+    },
+    {
+      "id": "degree_Baume_heavy",
+      "order": 310,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "degree_Baume_heavy = [baume_heavy_reading]"
+    },
+    {
+      "id": "degree_Baume_light",
+      "order": 311,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "degree_Baume_light = [baume_light_reading]"
+    },
+    {
+      "id": "saybolt_universal_second",
+      "order": 312,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "saybolt_universal_second = [saybolt_universal_reading] = SUS"
+    },
+    {
+      "id": "saybolt_furol_second",
+      "order": 313,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "saybolt_furol_second = [saybolt_furol_reading] = SFS"
+    },
+    {
+      "id": "acre_us_survey",
+      "order": 314,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "acre_us_survey = 43560 * survey_foot ** 2"
+    },
+    {
+      "id": "acre_foot_us_survey",
+      "order": 315,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "acre_foot_us_survey = acre_us_survey * survey_foot"
+    },
+    {
+      "id": "mu_china",
+      "order": 316,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "mu_china = hectare / 15 = chinese_mu"
+    },
+    {
+      "id": "feddan_4200",
+      "order": 317,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "feddan_4200 = 4200 * meter ** 2"
+    },
+    {
+      "id": "tonne_mile",
+      "order": 318,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "tonne_mile = tonne * mile"
+    },
+    {
+      "id": "short_ton_mile",
+      "order": 319,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "short_ton_mile = commodity_short_ton * mile"
+    },
+    {
+      "id": "displacement_tonne",
+      "order": 320,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "displacement_tonne = metric_ton"
+    },
+    {
+      "id": "gross_tonnage",
+      "order": 321,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "gross_tonnage = [gross_tonnage_index]"
+    },
+    {
+      "id": "net_tonnage",
+      "order": 322,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "net_tonnage = [net_tonnage_index]"
+    },
+    {
+      "id": "gigawatt_day",
+      "order": 323,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "gigawatt_day = gigawatt * day = GWd"
+    },
+    {
+      "id": "item",
+      "order": 324,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "item = [item_count]"
+    },
+    {
+      "id": "dozen",
+      "order": 325,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "dozen = 12 * item = doz"
+    },
+    {
+      "id": "api_gravity",
+      "order": 326,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "api_gravity = [api_gravity_reading] = degree_API"
+    },
+    {
+      "id": "contract",
+      "order": 327,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "contract = [contract_count]"
+    },
+    {
+      "id": "lot",
+      "order": 328,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "lot = [lot_count]"
+    },
+    {
+      "id": "delivery_unit",
+      "order": 329,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "delivery_unit = [delivery_count]"
+    },
+    {
+      "id": "crate",
+      "order": 330,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "crate = [crate_count]"
+    },
+    {
+      "id": "sack",
+      "order": 331,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "sack = [sack_count]"
+    },
+    {
+      "id": "price_tick",
+      "order": 332,
+      "source": {
+        "citation": "Commodex legacy registry definition",
+        "sha256": "3222defa86a2e0abc96d453d8c2faf009a74699913faae9bdbfd9caa833bb3ff"
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": "Pint definition expression",
+      "uncertainty": {
+        "status": "definition_or_convention",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "definition": "price_tick = [price_tick_count]"
+    }
+  ]
+}

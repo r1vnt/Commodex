@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "BIPM SI Brochure",
+      "application": "Fundamental SI definitions",
+      "source": {
+        "citation": "BIPM SI Brochure",
+        "url": "https://www.bipm.org/en/publications/si-brochure",
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    },
+    {
+      "id": "NIST SP 811",
+      "application": "Unit conversion factors",
+      "source": {
+        "citation": "NIST SP 811",
+        "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors",
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    },
+    {
+      "id": "ISO 80000",
+      "application": "Quantities and units",
+      "source": {
+        "citation": "ISO 80000",
+        "url": null,
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    },
+    {
+      "id": "ISO 4217 / SIX",
+      "application": "Currency definitions",
+      "source": {
+        "citation": "ISO 4217 / SIX",
+        "url": "https://www.six-group.com/en/products-services/financial-information/data-standards.html",
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    },
+    {
+      "id": "ISO 668",
+      "application": "Container dimensions",
+      "source": {
+        "citation": "ISO 668",
+        "url": null,
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    },
+    {
+      "id": "GUM / JCGM 100",
+      "application": "Measurement uncertainty",
+      "source": {
+        "citation": "GUM / JCGM 100",
+        "url": "https://www.bipm.org/en/committees/jc/jcgm/publications/",
+        "edition": null
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": null,
+      "uncertainty": {
+        "status": "not_applicable",
+        "standard_uncertainty": null
+      },
+      "value_kind": "commercial_convention",
+      "status": "recommended_reference",
+      "compliance_verified": false
+    }
+  ]
+}

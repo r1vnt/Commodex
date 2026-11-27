@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "CrudeAssay.brent",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.brent",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Brent"
+        ],
+        "kwargs": {
+          "api_gravity": 38.3,
+          "sulfur_percentage": 0.4
+        }
+      }
+    },
+    {
+      "id": "CrudeAssay.wti",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.wti",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "WTI"
+        ],
+        "kwargs": {
+          "api_gravity": 40.8,
+          "sulfur_percentage": 0.24
+        }
+      }
+    },
+    {
+      "id": "CrudeAssay.dubai",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.dubai",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Dubai"
+        ],
+        "kwargs": {
+          "api_gravity": 31.0,
+          "sulfur_percentage": 2.13
+        }
+      }
+    },
+    {
+      "id": "CrudeAssay.arab_light",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.arab_light",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Arab Light"
+        ],
+        "kwargs": {
+          "api_gravity": 33.4,
+          "sulfur_percentage": 1.77
+        }
+      }
+    },
+    {
+      "id": "CrudeAssay.urals",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.urals",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Urals"
+        ],
+        "kwargs": {
+          "api_gravity": 31.7,
+          "sulfur_percentage": 1.7
+        }
+      }
+    },
+    {
+      "id": "CrudeAssay.maya",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.maya",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Maya"
+        ],
+        "kwargs": {
+          "api_gravity": 21.8,
+          "sulfur_percentage": 3.4
+        }
+      }
+    },
+    {
+      "id": "CrudeAssay.wcs",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.wcs",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "WCS"
+        ],
+        "kwargs": {
+          "api_gravity": 20.5,
+          "sulfur_percentage": 3.5
+        }
+      }
+    },
+    {
+      "id": "CrudeAssay.bonny_light",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.bonny_light",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Bonny Light"
+        ],
+        "kwargs": {
+          "api_gravity": 35.3,
+          "sulfur_percentage": 0.15
+        }
+      }
+    }
+  ]
+}

@@ -1,13 +1,9 @@
-"""Load desk-specific unit and currency configuration before service startup."""
-
+"""Commodex config implementation and public interfaces."""
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from typing import Any
-
-from .registry import freeze_registry, register_commodity_unit, register_currency, _registry_transaction
-
+import json
 
 def load_desk_config(source: str | Path | dict[str, Any], *, freeze_after_load: bool = True,) -> None:
     """Register desk currencies and commodities from a mapping or JSON/YAML file.
@@ -15,6 +11,10 @@ def load_desk_config(source: str | Path | dict[str, Any], *, freeze_after_load: 
     YAML support is optional and requires PyYAML. When ``freeze_after_load`` is
     true, the registry is sealed after all configured entries are registered.
     """
+    from core.units.registry import _registry_transaction
+    from core.units.registry import freeze_registry
+    from core.units.registry import register_commodity_unit
+    from core.units.registry import register_currency
     if isinstance(source, (str, Path)):
         file_path = Path(source)
         if not file_path.exists():
@@ -55,23 +55,22 @@ def load_desk_config(source: str | Path | dict[str, Any], *, freeze_after_load: 
 
     with _registry_transaction():
         for currency in currencies:
-            register_currency(
-                code=currency["code"],
-                decimals=currency.get("decimals", 2),
-                symbols=tuple(currency.get("symbols", ())),
-                aliases=tuple(currency.get("aliases", ())),
-                sub_units=currency.get("sub_units"),
-                quote_aliases=currency.get("quote_aliases"),
-            )
+            register_currency( code=currency["code"], decimals=currency.get("decimals", 2), symbols=tuple(currency.get("symbols", ())), aliases=tuple(currency.get("aliases", ())), sub_units=currency.get("sub_units"), quote_aliases=currency.get("quote_aliases"),)
 
         for commodity in commodities:
-            register_commodity_unit(
-                definition=commodity["definition"],
-                quote_aliases=commodity.get("quote_aliases"),
-            )
+            register_commodity_unit(definition=commodity["definition"], quote_aliases=commodity.get("quote_aliases"),)
 
         if freeze_after_load:
             freeze_registry()
 
 
-__all__ = ("load_desk_config",)
+__all__ = ('load_desk_config',)
+_PUBLIC_ALIASES = {'register_currency': ('registry', 'register_currency'), 'freeze_registry': ('registry', 'freeze_registry'), '_registry_transaction': ('registry', '_registry_transaction'), 'register_commodity_unit': ('registry', 'register_commodity_unit')}
+
+def __getattr__(name):
+    from importlib import import_module
+    try:
+        module, symbol = _PUBLIC_ALIASES[name]
+    except KeyError:
+        raise AttributeError(name) from None
+    return getattr(import_module("core.units." + module), symbol)

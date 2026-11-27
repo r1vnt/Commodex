@@ -1,1 +1,1 @@
-"""Unit-layer integration contracts."""
+"""Commodex tests, separate from the runtime library."""

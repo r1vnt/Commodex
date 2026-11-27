@@ -1,0 +1,1216 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "CleanFuelAssay.hydrogen",
+      "source": {
+        "citation": "Commodex legacy benchmark CleanFuelAssay.hydrogen",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_mj_per_kg": "MJ/kg",
+        "hhv_mj_per_kg": "MJ/kg",
+        "density_kg_per_nm3": null,
+        "liquid_density_kg_per_m3": "kg/m^3",
+        "hydrogen_mass_fraction": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Hydrogen (H2)",
+          "lhv_mj_per_kg": 119.96,
+          "hhv_mj_per_kg": 141.88,
+          "density_kg_per_nm3": 0.08988,
+          "liquid_density_kg_per_m3": 70.85,
+          "hydrogen_mass_fraction": 1.0
+        }
+      }
+    },
+    {
+      "id": "CleanFuelAssay.ammonia",
+      "source": {
+        "citation": "Commodex legacy benchmark CleanFuelAssay.ammonia",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_mj_per_kg": "MJ/kg",
+        "hhv_mj_per_kg": "MJ/kg",
+        "density_kg_per_nm3": null,
+        "liquid_density_kg_per_m3": "kg/m^3",
+        "hydrogen_mass_fraction": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Ammonia (NH3)",
+          "lhv_mj_per_kg": 18.6,
+          "hhv_mj_per_kg": 22.5,
+          "density_kg_per_nm3": 0.7714,
+          "liquid_density_kg_per_m3": 682.0,
+          "hydrogen_mass_fraction": 0.1776
+        }
+      }
+    },
+    {
+      "id": "CleanFuelAssay.methanol",
+      "source": {
+        "citation": "Commodex legacy benchmark CleanFuelAssay.methanol",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_mj_per_kg": "MJ/kg",
+        "hhv_mj_per_kg": "MJ/kg",
+        "density_kg_per_nm3": null,
+        "liquid_density_kg_per_m3": "kg/m^3",
+        "hydrogen_mass_fraction": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Methanol (CH3OH)",
+          "lhv_mj_per_kg": 19.9,
+          "hhv_mj_per_kg": 22.7,
+          "density_kg_per_nm3": null,
+          "liquid_density_kg_per_m3": 792.0,
+          "hydrogen_mass_fraction": 0.1258
+        }
+      }
+    },
+    {
+      "id": "BiofuelAssay.ethanol",
+      "source": {
+        "citation": "Commodex legacy benchmark BiofuelAssay.ethanol",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "density_kg_per_m3": "kg/m^3",
+        "lhv_mj_per_kg": "MJ/kg",
+        "hhv_mj_per_kg": "MJ/kg",
+        "epa_rin_ev": null,
+        "rin_d_code": null,
+        "thermal_expansion_coeff_per_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Fuel Ethanol",
+          "density_kg_per_m3": 789.0,
+          "lhv_mj_per_kg": 26.8,
+          "hhv_mj_per_kg": 29.7,
+          "epa_rin_ev": 1.0,
+          "rin_d_code": "D6",
+          "thermal_expansion_coeff_per_c": 0.00109
+        }
+      }
+    },
+    {
+      "id": "BiofuelAssay.hydrous_ethanol",
+      "source": {
+        "citation": "Commodex legacy benchmark BiofuelAssay.hydrous_ethanol",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "density_kg_per_m3": "kg/m^3",
+        "lhv_mj_per_kg": "MJ/kg",
+        "hhv_mj_per_kg": "MJ/kg",
+        "thermal_expansion_coeff_per_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Hydrous Ethanol (E100)",
+          "density_kg_per_m3": 809.0,
+          "lhv_mj_per_kg": 25.1,
+          "hhv_mj_per_kg": 27.8,
+          "thermal_expansion_coeff_per_c": 0.00105
+        }
+      }
+    },
+    {
+      "id": "BiofuelAssay.fame_biodiesel",
+      "source": {
+        "citation": "Commodex legacy benchmark BiofuelAssay.fame_biodiesel",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "density_kg_per_m3": "kg/m^3",
+        "lhv_mj_per_kg": "MJ/kg",
+        "hhv_mj_per_kg": "MJ/kg",
+        "epa_rin_ev": null,
+        "rin_d_code": null,
+        "thermal_expansion_coeff_per_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "FAME Biodiesel (B100)",
+          "density_kg_per_m3": 883.0,
+          "lhv_mj_per_kg": 37.2,
+          "hhv_mj_per_kg": 40.2,
+          "epa_rin_ev": 1.5,
+          "rin_d_code": "D4",
+          "thermal_expansion_coeff_per_c": 0.00083
+        }
+      }
+    },
+    {
+      "id": "BiofuelAssay.ucome",
+      "source": {
+        "citation": "Commodex legacy benchmark BiofuelAssay.ucome",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "density_kg_per_m3": "kg/m^3",
+        "lhv_mj_per_kg": "MJ/kg",
+        "hhv_mj_per_kg": "MJ/kg",
+        "epa_rin_ev": null,
+        "rin_d_code": null,
+        "carbon_intensity_g_co2e_per_mj": null,
+        "thermal_expansion_coeff_per_c": null,
+        "red_energy_multiplier": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "UCOME Biodiesel",
+          "density_kg_per_m3": 883.0,
+          "lhv_mj_per_kg": 37.2,
+          "hhv_mj_per_kg": 40.2,
+          "epa_rin_ev": 1.5,
+          "rin_d_code": "D4",
+          "carbon_intensity_g_co2e_per_mj": 14.0,
+          "thermal_expansion_coeff_per_c": 0.00083,
+          "red_energy_multiplier": 2.0
+        }
+      }
+    },
+    {
+      "id": "BiofuelAssay.hvo_renewable_diesel",
+      "source": {
+        "citation": "Commodex legacy benchmark BiofuelAssay.hvo_renewable_diesel",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "density_kg_per_m3": "kg/m^3",
+        "lhv_mj_per_kg": "MJ/kg",
+        "hhv_mj_per_kg": "MJ/kg",
+        "epa_rin_ev": null,
+        "rin_d_code": null,
+        "thermal_expansion_coeff_per_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "HVO / Renewable Diesel",
+          "density_kg_per_m3": 780.0,
+          "lhv_mj_per_kg": 44.0,
+          "hhv_mj_per_kg": 47.0,
+          "epa_rin_ev": 1.7,
+          "rin_d_code": "D4",
+          "thermal_expansion_coeff_per_c": 0.00085
+        }
+      }
+    },
+    {
+      "id": "BiofuelAssay.saf_hefa",
+      "source": {
+        "citation": "Commodex legacy benchmark BiofuelAssay.saf_hefa",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "density_kg_per_m3": "kg/m^3",
+        "lhv_mj_per_kg": "MJ/kg",
+        "hhv_mj_per_kg": "MJ/kg",
+        "epa_rin_ev": null,
+        "rin_d_code": null,
+        "thermal_expansion_coeff_per_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "SAF (HEFA-SPK)",
+          "density_kg_per_m3": 760.0,
+          "lhv_mj_per_kg": 44.1,
+          "hhv_mj_per_kg": 47.2,
+          "epa_rin_ev": 1.6,
+          "rin_d_code": "D4",
+          "thermal_expansion_coeff_per_c": 0.00095
+        }
+      }
+    },
+    {
+      "id": "NGLAssay.ethane",
+      "source": {
+        "citation": "Commodex legacy benchmark NGLAssay.ethane",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "specific_gravity_60f": null,
+        "hhv_btu_per_gal": null,
+        "lhv_btu_per_gal": null,
+        "gas_equivalent_scf_per_gal": null,
+        "molecular_weight_g_per_mol": null,
+        "vapor_pressure_psia_100f": null,
+        "thermal_expansion_coeff_per_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Ethane (C2)",
+          "specific_gravity_60f": 0.35628,
+          "hhv_btu_per_gal": 66500.0,
+          "lhv_btu_per_gal": 60910.0,
+          "gas_equivalent_scf_per_gal": 37.498,
+          "molecular_weight_g_per_mol": 30.069,
+          "vapor_pressure_psia_100f": null,
+          "thermal_expansion_coeff_per_c": 0.004
+        }
+      }
+    },
+    {
+      "id": "NGLAssay.propane",
+      "source": {
+        "citation": "Commodex legacy benchmark NGLAssay.propane",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "specific_gravity_60f": null,
+        "hhv_btu_per_gal": null,
+        "lhv_btu_per_gal": null,
+        "gas_equivalent_scf_per_gal": null,
+        "molecular_weight_g_per_mol": null,
+        "vapor_pressure_psia_100f": null,
+        "thermal_expansion_coeff_per_c": null,
+        "refrigerated_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Propane (C3)",
+          "specific_gravity_60f": 0.50719,
+          "hhv_btu_per_gal": 91420.0,
+          "lhv_btu_per_gal": 84250.0,
+          "gas_equivalent_scf_per_gal": 36.391,
+          "molecular_weight_g_per_mol": 44.096,
+          "vapor_pressure_psia_100f": 188.64,
+          "thermal_expansion_coeff_per_c": 0.00295,
+          "refrigerated_density_kg_per_m3": 582.0
+        }
+      }
+    },
+    {
+      "id": "NGLAssay.isobutane",
+      "source": {
+        "citation": "Commodex legacy benchmark NGLAssay.isobutane",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "specific_gravity_60f": null,
+        "hhv_btu_per_gal": null,
+        "lhv_btu_per_gal": null,
+        "gas_equivalent_scf_per_gal": null,
+        "molecular_weight_g_per_mol": null,
+        "vapor_pressure_psia_100f": null,
+        "thermal_expansion_coeff_per_c": null,
+        "refrigerated_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Isobutane (iC4)",
+          "specific_gravity_60f": 0.56283,
+          "hhv_btu_per_gal": 98917.0,
+          "lhv_btu_per_gal": 91340.0,
+          "gas_equivalent_scf_per_gal": 30.639,
+          "molecular_weight_g_per_mol": 58.122,
+          "vapor_pressure_psia_100f": 72.58,
+          "thermal_expansion_coeff_per_c": 0.00215,
+          "refrigerated_density_kg_per_m3": 594.0
+        }
+      }
+    },
+    {
+      "id": "NGLAssay.n_butane",
+      "source": {
+        "citation": "Commodex legacy benchmark NGLAssay.n_butane",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "specific_gravity_60f": null,
+        "hhv_btu_per_gal": null,
+        "lhv_btu_per_gal": null,
+        "gas_equivalent_scf_per_gal": null,
+        "molecular_weight_g_per_mol": null,
+        "vapor_pressure_psia_100f": null,
+        "thermal_expansion_coeff_per_c": null,
+        "refrigerated_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Normal Butane (nC4)",
+          "specific_gravity_60f": 0.5842,
+          "hhv_btu_per_gal": 103769.0,
+          "lhv_btu_per_gal": 95900.0,
+          "gas_equivalent_scf_per_gal": 31.802,
+          "molecular_weight_g_per_mol": 58.122,
+          "vapor_pressure_psia_100f": 51.71,
+          "thermal_expansion_coeff_per_c": 0.002,
+          "refrigerated_density_kg_per_m3": 601.0
+        }
+      }
+    },
+    {
+      "id": "NGLAssay.natural_gasoline",
+      "source": {
+        "citation": "Commodex legacy benchmark NGLAssay.natural_gasoline",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "specific_gravity_60f": null,
+        "hhv_btu_per_gal": null,
+        "lhv_btu_per_gal": null,
+        "gas_equivalent_scf_per_gal": null,
+        "molecular_weight_g_per_mol": null,
+        "vapor_pressure_psia_100f": null,
+        "thermal_expansion_coeff_per_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Natural Gasoline (C5+)",
+          "specific_gravity_60f": 0.665,
+          "hhv_btu_per_gal": 115000.0,
+          "lhv_btu_per_gal": 106500.0,
+          "gas_equivalent_scf_per_gal": 26.97,
+          "molecular_weight_g_per_mol": 78.0,
+          "vapor_pressure_psia_100f": 12.0,
+          "thermal_expansion_coeff_per_c": 0.00145
+        }
+      }
+    },
+    {
+      "id": "NGLAssay.y_grade",
+      "source": {
+        "citation": "Commodex legacy benchmark NGLAssay.y_grade",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "specific_gravity_60f": null,
+        "hhv_btu_per_gal": null,
+        "lhv_btu_per_gal": null,
+        "gas_equivalent_scf_per_gal": null,
+        "molecular_weight_g_per_mol": null,
+        "thermal_expansion_coeff_per_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Y-Grade Raw Mix",
+          "specific_gravity_60f": 0.4735,
+          "hhv_btu_per_gal": 85450.0,
+          "lhv_btu_per_gal": 78750.0,
+          "gas_equivalent_scf_per_gal": 34.92,
+          "molecular_weight_g_per_mol": 43.8,
+          "thermal_expansion_coeff_per_c": 0.00305
+        }
+      }
+    },
+    {
+      "id": "BiomassAssay.industrial_pellets_i2",
+      "source": {
+        "citation": "Commodex legacy benchmark BiomassAssay.industrial_pellets_i2",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_gj_per_mt_ar": null,
+        "moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "hydrogen_db_pct": "percent",
+        "ash_db_pct": "percent",
+        "chlorine_db_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Industrial Wood Pellets (I2)",
+          "lhv_gj_per_mt_ar": 17.0,
+          "moisture_pct": 8.0,
+          "bulk_density_kg_per_m3": 650.0,
+          "hydrogen_db_pct": 6.0,
+          "ash_db_pct": 1.5,
+          "chlorine_db_pct": 0.05
+        }
+      }
+    },
+    {
+      "id": "BiomassAssay.enplus_a1_pellets",
+      "source": {
+        "citation": "Commodex legacy benchmark BiomassAssay.enplus_a1_pellets",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_gj_per_mt_ar": null,
+        "moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "hydrogen_db_pct": "percent",
+        "ash_db_pct": "percent",
+        "chlorine_db_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "ENplus A1 Wood Pellets",
+          "lhv_gj_per_mt_ar": 17.2,
+          "moisture_pct": 7.0,
+          "bulk_density_kg_per_m3": 660.0,
+          "hydrogen_db_pct": 6.0,
+          "ash_db_pct": 0.5,
+          "chlorine_db_pct": 0.02
+        }
+      }
+    },
+    {
+      "id": "BiomassAssay.torrefied_pellets",
+      "source": {
+        "citation": "Commodex legacy benchmark BiomassAssay.torrefied_pellets",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_gj_per_mt_ar": null,
+        "moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "hydrogen_db_pct": "percent",
+        "ash_db_pct": "percent",
+        "chlorine_db_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Torrefied Black Pellets",
+          "lhv_gj_per_mt_ar": 21.0,
+          "moisture_pct": 4.0,
+          "bulk_density_kg_per_m3": 750.0,
+          "hydrogen_db_pct": 5.2,
+          "ash_db_pct": 2.0,
+          "chlorine_db_pct": 0.03
+        }
+      }
+    },
+    {
+      "id": "BiomassAssay.forestry_wood_chips",
+      "source": {
+        "citation": "Commodex legacy benchmark BiomassAssay.forestry_wood_chips",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "hhv_gj_per_mt_db": null,
+        "moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "hydrogen_db_pct": "percent",
+        "ash_db_pct": "percent",
+        "chlorine_db_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Forestry Wood Chips",
+          "hhv_gj_per_mt_db": 19.2,
+          "moisture_pct": 35.0,
+          "bulk_density_kg_per_m3": 320.0,
+          "hydrogen_db_pct": 6.0,
+          "ash_db_pct": 2.0,
+          "chlorine_db_pct": 0.03
+        }
+      }
+    },
+    {
+      "id": "BiomassAssay.palm_kernel_shells",
+      "source": {
+        "citation": "Commodex legacy benchmark BiomassAssay.palm_kernel_shells",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_gj_per_mt_ar": null,
+        "moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "hydrogen_db_pct": "percent",
+        "ash_db_pct": "percent",
+        "chlorine_db_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Palm Kernel Shells (PKS)",
+          "lhv_gj_per_mt_ar": 15.90984,
+          "moisture_pct": 15.0,
+          "bulk_density_kg_per_m3": 580.0,
+          "hydrogen_db_pct": 5.8,
+          "ash_db_pct": 3.5,
+          "chlorine_db_pct": 0.08
+        }
+      }
+    },
+    {
+      "id": "BitumenAssay.pen_60_70",
+      "source": {
+        "citation": "Commodex legacy benchmark BitumenAssay.pen_60_70",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "density_kg_per_m3": "kg/m^3",
+        "penetration_dmm": null,
+        "softening_point_c": null,
+        "sulphur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Bitumen Pen 60/70",
+          "density_kg_per_m3": 1030.0,
+          "penetration_dmm": 65.0,
+          "softening_point_c": 49.0,
+          "sulphur_pct": 4.0
+        }
+      }
+    },
+    {
+      "id": "BitumenAssay.pen_80_100",
+      "source": {
+        "citation": "Commodex legacy benchmark BitumenAssay.pen_80_100",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "density_kg_per_m3": "kg/m^3",
+        "penetration_dmm": null,
+        "softening_point_c": null,
+        "sulphur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Bitumen Pen 80/100",
+          "density_kg_per_m3": 1025.0,
+          "penetration_dmm": 90.0,
+          "softening_point_c": 45.0,
+          "sulphur_pct": 3.8
+        }
+      }
+    },
+    {
+      "id": "BitumenAssay.pg_64_22",
+      "source": {
+        "citation": "Commodex legacy benchmark BitumenAssay.pg_64_22",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "density_kg_per_m3": "kg/m^3",
+        "penetration_dmm": null,
+        "softening_point_c": null,
+        "sulphur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Asphalt PG 64-22",
+          "density_kg_per_m3": 1032.0,
+          "penetration_dmm": 60.0,
+          "softening_point_c": 50.0,
+          "sulphur_pct": 4.2
+        }
+      }
+    },
+    {
+      "id": "BitumenAssay.oxidised_roofing",
+      "source": {
+        "citation": "Commodex legacy benchmark BitumenAssay.oxidised_roofing",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "density_kg_per_m3": "kg/m^3",
+        "penetration_dmm": null,
+        "softening_point_c": null,
+        "sulphur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Oxidised Bitumen (95/25)",
+          "density_kg_per_m3": 1045.0,
+          "penetration_dmm": 25.0,
+          "softening_point_c": 95.0,
+          "sulphur_pct": 4.5
+        }
+      }
+    },
+    {
+      "id": "HydrogenAssay.gaseous_h2_ntp",
+      "source": {
+        "citation": "Commodex legacy benchmark HydrogenAssay.gaseous_h2_ntp",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "state": null,
+        "density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Gaseous H2 (NTP, 0°C / 1 atm)",
+          "state": "gas",
+          "density_kg_per_m3": 0.08988
+        }
+      }
+    },
+    {
+      "id": "HydrogenAssay.compressed_h2_350bar",
+      "source": {
+        "citation": "Commodex legacy benchmark HydrogenAssay.compressed_h2_350bar",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "state": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "reference_pressure_bar": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Compressed H2 (350 bar)",
+          "state": "gas",
+          "density_kg_per_m3": 23.7,
+          "reference_temp_c": 15.0,
+          "reference_pressure_bar": 350.0
+        }
+      }
+    },
+    {
+      "id": "HydrogenAssay.compressed_h2_700bar",
+      "source": {
+        "citation": "Commodex legacy benchmark HydrogenAssay.compressed_h2_700bar",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "state": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "reference_pressure_bar": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Compressed H2 (700 bar)",
+          "state": "gas",
+          "density_kg_per_m3": 39.7,
+          "reference_temp_c": 15.0,
+          "reference_pressure_bar": 700.0
+        }
+      }
+    },
+    {
+      "id": "HydrogenAssay.liquid_h2",
+      "source": {
+        "citation": "Commodex legacy benchmark HydrogenAssay.liquid_h2",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "state": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "reference_pressure_bar": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Liquid Hydrogen (LH2)",
+          "state": "liquid",
+          "density_kg_per_m3": 70.85,
+          "reference_temp_c": -252.87,
+          "reference_pressure_bar": 1.01325
+        }
+      }
+    },
+    {
+      "id": "HydrogenAssay.ammonia_carrier",
+      "source": {
+        "citation": "Commodex legacy benchmark HydrogenAssay.ammonia_carrier",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "state": null,
+        "density_kg_per_m3": "kg/m^3",
+        "h2_mass_fraction": "dimensionless",
+        "reference_temp_c": "degC",
+        "reference_pressure_bar": null,
+        "default_cracking_efficiency": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Ammonia H2 Carrier (Liquid NH3)",
+          "state": "carrier",
+          "density_kg_per_m3": 682.0,
+          "h2_mass_fraction": 0.17755,
+          "reference_temp_c": -33.3,
+          "reference_pressure_bar": 1.01325,
+          "default_cracking_efficiency": 0.85
+        }
+      }
+    },
+    {
+      "id": "HydrogenAssay.lohc_dbt",
+      "source": {
+        "citation": "Commodex legacy benchmark HydrogenAssay.lohc_dbt",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "state": null,
+        "density_kg_per_m3": "kg/m^3",
+        "h2_mass_fraction": "dimensionless",
+        "reference_temp_c": "degC",
+        "reference_pressure_bar": null,
+        "default_cracking_efficiency": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "LOHC (H18-Dibenzyltoluene)",
+          "state": "carrier",
+          "density_kg_per_m3": 910.0,
+          "h2_mass_fraction": 0.062,
+          "reference_temp_c": 15.0,
+          "reference_pressure_bar": 1.01325,
+          "default_cracking_efficiency": 0.9
+        }
+      }
+    },
+    {
+      "id": "HydrogenAssay.green_h2_rfnbo",
+      "source": {
+        "citation": "Commodex legacy benchmark HydrogenAssay.green_h2_rfnbo",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "state": null,
+        "density_kg_per_m3": "kg/m^3",
+        "carbon_intensity_kg_co2e_per_kg_h2": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Green H2 (Low-CI Reference)",
+          "state": "gas",
+          "density_kg_per_m3": 0.08988,
+          "carbon_intensity_kg_co2e_per_kg_h2": 0.4
+        }
+      }
+    },
+    {
+      "id": "HydrogenAssay.blue_h2_atr",
+      "source": {
+        "citation": "Commodex legacy benchmark HydrogenAssay.blue_h2_atr",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "state": null,
+        "density_kg_per_m3": "kg/m^3",
+        "carbon_intensity_kg_co2e_per_kg_h2": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Blue H2 (ATR + CCS)",
+          "state": "gas",
+          "density_kg_per_m3": 0.08988,
+          "carbon_intensity_kg_co2e_per_kg_h2": 2.0
+        }
+      }
+    }
+  ]
+}

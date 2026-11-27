@@ -1,0 +1,1134 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "PetrochemAssay.ethylene",
+      "source": {
+        "citation": "Commodex legacy benchmark PetrochemAssay.ethylene",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "purity_pct": "percent",
+        "freezing_point_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Ethylene (C2H4)",
+          "formula": "C2H4",
+          "molecular_weight_g_per_mol": 28.054,
+          "density_kg_per_m3": 568.0,
+          "reference_temp_c": -103.7,
+          "purity_pct": 99.9,
+          "freezing_point_c": -169.2
+        }
+      }
+    },
+    {
+      "id": "PetrochemAssay.propylene_pgp",
+      "source": {
+        "citation": "Commodex legacy benchmark PetrochemAssay.propylene_pgp",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "purity_pct": "percent",
+        "thermal_expansion_coeff_per_c": null,
+        "freezing_point_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Propylene (PGP, 99.5%)",
+          "formula": "C3H6",
+          "molecular_weight_g_per_mol": 42.081,
+          "density_kg_per_m3": 522.0,
+          "reference_temp_c": 15.0,
+          "purity_pct": 99.5,
+          "thermal_expansion_coeff_per_c": 0.0029,
+          "freezing_point_c": -185.2
+        }
+      }
+    },
+    {
+      "id": "PetrochemAssay.benzene",
+      "source": {
+        "citation": "Commodex legacy benchmark PetrochemAssay.benzene",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "purity_pct": "percent",
+        "thermal_expansion_coeff_per_c": null,
+        "freezing_point_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Benzene (C6H6)",
+          "formula": "C6H6",
+          "molecular_weight_g_per_mol": 78.114,
+          "density_kg_per_m3": 884.2,
+          "reference_temp_c": 15.0,
+          "purity_pct": 99.85,
+          "thermal_expansion_coeff_per_c": 0.00124,
+          "freezing_point_c": 5.53
+        }
+      }
+    },
+    {
+      "id": "PetrochemAssay.toluene",
+      "source": {
+        "citation": "Commodex legacy benchmark PetrochemAssay.toluene",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "purity_pct": "percent",
+        "thermal_expansion_coeff_per_c": null,
+        "freezing_point_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Toluene (C7H8)",
+          "formula": "C7H8",
+          "molecular_weight_g_per_mol": 92.141,
+          "density_kg_per_m3": 871.5,
+          "reference_temp_c": 15.0,
+          "purity_pct": 99.5,
+          "thermal_expansion_coeff_per_c": 0.00107,
+          "freezing_point_c": -95.0
+        }
+      }
+    },
+    {
+      "id": "PetrochemAssay.paraxylene",
+      "source": {
+        "citation": "Commodex legacy benchmark PetrochemAssay.paraxylene",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "purity_pct": "percent",
+        "thermal_expansion_coeff_per_c": null,
+        "freezing_point_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Paraxylene (PX)",
+          "formula": "C8H10",
+          "molecular_weight_g_per_mol": 106.167,
+          "density_kg_per_m3": 865.2,
+          "reference_temp_c": 15.0,
+          "purity_pct": 99.7,
+          "thermal_expansion_coeff_per_c": 0.00101,
+          "freezing_point_c": 13.26
+        }
+      }
+    },
+    {
+      "id": "PetrochemAssay.styrene_monomer",
+      "source": {
+        "citation": "Commodex legacy benchmark PetrochemAssay.styrene_monomer",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "purity_pct": "percent",
+        "thermal_expansion_coeff_per_c": null,
+        "freezing_point_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Styrene Monomer (SM)",
+          "formula": "C8H8",
+          "molecular_weight_g_per_mol": 104.152,
+          "density_kg_per_m3": 910.2,
+          "reference_temp_c": 15.0,
+          "purity_pct": 99.8,
+          "thermal_expansion_coeff_per_c": 0.00097,
+          "freezing_point_c": -30.6
+        }
+      }
+    },
+    {
+      "id": "PetrochemAssay.meg",
+      "source": {
+        "citation": "Commodex legacy benchmark PetrochemAssay.meg",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "purity_pct": "percent",
+        "thermal_expansion_coeff_per_c": null,
+        "freezing_point_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Monoethylene Glycol (MEG)",
+          "formula": "C2H6O2",
+          "molecular_weight_g_per_mol": 62.068,
+          "density_kg_per_m3": 1117.0,
+          "reference_temp_c": 15.0,
+          "purity_pct": 99.8,
+          "thermal_expansion_coeff_per_c": 0.00065,
+          "freezing_point_c": -12.9
+        }
+      }
+    },
+    {
+      "id": "PetrochemAssay.mixed_xylenes",
+      "source": {
+        "citation": "Commodex legacy benchmark PetrochemAssay.mixed_xylenes",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "purity_pct": "percent",
+        "thermal_expansion_coeff_per_c": null,
+        "freezing_point_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Mixed Xylenes (MX)",
+          "formula": "C8H10",
+          "molecular_weight_g_per_mol": 106.167,
+          "density_kg_per_m3": 870.0,
+          "reference_temp_c": 15.0,
+          "purity_pct": 99.0,
+          "thermal_expansion_coeff_per_c": 0.00099,
+          "freezing_point_c": -47.4
+        }
+      }
+    },
+    {
+      "id": "PetrochemAssay.butadiene",
+      "source": {
+        "citation": "Commodex legacy benchmark PetrochemAssay.butadiene",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "purity_pct": "percent",
+        "thermal_expansion_coeff_per_c": null,
+        "freezing_point_c": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "1,3-Butadiene (C4H6)",
+          "formula": "C4H6",
+          "molecular_weight_g_per_mol": 54.091,
+          "density_kg_per_m3": 627.0,
+          "reference_temp_c": 15.0,
+          "purity_pct": 99.5,
+          "thermal_expansion_coeff_per_c": 0.0018,
+          "freezing_point_c": -108.9
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.urea_granular",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.urea_granular",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "n_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Granular Urea (46-0-0)",
+          "n_pct": 46.0,
+          "density_kg_per_m3": 750.0,
+          "is_liquid": false
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.uan_32",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.uan_32",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "n_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "UAN 32% Solution",
+          "n_pct": 32.0,
+          "density_kg_per_m3": 1325.0,
+          "is_liquid": true
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.uan_28",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.uan_28",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "n_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "UAN 28% Solution",
+          "n_pct": 28.0,
+          "density_kg_per_m3": 1280.0,
+          "is_liquid": true
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.dap",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.dap",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "n_pct": "percent",
+        "p2o5_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "DAP (18-46-0)",
+          "n_pct": 18.0,
+          "p2o5_pct": 46.0,
+          "density_kg_per_m3": 960.0,
+          "is_liquid": false
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.map_fertilizer",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.map_fertilizer",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "n_pct": "percent",
+        "p2o5_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "MAP (11-52-0)",
+          "n_pct": 11.0,
+          "p2o5_pct": 52.0,
+          "density_kg_per_m3": 980.0,
+          "is_liquid": false
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.potash_mop",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.potash_mop",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "k2o_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Potash MOP (0-0-60)",
+          "k2o_pct": 60.0,
+          "density_kg_per_m3": 1050.0,
+          "is_liquid": false
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.ammonium_sulphate",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.ammonium_sulphate",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "n_pct": "percent",
+        "s_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Ammonium Sulphate (21-0-0-24S)",
+          "n_pct": 21.0,
+          "s_pct": 24.0,
+          "density_kg_per_m3": 960.0,
+          "is_liquid": false
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.anhydrous_ammonia",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.anhydrous_ammonia",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "n_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Anhydrous Ammonia (82-0-0)",
+          "n_pct": 82.0,
+          "density_kg_per_m3": 682.0,
+          "is_liquid": true
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.tsp",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.tsp",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "p2o5_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "TSP (0-46-0)",
+          "p2o5_pct": 46.0,
+          "density_kg_per_m3": 1040.0,
+          "is_liquid": false
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.can_27",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.can_27",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "n_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "CAN (27-0-0)",
+          "n_pct": 27.0,
+          "density_kg_per_m3": 1000.0,
+          "is_liquid": false
+        }
+      }
+    },
+    {
+      "id": "FertilizerAssay.potash_sop",
+      "source": {
+        "citation": "Commodex legacy benchmark FertilizerAssay.potash_sop",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "k2o_pct": "percent",
+        "s_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Potash SOP (0-0-50-18S)",
+          "k2o_pct": 50.0,
+          "s_pct": 18.0,
+          "density_kg_per_m3": 1250.0,
+          "is_liquid": false
+        }
+      }
+    },
+    {
+      "id": "ChemicalAssay.caustic_soda_50pct",
+      "source": {
+        "citation": "Commodex legacy benchmark ChemicalAssay.caustic_soda_50pct",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "concentration_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Caustic Soda Liquid (50% NaOH)",
+          "formula": "NaOH",
+          "molecular_weight_g_per_mol": 39.997,
+          "concentration_pct": 50.0,
+          "density_kg_per_m3": 1525.0,
+          "reference_temp_c": 20.0,
+          "is_liquid": true
+        }
+      }
+    },
+    {
+      "id": "ChemicalAssay.caustic_soda_flakes",
+      "source": {
+        "citation": "Commodex legacy benchmark ChemicalAssay.caustic_soda_flakes",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "concentration_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Caustic Soda Flakes (99% NaOH)",
+          "formula": "NaOH",
+          "molecular_weight_g_per_mol": 39.997,
+          "concentration_pct": 99.0,
+          "density_kg_per_m3": 1050.0,
+          "reference_temp_c": 20.0,
+          "is_liquid": false
+        }
+      }
+    },
+    {
+      "id": "ChemicalAssay.sulphuric_acid_98pct",
+      "source": {
+        "citation": "Commodex legacy benchmark ChemicalAssay.sulphuric_acid_98pct",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "concentration_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Sulphuric Acid (98% H2SO4)",
+          "formula": "H2SO4",
+          "molecular_weight_g_per_mol": 98.079,
+          "concentration_pct": 98.0,
+          "density_kg_per_m3": 1836.0,
+          "reference_temp_c": 15.0,
+          "is_liquid": true
+        }
+      }
+    },
+    {
+      "id": "ChemicalAssay.sulphuric_acid_66be",
+      "source": {
+        "citation": "Commodex legacy benchmark ChemicalAssay.sulphuric_acid_66be",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "concentration_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Sulphuric Acid (66°Bé / 93.2% H2SO4)",
+          "formula": "H2SO4",
+          "molecular_weight_g_per_mol": 98.079,
+          "concentration_pct": 93.19,
+          "density_kg_per_m3": 1834.0,
+          "reference_temp_c": 15.0,
+          "is_liquid": true
+        }
+      }
+    },
+    {
+      "id": "ChemicalAssay.hydrochloric_acid_32pct",
+      "source": {
+        "citation": "Commodex legacy benchmark ChemicalAssay.hydrochloric_acid_32pct",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "concentration_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Hydrochloric Acid (32% HCl)",
+          "formula": "HCl",
+          "molecular_weight_g_per_mol": 36.461,
+          "concentration_pct": 32.0,
+          "density_kg_per_m3": 1160.0,
+          "reference_temp_c": 15.0,
+          "is_liquid": true
+        }
+      }
+    },
+    {
+      "id": "ChemicalAssay.methanol",
+      "source": {
+        "citation": "Commodex legacy benchmark ChemicalAssay.methanol",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "concentration_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Methanol (IMPCA 99.85%)",
+          "formula": "CH3OH",
+          "molecular_weight_g_per_mol": 32.042,
+          "concentration_pct": 99.85,
+          "density_kg_per_m3": 796.0,
+          "reference_temp_c": 15.0,
+          "is_liquid": true
+        }
+      }
+    },
+    {
+      "id": "ChemicalAssay.soda_ash_dense",
+      "source": {
+        "citation": "Commodex legacy benchmark ChemicalAssay.soda_ash_dense",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "concentration_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Dense Soda Ash (Na2CO3)",
+          "formula": "Na2CO3",
+          "molecular_weight_g_per_mol": 105.988,
+          "concentration_pct": 99.2,
+          "density_kg_per_m3": 1050.0,
+          "reference_temp_c": 20.0,
+          "is_liquid": false
+        }
+      }
+    },
+    {
+      "id": "ChemicalAssay.molten_sulphur",
+      "source": {
+        "citation": "Commodex legacy benchmark ChemicalAssay.molten_sulphur",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "concentration_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Molten Sulphur (99.5% S)",
+          "formula": "S",
+          "molecular_weight_g_per_mol": 32.06,
+          "concentration_pct": 99.5,
+          "density_kg_per_m3": 1790.0,
+          "reference_temp_c": 135.0,
+          "is_liquid": true
+        }
+      }
+    },
+    {
+      "id": "ChemicalAssay.hydrogen_peroxide_50pct",
+      "source": {
+        "citation": "Commodex legacy benchmark ChemicalAssay.hydrogen_peroxide_50pct",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "concentration_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Hydrogen Peroxide (50% H2O2)",
+          "formula": "H2O2",
+          "molecular_weight_g_per_mol": 34.015,
+          "concentration_pct": 50.0,
+          "density_kg_per_m3": 1196.0,
+          "reference_temp_c": 20.0,
+          "is_liquid": true
+        }
+      }
+    },
+    {
+      "id": "ChemicalAssay.liquid_chlorine",
+      "source": {
+        "citation": "Commodex legacy benchmark ChemicalAssay.liquid_chlorine",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "formula": null,
+        "molecular_weight_g_per_mol": null,
+        "concentration_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "is_liquid": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Liquid Chlorine (Cl2)",
+          "formula": "Cl2",
+          "molecular_weight_g_per_mol": 70.906,
+          "concentration_pct": 99.5,
+          "density_kg_per_m3": 1468.0,
+          "reference_temp_c": 0.0,
+          "is_liquid": true
+        }
+      }
+    }
+  ]
+}

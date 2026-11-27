@@ -146,7 +146,7 @@ class ReleaseSafetyTests(unittest.TestCase):
                 raise RuntimeError("Test writer timed out")
             raise ValueError("Simulated late configuration failure")
         def writer():
-            with patch.object(config, "register_commodity_unit", staged_register):
+            with patch.object(registry, "register_commodity_unit", staged_register):
                 with self.assertRaisesRegex(ValueError, "Simulated"):
                     units.load_desk_config({"commodities": [{"definition": "uncommitted_parcel = 5 * kilogram"}]})
         def reader():

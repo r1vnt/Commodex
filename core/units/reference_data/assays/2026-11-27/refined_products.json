@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "CrudeAssay.rbob_gasoline",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.rbob_gasoline",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "product_group": null,
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "RBOB Gasoline"
+        ],
+        "kwargs": {
+          "api_gravity": 60.0,
+          "product_group": "gasoline",
+          "sulfur_percentage": 0.001
+        }
+      }
+    },
+    {
+      "id": "CrudeAssay.ulsd_diesel",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.ulsd_diesel",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "product_group": null,
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "ULSD Diesel"
+        ],
+        "kwargs": {
+          "api_gravity": 36.5,
+          "product_group": "distillate",
+          "sulfur_percentage": 0.001
+        }
+      }
+    },
+    {
+      "id": "CrudeAssay.jet_a1",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.jet_a1",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "product_group": null,
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Jet A-1"
+        ],
+        "kwargs": {
+          "api_gravity": 43.5,
+          "product_group": "distillate",
+          "sulfur_percentage": 0.05
+        }
+      }
+    },
+    {
+      "id": "CrudeAssay.vlsfo_bunker",
+      "source": {
+        "citation": "Commodex legacy benchmark CrudeAssay.vlsfo_bunker",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "api_gravity": "degree_API",
+        "product_group": null,
+        "sulfur_percentage": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "VLSFO 0.5%"
+        ],
+        "kwargs": {
+          "api_gravity": 18.5,
+          "product_group": "crude",
+          "sulfur_percentage": 0.5
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "files": {
+    "assays/crude_oil.json": "0d6af36c0ba23c63de4291c6d76e557975394b74803e9685935f66b21a2e5afa",
+    "assays/refined_products.json": "0169d31d03fb8a56ef01a214bf506f444a9c615c0ce290b92e05d26fcee4bbd5",
+    "assays/natural_gas.json": "5d4749329e0ae6ff1020f8a1b370dcec9ffcff9f4ba6a9f5917acf9764fae42d",
+    "assays/coal.json": "69b8d31e63697fb1c4f4d50aad0bff7bb699c609522be61089aa8072ca63733e",
+    "assays/alternative_fuels.json": "5b0fd9e39959cddeda2bfe62b215c58400a5dc561a65f4fd57aaf251e2fd9ea1",
+    "assays/metals.json": "506d89e5ccd581ccd7e7ff130b5b33611647a211baac3e1dc80a1e9c61677174",
+    "assays/chemicals.json": "a0a426ae2a2e127112e92a0a094c73c1be4caa5f5f73e20d882c9540d617c17a",
+    "assays/agriculture.json": "57b24a3aed4c47e5d9d47eb7440bbbff621d4914efedbfa63ded787d464ef418",
+    "units/registry_units.json": "1eefcbaab2f755a07dcbc0d6b6f2dc3ddd9ff334cf40dda5baa38e2c0b34efa8",
+    "units/gas_standards.json": "71990198e4fb76053556f9daf5796e54ff50e838cfd3d3031c9b304d034761f9",
+    "standards/metrology.json": "770bf07e04ff09b2a8e9a1a6f8a67f0804c0b3fce8bed4c840cf41a9a5fcabdf",
+    "standards/petroleum.json": "053224ceaddbf861cef8573147ab4f2854483176a04971bc414e2c80a7a09fb8",
+    "standards/natural_gas.json": "57a4642dfbbba1ab3b4098ac73acf5ff75b3b7cebbfeeab7a7ca6b0690d4410f",
+    "standards/agriculture.json": "591795711e109e42ab16b3de17cab515f36b361b589075aab51abdd090f5d961",
+    "standards/metals.json": "746b2ac94f935362e1004ca04a992e7a4fcd87dae7933eddf5d038124e8959f4"
+  }
+}

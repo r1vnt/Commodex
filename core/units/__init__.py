@@ -1,27 +1,63 @@
-"""Public unit registry, conversion, assay and desk-configuration APIs.
+"""Commodex unit, conversion and assay public APIs."""
+from importlib import import_module as _import_module
+import sys as _sys
+import types as _types
+import json as _json
+from pathlib import Path as _Path
 
-CleanFuelAssay is the lightweight multi-carrier thermodynamic benchmark.
-HydrogenAssay is the detailed H2/storage/carrier specification with recovery,
-electrolyser demand and 45V/RFNBO screening. Choose the latter when those
-fields matter; matching carrier names do not imply matching assay semantics.
-Crude/products require explicit calorific data for heat-content conversions.
+class _CompatibilityModule(_types.ModuleType):
+    def __getattribute__(self, name):
+        bindings = super().__getattribute__("__dict__").get("_bindings", {})
+        if name in bindings:
+            module, symbol = bindings[name]
+            return getattr(_import_module("core.units." + module), symbol)
+        return super().__getattribute__(name)
+    def __getattr__(self, name):
+        try:
+            module, symbol = self._bindings[name]
+        except KeyError:
+            raise AttributeError(name) from None
+        return getattr(_import_module("core.units." + module), symbol)
+    def __setattr__(self, name, value):
+        bindings = self.__dict__.get("_bindings", {})
+        if name in bindings:
+            module, symbol = bindings[name]
+            setattr(_import_module("core.units." + module), symbol, value)
+        else:
+            super().__setattr__(name, value)
+    def __delattr__(self, name):
+        if name in self._bindings:
+            module, symbol = self._bindings[name]
+            delattr(_import_module("core.units." + module), symbol)
+        else:
+            super().__delattr__(name)
 
-Pressure datum shifts use convert()/convert_pressure(), not raw Pint .to().
-"""
-
-from .currencies import *
-from .currencies import __all__ as _currency_exports
-from .registry import *
-from .registry import __all__ as _registry_exports
-from .conversions import *
-from .conversions import __all__ as _conversion_exports
-from .agricultural_specs import *
-from .agricultural_specs import __all__ as _agricultural_exports
-from .heat_content import *
-from .heat_content import __all__ as _heat_exports
-from .config import load_desk_config
-from .config import __all__ as _config_exports
-
-__all__ = tuple(dict.fromkeys(
-    _currency_exports + _registry_exports + _conversion_exports + _agricultural_exports + _heat_exports + _config_exports
-))
+_LAYOUT = _json.loads((_Path(__file__).with_name("reference_data") / "aliases/python_imports.json").read_text(encoding="utf-8"))
+_COMPATIBILITY = _LAYOUT["compatibility"]
+_ORIGINAL_EXPORTS = _LAYOUT["original_exports"]
+for _old, _bindings in _COMPATIBILITY.items():
+    _module = _CompatibilityModule(__name__ + "." + _old)
+    _module._bindings = _bindings
+    _module.__all__ = tuple(_ORIGINAL_EXPORTS.get(_old, ()))
+    if _old == "converters":
+        _module.__path__ = []
+    _sys.modules[_module.__name__] = _module
+    if "." not in _old:
+        globals()[_old] = _module
+_MODULES = _LAYOUT["modules"]
+for _name in _MODULES:
+    _import_module(__name__ + "." + _name)
+_EXPORTS = _LAYOUT["exports"]
+for _name, (_owner, _symbol) in _EXPORTS.items():
+    globals()[_name] = getattr(_import_module(__name__ + "." + _owner), _symbol)
+__all__ = tuple(_EXPORTS)
+for _old, _bindings in _COMPATIBILITY.items():
+    _module = _sys.modules[__name__ + "." + _old]
+    for _name, (_owner, _symbol) in _bindings.items():
+        _module.__dict__[_name] = getattr(_import_module(__name__ + "." + _owner), _symbol)
+_AGGREGATES = _LAYOUT["aggregates"]
+for _old, _bindings in _AGGREGATES.items():
+    _module = _import_module(__name__ + "." + _old)
+    for _name, (_owner, _symbol) in _bindings.items():
+        if _name not in vars(_module):
+            setattr(_module, _name, getattr(_import_module(__name__ + "." + _owner), _symbol))

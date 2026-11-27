@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-25",
+  "source": "NIST Chemistry WebBook SRD 69; conventional molecular weights, not sample isotopic measurements",
+  "components": {
+    "CH4": {
+      "molar_mass_g_mol": "16.0425",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74828&Units=SI"
+    },
+    "C2H6": {
+      "molar_mass_g_mol": "30.0690",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74840&Units=SI"
+    },
+    "C3H8": {
+      "molar_mass_g_mol": "44.0956",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74986&Units=SI"
+    },
+    "iC4H10": {
+      "molar_mass_g_mol": "58.1222",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C75285&Units=SI"
+    },
+    "nC4H10": {
+      "molar_mass_g_mol": "58.1222",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C106978&Units=SI"
+    },
+    "iC5H12": {
+      "molar_mass_g_mol": "72.1488",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C78784&Units=SI"
+    },
+    "nC5H12": {
+      "molar_mass_g_mol": "72.1488",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C109660&Units=SI"
+    },
+    "C6H14": {
+      "molar_mass_g_mol": "86.1754",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C110543&Units=SI"
+    },
+    "C7H16": {
+      "molar_mass_g_mol": "100.2019",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C142825&Units=SI"
+    },
+    "C8H18": {
+      "molar_mass_g_mol": "114.2285",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C111659&Units=SI"
+    },
+    "C9H20": {
+      "molar_mass_g_mol": "128.2551",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C111842&Units=SI"
+    },
+    "C10H22": {
+      "molar_mass_g_mol": "142.2817",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C124185&Units=SI"
+    },
+    "H2": {
+      "molar_mass_g_mol": "2.01588",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C1333740&Units=SI"
+    },
+    "N2": {
+      "molar_mass_g_mol": "28.0134",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7727379&Units=SI"
+    },
+    "O2": {
+      "molar_mass_g_mol": "31.9988",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7782447&Units=SI"
+    },
+    "CO": {
+      "molar_mass_g_mol": "28.0101",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C630080&Units=SI"
+    },
+    "CO2": {
+      "molar_mass_g_mol": "44.0095",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C124389&Units=SI"
+    },
+    "H2O": {
+      "molar_mass_g_mol": "18.0153",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI"
+    },
+    "H2S": {
+      "molar_mass_g_mol": "34.081",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7783064&Units=SI"
+    },
+    "He": {
+      "molar_mass_g_mol": "4.002602",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7440597&Units=SI"
+    },
+    "Ar": {
+      "molar_mass_g_mol": "39.948",
+      "source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7440371&Units=SI"
+    }
+  }
+}

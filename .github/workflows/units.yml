@@ -1,0 +1,63 @@
+name: Commodity units
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+
+jobs:
+  supported-platforms:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.12', '3.13', '3.14']
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install ".[dev]" tzdata
+      - run: python -B -m pytest -q --test-order-seed=991
+
+  dependency-boundaries:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pint: ['0.25.3', '0.26', '0.26.1', '0.26.2']
+        numpy: ['2.0.2', 'latest']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - run: python -m pip install ".[dev]" "pint==${{ matrix.pint }}" tzdata
+      - if: matrix.numpy == 'latest'
+        run: python -m pip install "numpy>=2,<3"
+      - if: matrix.numpy != 'latest'
+        run: python -m pip install "numpy==${{ matrix.numpy }}"
+      - run: python -B -m pytest -q
+
+  optional-integrations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - run: python -m pip install ".[all]"
+      - run: python -B -m pytest -q --test-order-seed=1729 --cov=core.units --cov-branch --cov-report=json:artifacts/unit-coverage.json --cov-fail-under=79 --junitxml=artifacts/unit-results.xml
+      - run: >-
+          python -c "import json; t=json.load(open('artifacts/unit-coverage.json'))['totals']; assert 100*t['covered_lines']/t['num_statements'] >= 83; assert 100*t['covered_branches']/t['num_branches'] >= 67"
+      - run: python -B -m pytest -q tests/core/units/test_packaging.py --run-release-install
+
+  extended-gates:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - run: python -m pip install ".[all]"
+      - run: python -B -m pytest -q tests/core/units/test_mutation.py tests/core/units/test_performance.py tests/core/units/test_quality_gates.py --run-mutation --run-performance --run-network-audit --benchmark-json=artifacts/benchmarks.json

@@ -1,0 +1,1728 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "SoftsAssay.raw_sugar_no11",
+      "source": {
+        "citation": "Commodex legacy benchmark SoftsAssay.raw_sugar_no11",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "commodity": null,
+        "processing_yield_pct": "percent",
+        "reference_polarisation_deg": null,
+        "actual_polarisation_deg": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Raw Sugar (ICE No. 11, 96° Pol)",
+          "commodity": "sugar",
+          "processing_yield_pct": 92.5,
+          "reference_polarisation_deg": 96.0,
+          "actual_polarisation_deg": 96.0,
+          "bulk_density_kg_per_m3": 850.0
+        }
+      }
+    },
+    {
+      "id": "SoftsAssay.green_coffee_60kg_bag",
+      "source": {
+        "citation": "Commodex legacy benchmark SoftsAssay.green_coffee_60kg_bag",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "commodity": null,
+        "bag_or_bale_kg": null,
+        "processing_yield_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Green Coffee Beans (60 kg Bag)",
+          "commodity": "coffee",
+          "bag_or_bale_kg": 60.0,
+          "processing_yield_pct": 82.0,
+          "bulk_density_kg_per_m3": 650.0
+        }
+      }
+    },
+    {
+      "id": "SoftsAssay.cocoa_beans_62_5kg_bag",
+      "source": {
+        "citation": "Commodex legacy benchmark SoftsAssay.cocoa_beans_62_5kg_bag",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "commodity": null,
+        "bag_or_bale_kg": null,
+        "processing_yield_pct": "percent",
+        "secondary_yield_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Cocoa Beans (62.5 kg Bag)",
+          "commodity": "cocoa",
+          "bag_or_bale_kg": 62.5,
+          "processing_yield_pct": 45.0,
+          "secondary_yield_pct": 40.0,
+          "bulk_density_kg_per_m3": 620.0
+        }
+      }
+    },
+    {
+      "id": "SoftsAssay.us_cotton_480lb_bale",
+      "source": {
+        "citation": "Commodex legacy benchmark SoftsAssay.us_cotton_480lb_bale",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "commodity": null,
+        "bag_or_bale_kg": null,
+        "processing_yield_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "US Cotton (480 lb Bale)",
+          "commodity": "cotton",
+          "bag_or_bale_kg": 217.7243376,
+          "processing_yield_pct": 100.0
+        }
+      }
+    },
+    {
+      "id": "SoftsAssay.indian_cotton_170kg_bale",
+      "source": {
+        "citation": "Commodex legacy benchmark SoftsAssay.indian_cotton_170kg_bale",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "commodity": null,
+        "bag_or_bale_kg": null,
+        "processing_yield_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Indian Cotton (170 kg Bale)",
+          "commodity": "cotton",
+          "bag_or_bale_kg": 170.0,
+          "processing_yield_pct": 100.0
+        }
+      }
+    },
+    {
+      "id": "OilseedCrushAssay.soybeans_cb_60lb",
+      "source": {
+        "citation": "Commodex legacy benchmark OilseedCrushAssay.soybeans_cb_60lb",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "seed": null,
+        "bushel_weight_lb": "lb",
+        "oil_yield_pct": "percent",
+        "meal_yield_pct": "percent",
+        "oil_density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "bulk_seed_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "US Soybeans (60 lb/bu, ~18.3% Oil / ~73.3% Meal)",
+          "seed": "soybean",
+          "bushel_weight_lb": 60.0,
+          "oil_yield_pct": 18.333333333333332,
+          "meal_yield_pct": 73.33333333333333,
+          "oil_density_kg_per_m3": 920.0,
+          "reference_temp_c": 25.0,
+          "bulk_seed_density_kg_per_m3": 770.0
+        }
+      }
+    },
+    {
+      "id": "OilseedCrushAssay.canola_50lb",
+      "source": {
+        "citation": "Commodex legacy benchmark OilseedCrushAssay.canola_50lb",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "seed": null,
+        "bushel_weight_lb": "lb",
+        "oil_yield_pct": "percent",
+        "meal_yield_pct": "percent",
+        "oil_density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "bulk_seed_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Canola / Rapeseed (50 lb/bu, ~42% Oil / ~54% Meal)",
+          "seed": "canola",
+          "bushel_weight_lb": 50.0,
+          "oil_yield_pct": 42.0,
+          "meal_yield_pct": 54.0,
+          "oil_density_kg_per_m3": 915.0,
+          "reference_temp_c": 25.0,
+          "bulk_seed_density_kg_per_m3": 670.0
+        }
+      }
+    },
+    {
+      "id": "OilseedCrushAssay.crude_palm_oil_cpo",
+      "source": {
+        "citation": "Commodex legacy benchmark OilseedCrushAssay.crude_palm_oil_cpo",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "seed": null,
+        "bushel_weight_lb": "lb",
+        "oil_yield_pct": "percent",
+        "meal_yield_pct": "percent",
+        "oil_density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC",
+        "bulk_seed_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Crude Palm Oil (CPO, 50°C Reference)",
+          "seed": "palm",
+          "bushel_weight_lb": 50.0,
+          "oil_yield_pct": 100.0,
+          "meal_yield_pct": 0.0,
+          "oil_density_kg_per_m3": 890.0,
+          "reference_temp_c": 50.0,
+          "bulk_seed_density_kg_per_m3": 890.0
+        }
+      }
+    },
+    {
+      "id": "LivestockDairyAssay.live_cattle_standard",
+      "source": {
+        "citation": "Commodex legacy benchmark LivestockDairyAssay.live_cattle_standard",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "category": null,
+        "dressing_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Live Cattle (62% Dressing)",
+          "category": "cattle",
+          "dressing_pct": 62.0
+        }
+      }
+    },
+    {
+      "id": "LivestockDairyAssay.live_hogs_standard",
+      "source": {
+        "citation": "Commodex legacy benchmark LivestockDairyAssay.live_hogs_standard",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "category": null,
+        "dressing_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Lean / Live Hogs (74% Dressing)",
+          "category": "hogs",
+          "dressing_pct": 74.0
+        }
+      }
+    },
+    {
+      "id": "LivestockDairyAssay.whole_milk_standard",
+      "source": {
+        "citation": "Commodex legacy benchmark LivestockDairyAssay.whole_milk_standard",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "category": null,
+        "fat_pct": "percent",
+        "protein_pct": "percent",
+        "milk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Whole Milk (4.0% Fat / 3.3% Protein)",
+          "category": "milk",
+          "fat_pct": 4.0,
+          "protein_pct": 3.3,
+          "milk_density_kg_per_m3": 1030.0
+        }
+      }
+    },
+    {
+      "id": "SeafoodAssay.anchoveta_reduction",
+      "source": {
+        "citation": "Commodex legacy benchmark SeafoodAssay.anchoveta_reduction",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "species_group": null,
+        "dressed_yield_pct": "percent",
+        "edible_yield_pct": "percent",
+        "oil_yield_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Anchoveta Reduction (Meal 22.5% / Crude Oil 4.5%)",
+          "species_group": "reduction",
+          "dressed_yield_pct": 22.5,
+          "edible_yield_pct": 22.5,
+          "oil_yield_pct": 4.5,
+          "bulk_density_kg_per_m3": 640.0
+        }
+      }
+    },
+    {
+      "id": "PulpLumberAssay.nbsk_softwood_pulp",
+      "source": {
+        "citation": "Commodex legacy benchmark PulpLumberAssay.nbsk_softwood_pulp",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "product_type": null,
+        "moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "unit_package_kg": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "NBSK Softwood Kraft Pulp (ADMT)",
+          "product_type": "pulp",
+          "moisture_pct": 10.0,
+          "bulk_density_kg_per_m3": 750.0,
+          "unit_package_kg": 250.0
+        }
+      }
+    },
+    {
+      "id": "PulpLumberAssay.bek_hardwood_pulp",
+      "source": {
+        "citation": "Commodex legacy benchmark PulpLumberAssay.bek_hardwood_pulp",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "product_type": null,
+        "moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "unit_package_kg": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "BEK Hardwood Kraft Pulp (ADMT)",
+          "product_type": "pulp",
+          "moisture_pct": 10.0,
+          "bulk_density_kg_per_m3": 780.0,
+          "unit_package_kg": 250.0
+        }
+      }
+    },
+    {
+      "id": "RubberAssay.tsr20_standard",
+      "source": {
+        "citation": "Commodex legacy benchmark RubberAssay.tsr20_standard",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grade": null,
+        "dry_rubber_content_pct": "percent",
+        "bale_mass_kg": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "TSR20 Natural Rubber (33.33 kg Bale)",
+          "grade": "TSR20",
+          "dry_rubber_content_pct": 100.0,
+          "bale_mass_kg": 33.333333333333336,
+          "bulk_density_kg_per_m3": 920.0
+        }
+      }
+    },
+    {
+      "id": "RubberAssay.field_latex_60drc",
+      "source": {
+        "citation": "Commodex legacy benchmark RubberAssay.field_latex_60drc",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grade": null,
+        "dry_rubber_content_pct": "percent",
+        "bale_mass_kg": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Concentrated Latex (60% DRC)",
+          "grade": "LATEX",
+          "dry_rubber_content_pct": 60.0,
+          "bale_mass_kg": 33.333333333333336,
+          "bulk_density_kg_per_m3": 950.0
+        }
+      }
+    },
+    {
+      "id": "RubberAssay.cup_lump_55drc",
+      "source": {
+        "citation": "Commodex legacy benchmark RubberAssay.cup_lump_55drc",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grade": null,
+        "dry_rubber_content_pct": "percent",
+        "bale_mass_kg": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Cup Lump Coagulum (55% DRC)",
+          "grade": "CUPLUMP",
+          "dry_rubber_content_pct": 55.0,
+          "bale_mass_kg": 33.333333333333336,
+          "bulk_density_kg_per_m3": 780.0
+        }
+      }
+    },
+    {
+      "id": "EthanolFeedstockAssay.us_corn_ethanol",
+      "source": {
+        "citation": "Commodex legacy benchmark EthanolFeedstockAssay.us_corn_ethanol",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "feedstock": null,
+        "bushel_weight_lb": "lb",
+        "ethanol_gal_per_bushel": null,
+        "ddgs_lb_per_bushel": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "US Corn Ethanol (56 lb/bu, 2.85 gal/bu, 17 lb DDGS/bu)",
+          "feedstock": "corn",
+          "bushel_weight_lb": 56.0,
+          "ethanol_gal_per_bushel": 2.85,
+          "ddgs_lb_per_bushel": 17.0
+        }
+      }
+    },
+    {
+      "id": "EthanolFeedstockAssay.wheat_ethanol",
+      "source": {
+        "citation": "Commodex legacy benchmark EthanolFeedstockAssay.wheat_ethanol",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "feedstock": null,
+        "bushel_weight_lb": "lb",
+        "ethanol_gal_per_bushel": null,
+        "ddgs_lb_per_bushel": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Wheat Ethanol (60 lb/bu, 2.70 gal/bu, 18 lb DDGS/bu)",
+          "feedstock": "wheat",
+          "bushel_weight_lb": 60.0,
+          "ethanol_gal_per_bushel": 2.7,
+          "ddgs_lb_per_bushel": 18.0
+        }
+      }
+    },
+    {
+      "id": "RiceAssay.thai_white_5pct_broken",
+      "source": {
+        "citation": "Commodex legacy benchmark RiceAssay.thai_white_5pct_broken",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "variety": null,
+        "milling_yield_pct": "percent",
+        "head_rice_pct": "percent",
+        "brown_rice_yield_pct": "percent",
+        "bag_mass_kg": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Thai White Rice 5% Broken (50 kg Bag)",
+          "variety": "LONG_GRAIN",
+          "milling_yield_pct": 70.0,
+          "head_rice_pct": 95.0,
+          "brown_rice_yield_pct": 79.0,
+          "bag_mass_kg": 50.0,
+          "bulk_density_kg_per_m3": 780.0
+        }
+      }
+    },
+    {
+      "id": "RiceAssay.us_cme_rough_rice",
+      "source": {
+        "citation": "Commodex legacy benchmark RiceAssay.us_cme_rough_rice",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "variety": null,
+        "milling_yield_pct": "percent",
+        "head_rice_pct": "percent",
+        "brown_rice_yield_pct": "percent",
+        "bushel_weight_lb": "lb",
+        "bag_mass_kg": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "US CME Rough Rice (45 lb/bu, 100 lb/cwt)",
+          "variety": "LONG_GRAIN",
+          "milling_yield_pct": 68.0,
+          "head_rice_pct": 82.0,
+          "brown_rice_yield_pct": 77.0,
+          "bushel_weight_lb": 45.0,
+          "bag_mass_kg": 50.0,
+          "bulk_density_kg_per_m3": 580.0
+        }
+      }
+    },
+    {
+      "id": "WoolAssay.australian_merino_19micron",
+      "source": {
+        "citation": "Commodex legacy benchmark WoolAssay.australian_merino_19micron",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "wool_type": null,
+        "clean_yield_pct": "percent",
+        "combing_top_yield_pct": "percent",
+        "micron": null,
+        "bale_mass_kg": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Australian Merino 19 Micron (66% Clean Yield)",
+          "wool_type": "MERINO_FINE",
+          "clean_yield_pct": 66.0,
+          "combing_top_yield_pct": 91.0,
+          "micron": 19.0,
+          "bale_mass_kg": 175.0,
+          "bulk_density_kg_per_m3": 320.0
+        }
+      }
+    },
+    {
+      "id": "WoolAssay.medium_merino_21micron",
+      "source": {
+        "citation": "Commodex legacy benchmark WoolAssay.medium_merino_21micron",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "wool_type": null,
+        "clean_yield_pct": "percent",
+        "combing_top_yield_pct": "percent",
+        "micron": null,
+        "bale_mass_kg": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Merino 21 Micron Benchmark (65% Clean Yield)",
+          "wool_type": "MERINO_MEDIUM",
+          "clean_yield_pct": 65.0,
+          "combing_top_yield_pct": 90.0,
+          "micron": 21.0,
+          "bale_mass_kg": 175.0,
+          "bulk_density_kg_per_m3": 330.0
+        }
+      }
+    },
+    {
+      "id": "WoolAssay.crossbred_28micron",
+      "source": {
+        "citation": "Commodex legacy benchmark WoolAssay.crossbred_28micron",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "wool_type": null,
+        "clean_yield_pct": "percent",
+        "combing_top_yield_pct": "percent",
+        "micron": null,
+        "bale_mass_kg": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Crossbred Wool 28 Micron (72% Clean Yield)",
+          "wool_type": "CROSSBRED",
+          "clean_yield_pct": 72.0,
+          "combing_top_yield_pct": 88.0,
+          "micron": 28.0,
+          "bale_mass_kg": 180.0,
+          "bulk_density_kg_per_m3": 340.0
+        }
+      }
+    },
+    {
+      "id": "PoultryEggAssay.broiler_chicken_standard",
+      "source": {
+        "citation": "Commodex legacy benchmark PoultryEggAssay.broiler_chicken_standard",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "category": null,
+        "rtc_dressing_pct": "percent",
+        "boneless_meat_pct_of_live": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Broiler Chicken (74% RTC / 52% Boneless)",
+          "category": "broiler",
+          "rtc_dressing_pct": 74.0,
+          "boneless_meat_pct_of_live": 52.0
+        }
+      }
+    },
+    {
+      "id": "PoultryEggAssay.turkey_standard",
+      "source": {
+        "citation": "Commodex legacy benchmark PoultryEggAssay.turkey_standard",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "category": null,
+        "rtc_dressing_pct": "percent",
+        "boneless_meat_pct_of_live": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Commercial Turkey (79% RTC / 58% Boneless)",
+          "category": "turkey",
+          "rtc_dressing_pct": 79.0,
+          "boneless_meat_pct_of_live": 58.0
+        }
+      }
+    },
+    {
+      "id": "PoultryEggAssay.us_large_shell_eggs",
+      "source": {
+        "citation": "Commodex legacy benchmark PoultryEggAssay.us_large_shell_eggs",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "category": null,
+        "egg_mass_grams": null,
+        "liquid_egg_yield_pct": "percent",
+        "dried_egg_yield_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "US Large Shell Eggs (56.7 g/egg, 88% Liquid / 24% Dried)",
+          "category": "eggs",
+          "egg_mass_grams": 56.7,
+          "liquid_egg_yield_pct": 88.0,
+          "dried_egg_yield_pct": 24.0,
+          "bulk_density_kg_per_m3": 1035.0
+        }
+      }
+    },
+    {
+      "id": "FishmealMarineOilAssay.peruvian_anchoveta_super_prime",
+      "source": {
+        "citation": "Commodex legacy benchmark FishmealMarineOilAssay.peruvian_anchoveta_super_prime",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "species": null,
+        "meal_yield_pct": "percent",
+        "oil_yield_pct": "percent",
+        "protein_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Peruvian Anchoveta Super Prime (68% Protein)",
+          "species": "ANCHOVETA",
+          "meal_yield_pct": 23.0,
+          "oil_yield_pct": 5.0,
+          "protein_pct": 68.0
+        }
+      }
+    },
+    {
+      "id": "FishmealMarineOilAssay.menhaden_standard",
+      "source": {
+        "citation": "Commodex legacy benchmark FishmealMarineOilAssay.menhaden_standard",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "species": null,
+        "meal_yield_pct": "percent",
+        "oil_yield_pct": "percent",
+        "protein_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Menhaden Reduction (62% Protein)",
+          "species": "MENHADEN",
+          "meal_yield_pct": 21.5,
+          "oil_yield_pct": 6.5,
+          "protein_pct": 62.0
+        }
+      }
+    },
+    {
+      "id": "HoneyApicultureAssay.bulk_polyfloral_export",
+      "source": {
+        "citation": "Commodex legacy benchmark HoneyApicultureAssay.bulk_polyfloral_export",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "floral_source": null,
+        "moisture_pct": "percent",
+        "base_moisture_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "drum_mass_kg": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Bulk Export Polyfloral Honey (17.5% Moisture, 300 kg Drum)",
+          "floral_source": "POLYFLORAL",
+          "moisture_pct": 17.5,
+          "base_moisture_pct": 18.0,
+          "density_kg_per_m3": 1420.0,
+          "drum_mass_kg": 300.0
+        }
+      }
+    },
+    {
+      "id": "HoneyApicultureAssay.us_grade_a_clover",
+      "source": {
+        "citation": "Commodex legacy benchmark HoneyApicultureAssay.us_grade_a_clover",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "floral_source": null,
+        "moisture_pct": "percent",
+        "base_moisture_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "drum_mass_kg": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "US Grade A Clover Honey (18.0% Moisture)",
+          "floral_source": "CLOVER",
+          "moisture_pct": 18.0,
+          "base_moisture_pct": 18.6,
+          "density_kg_per_m3": 1417.0,
+          "drum_mass_kg": 290.0
+        }
+      }
+    },
+    {
+      "id": "OliveOilAssay.extra_virgin_evoo",
+      "source": {
+        "citation": "Commodex legacy benchmark OliveOilAssay.extra_virgin_evoo",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grade": null,
+        "free_fatty_acid_pct": "percent",
+        "refining_yield_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Extra Virgin Olive Oil (EVOO, <=0.8% FFA)",
+          "grade": "EVOO",
+          "free_fatty_acid_pct": 0.4,
+          "refining_yield_pct": 100.0,
+          "density_kg_per_m3": 915.0,
+          "reference_temp_c": 20.0
+        }
+      }
+    },
+    {
+      "id": "OliveOilAssay.refined_olive_oil",
+      "source": {
+        "citation": "Commodex legacy benchmark OliveOilAssay.refined_olive_oil",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grade": null,
+        "free_fatty_acid_pct": "percent",
+        "refining_yield_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Refined Olive Oil",
+          "grade": "REFINED",
+          "free_fatty_acid_pct": 0.2,
+          "refining_yield_pct": 100.0,
+          "density_kg_per_m3": 914.0,
+          "reference_temp_c": 20.0
+        }
+      }
+    },
+    {
+      "id": "CottonSeedLintAssay.us_upland_480lb",
+      "source": {
+        "citation": "Commodex legacy benchmark CottonSeedLintAssay.us_upland_480lb",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "origin": null,
+        "lint_turnout_pct": "percent",
+        "cottonseed_turnout_pct": "percent",
+        "bale_mass_kg": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "US Upland Cotton (40% Lint / 54% Seed, 480 lb Bale)",
+          "origin": "US_UPLAND",
+          "lint_turnout_pct": 40.0,
+          "cottonseed_turnout_pct": 54.0,
+          "bale_mass_kg": 217.7243376
+        }
+      }
+    },
+    {
+      "id": "CottonSeedLintAssay.indian_shankar6_170kg",
+      "source": {
+        "citation": "Commodex legacy benchmark CottonSeedLintAssay.indian_shankar6_170kg",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "origin": null,
+        "lint_turnout_pct": "percent",
+        "cottonseed_turnout_pct": "percent",
+        "bale_mass_kg": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Indian Shankar-6 Cotton (35% Lint / 61% Seed, 170 kg Bale)",
+          "origin": "INDIA_SHANKAR6",
+          "lint_turnout_pct": 35.0,
+          "cottonseed_turnout_pct": 61.0,
+          "bale_mass_kg": 170.0
+        }
+      }
+    },
+    {
+      "id": "CottonSeedLintAssay.brazil_australian_227kg",
+      "source": {
+        "citation": "Commodex legacy benchmark CottonSeedLintAssay.brazil_australian_227kg",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "8888d3e7cb8c92a4c3068e84120fa35fee6cd82df6baa5639b6a952d53fccec9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "origin": null,
+        "lint_turnout_pct": "percent",
+        "cottonseed_turnout_pct": "percent",
+        "bale_mass_kg": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Brazil/Australia Cotton (42% Lint / 52% Seed, 227 kg Bale)",
+          "origin": "BRAZIL",
+          "lint_turnout_pct": 42.0,
+          "cottonseed_turnout_pct": 52.0,
+          "bale_mass_kg": 227.0
+        }
+      }
+    },
+    {
+      "id": "GrainAssay.corn_56lb",
+      "source": {
+        "citation": "Commodex legacy benchmark GrainAssay.corn_56lb",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grain": null,
+        "bushel_weight_lb": "lb",
+        "base_moisture_pct": "percent",
+        "actual_moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Yellow Corn / Maize (56 lb/bu, 15.5% Base Moisture)",
+          "grain": "corn",
+          "bushel_weight_lb": 56.0,
+          "base_moisture_pct": 15.5,
+          "actual_moisture_pct": null,
+          "bulk_density_kg_per_m3": 720.0
+        }
+      }
+    },
+    {
+      "id": "GrainAssay.wheat_60lb",
+      "source": {
+        "citation": "Commodex legacy benchmark GrainAssay.wheat_60lb",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grain": null,
+        "bushel_weight_lb": "lb",
+        "base_moisture_pct": "percent",
+        "actual_moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Wheat (60 lb/bu, 13.5% Base Moisture)",
+          "grain": "wheat",
+          "bushel_weight_lb": 60.0,
+          "base_moisture_pct": 13.5,
+          "actual_moisture_pct": null,
+          "bulk_density_kg_per_m3": 770.0
+        }
+      }
+    },
+    {
+      "id": "GrainAssay.soybeans_60lb",
+      "source": {
+        "citation": "Commodex legacy benchmark GrainAssay.soybeans_60lb",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grain": null,
+        "bushel_weight_lb": "lb",
+        "base_moisture_pct": "percent",
+        "actual_moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Soybeans (60 lb/bu, 13.0% Base Moisture)",
+          "grain": "soybeans",
+          "bushel_weight_lb": 60.0,
+          "base_moisture_pct": 13.0,
+          "actual_moisture_pct": null,
+          "bulk_density_kg_per_m3": 770.0
+        }
+      }
+    },
+    {
+      "id": "GrainAssay.barley_48lb",
+      "source": {
+        "citation": "Commodex legacy benchmark GrainAssay.barley_48lb",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grain": null,
+        "bushel_weight_lb": "lb",
+        "base_moisture_pct": "percent",
+        "actual_moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Barley (48 lb/bu, 14.5% Base Moisture)",
+          "grain": "barley",
+          "bushel_weight_lb": 48.0,
+          "base_moisture_pct": 14.5,
+          "actual_moisture_pct": null,
+          "bulk_density_kg_per_m3": 620.0
+        }
+      }
+    },
+    {
+      "id": "GrainAssay.oats_32lb",
+      "source": {
+        "citation": "Commodex legacy benchmark GrainAssay.oats_32lb",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grain": null,
+        "bushel_weight_lb": "lb",
+        "base_moisture_pct": "percent",
+        "actual_moisture_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Oats (32 lb/bu, 13.5% Base Moisture)",
+          "grain": "oats",
+          "bushel_weight_lb": 32.0,
+          "base_moisture_pct": 13.5,
+          "actual_moisture_pct": null,
+          "bulk_density_kg_per_m3": 410.0
+        }
+      }
+    },
+    {
+      "id": "SeafoodAssay.atlantic_salmon",
+      "source": {
+        "citation": "Commodex legacy benchmark SeafoodAssay.atlantic_salmon",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "species_group": null,
+        "dressed_yield_pct": "percent",
+        "edible_yield_pct": "percent",
+        "glaze_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Atlantic Salmon (HOG 84% / Skinless Fillet 48%)",
+          "species_group": "finfish",
+          "dressed_yield_pct": 84.0,
+          "edible_yield_pct": 48.0,
+          "glaze_pct": 0.0
+        }
+      }
+    },
+    {
+      "id": "SeafoodAssay.american_lobster",
+      "source": {
+        "citation": "Commodex legacy benchmark SeafoodAssay.american_lobster",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "species_group": null,
+        "dressed_yield_pct": "percent",
+        "edible_yield_pct": "percent",
+        "glaze_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "American Lobster (Cooked 90% / Picked Meat 23%)",
+          "species_group": "lobster",
+          "dressed_yield_pct": 90.0,
+          "edible_yield_pct": 23.0,
+          "glaze_pct": 0.0
+        }
+      }
+    },
+    {
+      "id": "SeafoodAssay.snow_crab",
+      "source": {
+        "citation": "Commodex legacy benchmark SeafoodAssay.snow_crab",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "species_group": null,
+        "dressed_yield_pct": "percent",
+        "edible_yield_pct": "percent",
+        "glaze_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Snow Crab (Clusters 62% / Picked Meat 21%)",
+          "species_group": "crab",
+          "dressed_yield_pct": 62.0,
+          "edible_yield_pct": 21.0,
+          "glaze_pct": 8.0
+        }
+      }
+    },
+    {
+      "id": "SeafoodAssay.vannamei_shrimp",
+      "source": {
+        "citation": "Commodex legacy benchmark SeafoodAssay.vannamei_shrimp",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "species_group": null,
+        "dressed_yield_pct": "percent",
+        "edible_yield_pct": "percent",
+        "glaze_pct": "percent",
+        "count_per_lb": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Vannamei Shrimp (21 ct/lb, HLSO 65% / P&D 50%)",
+          "species_group": "shrimp",
+          "dressed_yield_pct": 65.0,
+          "edible_yield_pct": 50.0,
+          "glaze_pct": 10.0,
+          "count_per_lb": 21.0
+        }
+      }
+    },
+    {
+      "id": "PulpLumberAssay.spf_dimensional_lumber",
+      "source": {
+        "citation": "Commodex legacy benchmark PulpLumberAssay.spf_dimensional_lumber",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "product_type": null,
+        "moisture_pct": "percent",
+        "dressed_recovery_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "SPF Dimensional Lumber",
+          "product_type": "lumber",
+          "moisture_pct": 19.0,
+          "dressed_recovery_pct": 92.0,
+          "bulk_density_kg_per_m3": 480.0
+        }
+      }
+    },
+    {
+      "id": "RubberAssay.rss3_bale_standard",
+      "source": {
+        "citation": "Commodex legacy benchmark RubberAssay.rss3_bale_standard",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grade": null,
+        "dry_rubber_content_pct": "percent",
+        "bale_mass_kg": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "RSS3 Ribbed Smoked Sheet",
+          "grade": "RSS3",
+          "dry_rubber_content_pct": 100.0,
+          "bale_mass_kg": 111.11,
+          "bulk_density_kg_per_m3": 910.0
+        }
+      }
+    },
+    {
+      "id": "OliveOilAssay.lampante_crude",
+      "source": {
+        "citation": "Commodex legacy benchmark OliveOilAssay.lampante_crude",
+        "path": "core/units/agricultural_specs.py",
+        "sha256": "9abcf86a9c92ebb8d034adede3558a4f54c3e25c8c31f0b249d33cc9bdbc7200",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "grade": null,
+        "free_fatty_acid_pct": "percent",
+        "refining_yield_pct": "percent",
+        "density_kg_per_m3": "kg/m^3",
+        "reference_temp_c": "degC"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Lampante Olive Oil (3% FFA)",
+          "grade": "LAMPANTE",
+          "free_fatty_acid_pct": 3.0,
+          "refining_yield_pct": 95.0,
+          "density_kg_per_m3": 916.0,
+          "reference_temp_c": 20.0
+        }
+      }
+    }
+  ]
+}

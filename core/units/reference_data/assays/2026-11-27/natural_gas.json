@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "GasAssay.henry_hub",
+      "source": {
+        "citation": "Commodex legacy benchmark GasAssay.henry_hub",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gcv_btu_per_scf": "Btu_it/scf_60F_14_73psia",
+        "relative_density": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Henry Hub"
+        ],
+        "kwargs": {
+          "gcv_btu_per_scf": 1025.0,
+          "relative_density": 0.585
+        }
+      }
+    },
+    {
+      "id": "GasAssay.uk_nbp",
+      "source": {
+        "citation": "Commodex legacy benchmark GasAssay.uk_nbp",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gcv_mj_per_sm3": "MJ/Sm3",
+        "relative_density": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "UK NBP"
+        ],
+        "kwargs": {
+          "gcv_mj_per_sm3": 39.5,
+          "relative_density": 0.6
+        }
+      }
+    },
+    {
+      "id": "GasAssay.dutch_ttf",
+      "source": {
+        "citation": "Commodex legacy benchmark GasAssay.dutch_ttf",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gcv_mj_per_nm3": "MJ/Nm3",
+        "relative_density": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Dutch TTF H-Gas"
+        ],
+        "kwargs": {
+          "gcv_mj_per_nm3": 40.0,
+          "relative_density": 0.61
+        }
+      }
+    },
+    {
+      "id": "GasAssay.groningen_lgas",
+      "source": {
+        "citation": "Commodex legacy benchmark GasAssay.groningen_lgas",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gcv_mj_per_nm3": "MJ/Nm3",
+        "relative_density": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Groningen L-Gas"
+        ],
+        "kwargs": {
+          "gcv_mj_per_nm3": 35.17,
+          "relative_density": 0.644
+        }
+      }
+    },
+    {
+      "id": "GasAssay.lng_lean",
+      "source": {
+        "citation": "Commodex legacy benchmark GasAssay.lng_lean",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gcv_btu_per_scf": "Btu_it/scf_60F_14_73psia",
+        "relative_density": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Lean LNG"
+        ],
+        "kwargs": {
+          "gcv_btu_per_scf": 1035.0,
+          "relative_density": 0.58
+        }
+      }
+    },
+    {
+      "id": "GasAssay.lng_rich",
+      "source": {
+        "citation": "Commodex legacy benchmark GasAssay.lng_rich",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gcv_btu_per_scf": "Btu_it/scf_60F_14_73psia",
+        "relative_density": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Rich LNG"
+        ],
+        "kwargs": {
+          "gcv_btu_per_scf": 1120.0,
+          "relative_density": 0.645
+        }
+      }
+    },
+    {
+      "id": "GasAssay.jkm_lng",
+      "source": {
+        "citation": "Commodex legacy benchmark GasAssay.jkm_lng",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gcv_btu_per_scf": "Btu_it/scf_60F_14_73psia",
+        "relative_density": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "JKM LNG"
+        ],
+        "kwargs": {
+          "gcv_btu_per_scf": 1100.0,
+          "relative_density": 0.63
+        }
+      }
+    },
+    {
+      "id": "GasAssay.gost_russian",
+      "source": {
+        "citation": "Commodex legacy benchmark GasAssay.gost_russian",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gcv_mj_per_sm3": "MJ/Sm3",
+        "relative_density": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "GOST Russian Pipeline"
+        ],
+        "kwargs": {
+          "gcv_mj_per_sm3": 38.862849210480654,
+          "relative_density": 0.575
+        }
+      }
+    },
+    {
+      "id": "GasAssay.pure_methane",
+      "source": {
+        "citation": "Commodex legacy benchmark GasAssay.pure_methane",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gcv_btu_per_scf": "Btu_it/scf_60F_14_73psia",
+        "ncv_btu_per_scf": "Btu_it/scf_60F_14_73psia",
+        "relative_density": "dimensionless",
+        "molar_composition": "dimensionless"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Pure Methane"
+        ],
+        "kwargs": {
+          "gcv_btu_per_scf": 1010.0,
+          "ncv_btu_per_scf": 909.4,
+          "relative_density": 0.5539,
+          "molar_composition": {
+            "CH4": 1.0
+          }
+        }
+      }
+    }
+  ]
+}

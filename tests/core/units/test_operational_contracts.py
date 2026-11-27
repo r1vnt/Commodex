@@ -11,14 +11,17 @@ import pint
 
 import core.units as units
 from core.units import agricultural_specs as agricultural
-from core.units import config, conversions, currencies, heat_content, registry
-from test_agricultural_integration import agricultural_presets
-from test_registry_compatibility import assay_presets
+from core.units import config, conversions, converters, currencies, heat_content, quote_parsing, registry
+from tests.core.units.test_agricultural_specs import agricultural_presets
+from tests.core.units.test_registry_compatibility import assay_presets
 
 
 class OperationalContracts(unittest.TestCase):
     def test_public_surface_is_complete_and_unique(self):
-        modules = (registry, conversions, agricultural, heat_content, config, currencies)
+        from core.units import _spec_engine, material_specs, chemical_specs, energy_environment_specs, materials, agricultural_quality, moisture, exceptions, energy_systems, precision, audit
+        from core.units import reference
+        modules = (registry, conversions, agricultural, heat_content, converters, config, currencies, quote_parsing, reference,
+                   _spec_engine, material_specs, chemical_specs, energy_environment_specs, materials, agricultural_quality, moisture, exceptions, energy_systems, precision, audit)
         expected = {name for module in modules for name in module.__all__}
         self.assertEqual(set(units.__all__), expected)
         self.assertEqual(len(units.__all__), len(expected))
@@ -65,7 +68,7 @@ class OperationalContracts(unittest.TestCase):
         expected_classes = {
             value for module in (conversions, agricultural, heat_content)
             for value in vars(module).values()
-            if inspect.isclass(value) and value.__module__ == module.__name__ and value.__name__.endswith("Assay")
+            if inspect.isclass(value) and value.__name__ in getattr(module, "_LEGACY_EXPORTS", module.__all__) and value.__name__.endswith("Assay")
         }
         self.assertEqual(set(examples), expected_classes)
         special_methods = {
@@ -140,19 +143,19 @@ class OperationalContracts(unittest.TestCase):
             (agricultural.convert_livestock_dairy, agricultural.LivestockDairyAssay.live_cattle_standard(), "live_to_carcass"),
         )
         for converter, assay, mode in cases:
-            with patch.object(agricultural, "convert_units", wraps=conversions.convert) as master:
+            with patch.object(conversions, "convert", wraps=conversions.convert) as master:
                 result = converter(units.Q_(Decimal(10), "kg"), "g", assay=assay)
                 master.assert_called_once()
                 self.assertEqual(result.magnitude, 10000)
-            with patch.object(agricultural, "convert_units", side_effect=AssertionError("processing used master")):
+            with patch.object(conversions, "convert", side_effect=AssertionError("processing used master")):
                 result = converter(units.Q_(Decimal(10), "kg"), "kg", assay=assay, mode=mode)
                 self.assertIsInstance(result.magnitude, Decimal)
 
     def test_custom_latent_heat_round_trip_and_explicit_crude_calorific_data(self):
         for magnitude in (18., Decimal(18)):
             original = units.Q_(magnitude, "MJ/kg")
-            dry = heat_content.as_received_to_dry(original, 20, kind="ncv", latent_heat_mj_per_kg_water=Decimal("2.5"))
-            restored = heat_content.dry_to_as_received(dry, 20, kind="ncv", latent_heat_mj_per_kg_water=Decimal("2.5"))
+            dry = heat_content.as_received_to_dry(original, 20, kind="ncv", latent_heat_mj_per_kg_water=Decimal("2.5"), method="latent_water")
+            restored = heat_content.dry_to_as_received(dry, 20, kind="ncv", latent_heat_mj_per_kg_water=Decimal("2.5"), method="latent_water")
             self.assertAlmostEqual(float(restored.magnitude), float(magnitude), places=12)
             self.assertIsInstance(restored.magnitude, type(magnitude))
         for invalid in (-1, 0, float("nan"), float("inf")):

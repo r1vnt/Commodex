@@ -1,9 +1,4 @@
-"""Version-pinned currency facts, settlement policies and auditable FX snapshots.
-
-ISO metadata is distinct from symbols, cash rules, quotation conventions and
-redenominations. Nothing in this module downloads data during import.
-"""
-
+"""Commodex currencies implementation and public interfaces."""
 from __future__ import annotations
 
 from collections.abc import Iterable, Iterator, Mapping
@@ -11,22 +6,32 @@ from dataclasses import dataclass, replace
 from datetime import date, datetime, timedelta
 from decimal import Decimal, ROUND_HALF_EVEN
 from hashlib import sha256
-import json
 from pathlib import Path
 from types import MappingProxyType
 from typing import Any
-
+import json
 import pint
 
 
+
+
 DATA_VERSION = "2026-11-25"
-DATA_DIRECTORY = Path(__file__).with_name("data") / "currencies" / DATA_VERSION
+
+
+
+DATA_DIRECTORY = (Path(__file__).resolve().parents[0] / "reference_data") / "currencies" / DATA_VERSION
+
+
+
 
 
 def _date(value: date | str) -> date:
     if isinstance(value, datetime):
         raise TypeError("Use a date, not a datetime, for currency validity.")
     return value if isinstance(value, date) else date.fromisoformat(value)
+
+
+
 
 
 def _number(value: Decimal | float | int | str) -> Decimal:
@@ -38,13 +43,19 @@ def _number(value: Decimal | float | int | str) -> Decimal:
     return result
 
 
+
+
+
 def _currency_code(value: str) -> str:
     """Fixings/policies require a major code, never an implicitly chosen symbol."""
-    from .conversions import _normalize_currency
+    from core.units.conversions import _normalize_currency
     code = _normalize_currency(value)
     if not isinstance(value, str) or value.strip().upper() != code:
         raise ValueError("Use an explicit major currency code for fixing/settlement metadata.")
     return code
+
+
+
 
 
 @dataclass(frozen=True, slots=True)
@@ -81,6 +92,9 @@ class CurrencyDefinition:
             object.__setattr__(self, field, tuple(getattr(self, field)))
 
 
+
+
+
 @dataclass(frozen=True, slots=True)
 class CurrencyAlias:
     alias: str
@@ -103,6 +117,9 @@ class CurrencyAlias:
                 object.__setattr__(self, field, _date(getattr(self, field)))
         if self.valid_from and self.valid_to and self.valid_from >= self.valid_to:
             raise ValueError("Alias interval must be non-empty.")
+
+
+
 
 
 class CurrencyCatalog:
@@ -139,13 +156,17 @@ class CurrencyCatalog:
             when = _date(as_of)
             matches = [a for a in matches if (a.valid_from is None or when >= a.valid_from) and (a.valid_to is None or when < a.valid_to)]
         elif any(a.valid_from or a.valid_to for a in matches):
-            raise ValueError("A dated vendor alias requires as_of.")
+            from core.units.exceptions import MissingReferenceConditionsError
+            raise MissingReferenceConditionsError("A dated vendor alias requires as_of.")
         if len(matches) > 1:
-            raise ValueError("Ambiguous vendor alias.")
+            from core.units.exceptions import AmbiguousUnitError
+            raise AmbiguousUnitError("Ambiguous vendor alias.")
         return matches[0] if matches else None
 
     def resolve(self, token: str, *, as_of: date | str | None = None, vendor: str | None = None,
                 currency_hint: str | None = None, allow_historical: bool = False) -> CurrencyDefinition:
+        from core.units.exceptions import AmbiguousUnitError
+        from core.units.exceptions import MissingReferenceConditionsError
         if not isinstance(token, str) or not token.strip():
             raise ValueError("Currency identifier must be a non-empty string.")
         token = token.strip()
@@ -162,17 +183,21 @@ class CurrencyCatalog:
         choices = self.shared_symbols.get(token)
         if choices:
             if currency_hint is None or currency_hint.upper() not in choices:
-                raise ValueError(f"Ambiguous currency symbol {token!r}; supply a valid currency_hint.")
+                raise AmbiguousUnitError(f"Ambiguous currency symbol {token!r}; supply a valid currency_hint.")
             token = currency_hint.upper()
         else:
             if token not in self.symbols and not alias and token.isalpha() and not (token.isupper() or token.islower()):
-                raise ValueError("Mixed-case currency tokens require an explicit vendor alias.")
+                raise AmbiguousUnitError("Mixed-case currency tokens require an explicit vendor alias.")
             token = self.symbols.get(token, token).upper()
             if currency_hint is not None and currency_hint.upper() != token:
                 raise ValueError("Currency hint conflicts with the explicit identifier.")
         candidates = [r for r in self.records if r.code == token or r.numeric_code == token]
         if as_of is None:
             current = [r for r in candidates if r.status == "current"]
+            if not current and candidates and not allow_historical:
+                raise MissingReferenceConditionsError(
+                    f"Historical currency {token!r} requires an explicit as_of date or allow_historical=True."
+                )
             candidates = current or (candidates if allow_historical else [])
         else:
             when = _date(as_of)
@@ -194,6 +219,9 @@ class CurrencyCatalog:
         if len(candidates) != 1:
             raise ValueError(f"Unknown, inactive or ambiguous currency identifier: {token!r}")
         return candidates[0]
+
+
+
 
 
 def _load_reference(directory: str | Path = DATA_DIRECTORY) -> tuple[CurrencyCatalog, Mapping[str, Any], Mapping[str, Any]]:
@@ -224,6 +252,9 @@ def _load_reference(directory: str | Path = DATA_DIRECTORY) -> tuple[CurrencyCat
                            entity_history=data["entity_history"]), _freeze(conventions), _freeze(overlay)
 
 
+
+
+
 def _freeze(value: Any) -> Any:
     if isinstance(value, dict):
         return MappingProxyType({key: _freeze(item) for key, item in value.items()})
@@ -232,12 +263,21 @@ def _freeze(value: Any) -> Any:
     return value
 
 
+
+
+
 CURRENCY_CATALOG, CURRENCY_CONVENTIONS, CURRENCY_OVERLAY = _load_reference()
+
+
+
 
 
 def load_currency_catalog(directory: str | Path) -> CurrencyCatalog:
     """Load a checked snapshot without changing the process's unit registry."""
     return _load_reference(directory)[0]
+
+
+
 
 
 def resolve_currency(identifier: str, *, as_of: date | str | None = None, vendor: str | None = None,
@@ -247,11 +287,29 @@ def resolve_currency(identifier: str, *, as_of: date | str | None = None, vendor
                                     currency_hint=currency_hint, allow_historical=allow_historical)
 
 
+
+
+
+def parse_currency(identifier: str, *, as_of: date | str | None = None, vendor: str | None = None,
+                   currency_hint: str | None = None, allow_historical: bool = False) -> CurrencyDefinition:
+    """Strict metadata parser; historical currency identifiers require a date."""
+    if as_of is None and isinstance(identifier, str):
+        matches = [r for r in CURRENCY_CATALOG.records if identifier.upper() in {r.code, r.numeric_code}]
+        if matches and all(r.status == "historical" for r in matches):
+            from core.units.exceptions import MissingReferenceConditionsError
+            raise MissingReferenceConditionsError("A historical currency requires as_of.")
+    return resolve_currency(identifier, as_of=as_of, vendor=vendor,
+                            currency_hint=currency_hint, allow_historical=allow_historical)
+
+
+
+
+
 def parse_currency_quantity(amount: Decimal | float | int | str, identifier: str, *, catalog: CurrencyCatalog = CURRENCY_CATALOG,
                             vendor: str | None = None, as_of: date | str | None = None,
                             currency_hint: str | None = None, allow_historical: bool = False) -> pint.Quantity:
     """Strict currency-only ingestion; vendor minor denominations retain scale."""
-    from .registry import ureg
+    from core.units.registry import ureg
     alias = catalog.resolve_alias(identifier, vendor=vendor, as_of=as_of)
     record = catalog.resolve(alias.code if alias else identifier, as_of=as_of, vendor=None if alias else vendor,
                              currency_hint=currency_hint, allow_historical=allow_historical)
@@ -263,6 +321,9 @@ def parse_currency_quantity(amount: Decimal | float | int | str, identifier: str
         if measured != alias.scale:
             raise ValueError("Vendor alias scale conflicts with the unit registry.")
     return ureg.Quantity(_number(amount), alias.unit if alias else record.code)
+
+
+
 
 
 @dataclass(frozen=True, slots=True)
@@ -291,13 +352,18 @@ class CurrencySettlementRule:
             raise ValueError("Invalid settlement rule interval.")
 
 
+
+
+
 def round_currency(quantity: pint.Quantity, *, rule: CurrencySettlementRule | None = None,
                    as_of: date | str | None = None, catalog: CurrencyCatalog = CURRENCY_CATALOG) -> pint.Quantity:
     """Round a plain currency amount, never a commodity quote or FX rate."""
-    from .conversions import _numerator_currency_iso
-    from .registry import ureg
+    from core.units.conversions import _numerator_currency_iso
+    from core.units.registry import ureg
+    from core.units.registry import validate_registry_quantity
     if not hasattr(quantity, "units"):
         raise TypeError("Expected a currency quantity.")
+    validate_registry_quantity(quantity)
     code = _numerator_currency_iso(quantity)
     if quantity.dimensionality != {f"[currency_{code}]": 1}:
         raise ValueError("Settlement rounding requires a plain currency amount, not a price.")
@@ -321,10 +387,17 @@ def round_currency(quantity: pint.Quantity, *, rule: CurrencySettlementRule | No
     return ureg.Quantity(value, code).to(quantity.units)
 
 
+
+
+
 def redenominate_currency(quantity: pint.Quantity, event_id: str, *, as_of: date | str) -> pint.Quantity:
     """Explicit dated legal denomination conversion, not an implicit FX quote."""
-    from .conversions import _numerator_currency_iso
-    from .registry import ureg
+    from core.units.conversions import _numerator_currency_iso
+    from core.units.registry import ureg
+    from core.units.registry import validate_registry_quantity
+    if not isinstance(quantity, pint.Quantity):
+        raise TypeError("Expected a currency quantity.")
+    validate_registry_quantity(quantity)
     events = [e for e in CURRENCY_OVERLAY["redenominations"] if e["id"] == event_id]
     if len(events) != 1:
         raise ValueError("Unknown redenomination event.")
@@ -337,6 +410,9 @@ def redenominate_currency(quantity: pint.Quantity, event_id: str, *, as_of: date
     major = quantity.to(event["old"])
     amount = _number(major.magnitude) / Decimal(event["old_units_per_new"])
     return ureg.Quantity(amount, event["new"])
+
+
+
 
 
 @dataclass(frozen=True, slots=True)
@@ -367,6 +443,9 @@ class FXFixing:
 
     def inverted(self) -> FXFixing:
         return replace(self, base=self.quote, quote=self.base, rate=Decimal(1) / self.rate)
+
+
+
 
 
 class FXRateSet(Mapping[str, Decimal]):
@@ -435,6 +514,13 @@ class FXRateSet(Mapping[str, Decimal]):
         return len(self._rates)
 
 
-__all__ = ("CurrencyDefinition", "CurrencyAlias", "CurrencyCatalog", "CURRENCY_CATALOG",
-           "DATA_VERSION", "load_currency_catalog", "resolve_currency", "parse_currency_quantity", "CurrencySettlementRule",
-           "round_currency", "redenominate_currency", "FXFixing", "FXRateSet")
+__all__ = ('CURRENCY_CATALOG', 'CurrencyAlias', 'CurrencyCatalog', 'CurrencyDefinition', 'CurrencySettlementRule', 'DATA_VERSION', 'FXFixing', 'FXRateSet', 'load_currency_catalog', 'parse_currency', 'parse_currency_quantity', 'redenominate_currency', 'resolve_currency', 'round_currency')
+_PUBLIC_ALIASES = {}
+
+def __getattr__(name):
+    from importlib import import_module
+    try:
+        module, symbol = _PUBLIC_ALIASES[name]
+    except KeyError:
+        raise AttributeError(name) from None
+    return getattr(import_module("core.units." + module), symbol)

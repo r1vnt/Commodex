@@ -1,0 +1,446 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "CoalAssay.newcastle_6000",
+      "source": {
+        "citation": "Commodex legacy benchmark CoalAssay.newcastle_6000",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "nar_kcal_per_kg": "kcal/kg",
+        "total_moisture_pct": "percent",
+        "ash_pct": "percent",
+        "sulfur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Newcastle 6000 NAR"
+        ],
+        "kwargs": {
+          "nar_kcal_per_kg": 6000.0,
+          "total_moisture_pct": 10.0,
+          "ash_pct": 14.0,
+          "sulfur_pct": 0.75
+        }
+      }
+    },
+    {
+      "id": "CoalAssay.api2_cif_ara",
+      "source": {
+        "citation": "Commodex legacy benchmark CoalAssay.api2_cif_ara",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "nar_kcal_per_kg": "kcal/kg",
+        "total_moisture_pct": "percent",
+        "ash_pct": "percent",
+        "sulfur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "API 2 CIF ARA"
+        ],
+        "kwargs": {
+          "nar_kcal_per_kg": 6000.0,
+          "total_moisture_pct": 11.5,
+          "ash_pct": 14.0,
+          "sulfur_pct": 0.85
+        }
+      }
+    },
+    {
+      "id": "CoalAssay.api4_fob_rbct",
+      "source": {
+        "citation": "Commodex legacy benchmark CoalAssay.api4_fob_rbct",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "nar_kcal_per_kg": "kcal/kg",
+        "total_moisture_pct": "percent",
+        "ash_pct": "percent",
+        "sulfur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "API 4 FOB RBCT"
+        ],
+        "kwargs": {
+          "nar_kcal_per_kg": 6000.0,
+          "total_moisture_pct": 10.0,
+          "ash_pct": 15.0,
+          "sulfur_pct": 0.7
+        }
+      }
+    },
+    {
+      "id": "CoalAssay.indonesian_4200",
+      "source": {
+        "citation": "Commodex legacy benchmark CoalAssay.indonesian_4200",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gar_kcal_per_kg": "kcal/kg",
+        "total_moisture_pct": "percent",
+        "hydrogen_ar_pct": "percent",
+        "ash_pct": "percent",
+        "sulfur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "Indonesian 4200 GAR"
+        ],
+        "kwargs": {
+          "gar_kcal_per_kg": 4200.0,
+          "total_moisture_pct": 34.0,
+          "hydrogen_ar_pct": 3.2,
+          "ash_pct": 6.0,
+          "sulfur_pct": 0.4
+        }
+      }
+    },
+    {
+      "id": "CoalAssay.prb_8800",
+      "source": {
+        "citation": "Commodex legacy benchmark CoalAssay.prb_8800",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gar_btu_per_lb": "Btu_it/lb",
+        "total_moisture_pct": "percent",
+        "hydrogen_ar_pct": "percent",
+        "ash_pct": "percent",
+        "sulfur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "US PRB 8800"
+        ],
+        "kwargs": {
+          "gar_btu_per_lb": 8800.0,
+          "total_moisture_pct": 27.0,
+          "hydrogen_ar_pct": 3.5,
+          "ash_pct": 5.5,
+          "sulfur_pct": 0.35
+        }
+      }
+    },
+    {
+      "id": "CoalAssay.capp_12500",
+      "source": {
+        "citation": "Commodex legacy benchmark CoalAssay.capp_12500",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "gar_btu_per_lb": "Btu_it/lb",
+        "total_moisture_pct": "percent",
+        "hydrogen_ar_pct": "percent",
+        "ash_pct": "percent",
+        "sulfur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "US CAPP 12500"
+        ],
+        "kwargs": {
+          "gar_btu_per_lb": 12500.0,
+          "total_moisture_pct": 6.5,
+          "hydrogen_ar_pct": 4.5,
+          "ash_pct": 11.0,
+          "sulfur_pct": 1.0
+        }
+      }
+    },
+    {
+      "id": "CoalAssay.plv_hard_coking",
+      "source": {
+        "citation": "Commodex legacy benchmark CoalAssay.plv_hard_coking",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "nar_kcal_per_kg": "kcal/kg",
+        "total_moisture_pct": "percent",
+        "hydrogen_ar_pct": "percent",
+        "ash_pct": "percent",
+        "sulfur_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [
+          "PLV Hard Coking"
+        ],
+        "kwargs": {
+          "nar_kcal_per_kg": 7100.0,
+          "total_moisture_pct": 10.0,
+          "hydrogen_ar_pct": 4.3,
+          "ash_pct": 9.5,
+          "sulfur_pct": 0.6
+        }
+      }
+    },
+    {
+      "id": "PetcokeAssay.usgc_fuel_grade_65s",
+      "source": {
+        "citation": "Commodex legacy benchmark PetcokeAssay.usgc_fuel_grade_65s",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_kcal_per_kg_ar": null,
+        "hhv_kcal_per_kg_ar": null,
+        "moisture_pct": "percent",
+        "sulphur_db_pct": "percent",
+        "volatile_matter_db_pct": "percent",
+        "ash_db_pct": "percent",
+        "hgi": null,
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "is_calcined": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "USGC Fuel-Grade Petcoke (6.5% S)",
+          "lhv_kcal_per_kg_ar": 7500.0,
+          "hhv_kcal_per_kg_ar": 7750.0,
+          "moisture_pct": 8.0,
+          "sulphur_db_pct": 6.5,
+          "volatile_matter_db_pct": 11.0,
+          "ash_db_pct": 0.5,
+          "hgi": 45.0,
+          "bulk_density_kg_per_m3": 800.0,
+          "is_calcined": false
+        }
+      }
+    },
+    {
+      "id": "PetcokeAssay.usgc_fuel_grade_45s",
+      "source": {
+        "citation": "Commodex legacy benchmark PetcokeAssay.usgc_fuel_grade_45s",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_kcal_per_kg_ar": null,
+        "hhv_kcal_per_kg_ar": null,
+        "moisture_pct": "percent",
+        "sulphur_db_pct": "percent",
+        "volatile_matter_db_pct": "percent",
+        "ash_db_pct": "percent",
+        "hgi": null,
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "is_calcined": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "USGC Fuel-Grade Petcoke (4.5% S)",
+          "lhv_kcal_per_kg_ar": 7550.0,
+          "hhv_kcal_per_kg_ar": 7800.0,
+          "moisture_pct": 8.0,
+          "sulphur_db_pct": 4.5,
+          "volatile_matter_db_pct": 11.5,
+          "ash_db_pct": 0.5,
+          "hgi": 50.0,
+          "bulk_density_kg_per_m3": 800.0,
+          "is_calcined": false
+        }
+      }
+    },
+    {
+      "id": "PetcokeAssay.calcined_anode_grade",
+      "source": {
+        "citation": "Commodex legacy benchmark PetcokeAssay.calcined_anode_grade",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_kcal_per_kg_ar": null,
+        "hhv_kcal_per_kg_ar": null,
+        "moisture_pct": "percent",
+        "sulphur_db_pct": "percent",
+        "volatile_matter_db_pct": "percent",
+        "ash_db_pct": "percent",
+        "hgi": null,
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "is_calcined": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Calcined Anode-Grade Petcoke (CPC)",
+          "lhv_kcal_per_kg_ar": 7950.0,
+          "hhv_kcal_per_kg_ar": 7980.0,
+          "moisture_pct": 0.2,
+          "sulphur_db_pct": 2.5,
+          "volatile_matter_db_pct": 0.3,
+          "ash_db_pct": 0.2,
+          "hgi": null,
+          "bulk_density_kg_per_m3": 880.0,
+          "is_calcined": true
+        }
+      }
+    },
+    {
+      "id": "PetcokeAssay.shot_coke",
+      "source": {
+        "citation": "Commodex legacy benchmark PetcokeAssay.shot_coke",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "lhv_kcal_per_kg_ar": null,
+        "hhv_kcal_per_kg_ar": null,
+        "moisture_pct": "percent",
+        "sulphur_db_pct": "percent",
+        "volatile_matter_db_pct": "percent",
+        "ash_db_pct": "percent",
+        "hgi": null,
+        "bulk_density_kg_per_m3": "kg/m^3",
+        "is_calcined": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "USGC Shot Coke (6.8% S, HGI 35)",
+          "lhv_kcal_per_kg_ar": 7450.0,
+          "hhv_kcal_per_kg_ar": 7700.0,
+          "moisture_pct": 8.0,
+          "sulphur_db_pct": 6.8,
+          "volatile_matter_db_pct": 10.0,
+          "ash_db_pct": 0.6,
+          "hgi": 35.0,
+          "bulk_density_kg_per_m3": 850.0,
+          "is_calcined": false
+        }
+      }
+    }
+  ]
+}

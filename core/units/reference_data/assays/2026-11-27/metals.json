@@ -1,0 +1,1464 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-27",
+  "records": [
+    {
+      "id": "OreAssay.iron_ore_62fe",
+      "source": {
+        "citation": "Commodex legacy benchmark OreAssay.iron_ore_62fe",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "grade_pct": "percent",
+        "moisture_pct": "percent",
+        "bulk_density_wmt_per_m3": null,
+        "impurities_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Iron Ore 62% Fe Fines",
+          "primary_element": "Fe",
+          "grade_pct": 62.0,
+          "moisture_pct": 8.0,
+          "bulk_density_wmt_per_m3": 2.2,
+          "impurities_pct": {
+            "SiO2": 4.0,
+            "Al2O3": 2.25,
+            "P": 0.09,
+            "S": 0.02
+          }
+        }
+      }
+    },
+    {
+      "id": "OreAssay.iron_ore_65fe",
+      "source": {
+        "citation": "Commodex legacy benchmark OreAssay.iron_ore_65fe",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "grade_pct": "percent",
+        "moisture_pct": "percent",
+        "bulk_density_wmt_per_m3": null,
+        "impurities_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Iron Ore 65% Fe Fines",
+          "primary_element": "Fe",
+          "grade_pct": 65.0,
+          "moisture_pct": 8.5,
+          "bulk_density_wmt_per_m3": 2.3,
+          "impurities_pct": {
+            "SiO2": 2.0,
+            "Al2O3": 1.3,
+            "P": 0.05,
+            "S": 0.01
+          }
+        }
+      }
+    },
+    {
+      "id": "OreAssay.iron_ore_58fe",
+      "source": {
+        "citation": "Commodex legacy benchmark OreAssay.iron_ore_58fe",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "grade_pct": "percent",
+        "moisture_pct": "percent",
+        "bulk_density_wmt_per_m3": null,
+        "impurities_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Iron Ore 58% Fe Fines",
+          "primary_element": "Fe",
+          "grade_pct": 58.0,
+          "moisture_pct": 9.0,
+          "bulk_density_wmt_per_m3": 2.1,
+          "impurities_pct": {
+            "SiO2": 5.5,
+            "Al2O3": 3.0,
+            "P": 0.08,
+            "S": 0.03
+          }
+        }
+      }
+    },
+    {
+      "id": "OreAssay.copper_concentrate",
+      "source": {
+        "citation": "Commodex legacy benchmark OreAssay.copper_concentrate",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "grade_pct": "percent",
+        "moisture_pct": "percent",
+        "payable_factor": null,
+        "min_deduction_pct": "percent",
+        "bulk_density_wmt_per_m3": null,
+        "impurities_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Copper Concentrate (28% Cu)",
+          "primary_element": "Cu",
+          "grade_pct": 28.0,
+          "moisture_pct": 9.0,
+          "payable_factor": 0.965,
+          "min_deduction_pct": 1.0,
+          "bulk_density_wmt_per_m3": 1.8,
+          "impurities_pct": {
+            "As": 0.15,
+            "Bi": 0.02,
+            "Pb": 0.3,
+            "Zn": 0.8
+          }
+        }
+      }
+    },
+    {
+      "id": "OreAssay.zinc_concentrate",
+      "source": {
+        "citation": "Commodex legacy benchmark OreAssay.zinc_concentrate",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "grade_pct": "percent",
+        "moisture_pct": "percent",
+        "payable_factor": null,
+        "min_deduction_pct": "percent",
+        "bulk_density_wmt_per_m3": null,
+        "impurities_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Zinc Concentrate (52% Zn)",
+          "primary_element": "Zn",
+          "grade_pct": 52.0,
+          "moisture_pct": 8.5,
+          "payable_factor": 0.85,
+          "min_deduction_pct": 8.0,
+          "bulk_density_wmt_per_m3": 1.9,
+          "impurities_pct": {
+            "Fe": 7.5,
+            "Pb": 1.2,
+            "SiO2": 2.0
+          }
+        }
+      }
+    },
+    {
+      "id": "OreAssay.bauxite_guinea",
+      "source": {
+        "citation": "Commodex legacy benchmark OreAssay.bauxite_guinea",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "grade_pct": "percent",
+        "moisture_pct": "percent",
+        "bulk_density_wmt_per_m3": null,
+        "impurities_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Guinea Bauxite (45% Al2O3)",
+          "primary_element": "Al2O3",
+          "grade_pct": 45.0,
+          "moisture_pct": 10.0,
+          "bulk_density_wmt_per_m3": 1.4,
+          "impurities_pct": {
+            "SiO2": 3.0,
+            "Fe2O3": 22.0
+          }
+        }
+      }
+    },
+    {
+      "id": "OreAssay.nickel_concentrate",
+      "source": {
+        "citation": "Commodex legacy benchmark OreAssay.nickel_concentrate",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "grade_pct": "percent",
+        "moisture_pct": "percent",
+        "payable_factor": null,
+        "min_deduction_pct": "percent",
+        "bulk_density_wmt_per_m3": null,
+        "impurities_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Nickel Concentrate (12% Ni)",
+          "primary_element": "Ni",
+          "grade_pct": 12.0,
+          "moisture_pct": 9.0,
+          "payable_factor": 0.75,
+          "min_deduction_pct": 0.0,
+          "bulk_density_wmt_per_m3": 1.85,
+          "impurities_pct": {
+            "Fe": 35.0,
+            "S": 30.0,
+            "MgO": 4.5,
+            "As": 0.05
+          }
+        }
+      }
+    },
+    {
+      "id": "BatteryMaterialAssay.spodumene_sc6",
+      "source": {
+        "citation": "Commodex legacy benchmark BatteryMaterialAssay.spodumene_sc6",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "active_metal": null,
+        "active_metal_pct": "percent",
+        "moisture_pct": "percent",
+        "lce_factor_per_dmt": null,
+        "default_recovery_rate": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Spodumene Concentrate (SC6, 6% Li2O)",
+          "active_metal": "Li",
+          "active_metal_pct": 2.787455450994685,
+          "moisture_pct": 8.0,
+          "lce_factor_per_dmt": 0.1483704,
+          "default_recovery_rate": 0.85
+        }
+      }
+    },
+    {
+      "id": "BatteryMaterialAssay.lithium_carbonate_bg",
+      "source": {
+        "citation": "Commodex legacy benchmark BatteryMaterialAssay.lithium_carbonate_bg",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "active_metal": null,
+        "active_metal_pct": "percent",
+        "moisture_pct": "percent",
+        "purity_pct": "percent",
+        "lce_factor_per_dmt": null,
+        "default_recovery_rate": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Lithium Carbonate (BG 99.5%)",
+          "active_metal": "Li",
+          "active_metal_pct": 18.693204127910363,
+          "moisture_pct": 0.0,
+          "purity_pct": 99.5,
+          "lce_factor_per_dmt": 0.995,
+          "default_recovery_rate": 1.0
+        }
+      }
+    },
+    {
+      "id": "BatteryMaterialAssay.lithium_hydroxide_bg",
+      "source": {
+        "citation": "Commodex legacy benchmark BatteryMaterialAssay.lithium_hydroxide_bg",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "active_metal": null,
+        "active_metal_pct": "percent",
+        "moisture_pct": "percent",
+        "purity_pct": "percent",
+        "lce_factor_per_dmt": null,
+        "default_recovery_rate": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Lithium Hydroxide Monohydrate (BG)",
+          "active_metal": "Li",
+          "active_metal_pct": 16.457683846253563,
+          "moisture_pct": 0.0,
+          "purity_pct": 99.5,
+          "lce_factor_per_dmt": 0.87600795,
+          "default_recovery_rate": 1.0
+        }
+      }
+    },
+    {
+      "id": "BatteryMaterialAssay.nickel_sulphate_hexahydrate",
+      "source": {
+        "citation": "Commodex legacy benchmark BatteryMaterialAssay.nickel_sulphate_hexahydrate",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "active_metal": null,
+        "active_metal_pct": "percent",
+        "moisture_pct": "percent",
+        "purity_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Nickel Sulphate (NiSO4·6H2O)",
+          "active_metal": "Ni",
+          "active_metal_pct": 22.2,
+          "moisture_pct": 0.0,
+          "purity_pct": 99.5
+        }
+      }
+    },
+    {
+      "id": "BatteryMaterialAssay.cobalt_sulphate_heptahydrate",
+      "source": {
+        "citation": "Commodex legacy benchmark BatteryMaterialAssay.cobalt_sulphate_heptahydrate",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "active_metal": null,
+        "active_metal_pct": "percent",
+        "moisture_pct": "percent",
+        "purity_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Cobalt Sulphate (CoSO4·7H2O)",
+          "active_metal": "Co",
+          "active_metal_pct": 20.5,
+          "moisture_pct": 0.0,
+          "purity_pct": 99.5
+        }
+      }
+    },
+    {
+      "id": "BatteryMaterialAssay.manganese_sulphate_monohydrate",
+      "source": {
+        "citation": "Commodex legacy benchmark BatteryMaterialAssay.manganese_sulphate_monohydrate",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "active_metal": null,
+        "active_metal_pct": "percent",
+        "moisture_pct": "percent",
+        "purity_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Manganese Sulphate (MnSO4·H2O)",
+          "active_metal": "Mn",
+          "active_metal_pct": 32.0,
+          "moisture_pct": 0.0,
+          "purity_pct": 99.5
+        }
+      }
+    },
+    {
+      "id": "BatteryMaterialAssay.mhp_nickel",
+      "source": {
+        "citation": "Commodex legacy benchmark BatteryMaterialAssay.mhp_nickel",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "active_metal": null,
+        "active_metal_pct": "percent",
+        "moisture_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Mixed Hydroxide Precipitate (MHP)",
+          "active_metal": "Ni",
+          "active_metal_pct": 38.0,
+          "moisture_pct": 30.0
+        }
+      }
+    },
+    {
+      "id": "BatteryMaterialAssay.cobalt_hydroxide",
+      "source": {
+        "citation": "Commodex legacy benchmark BatteryMaterialAssay.cobalt_hydroxide",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "active_metal": null,
+        "active_metal_pct": "percent",
+        "moisture_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Cobalt Hydroxide (30% Co)",
+          "active_metal": "Co",
+          "active_metal_pct": 30.0,
+          "moisture_pct": 35.0
+        }
+      }
+    },
+    {
+      "id": "UraniumAssay.natural_uranium",
+      "source": {
+        "citation": "Commodex legacy benchmark UraniumAssay.natural_uranium",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "product_u235_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Natural Uranium (0.711% U-235)",
+          "product_u235_pct": 0.711
+        }
+      }
+    },
+    {
+      "id": "BullionAssay.lbma_gold_good_delivery",
+      "source": {
+        "citation": "Commodex legacy benchmark BullionAssay.lbma_gold_good_delivery",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_metal": null,
+        "fineness": null,
+        "standard_bar_mass_ozt": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "LBMA Good Delivery Gold",
+          "primary_metal": "Au",
+          "fineness": 0.995,
+          "standard_bar_mass_ozt": 400.0
+        }
+      }
+    },
+    {
+      "id": "BullionAssay.comex_gold_100oz",
+      "source": {
+        "citation": "Commodex legacy benchmark BullionAssay.comex_gold_100oz",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_metal": null,
+        "fineness": null,
+        "standard_bar_mass_ozt": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "COMEX Good Delivery Gold (100 ozt)",
+          "primary_metal": "Au",
+          "fineness": 0.995,
+          "standard_bar_mass_ozt": 100.0
+        }
+      }
+    },
+    {
+      "id": "BullionAssay.gold_9999_kilobar",
+      "source": {
+        "citation": "Commodex legacy benchmark BullionAssay.gold_9999_kilobar",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_metal": null,
+        "fineness": null,
+        "standard_bar_mass_ozt": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Gold 999.9 Kilobar",
+          "primary_metal": "Au",
+          "fineness": 0.9999,
+          "standard_bar_mass_ozt": 32.15074656862798
+        }
+      }
+    },
+    {
+      "id": "BullionAssay.lbma_silver_good_delivery",
+      "source": {
+        "citation": "Commodex legacy benchmark BullionAssay.lbma_silver_good_delivery",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_metal": null,
+        "fineness": null,
+        "standard_bar_mass_ozt": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "LBMA Good Delivery Silver",
+          "primary_metal": "Ag",
+          "fineness": 0.999,
+          "standard_bar_mass_ozt": 1000.0
+        }
+      }
+    },
+    {
+      "id": "BullionAssay.lppm_platinum_good_delivery",
+      "source": {
+        "citation": "Commodex legacy benchmark BullionAssay.lppm_platinum_good_delivery",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_metal": null,
+        "fineness": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "LPPM Good Delivery Platinum",
+          "primary_metal": "Pt",
+          "fineness": 0.9995
+        }
+      }
+    },
+    {
+      "id": "BullionAssay.lppm_palladium_good_delivery",
+      "source": {
+        "citation": "Commodex legacy benchmark BullionAssay.lppm_palladium_good_delivery",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_metal": null,
+        "fineness": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "LPPM Good Delivery Palladium",
+          "primary_metal": "Pd",
+          "fineness": 0.9995
+        }
+      }
+    },
+    {
+      "id": "BullionAssay.gold_dore",
+      "source": {
+        "citation": "Commodex legacy benchmark BullionAssay.gold_dore",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_metal": null,
+        "fineness": null,
+        "payable_factor": null,
+        "byproduct_fineness": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Gold Doré (85% Au / 10% Ag)",
+          "primary_metal": "Au",
+          "fineness": 0.85,
+          "payable_factor": 0.999,
+          "byproduct_fineness": {
+            "Ag": 0.1
+          }
+        }
+      }
+    },
+    {
+      "id": "FerroalloyAssay.hc_ferrochrome",
+      "source": {
+        "citation": "Commodex legacy benchmark FerroalloyAssay.hc_ferrochrome",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "primary_element_pct": "percent",
+        "basis_grade_pct": "percent",
+        "carbon_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "HC / Charge Ferrochrome (52% Cr)",
+          "primary_element": "Cr",
+          "primary_element_pct": 52.0,
+          "basis_grade_pct": 52.0,
+          "carbon_pct": 7.0,
+          "bulk_density_kg_per_m3": 3600.0
+        }
+      }
+    },
+    {
+      "id": "FerroalloyAssay.lc_ferrochrome",
+      "source": {
+        "citation": "Commodex legacy benchmark FerroalloyAssay.lc_ferrochrome",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "primary_element_pct": "percent",
+        "basis_grade_pct": "percent",
+        "carbon_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "LC Ferrochrome (65% Cr)",
+          "primary_element": "Cr",
+          "primary_element_pct": 65.0,
+          "basis_grade_pct": 65.0,
+          "carbon_pct": 0.1,
+          "bulk_density_kg_per_m3": 3800.0
+        }
+      }
+    },
+    {
+      "id": "FerroalloyAssay.hc_ferromanganese",
+      "source": {
+        "citation": "Commodex legacy benchmark FerroalloyAssay.hc_ferromanganese",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "primary_element_pct": "percent",
+        "basis_grade_pct": "percent",
+        "carbon_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "HC Ferromanganese (78% Mn)",
+          "primary_element": "Mn",
+          "primary_element_pct": 78.0,
+          "basis_grade_pct": 78.0,
+          "carbon_pct": 7.5,
+          "bulk_density_kg_per_m3": 3800.0
+        }
+      }
+    },
+    {
+      "id": "FerroalloyAssay.silicomanganese",
+      "source": {
+        "citation": "Commodex legacy benchmark FerroalloyAssay.silicomanganese",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "primary_element_pct": "percent",
+        "basis_grade_pct": "percent",
+        "carbon_pct": "percent",
+        "secondary_elements": null,
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Silicomanganese (65% Mn / 16% Si)",
+          "primary_element": "Mn",
+          "primary_element_pct": 65.0,
+          "basis_grade_pct": 65.0,
+          "carbon_pct": 2.0,
+          "secondary_elements": {
+            "Si": 16.0
+          },
+          "bulk_density_kg_per_m3": 3300.0
+        }
+      }
+    },
+    {
+      "id": "FerroalloyAssay.ferrosilicon_75",
+      "source": {
+        "citation": "Commodex legacy benchmark FerroalloyAssay.ferrosilicon_75",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "primary_element_pct": "percent",
+        "basis_grade_pct": "percent",
+        "carbon_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Ferrosilicon (75% Si)",
+          "primary_element": "Si",
+          "primary_element_pct": 75.0,
+          "basis_grade_pct": 75.0,
+          "carbon_pct": 0.1,
+          "bulk_density_kg_per_m3": 1850.0
+        }
+      }
+    },
+    {
+      "id": "FerroalloyAssay.ferromolybdenum_60",
+      "source": {
+        "citation": "Commodex legacy benchmark FerroalloyAssay.ferromolybdenum_60",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "primary_element_pct": "percent",
+        "basis_grade_pct": "percent",
+        "carbon_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Ferromolybdenum (60% Mo)",
+          "primary_element": "Mo",
+          "primary_element_pct": 60.0,
+          "basis_grade_pct": 60.0,
+          "carbon_pct": 0.1,
+          "bulk_density_kg_per_m3": 4200.0
+        }
+      }
+    },
+    {
+      "id": "FerroalloyAssay.ferrovanadium_80",
+      "source": {
+        "citation": "Commodex legacy benchmark FerroalloyAssay.ferrovanadium_80",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "primary_element_pct": "percent",
+        "basis_grade_pct": "percent",
+        "carbon_pct": "percent",
+        "bulk_density_kg_per_m3": "kg/m^3"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Ferrovanadium (80% V)",
+          "primary_element": "V",
+          "primary_element_pct": 80.0,
+          "basis_grade_pct": 80.0,
+          "carbon_pct": 0.2,
+          "bulk_density_kg_per_m3": 3500.0
+        }
+      }
+    },
+    {
+      "id": "FerroalloyAssay.ferroniobium_65",
+      "source": {
+        "citation": "Commodex legacy benchmark FerroalloyAssay.ferroniobium_65",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "primary_element": null,
+        "primary_element_pct": "percent",
+        "basis_grade_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Ferroniobium (65% Nb)",
+          "primary_element": "Nb",
+          "primary_element_pct": 65.0,
+          "basis_grade_pct": 65.0
+        }
+      }
+    },
+    {
+      "id": "MetalAlloyAssay.cartridge_brass_c260",
+      "source": {
+        "citation": "Commodex legacy benchmark MetalAlloyAssay.cartridge_brass_c260",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "composition_pct": "percent",
+        "solid_density_kg_per_m3": "kg/m^3",
+        "base_metal": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Cartridge Brass (C26000, 70Cu/30Zn)",
+          "composition_pct": {
+            "Cu": 70.0,
+            "Zn": 30.0
+          },
+          "solid_density_kg_per_m3": 8530.0,
+          "base_metal": "Cu"
+        }
+      }
+    },
+    {
+      "id": "MetalAlloyAssay.aluminium_6061",
+      "source": {
+        "citation": "Commodex legacy benchmark MetalAlloyAssay.aluminium_6061",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "composition_pct": "percent",
+        "solid_density_kg_per_m3": "kg/m^3",
+        "base_metal": null,
+        "nominal_piece_mass_kg": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Aluminium Alloy 6061",
+          "composition_pct": {
+            "Al": 97.9,
+            "Mg": 1.0,
+            "Si": 0.6
+          },
+          "solid_density_kg_per_m3": 2700.0,
+          "base_metal": "Al",
+          "nominal_piece_mass_kg": 22.68
+        }
+      }
+    },
+    {
+      "id": "MetalAlloyAssay.aluminium_7075",
+      "source": {
+        "citation": "Commodex legacy benchmark MetalAlloyAssay.aluminium_7075",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "composition_pct": "percent",
+        "solid_density_kg_per_m3": "kg/m^3",
+        "base_metal": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Aluminium Alloy 7075",
+          "composition_pct": {
+            "Al": 90.0,
+            "Zn": 5.6,
+            "Mg": 2.5,
+            "Cu": 1.6
+          },
+          "solid_density_kg_per_m3": 2810.0,
+          "base_metal": "Al"
+        }
+      }
+    },
+    {
+      "id": "MetalAlloyAssay.monel_400",
+      "source": {
+        "citation": "Commodex legacy benchmark MetalAlloyAssay.monel_400",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "composition_pct": "percent",
+        "solid_density_kg_per_m3": "kg/m^3",
+        "base_metal": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Monel 400 (N04400, 66.5Ni/31.5Cu)",
+          "composition_pct": {
+            "Ni": 66.5,
+            "Cu": 31.5
+          },
+          "solid_density_kg_per_m3": 8800.0,
+          "base_metal": "Ni"
+        }
+      }
+    },
+    {
+      "id": "MetalAlloyAssay.inconel_625",
+      "source": {
+        "citation": "Commodex legacy benchmark MetalAlloyAssay.inconel_625",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "composition_pct": "percent",
+        "solid_density_kg_per_m3": "kg/m^3",
+        "base_metal": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Inconel 625 (N06625, Ni-Cr-Mo)",
+          "composition_pct": {
+            "Ni": 61.0,
+            "Cr": 21.5,
+            "Mo": 9.0
+          },
+          "solid_density_kg_per_m3": 8440.0,
+          "base_metal": "Ni"
+        }
+      }
+    },
+    {
+      "id": "MetalAlloyAssay.titanium_6al_4v",
+      "source": {
+        "citation": "Commodex legacy benchmark MetalAlloyAssay.titanium_6al_4v",
+        "path": "core/units/conversions.py",
+        "sha256": "a9cfbb152deb64b3095d2c341688273f87720f610aa13480d7663d6a56d06ba9",
+        "snapshot_date": "2026-11-27",
+        "notes": "Preserved legacy values. No primary measurement source or standards compliance is asserted."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "composition_pct": "percent",
+        "solid_density_kg_per_m3": "kg/m^3",
+        "base_metal": null
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null,
+        "notes": "Not supplied by legacy preset; null units require field documentation."
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Titanium Ti-6Al-4V (Grade 5)",
+          "composition_pct": {
+            "Ti": 90.0,
+            "Al": 6.0,
+            "V": 4.0
+          },
+          "solid_density_kg_per_m3": 4430.0,
+          "base_metal": "Ti"
+        }
+      }
+    },
+    {
+      "id": "UraniumAssay.leu_4_5pct",
+      "source": {
+        "citation": "Commodex legacy benchmark UraniumAssay.leu_4_5pct",
+        "path": "core/units/conversions.py",
+        "sha256": "03df7f86b3b66e59eef0bd42c1861cdf417269ec3c7a4f672deaf002be18fb23",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "product_u235_pct": "percent",
+        "tails_u235_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "LWR LEU (4.5% U-235)",
+          "product_u235_pct": 4.5,
+          "tails_u235_pct": 0.25
+        }
+      }
+    },
+    {
+      "id": "UraniumAssay.haleu_19_75pct",
+      "source": {
+        "citation": "Commodex legacy benchmark UraniumAssay.haleu_19_75pct",
+        "path": "core/units/conversions.py",
+        "sha256": "03df7f86b3b66e59eef0bd42c1861cdf417269ec3c7a4f672deaf002be18fb23",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "product_u235_pct": "percent",
+        "tails_u235_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "SMR HALEU (19.75% U-235)",
+          "product_u235_pct": 19.75,
+          "tails_u235_pct": 0.2
+        }
+      }
+    },
+    {
+      "id": "UraniumAssay.depleted_tails",
+      "source": {
+        "citation": "Commodex legacy benchmark UraniumAssay.depleted_tails",
+        "path": "core/units/conversions.py",
+        "sha256": "03df7f86b3b66e59eef0bd42c1861cdf417269ec3c7a4f672deaf002be18fb23",
+        "snapshot_date": "2026-11-27",
+        "notes": "Legacy benchmark with explicit caller overrides; not a primary measurement or compliance claim."
+      },
+      "valid_from": null,
+      "valid_to": null,
+      "units": {
+        "name": null,
+        "product_u235_pct": "percent",
+        "tails_u235_pct": "percent"
+      },
+      "uncertainty": {
+        "status": "unknown",
+        "standard_uncertainty": null
+      },
+      "value_kind": "indicative_benchmark",
+      "data": {
+        "args": [],
+        "kwargs": {
+          "name": "Depleted Uranium (0.25% U-235)",
+          "product_u235_pct": 0.25,
+          "tails_u235_pct": 0.25
+        }
+      }
+    }
+  ]
+}
