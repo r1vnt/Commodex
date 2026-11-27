@@ -1,1 +1,1 @@
-"""Core service regression suites."""
+"""Commodex tests, separate from the runtime library."""

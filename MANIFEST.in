@@ -1,0 +1,7 @@
+include pyproject.toml pylock.toml requirements.txt
+recursive-include tests *.py *.json
+recursive-include core/units/reference_data *.json *.xml
+prune artifacts
+prune build
+prune .git
+global-exclude __pycache__ *.py[cod]

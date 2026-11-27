@@ -1,1 +1,1 @@
-"""Commodex regression suites."""
+"""Commodex tests, separate from the runtime library."""

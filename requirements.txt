@@ -1,0 +1,42 @@
+# Full Commodex environment: runtime, optional integrations and development tools.
+# Python 3.11-3.14. Install with: python -m pip install -r requirements.txt
+
+# Core units
+pint>=0.25.3,<0.27
+
+# Numerical calculations
+numpy>=2,<3
+scipy>=1.14,<2
+
+# Thermodynamics backends
+pyaga8==0.1.18
+CoolProp==8.1.0
+
+# Data integrations
+pandas>=2.2,<4
+pyarrow>=18,<24
+pint-pandas>=0.6,<0.8
+uncertainties>=3.2,<4
+
+# Configuration
+PyYAML>=6,<7
+pydantic>=2.10,<3
+
+# Testing, static analysis, benchmarks and dependency auditing
+pytest>=8,<10
+pytest-cov>=6,<8
+hypothesis>=6,<7
+pytest-benchmark>=5,<6
+mypy>=1.14,<2
+ruff>=0.9,<1
+pip-audit>=2.9,<3
+radon>=6,<7
+vulture>=2.14,<3
+mutmut>=3,<4; sys_platform != 'win32'
+packaging
+tzdata; sys_platform == 'win32'
+
+# Package builds and installation checks
+build>=1.2,<2
+setuptools>=77,<82
+wheel
